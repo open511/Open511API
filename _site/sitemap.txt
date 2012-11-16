@@ -1,13 +1,13 @@
 
-http://username.github.com/archive.html
-http://username.github.com/atom.xml
-http://username.github.com/index.html
-http://username.github.com/jurisdiction.html
-http://username.github.com/page.html
-http://username.github.com/pages.html
-http://username.github.com/root.html
-http://username.github.com/sitemap.txt
-http://username.github.com/specifications.html
-http://username.github.com/tags.html
+http://opennorth.github.com/Open511API/archive.html
+http://opennorth.github.com/Open511API/atom.xml
+http://opennorth.github.com/Open511API/index.html
+http://opennorth.github.com/Open511API/jurisdiction.html
+http://opennorth.github.com/Open511API/page.html
+http://opennorth.github.com/Open511API/pages.html
+http://opennorth.github.com/Open511API/root.html
+http://opennorth.github.com/Open511API/sitemap.txt
+http://opennorth.github.com/Open511API/specifications.html
+http://opennorth.github.com/Open511API/tags.html
 
-http://username.github.com/lessons/2011/12/29/jekyll-introduction
+http://opennorth.github.com/Open511API/lessons/2011/12/29/jekyll-introduction

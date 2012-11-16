@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  
  <title>Open511 API</title>
- <link href="http://username.github.com/atom.xml" rel="self"/>
- <link href="http://username.github.com"/>
- <updated>2012-11-16T14:42:01-05:00</updated>
- <id>http://username.github.com</id>
+ <link href="http://opennorth.github.com/Open511API/atom.xml" rel="self"/>
+ <link href="http://opennorth.github.com/Open511API"/>
+ <updated>2012-11-16T14:56:41-05:00</updated>
+ <id>http://opennorth.github.com/Open511API</id>
  <author>
    <name>Stephane Guidoin</name>
    <email>stephane@opennorth.ca</email>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Jekyll Introduction</title>
-   <link href="http://username.github.com/lessons/2011/12/29/jekyll-introduction"/>
+   <link href="http://opennorth.github.com/Open511API/lessons/2011/12/29/jekyll-introduction"/>
    <updated>2011-12-29T00:00:00-05:00</updated>
-   <id>http://username.github.com/lessons/2011/12/29/jekyll-introduction</id>
+   <id>http://opennorth.github.com/Open511API/lessons/2011/12/29/jekyll-introduction</id>
    <content type="html">&lt;p&gt;This Jekyll introduction will outline specifically what Jekyll is and why you would want to use it. Directly following the intro we&amp;#8217;ll learn exactly &lt;em&gt;how&lt;/em&gt; Jekyll does what it does.&lt;/p&gt;
 
 &lt;h2 id='overview'&gt;Overview&lt;/h2&gt;
