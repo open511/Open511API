@@ -1,0 +1,82 @@
+---
+layout: page
+title: Open511 Specifications
+general : 
+  open511id :
+    name: id
+    mandatory: y
+    desc: This is a description
+  open511Url :
+    name: url
+    mandatory: n
+    desc: This is another description <br/>Apres un saut de ligne ?? <blockquote>Ceci est un blockquote</blockquote>. 
+---
+{% include JB/setup %}
+
+{% include specsnav.html %}
+
+## Overview
+
+The Open511 API will allow governements (cities as well as states) publishing road events (accidents, constructions, etc) and potentially other types off data. As a consequence, developers and third parties will have the opportunity to access this data from several jurisdictions to offer services to citizen or governments.
+
+Currently, the API contain two central resources: 
+* Jurisdiction: represent a specific governement with some metadata (contact info, geographical coverage and other options)
+* Events: represent events that are published by the jurisdictions.
+
+Any jurisdiction can publish events and many jurisdictions can publish events from one endpoint (a endpoint is the server providing the data). Morevoer, the open511 API is designed to allow agregation from multiple source to simplify the access to the data.
+
+Since Open511 follows the REST architecture, the data can be obtained thanks to a GET request on a target URL.
+
+## Status 
+
+The open511 specification is the first draft designed. The format is expected to evolve in the coming. As a consequence, the present specifications should not be used to develop tools.
+
+## Guidelines
+
+Before reading the message structure, have a look to the following elements.
+
+* Using some REST best practices, the open511 API will provide for each endpoint a discovery point. The discovery will contain links pointing other resources (like jurisdictions and events). As a consequence, a server implementation or a client should not consider the URLs a fixed. URLs are dynamic and should be retrieved by following the internal links of the API.
+
+* Open511 makes use of some HTTP headers for various needs. Please, refer to the HTTP headers section.
+
+### Representations: XML and JSON
+
+The API will support representation of the data both in XML and JSON. While the API design is in draft, only the XML representation will be documented. The JSON representation will come later.
+
+An schema (XSD) will be provided for the XML representation once the design is stabilized. In the meantime, please refer to the data structure and examples.
+
+Format negociation will be done by HTTP header with an override in URL parameters.
+
+### Language support
+
+The API is designed to support multiple language. The XML representation will be able to contain multiple languages per request thanks to the xml:lang attribute. Since this feature adds some complexity in JSON, JSON will be able to contain a single language per request.
+
+Language negociation will be by HTTP header with an override in URL parameters.
+
+If a requested language is not available, the API will fall back on the default language of the endpoint.
+
+### Authentication
+
+In order to request the data, it is advised not to request any authentication. In order to submit data, usual HTTP basic authentication will be the only method accepted.
+
+### Encoding and other formatting elements
+
+The data will be served with the UTF-8 encoding.
+
+Date and time will follow the ISO 8601 subset except when specified otherwise.
+
+### Agregation
+
+!!!!
+
+## Resources 
+
+* Jurisdictions
+* Events
+
+HTTP Headers
+
+## Specification license and governance
+
+Once stabilized, the licence will be released in creative common and will be manager by a committee based organization (either ad-hoc or an existing structure)
+

@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Introduction to the Open511 API (draft)</title>
+    
+    <meta name="author" content="Stephane Guidoin">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Open511 API</a>
+          <ul class="nav">
+            <li><a href="requirements.html">Requirements</a></li>
+            <li><a href="specifications.html">Specifications</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>Introduction to the Open511 API (draft) </h1>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <p>Open511 is the specification of an API designed publish open data format for road events (accidents, construction, etc) and potentially many other road and mobility related data. The project is developed by <a href='http://opennorth.ca'>Open North</a> and funded by <a href='http://geoconnections.nrcan.gc.ca/'>GeoConnections</a>, an program of the Government of Canada.</p>
+
+<p>Open511 is currently under development. The specifications presented are only a first draft version designed by Open North with the initial collaborators of the project. The remaining of the process will be open to any organization or person willing to participate. The format will go through one or two other iterations in order to get a final version for the summer 2013. If you want to join the effort, please join the mailing list. In order to manage comments, request for change and other remarks related to the open511 API, you can submit an issue.</p>
+
+<h2 id='overview'>Overview</h2>
+
+<p>Open511 follows the path of the open311 initiative as well as the general move toward making data open and easily accessible.</p>
+
+<p>For the moment, the initiative will focus on the road events (accidents, constructions, etc.) but the API is designed to support other types of data. This set of data have been identified as the one that is owned by government and with a lot of added values.</p>
+
+<h2 id='technical_overview'>Technical overview</h2>
+
+<p>Many standards already exist to share road related data. These standards are usually designed for the communication of control centers or specialized devices; as a consequence the format tend to be complex and difficult to use. In order to make the data as easily accessible as possible, the Open511 API will stick to the following technical elements:</p>
+
+<ul>
+<li>Standard web technologies. The current design works using the HTTP protocol (the foundation of the web). All modern development languages have powerful HTTP libraries.</li>
+
+<li>URL based. All data is accessible through simple URLs (like any web page). Each individual URL corresponds to a specific resource.</li>
+
+<li>Discoverable. The content of the API is easy for clients to discover, largely via hypertext links between items.</li>
+
+<li>Stateless. Each request is independant from the previous/following request, which makes implementation easier both on the client and server side.</li>
+
+<li>On request. The client has to send a request to get the data.</li>
+</ul>
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Stephane Guidoin 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+
