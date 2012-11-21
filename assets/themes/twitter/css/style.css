@@ -103,17 +103,19 @@ html, body {
 }
 
 td.name {
-	width: 80px;
+	width: 100px;
 	font-family:"Courier New",monospace;
 	font-size: 100%;
+	min-width: 120px;
 }
 
 td.mandatory {
-	width: 80px
+	/*width: 80px*/
 }
 
 td.type {
-	width: 80px
+	/*width: 80px*/
+	min-width: 100px;
 }
 
 .resource_pres tr, .parameters tr {
@@ -142,6 +144,16 @@ td.type {
 .parameters tr th, .representation tr th {
 	background-color: #fffff0;
 }
+
+.representation tr.structure {
+	background-color: #fffff0;
+}
+
+.representation tr.structure td.name{
+
+	font-weight: bold;
+}
+
 
 .vertical_header {
 	background-color: #eee;

@@ -18,14 +18,71 @@ parameters :
     required : optional
     description : <p>Specify the type of representation. This url parameter overrides the corresponding HTTP header. Possible values are <code>xml</code> and <code>json</code>. If no value is provided for the representation, the API will default to xml. </p> <pre>...?format=json</pre>
 representation : 
-  open511id :
-    name: Self
+  A :
+    name: self
     mandatory: Mandatory
-    desc: <p>Self link to the current resource using atom link structure with <code>self</code> attribute.<pre>&lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/" /&gt; </pre> 
-  open511Url :
-    name: Name
+    type: Atom link
+    desc: <p>Self link to the current resource using atom link structure with <code>self</code> attribute</p>.<pre>&lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/" /&gt; </pre> 
+  b :
+    name: parent
+    type: Atom link    
     mandatory: Mandatory
-    desc: <p>Name of the jurisdiction. Free text.<p><pre>&lt;name&gt;Ville de Montréal&lt;/name&gt;</pre>
+    desc: <p>Self link to the parent resource using atom link structure with <code>parent</code> attribute</p>
+  c :
+    name: name
+    type: String (free text)
+    mandatory: Mandatory
+    desc: <p>Name of the jurisdiction.</p>
+  d :
+    name: email
+    type: String (free text)
+    mandatory: Mandatory
+    desc: <p>Valid email that can be used to contact the department or the person in charge of the data provided by the Open511 API</p>    
+  e :
+    name: url
+    type: String (free text)
+    mandatory: Optional
+    desc: <p>Human readable resource providing detail about the Open511 service and the jurisdiction covered.</p>  
+  f :
+    name: phone
+    type: String (free text)
+    mandatory: Optional
+    desc: <p>Phone number to contact the department or the person in charge of the data provided by the Open511 API</p>  
+  g :
+    name: description
+    type: String (free text)
+    mandatory: Optional
+    desc: <p>Free text that can be used by a client application to provide some information about the Open511 service and the jurisdiction covered.</p> 
+  h :
+    name: area
+    type: GML notation
+    mandatory: Mandatory
+    desc: <p>Geographical coverage of the jurisdiction. This field only accepts a polygon or a multipolygon</p><pre><gml:Polygon srsName="EPSG:4326"><br>  <gml:coordinates>-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40</gml:coordinates><br></gml:polygon></pre> 
+  i :
+    name: <p>&darr;&darr; license</p>
+    type: structure
+    mandatory: Mandatory
+    desc: <p>Provides information concerning the license covering the data provided by the API.</p> 
+  j :
+    name: <p>&mdash; url</p>
+    type: Atom link
+    mandatory: Mandatory
+    desc: <p>Direct link to the license covering the data provided by the API</p>     
+  k :
+    name: <p>&mdash; license_name</p>
+    type: Enum
+    mandatory: Optional
+    desc: <p>If the license if one of the well-known license and part of the enum supported by open511, it possible to add it in this field.</p><p>Enum:</p><pre>- ODBL<br>- CC0</pre>
+  l :
+    name: <p>&darr;&darr; languages</p>
+    type: structure
+    mandatory: Optional
+    desc: <p>List of languages supported by this endpoint. A <code>language</code> element should be provided for each language supported</p> 
+  m :
+    name: <p>&mdash;  language</p>
+    type: Enum
+    mandatory: Mandatory
+    desc: <p>Multiple occurrences supported. The value supported corresponds the value supported by the <code>Accept-language</code></p>  
 ---
 {% include JB/setup %}
 
@@ -69,16 +126,22 @@ The URL of the jurisdiction resource should be retrieved from the
 
 <h3>Representation</h3>
 
-  <table class="parameters">
-        <tr><th>Field</th><th>Required/optional</th><th>Description</th></tr>
+<p>The following table prodive the struture of the message to be expected for this resource. Although the format of the representation might change (xml or json), the overall data structure should be the same except when specified otherwise.
+
+  <table class="representation">
+        <tr><th>Field</th><th>Required/optional</th><th>Type</th><th>Description</th></tr>
 {% for item in page.representation reversed %} 
-  <tr>
     {% for elem in item %} 
       {% if elem.name != nil %}
-      <td>{{ elem.name }}</td><td>{{ elem.mandatory }}</td><td>{{ elem.desc }}</td>
+        {% if elem.type == 'structure' %}
+          <tr class="structure">
+        {% else %} 
+          <tr>
+        {% endif %}
+      <td class="name">{{ elem.name }}</td><td class="mandatory">{{ elem.mandatory }}</td><td class="type">{{ elem.type }}</td><td>{{ elem.desc }}</td>
+  </tr>
       {% endif %}
     {% endfor %}
-  </tr>
 {% endfor %}
   </table>
 
