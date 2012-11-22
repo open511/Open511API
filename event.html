@@ -9,35 +9,51 @@ presentation :
     name : method
     value : GET
 parameters : 
-  lang :
-    name : lang
+  a :
+    name : start_date
     required : optional 
-    description : <p>Specify the language requested. This url parameter overrides the corresponding HTTP header. Values are usual language part of the local (cf ...).</p> <p>The behaviour is the same as the HTTP, several coma-separated values can be provided in the order of priority. If not lang attribute is provided or if the language requested is not available, a fallback language is used (the default value is configured by the end point).</p> <pre>...?lang=fr,en</pre>
-  format :
-    name : format
+    description : <p>The start date parameter allow searching events that will be or have been active anytime after the provided parameter. The start_date parameter can be past or future. The parameter should include complete date including the timezone.</p>
+  b :
+    name : end_date
     required : optional
-    description : <p>Specify the type of representation. This url parameter overrides the corresponding HTTP header. Possible values are <code>xml</code> and <code>json</code>. If no value is provided for the representation, the API will default to xml. </p> <pre>...?format=json</pre>
+    description : <p>The end date parameter allows searching events that will be or have been active anytime before the provided parameter. The end_date parameter can be past or future. The parameter should include complete date including the timezone.</p>
+  c :
+    name : status
+    required : optional
+    description : <p>By default the API should only sent active events. If the client want to retrieve archived event, it should provide the status with value <code>archived</code> or a star <code>*<code> to retrieve both active and inative events.</p>
+  d :
+    name : severity
+    required : optional
+    description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below or equal level 2 with <code>severity=2-</code> or over or equal level 2 <code>severity=2+</code> <code><a href="https://github.com/opennorth/Open511API/issues/2">issue 2</a></code></p>
+  e :
+    name : jurisdiction
+    required : optional
+    description : <p><code><a href="https://github.com/opennorth/Open511API/issues/3">issue 3</a></code></p>
+  f :
+    name : Geography
+    required : optional
+    description : <p>Filtering near a point or linestring or within a polygon. <code><a href="https://github.com/opennorth/Open511API/issues/4">issue 4</a></code></p>
 representation : 
   a :
     name: self
     mandatory: Mandatory
     type: Atom link
-    desc: <p>Self link to the current resource using atom link structure with <code>self</code> attribute</p>.<pre>&lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/events" /&gt; </pre> 
+    desc: <p>Self link to the current resource using atom link structure with relation attribute set to <code>self</code>.</p><pre>&lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/events" /&gt; </pre> 
   b :
     name: parent
     type: Atom link    
     mandatory: Mandatory
-    desc: <p>Self link to the parent resource using atom link structure with <code>parent</code> attribute</p>
+    desc: <p>Link to the parent resource using atom link structure with relation attribute set to <code>up</code></p>
   c :
     name: events
     type: Collection of <a href="#event">Event</a>
-    mandatory: Mandatory
-    desc: <p>List of <code>event</code> structures</p>
+    mandatory: Mandatory. Can contain multiple <code>event</code> elements, at least one occurrence is <b>mandatory</b>
+    desc: <p>Main content of the events resource, a collection of <code>event</code> elements.</p>
   d :
-    name: <p>&darr;&darr; pagination</p>
+    name: <p>&darr;&darr;pagination</p>
     type: Pagination structure
-    mandatory: conditional
-    desc: <p>the pagination complex element provides information about pagination and links to other pages</p>
+    mandatory: Conditional (mandatory if more than one page)
+    desc: <p>The pagination structure provides information about the current position in the pagination and links to other pages</p>
   e :
     name: <p>&mdash; total_count</p>
     mandatory: Optional
@@ -56,39 +72,39 @@ representation :
   h :
     name: <p>&mdash; next</p>
     type: Atom link
-    mandatory: conditional
-    desc: <p>Atom link pointing the next page of event. Attribute value is <code>next</code></p>        
+    mandatory: Conditional (mandatory if a next page exists)
+    desc: <p>Atom link pointing the next page of event. Relation attribute value is <code>next</code></p>        
   i :
     name: <p>&mdash; previous</p>
     type: Atom link
-    mandatory: conditional
-    desc: <p>Atom link pointing the previous page of event. Attribute value is <code>previous</code></p>   
+    mandatory: Conditional (mandatory if a previous page exists)
+    desc: <p>Atom link pointing the previous page of event. Relation attribute value is <code>previous</code></p>   
 event : 
   a :
     name: self
     mandatory: Mandatory
     type: Atom link
-    desc: <p>Self link to the event resource using atom link structure with <code>self</code> attribute</p>.<pre>&lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/event/12937" /&gt; </pre> 
+    desc: <p>Self link to the event resource using atom link structure relation attribute set to <code>self</code></p>.<pre>&lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/event/12937" /&gt; </pre> 
   b :
     name: jurisdiction
     type: Atom link
     mandatory: Mandatory
-    desc: <p>Link to the jurisdiction owning this event using atom link structure with <code>@@@TBD@@@</code> attribute</p>
+    desc: <p>Link to the jurisdiction owning this event using atom link structure with relation attribute set to <code>author (?)</code></p>
   c :
     name: status
     type: Enum
     mandatory: Mandatory
-    desc: <p>Status of the event. The status allow a client to determine if the current event should be considered as currently effective. Value list</p>
+    desc: <p>Status of the event. The status allow a client to determine if the current event should be considered as currently effective. Value list&colon;</p><pre>- active &colon; The event should be considered as effective<br>- archived &colon; The event should not be considered as effective</pre>
   d :
     name: headline
-    type: String (free text)
+    type: Free text
     mandatory: Mandatory
     desc: <p>Title of the event. Should be shorter than 500 characters.</p>
   e :
     name: event_type
     type: Enum
     mandatory: Mandatory
-    desc: <p>Basic type of event. Value list:</p>
+    desc: <p>Basic type of event. Value list</p><pre>- construction &colon;  planned road work<br>- event &colon; special events (fair, sport event, etc.)<br>- incident &colon; accidents and unplanned road work.</pre>
   f :
     name: event_sub_type
     type: Enum
@@ -115,51 +131,51 @@ event :
     mandatory: Conditional
     desc: <p>This field is mandatory if the event have been modified after its creation. This field provide the date and time of the last update.</pre>
   l :
-    name: grouped_id
+    name: related_event
     type: Atom link
     mandatory: Optional
     desc: <p>This field is used to group events together. In specific situations (for example complex construction projects), several events might be related together. This field should be used to point a related event. Use Atom link with attribute <code>related</code></p> 
   m :
     name: detour
-    type: string
+    type: Free text
     mandatory: Optional
     desc: <p>If some detour information are available, they could be provided in this field as a free text</p>
   n :
     name: traveler_message
-    type: string
+    type: Enum
     mandatory: Optional
     desc: <p>In order to ease analysis by automated tool, this field allow to provide predefined messages with a known semantic. For example <code>resident-only</code> means that the circulation is limited to people living on this street.</p>      
   o :
     name: geometry
     type: GML
     mandatory: Mandatory
-    desc: <p>Geographical information about the event using the GML notation. Valid type of geometry can be points, multipoints, linestring and multilinestrings. Example:</p><pre><gml:linestring srsName="EPSG:4326"><br>  <gml:coordinates>-71.17,47.33 -71.15,47.36 -71.10,47.35</gml:coordinates><br></gml:linestring></pre> 
+    desc: <p>Geographical information about the event using the GML notation. Valid type of geometry can be points, multipoints, linestring and multilinestrings. Example</p><pre>&lt;gml:linestring srsName="EPSG:4326"&gt;<br>  &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35&lt;/gml:coordinates&gt;<br>&lt;/gml:linestring&gt;</pre> 
   p :
     name: roads
-    type: Collection of Road elements
-    mandatory: Mandatory
-    desc: <p>List of <code>road</code> elements</p>    
+    type: Collection of <a href="#road">road</a>
+    mandatory: Mandatory, support multiple occurrences of road element.
+    desc: <p>List of roads affected by the current event. One event can impact several roads.</p>    
   q :
     name: schedule
-    type: Schedule structure
+    type: <a href="schedule">schedule</a> structure
     mandatory: Mandatory
     desc: <p>Complex item to provide time related information</p>   
   r :
     name: attachements
-    type: Collection of attachement elements
-    mandatory: Optional
+    type: Collection of <a href="attachement">attachement</a>
+    mandatory: Optional, support multiple occurrences of attachement element.
     desc: <p>Collection of attachements provided additional information about the event (PDFs, images, etc.)</p> 
 road : 
   a :
     name: road_name
     mandatory: Mandatory
     type: Free text
-    desc: <p>Name or identifier of the road affected by the event. When possible, this field should contain a value that fits the national symbology for road and highway.</p> 
+    desc: <p>Name or identifier of the road affected by the event. When possible, this field should contain a value that fits the national symbology for roads and highways.</p> 
   b :
     name: from
     type: free text
     mandatory: Optional
-    desc: <p>Approximate start point of the event on the road. It can be an intersection with another street or it can be a mileage indication. This value should not be use to determine the exact start point since it can be an approximation. The <code>geometry</code> field should be considered as the reference for exact location. If no <code>to</code> field is provided, the from can be considered as a "near".</p>
+    desc: <p>Approximate start point of the event on the road. It can be an intersection with another street or it can be a mileage indication.</p><p> This value should not be use to determine the exact start point since it can be an approximation. The <code>geometry</code> field should be considered as the reference for exact location.</p><p>If no <code>to</code> field is provided, the from can be considered as a "near".</p>
   c :
     name: to
     type: free text
@@ -169,34 +185,34 @@ road :
     name: direction
     type: Enum
     mandatory: Conditional
-    desc: <p>Direction of the road that is affected by the event. The field is <b>mandatory</b> if the <code>lane_status</code> is provided.</p>
+    desc: <p>Direction of the road that is affected by the event.</p><p>If a <code>lane_status</code> is provided, the direction becomes <b>mandatory</b>. In the same situation, if both directions are affected, two occurrences of the road element are needed, one for each direction and with a dedicated <code>lane_status</code> for each direction.</p>
   e :
     name: lane_status
     type: bitmap
     mandatory: Optional
-    desc: <p>Bitmap representing the lanes that are closed because of the event. For example <code>0110</code> means that the 2 central lanes of a 4 lanes roads are closed.</p>
+    desc: <p>Bitmap representing the lanes that are closed because of the event. For example <code>0110</code> means that the 2 central lanes of a 4 lanes roads are closed.</p><p>The lane status is applied to direction provided</p>
   f :
     name: city
     type: free text
     mandatory: Optional
     desc: <p>City in which the event is taking place (or near)</p>  
   g :
-    name: impacted_systems
+    name: <p>&darr;&darr;impacted_systems</p>
     type: Collection of systems
     mandatory: Optional
     desc: <p>Allow to provide information about other systems that can be affected</p> 
   i :
-    name: system_name
+    name:  <p>&mdash; system_name</p>
     type: Enum
     mandatory: Optional
     desc: <p>Each system_name </p> 
   j :
-    name: restrictions
+    name: <p>&darr;&darr;restrictions</p>
     type: Collection of restriction
     mandatory: Optional
     desc: <p>Some events may come with some restrictions in term of vehicle using the road (speed, weigth). The restriction structure provide a way to provide the restrictions</p>     
   k :
-    name: restriction
+    name:  <p>&mdash; restriction</p>
     type: Enum
     mandatory: Optional
     desc: <p>Each restriction element provides a limitation on the current road element. The node element can be speed, weight, length, width. A <code>unit</code> can provide the unit used to measure the restriction (t for tons, lb for pounds, etc.)</p>
@@ -205,7 +221,7 @@ schedule :
     name: timezone
     mandatory: Optional
     type: Enum
-    desc: <p>Timezone to be used for this event. Timezone abbreviation (e.g <code>EST</code>) or the continent/city timezine <code>America/Montreal</code></p> 
+    desc: <p>Timezone to be used for this event. Timezone abbreviation (e.g <code>EST</code>) or the continent/city timezone code <code>America/Montreal</code></p> 
   b :
     name: start_date
     type: Date
@@ -217,27 +233,27 @@ schedule :
     mandatory: Optional
     desc: <p>End date of the event. If no end date is provided, the event should be considered continuing for ever.</p>
   d :
-    name: time
-    type: structure
-    mandatory: Optional
-    desc: <p>Provide detail about the specific times of the event. Multiple occurrences of the time structure are allowed so specify multiple timeframes in a day.</p>
-  e :
-    name: start_time
-    type: Time
-    mandatory: Optional
-    desc: <p>Start time of the event. If the event is spread across several days, the start time is to be applied for each day</p>
-  f :
-    name: end_time
-    type: Time
-    mandatory: Optional
-    desc: <p>Start time of the event. If the event is spread across several days, the start time is to be applied for each day. end_time is mandatory if a start_time is provided.</p>  
-  g :
     name: day_of_week
     type: Enum
     mandatory: Optional
     desc: <p>Comma separated list of days of the week where the event should be considered as active. For example wednesday, thursday, friday would be <code>3,4,5</code>. The days are Monday to Sunday from 1 to 7.</p> 
+  e :
+    name: <p>&darr;&darr;time</p>
+    type: structure
+    mandatory: Optional
+    desc: <p>Provide detail about the specific times of the event. Multiple occurrences of the time structure are allowed so specify multiple timeframes in a day.</p>
+  f :
+    name: <p>&mdash; start_time</p>
+    type: Time
+    mandatory: Optional
+    desc: <p>Start time of the event. If the event is spread across several days, the start time is to be applied for each day</p>
+  g :
+    name: <p>&mdash; end_time</p>
+    type: Time
+    mandatory: Optional
+    desc: <p>Start time of the event. If the event is spread across several days, the start time is to be applied for each day. end_time is mandatory if a start_time is provided.</p>  
   i :
-    name: specific_dates
+    name: <p>&darr;&darr;specific_dates</p>
     type: Collection of specific_date
     mandatory: Optional
     desc: <p>Since some days might not follow the regular schedule, it is possible to provide a schedule for individual days (for example vacations)</p>
@@ -272,8 +288,6 @@ attachement :
 
 <h3>URL</h3>
 
-The URL of the jurisdiction resource should be retrieved from the 
-
   <table class="resource_pres">
 {% for item in page.presentation reversed %} 
   <tr>
@@ -289,6 +303,10 @@ The URL of the jurisdiction resource should be retrieved from the
 
 <h3>Parameters</h3>
 
+<p>The events resource support all the common filtering and content negociation <a href="parameters.html">parameters</a></p>
+
+<p>By default, all the fields of the event structure can be used as filtering criteria. So for example, a query to retrieve events on road HWY-73 will just contain <code>...?road_name=HWY-73</code>. Added to this, the following parameters are supported</p>
+
   <table class="parameters">
         <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
 {% for item in page.parameters reversed %} 
@@ -303,109 +321,65 @@ The URL of the jurisdiction resource should be retrieved from the
   </table>
 
 
-<h3>Representation</h3>
+<h3>Data structure</h3>
 
-<p>The following table prodive the struture of the message to be expected for this resource. Although the format of the representation might change (xml or json), the overall data structure should be the same except when specified otherwise.
+<p>The Following table provide the general message structure for the event resource. The <code>events</code> is a collection of <code>event</code> structure. Like other resources, events can support multiple representation (XML and JSON).</p>
 
   <table class="representation">
         <tr><th>Field</th><!--<th>Required/optional</th>--><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'representation' %}
 {% for item in page.representation reversed %} 
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-        {% if elem.type contains 'structure' or elem.type contains 'Collection' %}
-          <tr class="structure">
-        {% else %} 
-          <tr>
-        {% endif %}
-      <td class="name">{{ elem.name }}</td><!-- <td class="mandatory">{{ elem.mandatory }}</td>--><td class="type">{{ elem.type }}</td>
-      <td><p><i>{{ elem.mandatory }}</i></p>{{ elem.desc }}</td>
-  </tr>
-      {% endif %}
-    {% endfor %}
+   {% include tablegen.html %} 
 {% endfor %}
   </table>
 
-<a id="event"></a><h3>Event structure</h3>
+<a id="event"></a><h4>Event structure</h4>
 
-<p></p>
+<p>The event structure is the main element of the events collection. although an event should be considered as independant, it is possible that one major event (mainly constructions) could be split across several events</p>
+
+<p><code><a href="https://github.com/opennorth/Open511API/issues/1">issue 1</a></code></p>
 
   <table class="representation">
-        <tr><th>Field</th><th>Required/optional</th><th>Type</th><th>Description</th></tr>
-{% for item in page.event reversed %} 
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-        {% if elem.type contains 'structure' or elem.type contains 'Collection' %}
-          <tr class="structure">
-        {% else %} 
-          <tr>
-        {% endif %}
-      <td class="name">{{ elem.name }}</td><td class="mandatory">{{ elem.mandatory }}</td><td class="type">{{ elem.type }}</td><td>{{ elem.desc }}</td>
-  </tr>
-      {% endif %}
-    {% endfor %}
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'event' %}
+{% for item in page.event reversed %}
+   {% include tablegen.html %} 
 {% endfor %}
   </table>
 
-<a id="road"></a><h3>Road structure</h3>
+<a id="road"></a><h4>Road structure</h4>
 
-<p></p>
+<p>The road data format is used to provide information about the road(s) affected by an event.</p>
 
   <table class="representation">
-        <tr><th>Field</th><th>Required/optional</th><th>Type</th><th>Description</th></tr>
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'road' %}
 {% for item in page.road reversed %} 
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-        {% if elem.type contains 'structure' or elem.type contains 'Collection' %}
-          <tr class="structure">
-        {% else %} 
-          <tr>
-        {% endif %}
-      <td class="name">{{ elem.name }}</td><td class="mandatory">{{ elem.mandatory }}</td><td class="type">{{ elem.type }}</td><td>{{ elem.desc }}</td>
-  </tr>
-      {% endif %}
-    {% endfor %}
+   {% include tablegen.html %}
 {% endfor %}
   </table>
 
-<a id="schedule"></a><h3>Schedule structure</h3>
+<a id="schedule"></a><h4>Schedule structure</h4>
 
 <p></p>
 
   <table class="representation">
-        <tr><th>Field</th><th>Required/optional</th><th>Type</th><th>Description</th></tr>
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'schedule' %}
 {% for item in page.schedule reversed %} 
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-        {% if elem.type contains 'structure' or elem.type contains 'collection' %}
-          <tr class="structure">
-        {% else %} 
-          <tr>
-        {% endif %}
-      <td class="name">{{ elem.name }}</td><td class="mandatory">{{ elem.mandatory }}</td><td class="type">{{ elem.type }}</td><td>{{ elem.desc }}</td>
-  </tr>
-      {% endif %}
-    {% endfor %}
+   {% include tablegen.html %}
 {% endfor %}
   </table>
 
-<a id="attachement"></a><h3>Attachement structure</h3>
+<a id="attachement"></a><h4>Attachement structure</h4>
 
 <p></p>
 
   <table class="representation">
-        <tr><th>Field</th><th>Required/optional</th><th>Type</th><th>Description</th></tr>
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'attachement' %}
 {% for item in page.attachement reversed %} 
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-        {% if elem.type contains 'structure' or elem.type contains 'collection' %}
-          <tr class="structure">
-        {% else %} 
-          <tr>
-        {% endif %}
-      <td class="name">{{ elem.name }}</td><td class="mandatory">{{ elem.mandatory }}</td><td class="type">{{ elem.type }}</td><td>{{ elem.desc }}</td>
-  </tr>
-      {% endif %}
-    {% endfor %}
+   {% include tablegen.html %}
 {% endfor %}
   </table>
 
@@ -415,29 +389,51 @@ The URL of the jurisdiction resource should be retrieved from the
 <p>Example of an xml representation of a jurisdiction</p>
 
 <pre>
-  &lt;jurisdiction&gt;
-    &lt;!-- all fields not labelled as mandatory are optional --&gt;
-    &lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/" /&gt; &lt;!-- mandatory --&gt;
-    &lt;name&gt;Ville de Montréal&lt;/name&gt; &lt;!-- mandatory --&gt;
-    &lt;email&gt;mayor@ville.montreal.qc.ca&lt;/email&gt; &lt;!-- mandatory --&gt;
-    &lt;phone&gt;+1 514-872-0000&lt;/phone&gt;
-    &lt;atom:link rel="description" href="http://ville.montreal.qc.ca/open511/presentation.html" /&gt;
-    &lt;area&gt;
-      &lt;gml:Polygon srsName="EPSG:4326"&gt;
+&lt;open511
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:gml="http://www.opengis.net/gml"
+    xml:lang="en"
+    xml:base="http://api.open511.info/"
+&gt;
+  &lt;atom:link rel="self" href="http://api.open511.info/events/" /&gt;
+  &lt;atom:link rel="up" href="http://api.open511.info/"/&gt;
+  &lt;roadEvent&gt;
+    &lt;status&gt;active&lt;/status&gt; 
+    &lt;atom:link rel="self" href="/events/23948/" /&gt;
+    &lt;atom:link rel="jurisdiction" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/" /&gt;
+    &lt;headline&gt;Rebuilding of sewer pipes&lt;/headline&gt; 
+    &lt;headline xml:lang="fr"&gt;Réfection de conduite d'égout (réhabilitation)&lt;/headline&gt; 
+    &lt;description xml:lang="fr"&gt;La Ville de Montréal vous informe de la reprise des travaux de reconstruction de conduits dégout et daqueduc dans la rue Saint-Thomas ainsi quau cœur de lintersection de la rue Ottawa. &lt;/description&gt;
+    &lt;eventType&gt;Roadwork&lt;/eventType&gt; 
+    &lt;eventSubType&gt;Construction&lt;/eventSubType&gt;
+    &lt;severity&gt;2&lt;/severity&gt; 
+    &lt;creationDate&gt;2012-05-23T20:33:10Z&lt;/creationDate&gt;
+    &lt;lastUpdate&gt;2012-05-24T10:00:10Z&lt;/lastUpdate&gt;
+    &lt;detour&gt;Take St-Antoine travelling east, and Wellington travelling west.&lt;/detour&gt;
+    &lt;geometry&gt;
+      &lt;gml:Linestring srsName="EPSG:4326"&gt;
         &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40&lt;/gml:coordinates&gt;
-      &lt;/gml:Polygon&gt;
-    &lt;/area&gt;
-    &lt;license&gt;
-      &lt;atom:link rel="copyright" href="http://donnees.ville.montreal.qc.ca/licence/licence-texte-complet/"/&gt; &lt;!-- mandatory --&gt;
-      &lt;licenseName&gt;CC-BY&lt;/licenseName&gt;
-      &lt;conditions&gt;
-        &lt;condition&gt;ATTRIBUTION&lt;/condition&gt;
-        &lt;condition&gt;SHAREALIKE&lt;/condition&gt;
-      &lt;/conditions&gt;
-    &lt;/license&gt;
-    &lt;languages&gt;
-      &lt;language&gt;fr&lt;/language&gt;
-      &lt;language&gt;en&lt;/language&gt;
-    &lt;/languages&gt;
-  &lt;/jurisdiction&gt;
+      &lt;/gml:Linestring&gt;
+    &lt;/geometry&gt;
+    &lt;roads&gt;
+      &lt;road&gt;
+        &lt;roadName&gt;rue Saint-Thomas&lt;/roadName&gt;
+        &lt;from&gt;rue Ottawa&lt;/from&gt;
+        &lt;direction&gt;all&lt;/direction&gt;
+        &lt;impactedSystems&gt;
+          &lt;impactedSystem&gt;Road&lt;/impactedSystem&gt;
+          &lt;impactedSystem&gt;On-Street Parking&lt;/impactedSystem&gt;
+        &lt;/impactedSystems&gt;
+        &lt;restrictions&gt;
+          &lt;restriction&gt;Local Traffic Only&lt;/restriction&gt;
+        &lt;/restrictions&gt;
+      &lt;/road&gt;
+    &lt;/roads&gt;
+    &lt;schedule&gt;
+      &lt;startDate&gt;2012-03-23&lt;/startDate&gt; 
+      &lt;endDate&gt;2012-04-15&lt;/endDate&gt; 
+    &lt;/schedule&gt;
+    &lt;atom:link rel="enclosure" type="application/pdf" href="http://ville.montreal.qc.ca/avis-citoyens/39473/Refection-conduite-egout-SaintThomas.pdf" length="200000" /&gt;
+  &lt;/roadEvent&gt;
+&lt;/open511&gt;  
 </pre>

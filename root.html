@@ -8,58 +8,47 @@ presentation :
   method :
     name : method
     value : GET
-parameters : 
-  lang :
-    name : lang
-    required : optional 
-    description : <p>Specify the language requested. This url parameter overrides the corresponding HTTP header. Values are usual language part of the local (cf ...).</p> <p>The behaviour is the same as the HTTP, several coma-separated values can be provided in the order of priority. If not lang attribute is provided or if the language requested is not available, a fallback language is used (the default value is configured by the end point).</p> <pre>...?lang=fr,en</pre>
-  format :
-    name : format
-    required : optional
-    description : <p>Specify the type of representation. This url parameter overrides the corresponding HTTP header. Possible values are <code>xml</code> and <code>json</code>. If no value is provided for the representation, the API will default to xml. </p> <pre>...?format=json</pre>
 representation : 
-  Self :
+  a :
     name: Self
     mandatory: Mandatory
     type: Atom link
     desc: <p>Self link to the current resource using atom link structure with <code>self</code> attribute.<pre>&lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/" /&gt; </pre> </p>
-  Services :
-    name: Services
+  b :
+    name: <p>&darr;&darr;services</p>
     mandatory: Mandatory
-    type: Collection of <a href="#service">services</a>
-    desc: <p>List all the <a href="#service">services</a> supported by the endpoint. Currently, only one service is supported (events), so this structure should only contain on item.</p>
-  Jurisdictions :
-    name: Jurisdictions
-    mandatory: Mandatory
-    type: Collection of <a href="#jurisdiction">jurisdictions</a>
-    desc: <p>List all the <a href="#jurisdiction">jurisdictions</a> that are supported by the endpoint. Most of the time, there will be only one occurrence, except for multiple jurisdictions endpoints and agregators.</p>
-jurisdiction_struct : 
-  Name :
-    name: Name
-    mandatory: Mandatory
-    type: Free text
-    desc: <p>Name of the jurisdiction. The field is purely description and should not be considered as a key</p>
-  url :
-    name: Jurisdiction URL
-    mandatory: Mandatory
-    type: Atom link
-    desc: <p>Atom link with a <code>self</code> attribute the points to the complete description of the jurisdiction. An agregator should always point the original jurisdiction resource and not copy it locally.</p>
-service_struct : 
-  Name :
-    name: service_type
+    type: Collection of <code>service</code>
+    desc: <p>List all the services supported by the endpoint. Currently, only one service is supported (events), so this structure should only contain on item.</p><pre>  &lt;services&gt;<br>    &lt;service&gt;<br>      &lt;service_type&gt;events&lt;/service_type&gt;<br>      &lt;service_description&gt;A description&lt;/service_description&gt;<br>      &lt;atom:link rel="self" href="http&colon;//api.open511.info/events" /&gt;<br>    &lt;service&gt;<br>  &lt;/services&gt;</pre>
+  c :
+    name: <p>&mdash; service_type</p>
     mandatory: Mandatory
     type: Value list
     desc: <p>List of predefined services that are supported by the open511 API. For the moment the only service designed is the event service.</p><p>Value list:</p> <pre>events</pre>
-  description :
-    name: service_descripiton
+  d :
+    name: <p>&mdash; service_description</p>
     mandatory: Optional
     type: Free text
     desc: <p>Description of the service.</p>
-  url :
-    name: service URL
+  e :
+    name: <p>&mdash; service url</p>
     mandatory: Mandatory
     type: Atom link
-    desc: <p>Atom link with a <code>self</code> attribute the points to the service resource. An agregator will have a local resource for any given service and will publish the content from various jurisdictions.</p>        
+    desc: <p>Atom link with a <code>self</code> attribute the points to the service resource. An agregator will have a local resource for any given service and will publish the content from various jurisdictions.</p>    
+  f :
+    name: <p>&darr;&darr;jurisdictions</p>
+    mandatory: Mandatory, at least one <code>jurisdiction</code> element is mandatory
+    type: Collection of <code>jurisdiction</code>
+    desc: <p>List all the jurisdictions that are supported by the endpoint. Most of the time, there will be only one occurrence, except for multiple jurisdictions endpoints and agregators.</p><pre>  &lt;jurisdictions&gt;<br>    &lt;jurisdiction&gt;<br>      &lt;name&gt;Ville de Montréal&lt;/name&gt;<br>      &lt;atom:link rel="self" href="http&colon;//ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/" /&gt;<br>    &lt;/jurisdiction&gt;<br>  &lt;/jurisdiction&gt;</pre>
+  g :
+    name: <p>&mdash; name</p>
+    mandatory: Mandatory
+    type: Free text
+    desc: <p>Name of the jurisdiction. The field is purely description and should not be considered as a key</p>
+  h :
+    name: <p>&mdash; jurisdiction url</p>
+    mandatory: Mandatory
+    type: Atom link
+    desc: <p>Atom link with a <code>self</code> attribute the points to the complete description of the jurisdiction. An agregator should always point the original jurisdiction resource and not copy it locally.</p>    
 ---
 {% include JB/setup %}
 {% include specsnav.html %}
@@ -81,76 +70,28 @@ service_struct :
   </tr>
 {% endfor %}
   </table>
-
+<p>&nbsp;</p>
 
 <h3>Parameters</h3>
 
-<p>The following table provides the common URL parameters than can be provided to modify or filter the output of the API.<p>
-
-<p>In fact these parameters are common to all other resources and should be documented in a common section</p>
-
-  <table class="parameters">
-        <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
-{% for item in page.parameters reversed %} 
-  <tr>
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-      <td>{{ elem.name }}</td><td>{{ elem.required }}</td><td>{{ elem.description }}</td>
-      {% endif %}
-    {% endfor %}
-  </tr>
-{% endfor %}
-  </table>
-
+<p>The discovery resource only supports the <a href="parameters.html">common url paramaters</a><p>
+<p>&nbsp;</p>
 
 <h3>Representation</h3>
 
-<p>The following table prodive the struture of the message to be expected for this resource. Although the format of the representation might change (xml or json), the overall data structure should be the same except when specified otherwise.
+<p>The following table provides the data structure for the root resource (aka discovery). Although the format of the representation might change (xml or json), the overall data structure should be the same except when specified otherwise.
+
+
 
   <table class="representation">
-        <tr><th>Field</th><th>Required/optional</th><th>Type</th><th>Description</th></tr>
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'representation' %}
 {% for item in page.representation reversed %} 
-  <tr>
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-      <td class="name">{{ elem.name }}</td><td class="mandatory">{{ elem.mandatory }}</td><td class="type">{{ elem.type }}</td><td>{{ elem.desc }}</td>
-      {% endif %}
-    {% endfor %}
-  </tr>
-{% endfor %}
+   {% include tablegen.html %}
+{% endfor %}       
   </table>
 
-<a id="jurisdiction"></a><h4>Jurisdiction (short)</h4>
-
-  <table class="representation">
-        <tr><th>Field</th><th>Required/optional</th><th>Type</th><th>Description</th></tr>
-{% for item in page.jurisdiction_struct reversed %} 
-  <tr>
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-      <td class="name">{{ elem.name }}</td><td class="mandatory">{{ elem.mandatory }}</td><td class="type">{{ elem.type }}</td><td>{{ elem.desc }}</td>
-      {% endif %}
-    {% endfor %}
-  </tr>
-{% endfor %}
-  </table>
-
-
-<a id="service"></a><h4>Service</h4>
-
-
-  <table class="representation">
-        <tr><th>Field</th><th>Required/optional</th><th>Type</th><th>Description</th></tr>
-{% for item in page.service_struct reversed %} 
-  <tr>
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-      <td class="name">{{ elem.name }}</td><td class="mandatory">{{ elem.mandatory }}</td><td class="type">{{ elem.type }}</td><td>{{ elem.desc }}</td>
-      {% endif %}
-    {% endfor %}
-  </tr>
-{% endfor %}
-  </table>
+<p>&nbsp;</p>
 
 <h3>Example</h3>
 

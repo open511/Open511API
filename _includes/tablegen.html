@@ -1,0 +1,12 @@
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+        {% if elem.type contains 'structure' or elem.type contains 'Collection' %}
+          <tr class="structure">
+        {% else %} 
+          <tr>
+        {% endif %}
+      <td class="name"><a id="{{ anchor }}-{{ elem.name }}"></a>{{ elem.name }}</td><!-- <td class="mandatory">{{ elem.mandatory }}</td>--><td class="type">{{ elem.type }}</td>
+      <td><p><i>{{ elem.mandatory }}</i></p>{{ elem.desc }}</td>
+  </tr>
+      {% endif %}
+    {% endfor %}

@@ -102,11 +102,17 @@ html, body {
 	width: 85%;
 }
 
-td.name {
+td.name{
 	width: 100px;
 	font-family:"Courier New",monospace;
 	font-size: 100%;
 	min-width: 120px;
+	font-weight: bold;
+}
+
+td.name p {
+	font-weight: bold;
+	font-family:"Courier New",monospace;
 }
 
 td.mandatory {
@@ -115,7 +121,7 @@ td.mandatory {
 
 td.type {
 	/*width: 80px*/
-	min-width: 100px;
+	/*min-width: 80px;*/
 }
 
 .resource_pres tr, .parameters tr {
@@ -149,11 +155,6 @@ td.type {
 	background-color: #fffff0;
 }
 
-.representation tr.structure td.name{
-
-	font-weight: bold;
-}
-
 
 .vertical_header {
 	background-color: #eee;
@@ -163,5 +164,14 @@ td.type {
 
 code {
 	color: #555;
+}
+
+.warning {
+	color: #c00;
+	border: 1px solid#a00;
+	background-color: #fdd;
+	width: 70%;
+	margin: 10px 0 20px 20px;
+	padding: 20px;
 }
 

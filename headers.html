@@ -1,0 +1,48 @@
+---
+layout: page
+title: HTTP Headers and features
+parameters : 
+  a :
+    name : Accept-Encoding/Content-Encoding
+    required : optional 
+    description : <p>When possible, the client should ask for compressed content to save bandwidth with the <code>Accept-Encoding</code> header. Accepted value should be <code>compress</code> and <code>gzip</code>. In which case, the server should answer with header <code>Content-Encoding</code> set to the correct value and the content compressed accordingly.</p>
+  b :
+    name : Accept-Language
+    required : optional
+    description : <p>Most of the fields of the open511 API are enumeration and fixed value data but some fields contain free text data. For the jurisdiction who would like to support multiple language, language negociation is integrated in the API.</p><p>The client application can specify the prefered language with the <code>Accept-Language</code> header. This header allows to specify an order of priority, for example <code>pt, en</code> to get portuguese at first and then english. The server should answer to server the corresponding language. If no accept-language header is provided, the server will select the language. If the client sends the value star <code>*</code>, the server should send all the languages supported (only available in XML).</p><p>An URL parameter <code>lang</code> can override the HTTP header.</p>
+  c :
+    name : Etag/If-None-Match
+    required : optional
+    description : <p>ETag/If-None-Match headers are used to save bandwith and increase caching efficiency. The servers should provide an ETag header in the pages that are server. When requesting the same URL, the client should add the If-None-Match header with the last ETag value. The server will send the content only if the ETag has changed.</p>
+  d :
+    name : Accept
+    required : optional
+    description : <p>Open511 resource support multiple representations (XML and JSON, more could be added in the future). In order to ease the negociation of the content type, the client should provide an <code>Accept</code> header specifying the type of representation accepted. For the moment, the value accepted are <code>application/xml</code> and <code>application/json</code>.</p><p>The content negociation can be overriden by an URL parameter</p>
+  e :
+    name : Authentication
+    required : optional
+    description : <p>Read access to the resource should be open and not protected by any authentication. In order to modify data (e.g crowdsourcing), the client might need and authentication system. This only authentication mechanism is HTTP Basic.</p>
+  f :
+    name : Encryption
+    required : optional
+    description : <p>Although no sensitive data is exchanges through the open511 API, it could be good practice to support HTTPS encryption.</p>
+---
+{% include JB/setup %}
+
+{% include specsnav.html %}
+
+<p>Based on the REST design, the Open511 rely on the HTTP protocol to handle some specific tasks needed to negociate the content to be served. The following table list the HTTP features that should be supported by both the server and the client. These are common features that many HTTP libraries will support.</p>
+
+
+  <table class="parameters">
+        <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
+{% for item in page.parameters reversed %} 
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td>{{ elem.name }}</td><td>{{ elem.required }}</td><td>{{ elem.description }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </table>
