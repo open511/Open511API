@@ -12,86 +12,53 @@ Open511 is currently under active development. The content shared here is the re
 
 ### Collaborators {#collaborators}
 
+The initial collaborators on the projet are the [Ministry of Transportation and Infrastruture of British Columbia](http://www.gov.bc.ca/tran/), the [City of Ottawa](http://ottawa.ca/), the [City of Montréal](http://ville.montreal.qc.ca/), the [City of Repentigny](http://www.ville.repentigny.qc.ca/), the [Living Lab of Montréal](http://www.livinglabmontreal.org/), the [International Institute of Logistics of Montréal](http://www.iilm.ca/), [InstantGeo](http://www.instantgeo.com/), [David Eaves](http://eaves.ca/) and [Nicolas Saunier](http://n.saunier.free.fr/saunier/) from [École Polytechnique de Montréal](http://www.polymtl.ca/). 
 
-## Overview
+We are also working closely with the [Metropolitan Transportation Commission](http://www.mtc.ca.gov/) of San Francisco Bay Area which is coordinating the [511.org](http://511.org/) initiative and we are in communication with other actors in the 511 and transportation world.
 
-Open511 follows the path of the open311 initiative as well as the general move toward making data open and easily accessible.
+## Overview {#overview}
 
-For the moment, the initiative will focus on the road events (accidents, constructions, etc.) but the API is designed to support other types of data. This set of data have been identified as the one that is owned by government and with a lot of added values.
+Open data is currently a leading movement that demonstrated its strengths in many occassion, for example to improve information about transit systems. The experience with transit data proved that having an open data standard to improve interoperability is a major step and the GTFS and SIRI formats provided what was needed. Many people would like similar data for traffic but few organization are opening their traffic data and no relevant format exists. Many ITS standards exist by they lack the simplicity, openess and the interoperability needed for open data. Using the same philosophy as Open311, the current initiative will propose a specification for traffic data that matches open data criteria and will also include advocacy toward public organization to publish traffic data.
 
+For the moment, the initiative will focus on the road events (accidents, constructions, etc.) but the API is designed to support other types of data/services. This set of data have been identified as the one that is owned by government and with a lot of added values.
 
-## Technical overview
-
-Many standards already exist to share road related data. These standards are usually designed for the communication of control centers or specialized devices; as a consequence the format tend to be complex and difficult to use. In order to make the data as easily accessible as possible, the Open511 API will stick to the following technical elements:
-
-- Standard web technologies. The current design works using the HTTP protocol (the foundation of the web). All modern development languages have powerful HTTP libraries.
-- URL based. All data is accessible through simple URLs (like any web page). Each individual URL corresponds to a specific resource.
-- Discoverable. The content of the API is easy for clients to discover, largely via hypertext links between items.
-- Stateless. Each request is independant from the previous/following request, which makes implementation easier both on the client and server side.
-- On request. The client has to send a request to get the data.
+Added to that, Open North will also develop an open source software to publish road events so that public bodies (mainly small cities) will not need to develop brand new software to publish this information.
 
 
-## Overview
+## Technical overview {#techoverview}
 
-The Open511 API will allow governements (cities as well as states) publishing road events (accidents, constructions, etc) and potentially other types off data. As a consequence, developers and third parties will have the opportunity to access this data from several jurisdictions to offer services to citizen or governments.
+Open511 will follow best practices in terms of open data API, following the guidelines of the REST style. As a consequence, the API will rely on the HTTP protocol and its regular features and most of the resources will be accessible via clearly identified URLs.
 
-Currently, the API contain two central resources: 
-* Jurisdiction: represent a specific governement with some metadata (contact info, geographical coverage and other options)
-* Events: represent events that are published by the jurisdictions.
+The API and data format is designed to allow agregation. In other words, one server/endpoint can provide data for several cities/states (called jurisdictions). Added to that, a third party could retrieve data from several endpoint and provide a unified feed for potential user. For example a regional agency could agregate and republish data from all the jurisdiction within it geographical coverage.
 
-Any jurisdiction can publish events and many jurisdictions can publish events from one endpoint (a endpoint is the server providing the data). Morevoer, the open511 API is designed to allow agregation from multiple source to simplify the access to the data.
+The format contain geospatial metadata that allows client software to evalute the coverage of an endpoint. 
 
-Since Open511 follows the REST architecture, the data can be obtained thanks to a GET request on a target URL.
+### Technical documents {#techdocuments}
 
-## Status 
+Before looking at the format structure, please have a look to the common rules that apply to all resources:
+* [The general guidelines](general.html) provides information about encoding, formats, external standards used, languages, etc.
+* [HTTP headers and features](headers.html) describes all the HTTP features an Open511 endpoint should respect
+* [Common URL parameters](parameters.html) lists all the URL parameters a client can apply to any resource within the open511 framework.
+
+Here are the resource supported by Open511
+* [Root (aka discovery)](root.html): This resource is the single entry point for the entire framework. It provides links to all the other resources, 
+* [Jurisdictions](jurisdiction.html): represent a specific governement with some metadata (contact info, geographical coverage and other options)
+* [Events](event.html): represent events that are published by the jurisdictions.
+
+Following the REST style guideline, there is no predefined URL schema. Each implementation can have its own schema, the client should follow the links from the root resource to access relevant data.
+
+## Status {#status}
 
 The open511 specification is the first draft designed. The format is expected to evolve in the coming. As a consequence, the present specifications should not be used to develop tools.
 
-## Guidelines
+## Timeline {#timeline}
 
-Before reading the message structure, have a look to the following elements.
+The first draft of the specification released to collaborators in october 2012 and made public in nov 2012. A second iteration is due for Jan 2013 and a third and last one for April 2013. At that point, the specification should be considered stable enough for general implementation.
 
-* Using some REST best practices, the open511 API will provide for each endpoint a discovery point. The discovery will contain links pointing other resources (like jurisdictions and events). As a consequence, a server implementation or a client should not consider the URLs a fixed. URLs are dynamic and should be retrieved by following the internal links of the API.
+In order to test the specification, a leading implementation might take place beginning of 2013 with one of the collaborators of the initiative.
 
-* Open511 makes use of some HTTP headers for various needs. Please, refer to the HTTP headers section.
+## Governance {#governance}
 
-### Representations: XML and JSON
+For the moment, the specification design is lead by Open North on a consensus based process with collaborators. With the public release of the specification, any organization that would like to collaborate can do so. Do not hesitate to [contact](mailto:open511@opennorth.ca) Open North and to contribute to the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511) and [submit comments and issues](https://github.com/opennorth/Open511API/issues).
 
-The API will support representation of the data both in XML and JSON. While the API design is in draft, only the XML representation will be documented. The JSON representation will come later.
-
-An schema (XSD) will be provided for the XML representation once the design is stabilized. In the meantime, please refer to the data structure and examples.
-
-Format negociation will be done by HTTP header with an override in URL parameters.
-
-### Language support
-
-The API is designed to support multiple language. The XML representation will be able to contain multiple languages per request thanks to the xml:lang attribute. Since this feature adds some complexity in JSON, JSON will be able to contain a single language per request.
-
-Language negociation will be by HTTP header with an override in URL parameters.
-
-If a requested language is not available, the API will fall back on the default language of the endpoint.
-
-### Authentication
-
-In order to request the data, it is advised not to request any authentication. In order to submit data, usual HTTP basic authentication will be the only method accepted.
-
-### Encoding and other formatting elements
-
-The data will be served with the UTF-8 encoding.
-
-Date and time will follow the ISO 8601 subset except when specified otherwise.
-
-### Agregation
-
-!!!!
-
-## Resources 
-
-* Jurisdictions
-* Events
-
-HTTP Headers
-
-## Specification license and governance
-
-Once stabilized, the licence will be released in creative common and will be manager by a committee based organization (either ad-hoc or an existing structure)
+Once the specification is stable, Open North plans to submit it to a standardization body in order to ensure stability and evolution capabilities.

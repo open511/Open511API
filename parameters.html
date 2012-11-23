@@ -5,7 +5,7 @@ parameters :
   lang :
     name : lang
     required : optional 
-    description : <p>Specify the language requested. This url parameter overrides the corresponding HTTP header. Values are usual language part of the local (cf ...).</p> <p>The behaviour is the same as the HTTP, several coma-separated values can be provided in the order of priority. If not lang attribute is provided or if the language requested is not available, a fallback language is used (the default value is configured by the end point).</p> <pre>...?lang=fr,en</pre>
+    description : <p>Specify the language requested. This url parameter overrides the corresponding <a href="header.html#parameters-Accept-Language">HTTP header</a>.</p> <p>The behaviour is the same as the HTTP, several coma-separated values can be provided in the order of priority. If not lang attribute is provided or if the language requested is not available, a fallback language is selected by the server (the default value is configured by the end point).</p> <pre>...?lang=fr,en</pre>
   format :
     name : format
     required : optional
@@ -15,10 +15,6 @@ parameters :
 
 {% include specsnav.html %}
 
-<p>The following page presents the XML representation of the jurisdiction resource within open511.</p>
-
-
-
 <h3>Parameters</h3>
 
 <p>All the resources have to support some common URL parameters that helps the content negociation.</p>
@@ -27,12 +23,6 @@ parameters :
         <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
 {% assign anchor = 'parameters' %}
 {% for item in page.parameters reversed %} 
-  <tr>
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-      <td><a id="{{ anchor }}-{{ elem.name }}"></a>{{ elem.name }}</td><td>{{ elem.required }}</td><td>{{ elem.description }}</td>
-      {% endif %}
-    {% endfor %}
-  </tr>
+   {% include paramgen.html %}
 {% endfor %}
   </table>

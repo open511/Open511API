@@ -5,19 +5,19 @@ parameters :
   a :
     name : Accept-Encoding/Content-Encoding
     required : optional 
-    description : <p>When possible, the client should ask for compressed content to save bandwidth with the <code>Accept-Encoding</code> header. Accepted value should be <code>compress</code> and <code>gzip</code>. In which case, the server should answer with header <code>Content-Encoding</code> set to the correct value and the content compressed accordingly.</p>
+    description : <p>When possible, the client should ask for compressed content to save bandwidth with the <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3">Accept-Encoding</a></code> header. Accepted value should be <code>compress</code> and <code>gzip</code>. If requested by the client, the server should answer with header <code>Content-Encoding</code> set to the correct value and the content compressed accordingly.</p><pre>Accept-Encoding&colon; compress, gzip</pre>
   b :
     name : Accept-Language
     required : optional
-    description : <p>Most of the fields of the open511 API are enumeration and fixed value data but some fields contain free text data. For the jurisdiction who would like to support multiple language, language negociation is integrated in the API.</p><p>The client application can specify the prefered language with the <code>Accept-Language</code> header. This header allows to specify an order of priority, for example <code>pt, en</code> to get portuguese at first and then english. The server should answer to server the corresponding language. If no accept-language header is provided, the server will select the language. If the client sends the value star <code>*</code>, the server should send all the languages supported (only available in XML).</p><p>An URL parameter <code>lang</code> can override the HTTP header.</p>
+    description : <p>Most of the fields of the open511 API are enumeration and fixed value data but some fields contain free text data. For the jurisdiction who would like to support multiple language, language negociation is integrated in the API.</p><p>The client application should specify the prefered language with the <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a></code> header. This header allows to specify an order of priority, for example <code>pt, en, *</code> to get portuguese at first, then english and finally antyhing available.</p><p>The server should answer to server the corresponding language. If no accept-language header is provided, the server will select the language.</p><p>If the client sends the value star <code>*</code>, the server should send all the languages supported (only available in XML).</p><p>The server should answer with the contant-language header.<pre>Accept-Language&colon; pt, en<br>Content-Language&colon; en</pre>The URL parameter <code><a href="parameters.html#parameters-lang">lang</a></code> can override the HTTP header.</p>
   c :
     name : Etag/If-None-Match
     required : optional
-    description : <p>ETag/If-None-Match headers are used to save bandwith and increase caching efficiency. The servers should provide an ETag header in the pages that are server. When requesting the same URL, the client should add the If-None-Match header with the last ETag value. The server will send the content only if the ETag has changed.</p>
+    description : <p>ETag/If-None-Match headers are used to save bandwith and increase caching efficiency. The servers should provide an <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.19">ETag</a></code> header in the resources that are served.<p></p>When requesting the same URL, the client should add the <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26">If-None-Match</a></code> header with the last ETag value. The server will send the content only if the ETag has changed.</p><pre>ETag&colon; "xyzzy"<br>If-None-Match&colon; "xyzzy"</pre>
   d :
     name : Accept
     required : optional
-    description : <p>Open511 resource support multiple representations (XML and JSON, more could be added in the future). In order to ease the negociation of the content type, the client should provide an <code>Accept</code> header specifying the type of representation accepted. For the moment, the value accepted are <code>application/xml</code> and <code>application/json</code>.</p><p>The content negociation can be overriden by an URL parameter</p>
+    description : <p>Open511 resource support multiple representations (XML and JSON, more could be added in the future). In order to ease the negociation of the content type, the client should provide an <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">Accept</a></code> header specifying the type of representation accepted. For the moment, the value accepted are <code>application/xml</code> and <code>application/json</code>.</p><p>The server must answer with the appropriate <code>Content-Type</code> header.</p><p>The content negociation can be overriden by the <code><a href="parameters.html#parameters-format">format</a></code> URL parameter</p>
   e :
     name : Authentication
     required : optional
@@ -31,18 +31,13 @@ parameters :
 
 {% include specsnav.html %}
 
-<p>Based on the REST design, the Open511 rely on the HTTP protocol to handle some specific tasks needed to negociate the content to be served. The following table list the HTTP features that should be supported by both the server and the client. These are common features that many HTTP libraries will support.</p>
+<p>Based on the REST design, the Open511 rely on the HTTP protocol to handle some specific tasks needed to negociate the content to be served. The following table lists the HTTP features that should be supported by both the server and the client. These are common features that many HTTP libraries will support.</p>
 
 
   <table class="parameters">
         <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
+        {% assign anchor = 'parameters' %}
 {% for item in page.parameters reversed %} 
-  <tr>
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-      <td>{{ elem.name }}</td><td>{{ elem.required }}</td><td>{{ elem.description }}</td>
-      {% endif %}
-    {% endfor %}
-  </tr>
+   {% include paramgen.html %}
 {% endfor %}
   </table>

@@ -2,10 +2,10 @@
 layout: page
 title: Root (discovery)
 presentation : 
-  purpose :
+  a :
     name : purpose
     value : The root resource (aka discovery) provides link to all the resources shared by the selected endpoint. In order to get the link to the other resources, a client application must follow the links provided in the discovery resource. Currently, the discovery will contain access to the jurisdictions supported and the events.
-  method :
+  b :
     name : method
     value : GET
 representation : 
@@ -54,7 +54,7 @@ representation :
 {% include specsnav.html %}
 
 
-<p>Following the guidelines of the REST architecture, the Open511 provides a single entry that provides a link to all the resources of the API. The root URL is the only that needs to be published when a juridiction sets up a 511 endpoint.</p>
+<p>Following the guidelines of the REST architecture, the Open511 provides a single entry point that provides links to all the resources of the API. The root URL is the only that needs to be published when a juridiction sets up a 511 endpoint and client always rely on the links provided by the discovery resource to locate other resources.</p>
 
 
 <h3>Overview</h3>

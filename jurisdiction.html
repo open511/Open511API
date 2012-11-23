@@ -2,27 +2,18 @@
 layout: page
 title: Jurisdiction
 presentation : 
-  purpose :
+  a :
     name : purpose
     value : The jurisdiction represents any government entity (city, state, agency) that wants to publish open511 data. It is a functional concept used to provide some metadata about events like contact information
-  method :
+  b :
     name : method
     value : GET
-parameters : 
-  lang :
-    name : lang
-    required : optional 
-    description : <p>Specify the language requested. This url parameter overrides the corresponding HTTP header. Values are usual language part of the local (cf ...).</p> <p>The behaviour is the same as the HTTP, several coma-separated values can be provided in the order of priority. If not lang attribute is provided or if the language requested is not available, a fallback language is used (the default value is configured by the end point).</p> <pre>...?lang=fr,en</pre>
-  format :
-    name : format
-    required : optional
-    description : <p>Specify the type of representation. This url parameter overrides the corresponding HTTP header. Possible values are <code>xml</code> and <code>json</code>. If no value is provided for the representation, the API will default to xml. </p> <pre>...?format=json</pre>
 representation : 
   a :
     name: self
     mandatory: Mandatory
     type: Atom link
-    desc: <p>Self link to the current resource using atom link structure with <code>self</code> attribute</p>.<pre>&lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/" /&gt; </pre> 
+    desc: <p>Self link to the current resource using atom link structure with <code>self</code> attribute.</p><pre>&lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/" /&gt; </pre> 
   b :
     name: parent
     type: Atom link    
@@ -30,34 +21,34 @@ representation :
     desc: <p>Self link to the parent resource using atom link structure with <code>parent</code> attribute</p>
   c :
     name: name
-    type: String (free text)
+    type: free text
     mandatory: Mandatory
     desc: <p>Name of the jurisdiction.</p>
   d :
     name: email
-    type: String (free text)
+    type: Free text
     mandatory: Mandatory
     desc: <p>Valid email that can be used to contact the department or the person in charge of the data provided by the Open511 API</p>    
   e :
     name: url
-    type: String (free text)
+    type: Free text
     mandatory: Optional
     desc: <p>Human readable resource providing detail about the Open511 service and the jurisdiction covered.</p>  
   f :
     name: phone
-    type: String (free text)
+    type: Free text
     mandatory: Optional
     desc: <p>Phone number to contact the department or the person in charge of the data provided by the Open511 API</p>  
   g :
     name: description
-    type: String (free text)
+    type: Free text
     mandatory: Optional
     desc: <p>Free text that can be used by a client application to provide some information about the Open511 service and the jurisdiction covered.</p> 
   h :
     name: area
     type: GML notation
     mandatory: Mandatory
-    desc: <p>Geographical coverage of the jurisdiction. This field only accepts a polygon or a multipolygon</p><pre><gml:Polygon srsName="EPSG:4326"><br>  <gml:coordinates>-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40</gml:coordinates><br></gml:polygon></pre> 
+    desc: <p>Geographical coverage of the jurisdiction. This field only accepts a polygon or a multipolygon</p><pre>&lt;gml:Polygon srsName="EPSG:4326"&gt;<br>  &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40&lt;/gml:coordinates&gt;<br>&lt;/gml:polygon&gt;</pre> 
   i :
     name: <p>&darr;&darr; license</p>
     type: structure
@@ -88,12 +79,7 @@ representation :
 
 {% include specsnav.html %}
 
-<p>The following page presents the XML representation of the jurisdiction resource within open511.</p>
-
-
-<h3>URL</h3>
-
-The URL of the jurisdiction resource should be retrieved from the 
+<h3>Overview</h3>
 
   <table class="resource_pres">
 {% for item in page.presentation reversed %} 
@@ -110,18 +96,7 @@ The URL of the jurisdiction resource should be retrieved from the
 
 <h3>Parameters</h3>
 
-  <table class="parameters">
-        <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
-{% for item in page.parameters reversed %} 
-  <tr>
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-      <td>{{ elem.name }}</td><td>{{ elem.required }}</td><td>{{ elem.description }}</td>
-      {% endif %}
-    {% endfor %}
-  </tr>
-{% endfor %}
-  </table>
+<p>The discovery resource only supports the <a href="parameters.html">common url paramaters</a><p>
 
 
 <h3>Representation</h3>
