@@ -43,6 +43,6 @@ The data will be served with the UTF-8 encoding.
 
 Date and time will follow the ISO 8601 subset as per the [w3c note](http://www.w3.org/TR/NOTE-datetime) except when specified otherwise.
 
-Geospatial data will use the [GML notation](http://en.wikipedia.org/wiki/Geography_Markup_Language) for the XML notation and [GeoJSON](http://www.geojson.org/) for the JSON representation (**[Issue 5](https://github.com/opennorth/Open511API/issues/5)**).
+Geospatial data will use the [GML notation](http://en.wikipedia.org/wiki/Geography_Markup_Language) for the XML notation and [GeoJSON](http://www.geojson.org/) for the JSON representation.
 
 Links will use the [ATOM link structure](http://tools.ietf.org/html/rfc4287) using as much as possible the IANA [link relations list](http://www.iana.org/assignments/link-relations/link-relations.xml). 
