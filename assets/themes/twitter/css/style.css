@@ -69,6 +69,31 @@ html, body {
 	color:#FFF;
 }
 
+
+/* Custom ======================================================== */
+
+h2 {
+
+	margin-top: 15px;
+	margin-bottom: 7px;
+}
+
+h3 {
+
+	margin-top: 15px;
+	margin-bottom: 7px;
+}
+
+p, ul {
+	line-height: 145%;
+	width: 75%;
+}
+
+.span12 {
+	padding-left: 25px;
+	width: 925px;
+}
+
 .specsnavcontainer {
 	float:right;
 	/*border-left:1px solid #ccc;*/
@@ -83,6 +108,7 @@ html, body {
 	margin-bottom: 8px;
 	padding-bottom: 8px;
 	border-bottom: 1px solid #ccc;
+
 }
 
 .specsnavcontainer ul li {
@@ -171,7 +197,11 @@ code {
 	border: 1px solid#a00;
 	background-color: #fdd;
 	width: 70%;
-	margin: 10px 0 20px 20px;
+	margin: 10px 0 20px 10px;
 	padding: 20px;
+}
+
+footer p {
+	width: 100%;
 }
 

@@ -5,6 +5,15 @@ title: Introduction to the Open511 API (draft)
 {% include JB/setup %}
 {% include specsnav.html %}
 
+
+## Getting started {#started}
+
+The present document describes the specifications of the Open511 API. This API is currently under design and aims at providing open data for traffic information. The API is currently not implemented, at that stage we are more looking at comments. You can read the context and presentation of the API below or directly jump to the technical stuff (Common and Resources on the right-hand panels) to have a look. If you are interesting in participating, you can start by joining the mailing list and have a look to the contribute panel.
+
+
+## Context {#context}
+
+
 Open511 is a initiative to develop an API designed to publish road events (accidents, construction, etc) and potentially many other road and mobility related data and following the principles of open data. The project is lead by [Open North](http://opennorth.ca) and funded by [GeoConnections](http://geoconnections.nrcan.gc.ca/), an program of Naturel Resources Canada. Open North already works with several organizations to design the API (see list [below](#collaborators)).
 
 Open511 is currently under active development. The content shared here is the result of the first draft and is published as-is. Our wish is to follow a collaborative path to design this API; consequently any organization that would like to provide some feedback is welcome. Please refer to the "contribute" section in the right menu.
