@@ -30,7 +30,7 @@ representation :
     type: Free text
     desc: <p>Description of the service.</p>
   e :
-    name: <p>&mdash; service url</p>
+    name: <p>&mdash; service URL</p>
     mandatory: Mandatory
     type: Atom link
     desc: <p>Atom link with a <code>self</code> attribute the points to the service resource. An agregator will have a local resource for any given service and will publish the content from various jurisdictions.</p>    
@@ -45,7 +45,7 @@ representation :
     type: Free text
     desc: <p>Name of the jurisdiction. The field is purely description and should not be considered as a key</p>
   h :
-    name: <p>&mdash; jurisdiction url</p>
+    name: <p>&mdash; jurisdiction URL</p>
     mandatory: Mandatory
     type: Atom link
     desc: <p>Atom link with a <code>self</code> attribute the points to the complete description of the jurisdiction. An agregator should always point the original jurisdiction resource and not copy it locally.</p>    
@@ -74,12 +74,12 @@ representation :
 
 <h3>Parameters</h3>
 
-<p>The discovery resource only supports the <a href="parameters.html">common url paramaters</a><p>
+<p>The discovery resource only supports the <a href="parameters.html">common URL paramaters</a><p>
 <p>&nbsp;</p>
 
 <h3>Representation</h3>
 
-<p>The following table provides the data structure for the root resource (aka discovery). Although the format of the representation might change (xml or json), the overall data structure should be the same except when specified otherwise.
+<p>The following table provides the data structure for the root resource (aka discovery). Although the format of the representation might change (XML or JSON), the overall data structure should be the same except when specified otherwise.
 
 
 
@@ -97,9 +97,23 @@ representation :
 
 
 
-<p>Example of an xml representation of a jurisdiction</p>
+<p>Example of an XML representation of a jurisdiction</p>
 
-<pre>
+
+
+    <script>
+    $(function() {
+        $( "#tabs" ).tabs();
+    });
+    </script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+<pre class="brush: xml"  style="white-space: pre-wrap;">
   &lt;atom:link rel="self" href="http://api.open511.info/" /&gt;
   &lt;jurisdictions&gt;
     &lt;jurisdiction&gt;
@@ -115,3 +129,36 @@ representation :
     &lt;service&gt;
   &lt;/services&gt;
 </pre>
+    </div>
+    <div id="tabs-2">
+<pre class="brush: js" style="white-space: pre-wrap;">
+    "content": [
+        {
+            "status": "active", 
+            "lastUpdate": "2012-09-19T17:49:16.392996+00:00", 
+            "description": "Localisation: Rue Sauv\u00e9 Est, c\u00f4t\u00e9 sud \u00e0 lest du 220 et \u00e0 proximit\u00e9 de la rue Laverdure", 
+            "schedule": {
+                "startDate": "2012-05-28", 
+                "endDate": "2012-07-15"
+            }, 
+            "url": "/events/montreal/7894f73ce2243bc24810fa0048a4a819/", 
+            "eventType": "Roadwork", 
+            "jurisdiction": "http://dev.open511.ca/jurisdictions/montreal/", 
+            "geometry": {
+                "type": "Point", 
+                "coordinates": [
+                    -73.6585181951523, 
+                    45.5487123139747
+                ]
+            }, 
+            "related": "http://ville.montreal.qc.ca/pls/portal/docs/PAGE/M_CHANTIER_FR/MEDIA/DOCUMENTS/CSEM_SAUV%C9.PDF", 
+            "headline": "R\u00e9fection d'infrastructures souterraines", 
+            "creationDate": "2012-09-19T17:47:46.644610+00:00"
+        }, 
+</pre>
+    </div>
+</div>
+
+    <script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>

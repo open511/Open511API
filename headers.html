@@ -17,7 +17,7 @@ parameters :
   d :
     name : Accept
     required : optional
-    description : <p>Open511 resource support multiple representations (XML and JSON, more could be added in the future). In order to ease the negociation of the content type, the client should provide an <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">Accept</a></code> header specifying the type of representation accepted. For the moment, the value accepted are <code>application/xml</code> and <code>application/json</code>.</p><p>The server must answer with the appropriate <code>Content-Type</code> header.</p><p>The content negociation can be overriden by the <code><a href="parameters.html#parameters-format">format</a></code> URL parameter</p>
+    description : <p>Open511 resource support multiple representations (XML and JSON, more could be added in the future). In order to ease the negociation of the content type, the client should provide an 
   e :
     name : Authentication
     required : optional
@@ -31,13 +31,67 @@ parameters :
 
 {% include specsnav.html %}
 
-<p>Based on the REST design, the Open511 rely on the HTTP protocol to handle some specific tasks needed to negociate the content to be served. The following table lists the HTTP features that should be supported by both the server and the client. These are common features that many HTTP libraries will support.</p>
+<p>Presentation.</p>
 
 
-  <table class="parameters">
-        <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
-        {% assign anchor = 'parameters' %}
-{% for item in page.parameters reversed %} 
-   {% include paramgen.html %}
-{% endfor %}
-  </table>
+<h3>Encoding and other formatting elements</h3>
+
+<p>Here are some general guidelines about encoding and formatting</p>
+
+<ul>
+  <li>Character encoding must be in UTF-8</li>
+  <li>DateTime and Date fields will follow the ISO 8601 subset as per the <a href="http://www.w3.org/TR/NOTE-datetime">W3c note</a> except when specified otherwise</li>
+  <li>When a timezone has to be specified, it should use a timezone name from the <a href="http://en.wikipedia.org/wiki/Tz_database">TZ Database</a></li>
+  <li>Geospatial data will follow existing standards:
+    <ul>
+      <li>In XML, geometries will use <a href="http://en.wikipedia.org/wiki/Geography_Markup_Language">GML notation</a></li>
+      <li>In JSON, the geometries will use <a href="http://www.geojson.org/">GeoJSON</a></li>
+    </ul>
+  </li>
+  <li>In XML, links will use the <a href="http://tools.ietf.org/html/rfc4287">Atom link structure</a> and will use the IANA <a href="http://www.iana.org/assignments/link-relations/link-relations.xml">link relation list</a> where relevant</li>
+</ul>
+
+
+<h3>Choose the response format</h3>
+
+<p>In order to ease integration in various contexts, Open511 supports two formats (or representation): XML and JSON. The client can specify the format he wants to receive using the following options:</p>
+<ul>
+  <li>HTTP Header <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">Accept</a></code> header specifying the type of representation accepted. For the moment, the value accepted are <code>application/xml</code> and <code>application/json</code>. The server must answer with the appropriate <code>Content-Type</code> header.</li>
+  <li>URL parameter <code><a href="parameters.html#parameters-format">format</a></code> can also be used (and will override the HTTP header if both are present. Accepted values are <code>xml</code> and <code>json</code></li>
+</ul>
+
+<p>An XSD schema for the XML representation will be provided once the data structure is stabilized</p>
+
+<h3>Bandwidth optimization</h3>
+
+<p>Since the API has good chances to be used by mobile application, bandwidth optimization is an important criteria. Clients and servers should support the follow features:</p>
+
+<ul>
+  <li>Conditional request with <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.19">ETag</a></code> (for the server) and <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26">If-None-Match</a></code> (for the client) HTTP headers. See <a href="http://developer.yahoo.com/performance/rules.html#etags">Configure ETags</a> and <a href="http://en.wikipedia.org/wiki/HTTP_ETag">Wikipedia</a>.</li>
+  <li>Compression with HTTP header <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3">Accept-Encoding</a></code> and <code>Content-Encoding</code> is encouraged</li>
+</ul>
+
+
+<h3>Authentication and encryption mechanisms</h3>
+
+<p>Authentication and encryption are considered to be managed by the regular HTTP layer. Authentication and encryption are optional and left to the decision of each implementation within the following limits in order to meet interoperability targets:</p>
+<ul>
+  <li>Authentication: The only authentication mechanism supported is <a href="http://www.httpwatch.com/httpgallery/authentication/">HTTP Basic</a></li>
+  <li>Encryption: The only encryption supported <a href="https://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a></li>
+</ul>
+
+
+<h3>Choose your language</h3>
+
+<p>Open511 has the ability to support multiple languages. The negociation of the language can be done in two ways:
+  <ul>
+  <li>HTTP Header <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a></code> header specifies the language that the client accepts. For the moment, the value accepted are <code>application/xml</code> and <code>application/json</code>. The server must answer with the appropriate <code>Content-Type</code> header.</li>
+  <li>URL parameter <code>Accept-Language</code> can also be used (and will override the HTTP header if both are present) with the same values as the HTTP header.
+</ul>
+
+<p>In order to use the Accept-Language selector (either HTTP or URL parameter), the client provides a list of supported language in order of priority. For example <code>pt, en</code> for to get Portuguese at first and then english.</p>
+
+<p>The answer message will contain information about the language. In XML, the <code>xml:lang</code> will provide the language used for the answer. In JSON, a custom attribute <code>lang</code> will specify the language used, including for event lists in several language.</p>
+
+<p>Mixed language (some fields in a language, some other fields in an other language) will not be supported. The XML representation should provide all the languages avaiable for all the fields when no Accept-Language is provided (either in HTTP or URL). In this case, each free-text field must contain a <code>xml:lang</code> attribute.</p>
+

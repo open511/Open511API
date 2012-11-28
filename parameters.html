@@ -5,11 +5,11 @@ parameters :
   lang :
     name : lang
     required : optional 
-    description : <p>Specify the language requested. This url parameter overrides the corresponding <a href="header.html#parameters-Accept-Language">HTTP header</a>.</p> <p>The behaviour is the same as the HTTP, several coma-separated values can be provided in the order of priority. If not lang attribute is provided or if the language requested is not available, a fallback language is selected by the server (the default value is configured by the end point).</p> <pre>...?lang=fr,en</pre>
+    description : <p>Specify the language requested. This URL parameter overrides the corresponding <a href="header.html#parameters-Accept-Language">HTTP header</a>.</p> <p>The behaviour is the same as the HTTP, several coma-separated values can be provided in the order of priority. If not lang attribute is provided or if the language requested is not available, a fallback language is selected by the server (the default value is configured by the end point).</p> <pre>...?lang=fr,en</pre>
   format :
     name : format
     required : optional
-    description : <p>Specify the type of representation. This url parameter overrides the corresponding HTTP header. Possible values are <code>xml</code> and <code>json</code>. If no value is provided for the representation, the API will default to xml. </p> <pre>...?format=json</pre>
+    description : <p>Specify the type of representation. This URL parameter overrides the corresponding HTTP header. Possible values are <code>xml</code> and <code>json</code>. If no value is provided for the representation, the API will default to <code>xml</code>. </p> <pre>...?format=json</pre>
 ---
 {% include JB/setup %}
 

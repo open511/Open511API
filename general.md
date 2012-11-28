@@ -12,7 +12,7 @@ Open511 follows some general guideline that are applied to all the resources ava
 
 Althougth the REST style does not provide direct constains, the Open511 applies most of its best practices. It includes:
 * Use of HTTP as a uniform way to interact with resources.
-* Access to the resource via stable urls.
+* Access to the resource via stable URLs.
 * hypermedia structure: the resources are linked together to allow a client to jump from one resource to another.
 
 ### Representations {#representations}

@@ -297,7 +297,6 @@ attachement :
 {% endfor %}
   </table>
 
-
 <h3>Parameters</h3>
 
 <p>The events resource support all the common filtering and content negociation <a href="parameters.html">parameters</a></p>
@@ -306,7 +305,7 @@ attachement :
 
   <table class="parameters">
         <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
-{% for item in page.parameters reversed %} 
+{% for item in page.parameters  %} 
   <tr>
     {% for elem in item %} 
       {% if elem.name != nil %}
@@ -318,74 +317,23 @@ attachement :
   </table>
 
 
-<h3>Data structure</h3>
+  <h3>Example</h3>
 
-<p>The Following table provide the general message structure for the event resource. The <code>events</code> is a collection of <code>event</code> structure. Like other resources, events can support multiple representation (XML and JSON).</p>
+<p>Example of for the event representation (XML and JSON)</p>
 
-  <table class="representation">
-        <tr><th>Field</th><!--<th>Required/optional</th>--><th>Type</th><th>Description</th></tr>
-{% assign anchor = 'representation' %}
-{% for item in page.representation reversed %} 
-   {% include tablegen.html %} 
-{% endfor %}
-  </table>
-
-<a id="event"></a><h4>Event structure</h4>
-
-<p>The event structure is the main element of the events collection. although an event should be considered as independant, it is possible that one major event (mainly constructions) could be split across several events</p>
-
-<p><code><a href="https://github.com/opennorth/Open511API/issues/1">issue 1</a></code></p>
-
-  <table class="representation">
-        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-{% assign anchor = 'event' %}
-{% for item in page.event reversed %}
-   {% include tablegen.html %} 
-{% endfor %}
-  </table>
-
-<a id="road"></a><h4>Road structure</h4>
-
-<p>The road data format is used to provide information about the road(s) affected by an event.</p>
-
-  <table class="representation">
-        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-{% assign anchor = 'road' %}
-{% for item in page.road reversed %} 
-   {% include tablegen.html %}
-{% endfor %}
-  </table>
-
-<a id="schedule"></a><h4>Schedule structure</h4>
-
-<p></p>
-
-  <table class="representation">
-        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-{% assign anchor = 'schedule' %}
-{% for item in page.schedule reversed %} 
-   {% include tablegen.html %}
-{% endfor %}
-  </table>
-
-<a id="attachement"></a><h4>Attachement structure</h4>
-
-<p></p>
-
-  <table class="representation">
-        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-{% assign anchor = 'attachement' %}
-{% for item in page.attachement reversed %} 
-   {% include tablegen.html %}
-{% endfor %}
-  </table>
-
-
-<h3>Example</h3>
-
-<p>Example of an xml representation of a jurisdiction</p>
-
-<pre>
+    <script>
+    $(function() {
+        $( "#tabs" ).tabs();
+    });
+    </script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+<pre class="brush: xml">
 &lt;open511
     xmlns:atom="http://www.w3.org/2005/Atom"
     xmlns:gml="http://www.opengis.net/gml"
@@ -434,3 +382,100 @@ attachement :
   &lt;/roadEvent&gt;
 &lt;/open511&gt;  
 </pre>
+    </div>
+    <div id="tabs-2">
+<pre class="brush: js" style="white-space: pre-wrap;">
+[
+   {
+       "status": "active", 
+       "lastUpdate": "2012-09-19T17:49:16.392996+00:00", 
+       "description": "Sherbrooke street closed eastbound near 2nd and 3rd avenue", 
+       "schedule": {
+           "startDate": "2012-05-28", 
+           "endDate": "2012-07-15"
+       }, 
+       "url": "/events/MyCity/7894f73ce2243bc24810fa0048a4a819/", 
+       "eventType": "Roadwork", 
+       "jurisdiction": "http://dev.open511.ca/jurisdictions/MyCity/", 
+       "geometry": {
+           "type": "Point", 
+           "coordinates": [
+               -75.6585181951523, 
+               40.5487123139747
+           ]
+       }, 
+       "related": "http://mycity.gov/assets/pdf/event124.pdf", 
+       "headline": "Construction on Sherbrooke street", 
+       "creationDate": "2012-09-19T17:47:46.644610+00:00"
+   }
+] 
+</pre>  
+</div>
+</div>
+
+
+<h3>Data structure</h3>
+
+<p>The Following table provide the general message structure for the event resource. The <code>events</code> is a collection of <code>event</code> structure. Like other resources, events can support multiple representation (XML and JSON).</p>
+
+  <table class="representation">
+        <tr><th>Field</th><!--<th>Required/optional</th>--><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'representation' %}
+{% for item in page.representation  %} 
+   {% include tablegen.html %} 
+{% endfor %}
+  </table>
+
+<a id="event"></a><h4>Event structure</h4>
+
+<p>The event structure is the main element of the events collection. although an event should be considered as independant, it is possible that one major event (mainly constructions) could be split across several events</p>
+
+<p><code><a href="https://github.com/opennorth/Open511API/issues/1">issue 1</a></code></p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'event' %}
+{% for item in page.event  %}
+   {% include tablegen.html %} 
+{% endfor %}
+  </table>
+
+<a id="road"></a><h4>Road structure</h4>
+
+<p>The road data format is used to provide information about the road(s) affected by an event.</p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'road' %}
+{% for item in page.road  %} 
+   {% include tablegen.html %}
+{% endfor %}
+  </table>
+
+<a id="schedule"></a><h4>Schedule structure</h4>
+
+<p></p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'schedule' %}
+{% for item in page.schedule  %} 
+   {% include tablegen.html %}
+{% endfor %}
+  </table>
+
+<a id="attachement"></a><h4>Attachement structure</h4>
+
+<p></p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'attachement' %}
+{% for item in page.attachement  %} 
+   {% include tablegen.html %}
+{% endfor %}
+  </table>
+
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>

@@ -84,9 +84,8 @@ h3 {
 	margin-bottom: 7px;
 }
 
-p, ul {
-	line-height: 145%;
-	width: 75%;
+p, ul, li {
+	line-height: 175%;
 }
 
 .span12 {
@@ -129,8 +128,6 @@ p, ul {
 }
 
 td.name{
-	width: 100px;
-	font-family:"Courier New",monospace;
 	font-size: 100%;
 	min-width: 120px;
 	font-weight: bold;
@@ -138,7 +135,6 @@ td.name{
 
 td.name p {
 	font-weight: bold;
-	font-family:"Courier New",monospace;
 }
 
 td.mandatory {
