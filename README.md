@@ -1,9 +1,6 @@
 # Open511API
 
-Simple web pages containing the documentation for the open511 API.
-
-Built with [Jekyll](http://jekyllrb.com/), [Jekyll-Bootstrap](http://jekyllbootstrap.com) and [Twitter-Boostrap](http://jekyllbootstrap.com).
-
+Documentation of the Open511API
 
 ## License
 
