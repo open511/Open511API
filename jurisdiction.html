@@ -4,7 +4,7 @@ title: Jurisdiction
 presentation : 
   a :
     name : purpose
-    value : The jurisdiction represents any government entity (city, state, agency) that wants to publish open511 data. It is a functional concept used to provide some metadata about events like contact information
+    value : The jurisdiction represents any government entity (city, state/province, agency, etc.) that wants to publish open511 data. It is a functional concept used to provide some metadata about events like contact information, etc.
   b :
     name : method
     value : GET
@@ -13,12 +13,12 @@ representation :
     name: self
     mandatory: Mandatory
     type: <a href="guidelines.html#links">Link</a>
-    desc: <p>Self link to the current resource using atom link structure with <code>self</code> attribute.</p><pre>&lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/" /&gt; </pre> 
+    desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code></p>
   b :
-    name: parent
+    name: up
     type: <a href="guidelines.html#links">Link</a> 
     mandatory: Mandatory
-    desc: <p>Self link to the parent resource using atom link structure with <code>parent</code> attribute</p>
+    desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
   c :
     name: name
     type: free text
@@ -31,9 +31,9 @@ representation :
     desc: <p>Valid email that can be used to contact the department or the person in charge of the data provided by the Open511 API</p>    
   e :
     name: url
-    type: Link
+    type: <a href="guidelines.html#links">Link</a>
     mandatory: Optional
-    desc: <p>Human readable resource providing detail about the Open511 service and the jurisdiction covered.</p>  
+    desc: <p>Link pointing a human readable resource (web page, pdf file, etc) providing details about the Open511 service and the jurisdiction covered.</p>  
   f :
     name: phone
     type: Free text
@@ -46,34 +46,45 @@ representation :
     desc: <p>Free text that can be used by a client application to provide some information about the Open511 service and the jurisdiction covered.</p> 
   h :
     name: area
-    type: GML notation
-    mandatory: Mandatory
-    desc: <p>Geographical coverage of the jurisdiction. This field only accepts a polygon or a multipolygon. <code><a href="https://github.com/opennorth/Open511API/issues/14">Issue 14</a></code></p>
+    type: <a href="guidelines.html#geospatial">geography field</a>
+    mandatory: Mandatory <code><a href="https://github.com/opennorth/Open511API/issues/14">Issue 14</a></code>
+    desc: <p>Geographical coverage of the jurisdiction. This field only accepts a polygon or a multipolygons.</p>
   i :
     name: <p>&darr;&darr; license</p>
-    type: structure
+    type: <a href="#license">License</a> structure
     mandatory: Mandatory
     desc: <p>Provides information concerning the license covering the data provided by the API. <code><a href="https://github.com/opennorth/Open511API/issues/6">Issue 6</a></code></p> 
-  j :
-    name: <p>&mdash; URL</p>
-    type: <a href="guidelines.html#links">Link</a>
-    mandatory: Mandatory
-    desc: <p>Direct link to the license covering the data provided by the API</p>     
   k :
-    name: <p>&mdash; license_name</p>
-    type: Enum
-    mandatory: Optional
-    desc: <p>If the license if one of the well-known license and part of the enum supported by open511, it possible to add it in this field.</p><p>Enum:</p><pre>- ODBL<br>- CC0</pre>
-  l :
     name: <p>&darr;&darr; languages</p>
-    type: structure
+    type: Collection of <code>language</code>
     mandatory: Optional
     desc: <p>List of languages supported by this endpoint. A <code>language</code> element should be provided for each language supported</p> 
   m :
     name: <p>&mdash;  language</p>
     type: Enum
     mandatory: Mandatory
-    desc: <p>Multiple occurrences supported. The value supported corresponds the value supported by the <code>Accept-language</code></p>  
+    desc: <p>Multiple occurrences supported. The values supported are the same as the <a href="guidelines.html#lang">language negociation</a> feature</p>  
+license : 
+  a :
+    name: <p>&mdash; url</p>
+    type: <a href="guidelines.html#links">Link</a>
+    mandatory: Mandatory
+    desc: <p>Direct link to the license covering the data provided by the API.  In XML, the <code>rel</code> attribute needs the value <code>license</code></p>     
+  b :
+    name: <p>&mdash; licenseName</p>
+    type: Enum
+    mandatory: Optional
+    desc: <p>If the license if one of the well-known license and part of the enum supported by open511, it possible to add it in this field.</p><p>Enum:</p><pre>- ODBL<br>- CC0<br>- CC-BY<br>- ...</pre>
+  c :
+    name: <p>&darr;&darr; licenseConditions</p>
+    type: Collection of <code>condition</code>
+    mandatory: Optional
+    desc: <p>List of languages supported by this endpoint. A <code>language</code> element should be provided for each language supported</p> 
+  d :
+    name: <p>&mdash; licenseCondition</p>
+    type: Enum
+    mandatory: At least one element mandatory if the licenseConditions structure is present
+    desc: <p>Generic conditions that are contained in the license.</p><p>Enum:</p><pre>- ATTRIBUTION<br>- SHAREALIKE<br>- ...</pre>     
 ---
 {% include JB/setup %}
 
@@ -82,7 +93,7 @@ representation :
 <h3>Overview</h3>
 
   <table class="resource_pres">
-{% for item in page.presentation reversed %} 
+{% for item in page.presentation %} 
   <tr>
     {% for elem in item %} 
       {% if elem.name != nil %}
@@ -96,12 +107,12 @@ representation :
 
 <h3>Parameters and filters</h3>
 
-<p>The discovery resource does not support any URL parameter or filter besides the <a href="guidelines.html#format">format selection</a> and the <a href="guidelines.html#lang">language negociation</a>.</p>
+<p>The jurisdiction resource does not support any URL parameter or filter besides the <a href="guidelines.html#format">format selection</a> and the <a href="guidelines.html#lang">language negociation</a>.</p>
 
 
 <h3>Example</h3>
 
-<p>Example of the XML and JSON representations of the discovery resource</p>
+<p>Example of the XML and JSON representations of the jurisdiction resource</p>
 
 <script>
 $(function() {
@@ -136,7 +147,7 @@ $(function() {
       &lt;/gml:Polygon&gt;
     &lt;/area&gt;
     &lt;license&gt;
-      &lt;atom:link rel="copyright" href="http://my.city.gov/opendatalicense/"/&gt;
+      &lt;atom:link rel="license" href="http://my.city.gov/opendatalicense/"/&gt;
       &lt;licenseName&gt;CC-BY&lt;/licenseName&gt;
       &lt;conditions&gt;
         &lt;condition&gt;ATTRIBUTION&lt;/condition&gt;
@@ -184,24 +195,28 @@ $(function() {
 </script>
 
 
-<h3>Representation</h3>
+<h3>Jurisdiction data structure</h3>
 
-<p>The following table prodive the struture of the message to be expected for this resource. Although the format of the representation might change (XML or JSON), the overall data structure should be the same except when specified otherwise.
+<p>The following table prodive the struture of the message to be expected for this resource. Although the format of the representation might change (XML or JSON), the overall data structure should be the same except when specified otherwise.</p>
+
+<p><code><a href="https://github.com/opennorth/Open511API/issues/15">Issue 15</a></code></p>
 
   <table class="representation">
-        <tr><th>Field</th><th>Required/optional</th><th>Type</th><th>Description</th></tr>
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'representation' %}
 {% for item in page.representation %} 
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-        {% if elem.type == 'structure' %}
-          <tr class="structure">
-        {% else %} 
-          <tr>
-        {% endif %}
-      <td class="name">{{ elem.name }}</td><td class="mandatory">{{ elem.mandatory }}</td><td class="type">{{ elem.type }}</td><td>{{ elem.desc }}</td>
-  </tr>
-      {% endif %}
-    {% endfor %}
-{% endfor %}
-  </table>
+   {% include tablegen.html %}
+{% endfor %}   
+     </table>
+
+<a id="license"></a>
+<h3>License data structure</h3>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'license' %}
+{% for item in page.license %} 
+   {% include tablegen.html %}
+{% endfor %}   
+     </table>     
 

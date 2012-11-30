@@ -26,10 +26,8 @@ The open511 specification is the first draft designed. The format is expected to
 
 ## Roadmap and timeline {#timeline}
 
-The first draft of the specification released to collaborators in october 2012 and made public in dec 2012. A second iteration is due for Jan 2013 and a third and last one for April 2013. At that point, the specification should be considered stable enough for general implementation.
+The first draft of the specification have been released to collaborators in october 2012 and made public in december 2012. A second iteration is due for Jan 2013 and a third and last one for April 2013. At that point, the specification should be considered stable enough for general implementation.
 
-The next iteration should provide some improvements concerning the architecture and the data format. I might also include two news services:
-* Crowdsourcing: the ability for citizen to submit reports will be supported in the second iteration,
-* Network data: The release of the first draft raised the need to link an event with some the road network. Added to that some transportation would like to publish their road network. As a consequence, a news resource might be added to support this feature although it is still under discussion. [(Issue 11)](https://github.com/opennorth/Open511API/issues/11)
-
-In order to test the specification, a leading implementation should take place beginning of 2013 with one of the collaborators of the initiative.
+The second iteration should provide some improvements concerning the architecture and the data format. It might also include two news services:
+* Crowdsourcing: the ability for citizens to submit reports like in the open311 framework,
+* Network data: The release of the first draft raised the need to link an event with the road network. Added to that some transportation agencies would like to publish their road network. As a consequence, a new resource might be added to support this feature although it is still under discussion. [(Issue 11)](https://github.com/opennorth/Open511API/issues/11)
