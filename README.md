@@ -1,6 +1,6 @@
 # Open511API
 
-Documentation of the Open511API
+Documentation of the Open511API.
 
 ## License
 
