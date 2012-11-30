@@ -10,51 +10,51 @@ presentation :
     value : GET
 representation : 
   a :
-    name: Self
+    name: self
     mandatory: Mandatory
-    type: Atom link
-    desc: <p>Self link to the current resource using atom link structure with <code>self</code> attribute.<pre>&lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/" /&gt; </pre> </p>
+    type: <a href="guidelines.html#links">Link</a>
+    desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>.</p>
   b :
-    name: <p>&darr;&darr;services</p>
+    name: <p>services</p>
     mandatory: Mandatory
     type: Collection of <code>service</code>
-    desc: <p>List all the services supported by the endpoint. Currently, only one service is supported (events), so this structure should only contain on item.</p><pre>  &lt;services&gt;<br>    &lt;service&gt;<br>      &lt;service_type&gt;events&lt;/service_type&gt;<br>      &lt;service_description&gt;A description&lt;/service_description&gt;<br>      &lt;atom:link rel="self" href="http&colon;//api.open511.info/events" /&gt;<br>    &lt;service&gt;<br>  &lt;/services&gt;</pre>
+    desc: <p>List all the services supported by the endpoint. Currently, only one service is supported (events), so this structure should only contain one item.</p>
   c :
-    name: <p>&mdash; service_type</p>
+    name: <p>&mdash; type</p>
     mandatory: Mandatory
     type: Value list
     desc: <p>List of predefined services that are supported by the open511 API. For the moment the only service designed is the event service.</p><p>Value list:</p> <pre>events</pre>
   d :
-    name: <p>&mdash; service_description</p>
+    name: <p>&mdash; description</p>
     mandatory: Optional
     type: Free text
-    desc: <p>Description of the service.</p>
+    desc: <p>Description of the service.<code><a href="https://github.com/opennorth/Open511API/issues/13">Issue 13</a></code></p>
   e :
-    name: <p>&mdash; service URL</p>
+    name: <p>&mdash; url</p>
     mandatory: Mandatory
-    type: Atom link
+    type: <a href="guidelines.html#links">Link</a>
     desc: <p>Atom link with a <code>self</code> attribute the points to the service resource. An agregator will have a local resource for any given service and will publish the content from various jurisdictions.</p>    
   f :
     name: <p>&darr;&darr;jurisdictions</p>
     mandatory: Mandatory, at least one <code>jurisdiction</code> element is mandatory
     type: Collection of <code>jurisdiction</code>
-    desc: <p>List all the jurisdictions that are supported by the endpoint. Most of the time, there will be only one occurrence, except for multiple jurisdictions endpoints and agregators.</p><pre>  &lt;jurisdictions&gt;<br>    &lt;jurisdiction&gt;<br>      &lt;name&gt;Ville de Montréal&lt;/name&gt;<br>      &lt;atom:link rel="self" href="http&colon;//ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/" /&gt;<br>    &lt;/jurisdiction&gt;<br>  &lt;/jurisdiction&gt;</pre>
+    desc: <p>List all the jurisdictions that are supported by the endpoint. Most of the time, there will be only one occurrence, except for multiple jurisdictions endpoints and agregators.</p>
   g :
     name: <p>&mdash; name</p>
     mandatory: Mandatory
     type: Free text
     desc: <p>Name of the jurisdiction. The field is purely description and should not be considered as a key</p>
   h :
-    name: <p>&mdash; jurisdiction URL</p>
+    name: <p>&mdash;  url</p>
     mandatory: Mandatory
-    type: Atom link
-    desc: <p>Atom link with a <code>self</code> attribute the points to the complete description of the jurisdiction. An agregator should always point the original jurisdiction resource and not copy it locally.</p>    
+    type: <a href="guidelines.html#links">Link</a>
+    desc: <p>Link to the jurisdiction resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>. An agregator should always point the original jurisdiction resource and not copy it locally.</p>    
 ---
 {% include JB/setup %}
 {% include specsnav.html %}
 
 
-<p>Following the guidelines of the REST architecture, the Open511 provides a single entry point that provides links to all the resources of the API. The root URL is the only that needs to be published when a juridiction sets up a 511 endpoint and client always rely on the links provided by the discovery resource to locate other resources.</p>
+<p>Following the guidelines of the REST architecture, the Open511 provides a single entry point that provides links to all the resources of the API. The root URL is the only that needs to be published when a juridiction sets up an Open511 endpoint and clients should rely on the links provided by the discovery resource to locate other resources.</p>
 
 
 <h3>Overview</h3>
@@ -70,42 +70,21 @@ representation :
   </tr>
 {% endfor %}
   </table>
-<p>&nbsp;</p>
 
-<h3>Parameters</h3>
+<h3>Parameters and filters</h3>
 
-<p>The discovery resource only supports the <a href="parameters.html">common URL paramaters</a><p>
-<p>&nbsp;</p>
+<p>The discovery resource does not support any URL parameter or filter besides the <a href="guidelines.html#format">format selection</a> and the <a href="guidelines.html#lang">language negociation</a>.</p>
 
-<h3>Representation</h3>
-
-<p>The following table provides the data structure for the root resource (aka discovery). Although the format of the representation might change (XML or JSON), the overall data structure should be the same except when specified otherwise.
-
-
-
-  <table class="representation">
-        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-{% assign anchor = 'representation' %}
-{% for item in page.representation reversed %} 
-   {% include tablegen.html %}
-{% endfor %}       
-  </table>
-
-<p>&nbsp;</p>
 
 <h3>Example</h3>
 
+<p>Example of the XML and JSON representations of the discovery resource</p>
 
-
-<p>Example of an XML representation of a jurisdiction</p>
-
-
-
-    <script>
-    $(function() {
-        $( "#tabs" ).tabs();
-    });
-    </script>
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+});
+</script>
  
 <div id="tabs">
     <ul>
@@ -113,13 +92,22 @@ representation :
         <li><a href="#tabs-2">JSON</a></li>
     </ul>
     <div id="tabs-1">
-<pre class="brush: xml"  style="white-space: pre-wrap;">
+<pre class="brush: xml">
+&lt;open511
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xml:lang="en"
+    xml:base="http://api.open511.info/"
+&gt;  
   &lt;atom:link rel="self" href="http://api.open511.info/" /&gt;
   &lt;jurisdictions&gt;
     &lt;jurisdiction&gt;
-      &lt;name&gt;Ville de Montréal&lt;/name&gt;
-      &lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/" /&gt;
+      &lt;name&gt;My City&lt;/name&gt;
+      &lt;atom:link rel="self" href="http://my.city.gov/open511/jurisdiction/my-city/" /&gt;
     &lt;/jurisdiction&gt;
+    &lt;jurisdiction&gt;
+      &lt;name&gt;My Region&lt;/name&gt;
+      &lt;atom:link rel="self" href="http://my.region.gov/open511/jurisdiction/my-region/" /&gt;
+    &lt;/jurisdiction&gt;    
   &lt;/jurisdiction&gt;
   &lt;services&gt;
     &lt;service&gt;
@@ -128,37 +116,52 @@ representation :
       &lt;atom:link rel="self" href="http://api.open511.info/events" /&gt;
     &lt;service&gt;
   &lt;/services&gt;
+&lt;/open511&gt;
 </pre>
     </div>
     <div id="tabs-2">
-<pre class="brush: js" style="white-space: pre-wrap;">
-    "content": [
-        {
-            "status": "active", 
-            "lastUpdate": "2012-09-19T17:49:16.392996+00:00", 
-            "description": "Localisation: Rue Sauv\u00e9 Est, c\u00f4t\u00e9 sud \u00e0 lest du 220 et \u00e0 proximit\u00e9 de la rue Laverdure", 
-            "schedule": {
-                "startDate": "2012-05-28", 
-                "endDate": "2012-07-15"
-            }, 
-            "url": "/events/montreal/7894f73ce2243bc24810fa0048a4a819/", 
-            "eventType": "Roadwork", 
-            "jurisdiction": "http://dev.open511.ca/jurisdictions/montreal/", 
-            "geometry": {
-                "type": "Point", 
-                "coordinates": [
-                    -73.6585181951523, 
-                    45.5487123139747
-                ]
-            }, 
-            "related": "http://ville.montreal.qc.ca/pls/portal/docs/PAGE/M_CHANTIER_FR/MEDIA/DOCUMENTS/CSEM_SAUV%C9.PDF", 
-            "headline": "R\u00e9fection d'infrastructures souterraines", 
-            "creationDate": "2012-09-19T17:47:46.644610+00:00"
-        }, 
+<pre class="brush: js">
+{
+  "jurisdictions": [
+      {
+          "name": "My City", 
+          "url": "http://my.city.gov/open511/jurisdiction/my-city/"
+      },
+      {
+          "name": "My Region", 
+          "url": "http://my.region.gov/open511/jurisdiction/my-city/"
+      }
+  ],
+  "services": [
+      {
+          "type": "events",
+          "description": "Provide information about events impacting the road system",
+          "url": "http://api.open511.info/events"
+      }
+  ]
+}
 </pre>
-    </div>
+</div>
 </div>
 
-    <script type="text/javascript">
+<script type="text/javascript">
      SyntaxHighlighter.all()
 </script>
+
+<h3>Data structure</h3>
+
+<p>The following table provides the data structure for the root resource (aka discovery). Although the format of the representation might change (XML or JSON), the overall data structure should be the same except when specified otherwise.
+
+
+
+  <table class="representation">
+    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'representation' %}
+{% for item in page.representation %} 
+   {% include tablegen.html %}
+{% endfor %}       
+  </table>
+
+<p>&nbsp;</p>
+
+

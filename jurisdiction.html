@@ -12,11 +12,11 @@ representation :
   a :
     name: self
     mandatory: Mandatory
-    type: Atom link
+    type: <a href="guidelines.html#links">Link</a>
     desc: <p>Self link to the current resource using atom link structure with <code>self</code> attribute.</p><pre>&lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/" /&gt; </pre> 
   b :
     name: parent
-    type: Atom link    
+    type: <a href="guidelines.html#links">Link</a> 
     mandatory: Mandatory
     desc: <p>Self link to the parent resource using atom link structure with <code>parent</code> attribute</p>
   c :
@@ -30,8 +30,8 @@ representation :
     mandatory: Mandatory
     desc: <p>Valid email that can be used to contact the department or the person in charge of the data provided by the Open511 API</p>    
   e :
-    name: URL
-    type: Free text
+    name: url
+    type: Link
     mandatory: Optional
     desc: <p>Human readable resource providing detail about the Open511 service and the jurisdiction covered.</p>  
   f :
@@ -48,15 +48,15 @@ representation :
     name: area
     type: GML notation
     mandatory: Mandatory
-    desc: <p>Geographical coverage of the jurisdiction. This field only accepts a polygon or a multipolygon</p><pre>&lt;gml:Polygon srsName="EPSG:4326"&gt;<br>  &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40&lt;/gml:coordinates&gt;<br>&lt;/gml:polygon&gt;</pre> 
+    desc: <p>Geographical coverage of the jurisdiction. This field only accepts a polygon or a multipolygon. <code><a href="https://github.com/opennorth/Open511API/issues/14">Issue 14</a></code></p>
   i :
     name: <p>&darr;&darr; license</p>
     type: structure
     mandatory: Mandatory
-    desc: <p>Provides information concerning the license covering the data provided by the API.</p> 
+    desc: <p>Provides information concerning the license covering the data provided by the API. <code><a href="https://github.com/opennorth/Open511API/issues/6">Issue 6</a></code></p> 
   j :
     name: <p>&mdash; URL</p>
-    type: Atom link
+    type: <a href="guidelines.html#links">Link</a>
     mandatory: Mandatory
     desc: <p>Direct link to the license covering the data provided by the API</p>     
   k :
@@ -94,9 +94,94 @@ representation :
   </table>
 
 
-<h3>Parameters</h3>
+<h3>Parameters and filters</h3>
 
-<p>The discovery resource only supports the <a href="parameters.html">common URL paramaters</a><p>
+<p>The discovery resource does not support any URL parameter or filter besides the <a href="guidelines.html#format">format selection</a> and the <a href="guidelines.html#lang">language negociation</a>.</p>
+
+
+<h3>Example</h3>
+
+<p>Example of the XML and JSON representations of the discovery resource</p>
+
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+});
+</script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+<pre class="brush: xml">
+&lt;open511
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:gml="http://www.opengis.net/gml"
+    xml:lang="en"
+    xml:base="http://api.open511.info/"
+&gt;  
+  &lt;jurisdiction&gt;
+    &lt;atom:link rel="self" href="http://my.city.gov/open511/jurisdiction/my-city/" /&gt;
+    &lt;atom:link rel="up" href="http://my.city.gov/open511/" /&gt;    
+    &lt;name&gt;My City&lt;/name&gt;
+    &lt;email&gt;mayor@my.city.gov&lt;/email&gt;
+    &lt;phone&gt;+1 555-555-0000&lt;/phone&gt;
+    &lt;description&gt;Official traffic data (construction) from My City&lt;/phone&gt;
+    &lt;atom:link rel="description" href="http://my.city.gov/open511/presentation.html" /&gt;
+    &lt;area&gt;
+      &lt;gml:Polygon srsName="EPSG:4326"&gt;
+        &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40&lt;/gml:coordinates&gt;
+      &lt;/gml:Polygon&gt;
+    &lt;/area&gt;
+    &lt;license&gt;
+      &lt;atom:link rel="copyright" href="http://my.city.gov/opendatalicense/"/&gt;
+      &lt;licenseName&gt;CC-BY&lt;/licenseName&gt;
+      &lt;conditions&gt;
+        &lt;condition&gt;ATTRIBUTION&lt;/condition&gt;
+        &lt;condition&gt;SHAREALIKE&lt;/condition&gt;
+      &lt;/conditions&gt;
+    &lt;/license&gt;
+    &lt;languages&gt;
+      &lt;language&gt;fr&lt;/language&gt;
+      &lt;language&gt;en&lt;/language&gt;
+    &lt;/languages&gt;
+  &lt;/jurisdiction&gt;
+&lt;/open511&gt;  
+</pre>
+    </div>
+    <div id="tabs-2">
+<pre class="brush: js">
+{
+  "self" : "http://my.city.gov/open511/jurisdiction/my-city/",
+  "up" : "http://open511.info/open511/",
+  "name" : "My City",
+  "email" : "mayor@my.city.gov",
+  "phone" : "1 555-555-0000",
+  "description" : "Official traffic data (construction) from My City",
+  "url" : "http://my.city.gov/open511/presentation.html",
+  "area" :  {
+      "type": "Polygon",
+      "coordinates": [
+          [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0],
+              [100.0, 1.0], [100.0, 0.0] ]
+          ]
+    },
+  "license" : {
+      "url" : "http://my.city.gov/opendatalicense/",
+      "name" : "CC-BY",
+      "conditions" : ["ATTRIBUTION", "SHAREALIKE"]
+    },
+  "languages" : ["en", "fr"]
+}
+</pre>
+</div>
+</div>
+
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>
 
 
 <h3>Representation</h3>
@@ -105,7 +190,7 @@ representation :
 
   <table class="representation">
         <tr><th>Field</th><th>Required/optional</th><th>Type</th><th>Description</th></tr>
-{% for item in page.representation reversed %} 
+{% for item in page.representation %} 
     {% for elem in item %} 
       {% if elem.name != nil %}
         {% if elem.type == 'structure' %}
@@ -120,34 +205,3 @@ representation :
 {% endfor %}
   </table>
 
-<h3>Example</h3>
-
-<p>Example of an XML representation of a jurisdiction</p>
-
-<pre>
-  &lt;jurisdiction&gt;
-    &lt;!-- all fields not labelled as mandatory are optional --&gt;
-    &lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/" /&gt; &lt;!-- mandatory --&gt;
-    &lt;name&gt;Ville de Montréal&lt;/name&gt; &lt;!-- mandatory --&gt;
-    &lt;email&gt;mayor@ville.montreal.qc.ca&lt;/email&gt; &lt;!-- mandatory --&gt;
-    &lt;phone&gt;+1 514-872-0000&lt;/phone&gt;
-    &lt;atom:link rel="description" href="http://ville.montreal.qc.ca/open511/presentation.html" /&gt;
-    &lt;area&gt;
-      &lt;gml:Polygon srsName="EPSG:4326"&gt;
-        &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40&lt;/gml:coordinates&gt;
-      &lt;/gml:Polygon&gt;
-    &lt;/area&gt;
-    &lt;license&gt;
-      &lt;atom:link rel="copyright" href="http://donnees.ville.montreal.qc.ca/licence/licence-texte-complet/"/&gt; &lt;!-- mandatory --&gt;
-      &lt;licenseName&gt;CC-BY&lt;/licenseName&gt;
-      &lt;conditions&gt;
-        &lt;condition&gt;ATTRIBUTION&lt;/condition&gt;
-        &lt;condition&gt;SHAREALIKE&lt;/condition&gt;
-      &lt;/conditions&gt;
-    &lt;/license&gt;
-    &lt;languages&gt;
-      &lt;language&gt;fr&lt;/language&gt;
-      &lt;language&gt;en&lt;/language&gt;
-    &lt;/languages&gt;
-  &lt;/jurisdiction&gt;
-</pre>

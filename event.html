@@ -12,7 +12,7 @@ parameters :
   a :
     name : start_date
     required : optional 
-    description : <p>The start date parameter allow searching events that will be or have been active anytime after the provided parameter. The start_date parameter can be past or future. The parameter should include complete date including the timezone.</p>
+    description : <p>The start date parameter allow searching events that will be or have been active anytime after the provided parameter. The start_date parameter can be past or future. The parameter should include complete date including the timezone. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
   b :
     name : end_date
     required : optional
@@ -37,11 +37,11 @@ representation :
   a :
     name: self
     mandatory: Mandatory
-    type: Atom link
+    type: <a href="guidelines.html#links">Link</a>
     desc: <p>Self link to the current resource using atom link structure with relation attribute set to <code>self</code>.</p><pre>&lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/events" /&gt; </pre> 
   b :
     name: parent
-    type: Atom link    
+    type: <a href="guidelines.html#links">Link</a>   
     mandatory: Mandatory
     desc: <p>Link to the parent resource using atom link structure with relation attribute set to <code>up</code></p>
   c :
@@ -54,11 +54,6 @@ representation :
     type: Pagination structure
     mandatory: Conditional (mandatory if more than one page)
     desc: <p>The pagination structure provides information about the current position in the pagination and links to other pages</p>
-  e :
-    name: <p>&mdash; total_count</p>
-    mandatory: Optional
-    type: integer
-    desc: <p>Total number of events (or pages?) given the current filtering conditions</p>
   f :
     name: <p>&mdash; offset</p>
     type: integer    
@@ -71,23 +66,23 @@ representation :
     desc: <p>Number events listed in the current page</p>
   h :
     name: <p>&mdash; next</p>
-    type: Atom link
+    type: <a href="guidelines.html#links">Link</a>
     mandatory: Conditional (mandatory if a next page exists)
     desc: <p>Atom link pointing the next page of event. Relation attribute value is <code>next</code></p>        
   i :
     name: <p>&mdash; previous</p>
-    type: Atom link
+    type: <a href="guidelines.html#links">Link</a>
     mandatory: Conditional (mandatory if a previous page exists)
     desc: <p>Atom link pointing the previous page of event. Relation attribute value is <code>previous</code></p>   
 event : 
   a :
     name: self
     mandatory: Mandatory
-    type: Atom link
+    type: <a href="guidelines.html#links">Link</a>
     desc: <p>Self link to the event resource using atom link structure relation attribute set to <code>self</code></p>.<pre>&lt;atom:link rel="self" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/event/12937" /&gt; </pre> 
   b :
     name: jurisdiction
-    type: Atom link
+    type: <a href="guidelines.html#links">Link</a>
     mandatory: Mandatory
     desc: <p>Link to the jurisdiction owning this event using atom link structure with relation attribute set to <code>author (?)</code></p>
   c :
@@ -128,18 +123,18 @@ event :
   k :
     name: last_update
     type: DateTime
-    mandatory: Conditional
-    desc: <p>This field is mandatory if the event have been modified after its creation. This field provide the date and time of the last update.</pre>
+    mandatory: Mandatory
+    desc: <p>This field provide the date and time of the last update. The value is the same as the creation date if not change occurred.</pre>
   l :
     name: related_event
-    type: Atom link
+    type: <a href="guidelines.html#links">Link</a>
     mandatory: Optional
     desc: <p>This field is used to group events together. In specific situations (for example complex construction projects), several events might be related together. This field should be used to point a related event. Use Atom link with attribute <code>related</code></p> 
   m :
     name: detour
     type: Free text
     mandatory: Optional
-    desc: <p>If some detour information are available, they could be provided in this field as a free text</p>
+    desc: <p>If some detour information are available, they could be provided in this field as a free text <code><a href="https://github.com/opennorth/Open511API/issues/9">Issue 9</a></code></p>
   n :
     name: traveler_message
     type: Enum
@@ -149,7 +144,7 @@ event :
     name: geometry
     type: GML
     mandatory: Mandatory
-    desc: <p>Geographical information about the event using the GML notation. Valid type of geometry can be points, multipoints, linestring and multilinestrings. Example</p><pre>&lt;gml:linestring srsName="EPSG:4326"&gt;<br>  &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35&lt;/gml:coordinates&gt;<br>&lt;/gml:linestring&gt;</pre> 
+    desc: <p>Geographical information about the event using the GML notation. Valid type of geometry can be points, multipoints, linestring, multilinestrings and polygon. Example</p><pre>&lt;gml:linestring srsName="EPSG:4326"&gt;<br>  &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35&lt;/gml:coordinates&gt;<br>&lt;/gml:linestring&gt;</pre> 
   p :
     name: roads
     type: Collection of <a href="#road">road</a>
@@ -170,7 +165,7 @@ road :
     name: road_name
     mandatory: Mandatory
     type: Free text
-    desc: <p>Name or identifier of the road affected by the event. When possible, this field should contain a value that fits the national symbology for roads and highways.</p> 
+    desc: <p>Name of the road affected by the event. When possible, this field should contain a value that fits the national symbology for roads and highways.</p> 
   b :
     name: from
     type: free text
@@ -270,7 +265,7 @@ attachement :
     desc: <p>Size of the content that is linked expressed in kilobytes (kb)</p>
   c :
     name: link
-    type: Atom link
+    type: <a href="guidelines.html#links">Link</a>
     mandatory: Mandatory
     desc: <p>Atom link pointing the attachement with attribute <code>related</code></p>
   d :
@@ -299,7 +294,7 @@ attachement :
 
 <h3>Parameters</h3>
 
-<p>The events resource support all the common filtering and content negociation <a href="parameters.html">parameters</a></p>
+<p>Added to the filters described below, the event resource also support <a href="guidelines.html#format">format selection</a> and <a href="guidelines.html#lang">language negociation</a>.</p>
 
 <p>By default, all the fields of the event structure can be used as filtering criteria. So for example, a query to retrieve events on road HWY-73 will just contain <code>...?road_name=HWY-73</code>. Added to this, the following parameters are supported</p>
 
@@ -345,16 +340,19 @@ attachement :
   &lt;roadEvent&gt;
     &lt;status&gt;active&lt;/status&gt; 
     &lt;atom:link rel="self" href="/events/23948/" /&gt;
-    &lt;atom:link rel="jurisdiction" href="http://ville.montreal.qc.ca/open511/jurisdiction/ville-montreal/" /&gt;
-    &lt;headline&gt;Rebuilding of sewer pipes&lt;/headline&gt; 
-    &lt;headline xml:lang="fr"&gt;Réfection de conduite d'égout (réhabilitation)&lt;/headline&gt; 
-    &lt;description xml:lang="fr"&gt;La Ville de Montréal vous informe de la reprise des travaux de reconstruction de conduits dégout et daqueduc dans la rue Saint-Thomas ainsi quau cœur de lintersection de la rue Ottawa. &lt;/description&gt;
-    &lt;eventType&gt;Roadwork&lt;/eventType&gt; 
-    &lt;eventSubType&gt;Construction&lt;/eventSubType&gt;
+    &lt;atom:link rel="jurisdiction" href="http://my.city.gov/open511/jurisdiction/my-city/" /&gt;
+    &lt;headline&gt;Urgent rebuilding of sewer pipes&lt;/headline&gt; 
+    &lt;headline xml:lang="fr"&gt;Réfection d'urgence d'une conduite d'égout&lt;/headline&gt; 
+    &lt;description&gt;The City inform you that broadway street will be closed between 1st and 4th avenue during the month of april due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.&lt;/description&gt;
+    &lt;description xml:lang="fr"&gt;La Ville de Montréal vous informe que la Grande avenue sera fermée à la circulation entre la 1ère et la 4ème avenue pour le mois d'avril pour cause de travaux d'urgence sur une conduite d'égouts. La circulation locale en direction de l'est sera permise sur une voie.&lt;/description&gt;
+    &lt;eventType&gt;Incident&lt;/eventType&gt; 
+    &lt;eventSubType&gt;Urgent roadwork&lt;/eventSubType&gt;
     &lt;severity&gt;2&lt;/severity&gt; 
+    &lt;certainty&gt;Observed&lt;/certainty&gt; 
     &lt;creationDate&gt;2012-05-23T20:33:10Z&lt;/creationDate&gt;
     &lt;lastUpdate&gt;2012-05-24T10:00:10Z&lt;/lastUpdate&gt;
-    &lt;detour&gt;Take St-Antoine travelling east, and Wellington travelling west.&lt;/detour&gt;
+    &lt;detour&gt;Take Sherbrooke travelling east, and Wellington travelling west.&lt;/detour&gt;
+    &lt;travelerMessage&gt;Avoid-region.&lt;/travelerMessage&gt;
     &lt;geometry&gt;
       &lt;gml:Linestring srsName="EPSG:4326"&gt;
         &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40&lt;/gml:coordinates&gt;
@@ -362,9 +360,11 @@ attachement :
     &lt;/geometry&gt;
     &lt;roads&gt;
       &lt;road&gt;
-        &lt;roadName&gt;rue Saint-Thomas&lt;/roadName&gt;
-        &lt;from&gt;rue Ottawa&lt;/from&gt;
-        &lt;direction&gt;all&lt;/direction&gt;
+        &lt;roadName&gt;Broadway St East&lt;/roadName&gt;
+        &lt;from&gt;1st avenue&lt;/from&gt;
+        &lt;to&gt;4th avenue&lt;/to&gt;
+        &lt;direction&gt;E&lt;/direction&gt;
+        &lt;laneStatus&gt;10&lt;/direction&gt;          
         &lt;impactedSystems&gt;
           &lt;impactedSystem&gt;Road&lt;/impactedSystem&gt;
           &lt;impactedSystem&gt;On-Street Parking&lt;/impactedSystem&gt;
@@ -373,42 +373,90 @@ attachement :
           &lt;restriction&gt;Local Traffic Only&lt;/restriction&gt;
         &lt;/restrictions&gt;
       &lt;/road&gt;
+      &lt;road&gt;
+        &lt;roadName&gt;Broadway St West&lt;/roadName&gt;
+        &lt;from&gt;1st avenue&lt;/from&gt;
+        &lt;to&gt;4th avenue&lt;/to&gt;
+        &lt;direction&gt;W&lt;/direction&gt;  
+        &lt;laneStatus&gt;11&lt;/direction&gt;              
+        &lt;impactedSystems&gt;
+          &lt;impactedSystem&gt;Road&lt;/impactedSystem&gt;
+          &lt;impactedSystem&gt;On-Street Parking&lt;/impactedSystem&gt;
+        &lt;/impactedSystems&gt;
+      &lt;/road&gt;      
     &lt;/roads&gt;
     &lt;schedule&gt;
-      &lt;startDate&gt;2012-03-23&lt;/startDate&gt; 
-      &lt;endDate&gt;2012-04-15&lt;/endDate&gt; 
+      &lt;startDate&gt;2012-04-01&lt;/startDate&gt; 
+      &lt;endDate&gt;2012-04-30&lt;/endDate&gt; 
     &lt;/schedule&gt;
-    &lt;atom:link rel="enclosure" type="application/pdf" href="http://ville.montreal.qc.ca/avis-citoyens/39473/Refection-conduite-egout-SaintThomas.pdf" length="200000" /&gt;
+    &lt;attachement&gt;
+      &lt;startDate&gt;2012-04-01&lt;/startDate&gt; 
+      &lt;endDate&gt;2012-04-30&lt;/endDate&gt; 
+    &lt;/attachement&gt;    
+    &lt;atom:link rel="enclosure" type="application/pdf" href="http://my.city.gov/trafic/advisory/39473/com.pdf" length="200000" /&gt;
   &lt;/roadEvent&gt;
 &lt;/open511&gt;  
 </pre>
     </div>
     <div id="tabs-2">
-<pre class="brush: js" style="white-space: pre-wrap;">
-[
-   {
-       "status": "active", 
-       "lastUpdate": "2012-09-19T17:49:16.392996+00:00", 
-       "description": "Sherbrooke street closed eastbound near 2nd and 3rd avenue", 
-       "schedule": {
-           "startDate": "2012-05-28", 
-           "endDate": "2012-07-15"
-       }, 
-       "url": "/events/MyCity/7894f73ce2243bc24810fa0048a4a819/", 
-       "eventType": "Roadwork", 
-       "jurisdiction": "http://dev.open511.ca/jurisdictions/MyCity/", 
-       "geometry": {
-           "type": "Point", 
-           "coordinates": [
-               -75.6585181951523, 
-               40.5487123139747
-           ]
-       }, 
-       "related": "http://mycity.gov/assets/pdf/event124.pdf", 
-       "headline": "Construction on Sherbrooke street", 
-       "creationDate": "2012-09-19T17:47:46.644610+00:00"
-   }
-] 
+<pre class="brush: js">
+{
+  "self" : "http://api.open511.info/events/",
+  "up" : "http://api.open511.info/"
+  "event" : [
+     {
+         "url" : "/events/montreal/7894f73ce2243bc24810fa0048a4a819/",
+         "jurisdiction" : "http://my.city.gov/open511/jurisdiction/my-city/",
+         "headline" : "Urgent rebuilding of sewer pipes",
+         "status" : "active", 
+         "lastUpdate" : "2012-09-19T17:49:16.392996+00:00", 
+         "creationDate" : "2012-09-19T17:47:46.644610+00:00",
+         "description" : "The City inform you that broadway street will be closed between 1st and 4th avenue during the month of april due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.",
+         "eventType": "Incident", 
+         "eventSubType" : "Urgent roadwork", 
+         "severity" : 2,
+         "certainty" : "observed",
+         "detour" : "Take Sherbrooke travelling east, and Wellington travelling west.",
+         "travelerMessage" : "Avoid-region", 
+         "geometry": {
+             "type": "Point", 
+             "coordinates": [
+                 -75.6585181951523, 
+                 40.5487123139747
+             ]
+         },
+         "roads" : [
+            {
+                "roadName" : "Broadway St. East",
+                "from" : "1st avenue",
+                "to" : "4th avenue",
+                "direction" : "E",
+                "laneStatus" : "10",
+                "ImpactedSystems" : ["Road", "On-street parking"],
+                "Restrictions" : ["Local traffic only"]
+            },
+            {
+                "roadName" : "Broadway St. West",
+                "from" : "4th avenue",
+                "to" : "1st avenue",
+                "direction" : "W",
+                "laneStatus" : "11",
+                "ImpactedSystems" : ["Road", "On-street parking"]
+            }
+         ],
+         "schedule" : {
+             "startDate": "2012-04-01", 
+             "endDate": "2012-04-30"
+         },
+         "attachement" : {
+            "media-type" : "application/pdf",
+            "size" : 200000,
+            "url" : "http://my.city.gov/trafic/advisory/39473/com.pdf",
+            "description" : "Citizen notification"
+         }
+     }
+  ] 
+}
 </pre>  
 </div>
 </div>

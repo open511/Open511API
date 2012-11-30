@@ -1,0 +1,86 @@
+---
+layout: page
+title: Technical Guidelines
+---
+{% include JB/setup %}
+
+{% include specsnav.html %}
+
+
+<h3>Encoding and field formats</h3><a id="encoding"></a>
+
+<ul>
+  <li><a id="utf8"></a>Character encoding must be in UTF-8</li>
+  <li><a id="datetime"></a>DateTime and Date fields will follow the ISO 8601 subset as per the <a href="http://www.w3.org/TR/NOTE-datetime">W3c note</a> except when specified otherwise</li>
+  <li><a id="timezone"></a>When a timezone has to be specified explicitely (in an independant field), it should use a timezone name from the <a href="http://en.wikipedia.org/wiki/Tz_database">TZ Database</a></li>
+  <li><a id="geospatial"></a>Geospatial data will follow existing standards:
+    <ul>
+      <li>In XML, geometries will use <a href="http://en.wikipedia.org/wiki/Geography_Markup_Language">GML notation</a></li>
+      <li>In JSON, the geometries will use <a href="http://www.geojson.org/">GeoJSON</a></li>
+    </ul>
+  </li>
+  <li><a id="links"></a>Links will use the following rules</li>
+  <ul>
+    <li>In XML, links will use the <a href="http://tools.ietf.org/html/rfc4287">Atom link structure</a> and will use the IANA <a href="http://www.iana.org/assignments/link-relations/link-relations.xml">link relation list</a> where relevant</li>
+    <li>In JSON, links will be regular attributes and with their own names</li>
+  </ul>
+</ul>
+
+
+<h3>Restfulness</h3><a id="rest"></a>
+
+<p>Like most of the existing open data APIs, Open511 will follow the <a href="http://www.restapitutorial.com/lessons/whatisrest.html">REST design</a>. REST does not provide fixed constrains but best practices that will be used by the Open511 API:</p>
+<ul>
+  <li>Uniform interface: use of HTTP to provide uniform methods and content negociation features</li>
+  <li>Stateless: each request is independant from the previous one which makes implementation simple for both server and client</li>
+  <li>Resource-based: each concept becomes a resource that can be accessed via an URL</li>
+  <li>Hypermedia: representations contain link to other resources</li>
+</ul>
+
+<p>One of the consequence is that the Open511 specification does not provide fixed URL schema for the resource. The client should follow links between resources (starting from the <a href="root.html">discovery</a>) in order to retrieve the data.</p>
+
+<a id="format">
+<h3>Response format: XML and JSON</h3>
+
+<p>In order to ease integration in various contexts, Open511 supports two formats (or representation): XML and JSON. The client can specify the format he wants to receive using the following options:</p>
+<ul>
+  <li>HTTP Header <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">Accept</a></code> header specifying the type of representation accepted. For the moment, the value accepted are <code>application/xml</code> and <code>application/json</code>. The server must answer with the appropriate <code>Content-Type</code> header.</li>
+  <li>URL parameter <code>format</code> can also be used (and will override the HTTP header if both are present. Accepted values are <code>xml</code> and <code>json</code></li>
+</ul>
+
+<p>An XSD schema for the XML representation will be provided once the data structure is stabilized</p>
+
+<a id="bandwidth"></a>
+<h3>Bandwidth optimization and conditional requests</h3>
+
+<p>Since the API has good chances to be used by mobile application, bandwidth optimization is an important criteria. Clients and servers should support the follow features:</p>
+
+<ul>
+  <li>Conditional request with <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.19">ETag</a></code> (for the server) and <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26">If-None-Match</a></code> (for the client) HTTP headers. See <a href="http://developer.yahoo.com/performance/rules.html#etags">Configure ETags</a> and <a href="http://en.wikipedia.org/wiki/HTTP_ETag">Wikipedia</a>.</li>
+  <li>Compression with HTTP header <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3">Accept-Encoding</a></code> and <code>Content-Encoding</code> is strongly encouraged</li>
+</ul>
+
+<a id="auth"></a>
+<h3>Authentication and encryption mechanisms</h3>
+
+<p>Authentication and encryption are considered to be managed by the regular HTTP layer. Authentication and encryption are optional and left to the decision of each implementation within the following limits in order to meet interoperability targets:</p>
+<ul>
+  <li>Authentication: The only authentication mechanism supported is <a href="http://www.httpwatch.com/httpgallery/authentication/">HTTP Basic</a></li>
+  <li>Encryption: The only encryption supported <a href="https://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a></li>
+</ul>
+
+<a id="lang"></a>
+<h3>Response language</h3>
+
+<p>Open511 has the ability to support multiple languages. The negociation of the language can be done in two ways:
+  <ul>
+  <li>HTTP Header <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a></code> header specifies the language that the client accepts. For the moment, the value accepted are <code>application/xml</code> and <code>application/json</code>. The server must answer with the appropriate <code>Content-Type</code> header.</li>
+  <li>URL parameter <code>Accept-Language</code> can also be used (and will override the HTTP header if both are present) with the same values as the HTTP header.
+</ul>
+
+<p>In order to use the Accept-Language selector (either HTTP or URL parameter), the client provides a list of supported language in order of priority. For example <code>pt, en</code> for to get Portuguese at first and then english.</p>
+
+<p>The answer message will contain information about the language. In XML, the <code>xml:lang</code> will provide the language used for the answer. In JSON, a custom attribute <code>lang</code> will specify the language used, including for event lists in several language.</p>
+
+<p>Mixed language (some fields in a language, some other fields in an other language) will not be supported. The XML representation should provide all the languages avaiable for all the fields when no Accept-Language is provided (either in HTTP or URL). In this case, each free-text field must contain a <code>xml:lang</code> attribute. <code><a href="https://github.com/opennorth/Open511API/issues/12">Issue 12</a></code></p>
+
