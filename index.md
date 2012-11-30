@@ -8,21 +8,21 @@ title: Introduction to the Open511 API (draft)
 
 ## Getting started {#started}
 
-This document describes the specifications of the Open511 API. The API will provide an open data standard for traffic information. The API is currently under development and we are looking for comments and feedback on the API before it is implemented. You can read more about the [context](context.html) of the API or jump directly to the technical stuff (see below). If you are interested in contributing, you can start by joining the mailing list and consulting the "contribute" panel on the right.
+This document describes the specifications of the Open511 API. The API will provide an open data standard for road event information. The API is currently under development and we are looking for comments and feedback before it is implemented. You can read more about the [context](context.html) of the API or jump directly to the technical stuff (see below). If you are interested in contributing, you can start by joining the mailing list and consulting the "contribute" panel on the right.
 
 
 ## How it works {#techdocuments}
 
 * The [technical guidelines](guidelines.html) provide specifics about encoding, formats, architecture and content negotiation.
 
-Supported Resources:
+**Supported Resources:**
 * [Root (aka discovery)](root.html): this resource is the single entry point for the entire framework. It provides links to all the other resources, 
 * [Jurisdictions](jurisdiction.html): represent a specific government with some metadata (contact info, geographical coverage and other options)
 * [Events](event.html): represent events that are published by jurisdictions.
 
 ## Status {#status}
 
-This Open511 specification is a first draft. The format is expected to evolve in the coming months. Therefore, the present specifications should not be used to develop tools.
+This specification is a first draft. The format is expected to evolve in the coming months. Therefore, the present specifications should not be used to develop tools.
 
 ## Roadmap and Timeline {#timeline}
 
