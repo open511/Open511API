@@ -8,26 +8,26 @@ title: Introduction to the Open511 API (draft)
 
 ## Getting started {#started}
 
-The present document describes the specifications of the Open511 API. This API is currently under design and aims at providing open data for traffic information. The API is currently not implemented, at that stage we are more looking for comments. You can read more about the [context](context.html) of the API or directly jump to the technical stuff (see below). If you are interesting in participating, you can start by joining the mailing list and have a look to the "contribute" right-hand panel.
+This document describes the specifications of the Open511 API. The API is currently under development and aims to provide an open data standard for traffic information. We are looking for comments and feedback on the API before it is implemented. You can read more about the [context](context.html) of the API or jump directly to the technical stuff (see below). If you are interesting in contributing, you can start by joining the mailing list and consulting the "contribute" panel on the right.
 
 
 ## How it works {#techdocuments}
 
-* The [technical guidelines](guidelines.html) provide several important technical information about encoding, formats, architecture and content negociation.
+* The [technical guidelines](guidelines.html) provide important specifics about encoding, formats, architecture and content negotiation.
 
-Below is the list of resources supported:
+Supported Resources:
 * [Root (aka discovery)](root.html): This resource is the single entry point for the entire framework. It provides links to all the other resources, 
-* [Jurisdictions](jurisdiction.html): represent a specific governement with some metadata (contact info, geographical coverage and other options)
+* [Jurisdictions](jurisdiction.html): represent a specific government with some metadata (contact info, geographical coverage and other options)
 * [Events](event.html): represent events that are published by the jurisdictions.
 
 ## Status {#status}
 
-The open511 specification is the first draft designed. The format is expected to evolve in the coming months. As a consequence, the present specifications should not be used to develop tools.
+The Open511 specification is a first draft. The format is expected to evolve in the coming months. As a consequence, the present specifications should not be used to develop tools.
 
-## Roadmap and timeline {#timeline}
+## Roadmap and Timeline {#timeline}
 
-The first draft of the specification have been released to collaborators in october 2012 and made public in december 2012. A second iteration is due for Jan 2013 and a third and last one for April 2013. At that point, the specification should be considered stable enough for general implementation.
+The first draft of the specification was released to collaborators in October 2012 and will be made public in December 2012. A second iteration will be released in January 2013 with the final version expected in April 2013. At that point, the specification should be considered stable for general implementation.
 
-The second iteration should provide some improvements concerning the architecture and the data format. It might also include two news services:
+The second iteration should provide improvements to architecture and data formatting. It may also include two new services:
 * Crowdsourcing: the ability for citizens to submit reports like in the open311 framework,
-* Network data: The release of the first draft raised the need to link an event with the road network. Added to that some transportation agencies would like to publish their road network. As a consequence, a new resource might be added to support this feature although it is still under discussion. [(Issue 11)](https://github.com/opennorth/Open511API/issues/11)
+* Network data: with the first releast, we noticed a need for linking an event with the road network. Further, some transportation agencies would like to publish their road network. So, a new resource might be added to support this feature but it is still under discussion. [(Issue 11)](https://github.com/opennorth/Open511API/issues/11)
