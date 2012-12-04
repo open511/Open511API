@@ -9,7 +9,7 @@ title: Context and future plans
 
 ## Overview {#overview}
 
-The Open511 project is an initiative to develop an open API to publish road events (accidents, construction, etc) and other mobility related data. The project is lead by [Open North](http://opennorth.ca) with funding provided by [GeoConnections](http://geoconnections.nrcan.gc.ca/), a  Natural Resources Canada program. Open North has collaborated with several organizations to design Open511 (see list [below](#collaborators)).
+The Open511 project is an initiative to develop an open API to publish road events (accidents, construction, etc) and other mobility related data. The project is led by [Open North](http://opennorth.ca) with funding provided by [GeoConnections](http://geoconnections.nrcan.gc.ca/), a  Natural Resources Canada program. Open North has collaborated with several organizations to design Open511 (see list [below](#collaborators)).
 
 Open511 is currently under active development. The content shared here is a first draft and is published as-is. Our wish is to continue to collaborate on the design of the API; any organization that would like to provide feedback is encouraged to do so. Please refer to the "contribute" section on the menu.
 
@@ -30,6 +30,6 @@ We are also working closely with the [Metropolitan Transportation Commission of 
 
 ## Governance {#governance}
 
-For the moment, the specification design is lead by Open North on a consensus based process with collaborators. With the public release of the specification, any organization that would like to collaborate can do so. Do not hesitate to [contact](mailto:open511@opennorth.ca) Open North or contribute to the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511) and [submit comments and issues](https://github.com/opennorth/Open511API/issues).
+For the moment, the specification design is led by Open North on a consensus based process with collaborators. With the public release of the specification, any organization that would like to collaborate can do so. Do not hesitate to [contact](mailto:open511@opennorth.ca) Open North or contribute to the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511) and [submit comments and issues](https://github.com/opennorth/Open511API/issues).
 
 Once the specification is stable, we plan to submit Open511 to a relevant standardization body in order to ensure stability and evolution capabilities.
