@@ -4,7 +4,7 @@ title: Events
 presentation : 
   purpose :
     name : purpose
-    value : <p>The event resource provide information about road events (accidents, constructions, special events). The <code>events</code> resource is a list of <code>event</code> elements matching the filtering parameters if any is provided.
+    value : <p>The event resource provides information about road events (accidents, constructions, special events). The <code>events</code> resource is a list of <code>event</code> elements matching the filtering parameters if any are provided.
   method :
     name : method
     value : GET
@@ -12,27 +12,27 @@ parameters :
   a :
     name : startDate
     required : optional 
-    description : <p>The start date parameter allow searching events that will be or have been active anytime <i>after</i> the provided value. The start date parameter can be past or future. The parameter should be complete <a href="guidelines.html#datetime">DateTime</a>. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
+    description : <p>The start date parameter allows for searching events that will be or have been active anytime <i>after</i> the provided value. The start date parameter can be past or future. The parameter should be complete <a href="guidelines.html#datetime">DateTime</a>. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
   b :
     name : endDate
     required : optional
-    description : <p>The end date parameter allows searching events that will be or have been active anytime <i>before</i> the provided parameter. The end date parameter can be past or future. The parameter should include complete <a href="guidelines.html#datetime">DateTime</a> including the timezone.</p>
+    description : <p>The end date parameter allows for searching events that will be or have been active anytime <i>before</i> the provided parameter. The end date parameter can be past or future. The parameter should include complete <a href="guidelines.html#datetime">DateTime</a> including the timezone.</p>
   c :
     name : status
     required : optional
-    description : <p>By default the API should only sent active events. If the client want to retrieve archived event, it should provide the status with value <code>archived</code> or a star <code>*</code> to retrieve both active and inative events. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
+    description : <p>By default the API should only send active events. If the client wants to retrieve archived events, it should provide the status with the value <code>archived</code> or a star <code>*</code> to retrieve both active and inative events. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
   d :
     name : severity
     required : optional
-    description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below or equal level 2 with <code>severity=2-</code> or above or equal level 2 <code>severity=2+</code> <code><a href="https://github.com/opennorth/Open511API/issues/2">issue 2</a></code></p>
+    description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below or equal level 2 with <code>severity=2-</code> or above or equal to level 2 <code>severity=2+</code> <code><a href="https://github.com/opennorth/Open511API/issues/2">issue 2</a></code></p>
   e :
     name : jurisdiction
     required : optional
-    description : <p>Clients should be able to request events for a given jurisdiction on multi-jurisdiction endpoints or on agregators. The method still have to be defined &colon; <code><a href="https://github.com/opennorth/Open511API/issues/3">issue 3</a></code></p>
+    description : <p>Clients should be able to request events for a given jurisdiction on multi-jurisdiction endpoints or on agregators. The method still has to be defined &colon; <code><a href="https://github.com/opennorth/Open511API/issues/3">issue 3</a></code></p>
   f :
     name : geography
     required : optional
-    description : <p>Filtering near a point or linestring or within a polygon. The method still have to be defined &colon; <code><a href="https://github.com/opennorth/Open511API/issues/4">issue 4</a></code></p>
+    description : <p>Filtering near a point or linestring or within a polygon. The method still has to be defined &colon; <code><a href="https://github.com/opennorth/Open511API/issues/4">issue 4</a></code></p>
 representation : 
   a :
     name: self
@@ -63,12 +63,12 @@ representation :
     name: <p>&mdash; limit</p>
     type: integer
     mandatory: Optional
-    desc: <p>Number events listed in the current page</p>
+    desc: <p>Number of events listed in the current page</p>
   h :
     name: <p>&mdash; next</p>
     type: <a href="guidelines.html#links">Link</a>
     mandatory: Conditional (mandatory if a next page exists)
-    desc: <p>Atom link pointing the next page of event. Relation attribute value is <code>next</code></p>        
+    desc: <p>Atom link pointing to the next page of the event. Relation attribute value is <code>next</code></p>        
   i :
     name: <p>&mdash; previous</p>
     type: <a href="guidelines.html#links">Link</a>
@@ -89,7 +89,7 @@ event :
     name: status
     type: Enum
     mandatory: Mandatory
-    desc: <p>Status of the event. The status allow a client to determine if the current event should be considered as currently effective. Value list&colon;</p><pre>- active &colon; The event should be considered as effective<br>- archived &colon; The event should not be considered as effective</pre>
+    desc: <p>Status of the event. The status allows a client to determine if the current event should be considered as currently effective. Value list&colon;</p><pre>- active &colon; The event should be considered as effective<br>- archived &colon; The event should not be considered as effective</pre>
   d :
     name: headline
     type: Free text
@@ -114,7 +114,7 @@ event :
     name: certainty
     type: Enum
     mandatory: Optional
-    desc: <p>Degree of certainty of the event. Should only be used for unplanned events (<code>eventType = incident</code>). Value list to be confirmed. Could be Observed/Likely/possible/unknown </p> 
+    desc: <p>Degree of certainty of the event. Should only be used for unplanned events (<code>eventType = incident</code>). Value list to be confirmed. Could be observed/likely/possible/unknown </p> 
   j :
     name: creationDate
     type:  <a href="guidelines.html#datetime">DateTime</a>
@@ -124,7 +124,7 @@ event :
     name: lastUpdate
     type:   <a href="guidelines.html#datetime">DateTime</a>
     mandatory: Mandatory
-    desc: <p>This field provide the date and time of the last update. The value is the same as the creation date if no change occurred.</pre>
+    desc: <p>This field provides the date and time of the last update. The value is the same as the creation date if no change occurred.</pre>
   l :
     name: relatedEvent
     type: <a href="guidelines.html#links">Link</a>
@@ -134,12 +134,12 @@ event :
     name: detour
     type: Free text
     mandatory: Optional
-    desc: <p>If some detour information is available, it could be provided in this field as a free text <code><a href="https://github.com/opennorth/Open511API/issues/9">Issue 9</a></code></p>
+    desc: <p>If some detour information is available, it could be provided in this field as free text <code><a href="https://github.com/opennorth/Open511API/issues/9">Issue 9</a></code></p>
   n :
     name: travelerMessage
     type: Enum
     mandatory: Optional
-    desc: <p>In order to ease analysis by automated tool, this field allow providing predefined messages with a known semantic. For example <code>resident-only</code> means that the circulation is limited to people living on this street. The exact enum still has to be determined.<code><a href="https://github.com/opennorth/Open511API/issues/17">Issue 17</a></code></p>     
+    desc: <p>In order to simplify analysis by automated tools, this field allows for providing predefined messages with a known semantic. For example <code>resident-only</code> means that the circulation is limited to people living on this street. The exact enum still has to be determined.<code><a href="https://github.com/opennorth/Open511API/issues/17">Issue 17</a></code></p>     
   o :
     name: geometry
     type: <a href="guidelines.html#geospatial">geography field</a>
@@ -156,10 +156,10 @@ event :
     mandatory: Mandatory
     desc: <p>Complex item to provide time related information</p>   
   r :
-    name: attachements
-    type: Collection of <a href="#attachement">attachement</a>
-    mandatory: Optional, support multiple occurrences of <code><a href="#attachement">attachement</a></code> element.
-    desc: <p>Collection of attachements provided additional information about the event (PDFs, images, etc.)</p> 
+    name: attachments
+    type: Collection of <a href="#attachment">attachment</a>
+    mandatory: Optional, support multiple occurrences of <code><a href="#attachment">attachment</a></code> element.
+    desc: <p>Collection of attachments provided additional information about the event (PDFs, images, etc.)</p> 
 road : 
   a :
     name: roadName
@@ -170,7 +170,7 @@ road :
     name: from
     type: free text
     mandatory: Optional
-    desc: <p>Approximate start point of the event on the road. It can be an intersection with another street or it can be a mileage indication.</p><p> This value should not be use to determine the exact start point since it can be an approximation. The <code>geometry</code> field should be considered as the reference for exact location.</p><p>If no <code>to</code> field is provided, the from can be considered as a "near".</p>
+    desc: <p>Approximate start point of the event on the road. It can be an intersection with another street or it can be a mileage indication.</p><p> This value should not be used to determine the exact start point since it can be an approximation. The <code>geometry</code> field should be considered as the reference for exact location.</p><p>If no <code>to</code> field is provided, the from can be considered as a "near".</p>
   c :
     name: to
     type: free text
@@ -195,7 +195,7 @@ road :
     name: <p>&darr;&darr;impactedSystems</p>
     type: Collection of <code>impactedSystem</code>
     mandatory: Optional
-    desc: <p>Allow to provide information about other systems that can be affected</p> 
+    desc: <p>Allows provision of information about other systems that can be affected</p> 
   i :
     name:  <p>&mdash; impactedSystem</p>
     type: Enum
@@ -205,7 +205,7 @@ road :
     name: <p>&darr;&darr;restrictions</p>
     type: Collection of <code>restriction</code>
     mandatory: Optional
-    desc: <p>Some events may come with some restrictions in term of vehicle using the road (speed, weigth). The restriction structure provide a way to provide the restrictions</p>     
+    desc: <p>Some events may come with some restrictions in terms of vehicles using the road (speed, weigth). The restriction structure provides a way to provide the restrictions</p>     
   k :
     name:  <p>&mdash; restriction</p>
     type: Enum
@@ -226,7 +226,7 @@ schedule :
     name: endDate
     type: <a href="guidelines.html#datetime">Date</a>
     mandatory: Optional
-    desc: <p>End date of the event. If no end date is provided, the event should be considered continuing for ever.</p>
+    desc: <p>End date of the event. If no end date is provided, the event should be considered continuing forever.</p>
   d :
     name: dayOfWeek
     type: Enum
@@ -252,7 +252,7 @@ schedule :
     type: Collection of specificDate
     mandatory: Optional
     desc: <p>Since some days might not follow the regular schedule, it is possible to provide a schedule for individual days (for example vacations). <code><a href="https://github.com/opennorth/Open511API/issues/19">Issue 19</a></code></</p>
-attachement : 
+attachment : 
   a :
     name: mediaType
     mandatory: Optional
@@ -267,12 +267,12 @@ attachement :
     name: url
     type: <a href="guidelines.html#links">Link</a>
     mandatory: Mandatory
-    desc: <p>Atom link pointing the attachement with attribute <code>related</code></p>
+    desc: <p>Atom link pointing the attachment with attribute <code>related</code></p>
   d :
     name: description
     type: Free text
     mandatory: Optional
-    desc: <p>Human readeable description of the attachement.</p>
+    desc: <p>Human readeable description of the attachment.</p>
 ---
 {% include JB/setup %}
 
@@ -294,9 +294,9 @@ attachement :
 
 <h3>Parameters</h3>
 
-<p>Added to the filters described below, the events resource also supports <a href="guidelines.html#format">format selection</a> and <a href="guidelines.html#lang">language negociation</a>.</p>
+<p>In addition to the filters described below, the events resource also supports <a href="guidelines.html#format">format selection</a> and <a href="guidelines.html#lang">language negotiation</a>.</p>
 
-<p>By default, all the fields of the <code>event</code> structure can be used as filtering criteria. So for example, a query to retrieve events on road HWY-73 will just contain <code>...?road_name=HWY-73</code>. Added to this, the following parameters are supported</p>
+<p>By default, all fields of the <code>event</code> structure can be used as filtering criteria. So for example, a query to retrieve events on road HWY-73 will just contain <code>...?road_name=HWY-73</code>. Also, the following parameters are supported</p>
 
   <table class="parameters">
         <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
@@ -314,7 +314,7 @@ attachement :
 
   <h3>Example</h3>
 
-<p>Example of for the event representations (XML and JSON)</p>
+<p>Example of event representations (XML and JSON)</p>
 
     <script>
     $(function() {
@@ -389,10 +389,10 @@ attachement :
       &lt;startDate&gt;2012-04-01&lt;/startDate&gt; 
       &lt;endDate&gt;2012-04-30&lt;/endDate&gt; 
     &lt;/schedule&gt;
-    &lt;attachement&gt;
+    &lt;attachment&gt;
       &lt;startDate&gt;2012-04-01&lt;/startDate&gt; 
       &lt;endDate&gt;2012-04-30&lt;/endDate&gt; 
-    &lt;/attachement&gt;    
+    &lt;/attachment&gt;    
     &lt;atom:link rel="enclosure" type="application/pdf" href="http://my.city.gov/trafic/advisory/39473/com.pdf" length="200000" /&gt;
   &lt;/roadEvent&gt;
 &lt;/open511&gt;  
@@ -411,12 +411,12 @@ attachement :
          "status" : "active", 
          "lastUpdate" : "2012-09-19T17:49:16.392996+00:00", 
          "creationDate" : "2012-09-19T17:47:46.644610+00:00",
-         "description" : "The City inform you that broadway street will be closed between 1st and 4th avenue during the month of april due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.",
+         "description" : "The City informs you that Broadway Street will be closed between 1st and 4th avenue during the month of April due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.",
          "eventType": "Incident", 
          "eventSubType" : "Urgent roadwork", 
          "severity" : 2,
          "certainty" : "observed",
-         "detour" : "Take Sherbrooke travelling east, and Wellington travelling west.",
+         "detour" : "Take Sherbrooke travelling East, and Wellington travelling West.",
          "travelerMessage" : "Avoid-region", 
          "geometry": {
              "type": "Point", 
@@ -448,7 +448,7 @@ attachement :
              "startDate": "2012-04-01", 
              "endDate": "2012-04-30"
          },
-         "attachement" : {
+         "attachment" : {
             "media-type" : "application/pdf",
             "size" : 200000,
             "url" : "http://my.city.gov/trafic/advisory/39473/com.pdf",
@@ -464,7 +464,7 @@ attachement :
 
 <h3>Data structure</h3>
 
-<p>The following table provide the general message structure for the <code>events</code> resource. The <code>events</code> is a collection of <code><a href="#event">event</a></code> structure.</p>
+<p>The following table provide the general message structure for the <code>events</code> resource. <code>Events</code> is a collection of the <code><a href="#event">event</a></code> structure.</p>
 
   <table class="representation">
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
@@ -476,7 +476,7 @@ attachement :
 
 <a id="event"></a><h4>Event structure</h4>
 
-<p>The event structure is the main element of the events collection. although an event should be considered as independant, it is possible that one major event (mainly constructions) could be split across several events</p>
+<p>The event structure is the main element of the events collection. Although an event should be considered as independent, it is possible that one major event (mainly construction) could be split across several events</p>
 
 <p><code><a href="https://github.com/opennorth/Open511API/issues/1">issue 1</a></code></p>
 
@@ -512,14 +512,14 @@ attachement :
 {% endfor %}
   </table>
 
-<a id="attachement"></a><h4>Attachement structure</h4>
+<a id="attachment"></a><h4>Attachment structure</h4>
 
 <p></p>
 
   <table class="representation">
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-{% assign anchor = 'attachement' %}
-{% for item in page.attachement  %} 
+{% assign anchor = 'attachment' %}
+{% for item in page.attachment  %} 
    {% include tablegen.html %}
 {% endfor %}
   </table>
