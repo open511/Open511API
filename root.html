@@ -4,7 +4,7 @@ title: Root (discovery)
 presentation : 
   a :
     name : purpose
-    value : The root resource (aka discovery) is the single entry point of an open511 endpoint and provides links to all the resources shared by the selected endpoint. In order to get the URL to the other resources, a client application must follow the links provided in the discovery resource. Currently, the discovery will contain access to the jurisdictions supported and the events.
+    value : The root resource (aka discovery) is the single entry point of an open511 endpoint and provides links to all resources shared by the selected endpoint. In order to get the URL for other resources, a client application must follow the links provided in the discovery resource. Currently, the discovery will contain access to the jurisdictions supported and the events.
   b :
     name : method
     value : GET
@@ -23,7 +23,7 @@ representation :
     name: <p>&mdash; type</p>
     mandatory: Mandatory
     type: Value list
-    desc: <p>The service type value comes from a predefined list of services that are supported by the open511 API. For the moment the only service supported is the event service.</p><p>Value list:</p> <pre>events</pre>
+    desc: <p>The service type value comes from a predefined list of services that are supported by the open511 API. Currently the only service supported is the event service.</p><p>Value list:</p> <pre>events</pre>
   d :
     name: <p>&mdash; description</p>
     mandatory: Optional
@@ -33,22 +33,22 @@ representation :
     name: <p>&mdash; url</p>
     mandatory: Mandatory
     type: <a href="guidelines.html#links">Link</a>
-    desc: <p>Link pointing to the jurisdiction resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>. Even if the current endpoint is supporte multiple jurisdictions or is an agregator, there is only one service resource that agregates the data for all the jurisdictions.</p>    
+    desc: <p>Link pointing to the jurisdiction resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>. Even if the current endpoint supports multiple jurisdictions or is an aggregator, there is only one service resource that aggregates the data for all the jurisdictions.</p>    
   f :
     name: <p>&darr;&darr;jurisdictions</p>
     mandatory: Mandatory, at least one <code>jurisdiction</code> element is mandatory
     type: Collection of <code>jurisdiction</code>
-    desc: <p>List all the jurisdictions that are supported by the endpoint. Most of the time, there will be only one occurrence, except for multiple jurisdictions endpoints and agregators.</p>
+    desc: <p>List all the jurisdictions that are supported by the endpoint. Most of the time, there will be only one occurrence, except for multiple jurisdictions endpoints and aggregators.</p>
   g :
     name: <p>&mdash; name</p>
     mandatory: Mandatory
     type: Free text
-    desc: <p>Name of the jurisdiction. The field is simply description and should not be considered as a key</p>
+    desc: <p>Name of the jurisdiction. The field is simply for description and should not be considered as a key</p>
   h :
     name: <p>&mdash;  url</p>
     mandatory: Mandatory
     type: <a href="guidelines.html#links">Link</a>
-    desc: <p>Link to the jurisdiction resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>. An agregator should always point the original jurisdiction resource and not copy it locally.</p>    
+    desc: <p>Link to the jurisdiction resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>. An aggregator should always point the original jurisdiction resource and not copy it locally.</p>    
 ---
 {% include JB/setup %}
 {% include specsnav.html %}
@@ -69,7 +69,7 @@ representation :
 
 <h3>Parameters and filters</h3>
 
-<p>The discovery resource does not support any URL parameter or filter besides the <a href="guidelines.html#format">format selection</a> and the <a href="guidelines.html#lang">language negociation</a>.</p>
+<p>The discovery resource does not support any URL parameter or filter besides the <a href="guidelines.html#format">format selection</a> and the <a href="guidelines.html#lang">language negotiation</a>.</p>
 
 
 <h3>Example</h3>
@@ -147,7 +147,7 @@ $(function() {
 
 <h3>Data structure</h3>
 
-<p>The following table provides the data structure for the root resource (aka discovery). Although the format of the representation might change (XML or JSON), the overall data structure should be the same except when specified otherwise.
+<p>The following table provides the data structure for the root resource (aka discovery). Although the format of the representation might change (XML or JSON), the overall data structure should remain except when specified otherwise.
 
 
 
