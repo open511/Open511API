@@ -1,0 +1,529 @@
+---
+layout: page
+title: Events
+presentation : 
+  purpose :
+    name : purpose
+    value : <p>The event resource provides information about road events (accidents, constructions, special events). The <code>events</code> resource is a list of <code>event</code> elements matching the filtering parameters if any are provided.
+  method :
+    name : method
+    value : GET
+parameters : 
+  a :
+    name : startDate
+    required : optional 
+    description : <p>The start date parameter allows for searching events that will be or have been active anytime <i>after</i> the provided value. The start date parameter can be past or future. The parameter should be complete <a href="guidelines.html#datetime">DateTime</a>. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
+  b :
+    name : endDate
+    required : optional
+    description : <p>The end date parameter allows for searching events that will be or have been active anytime <i>before</i> the provided parameter. The end date parameter can be past or future. The parameter should include complete <a href="guidelines.html#datetime">DateTime</a> including the timezone.</p>
+  c :
+    name : status
+    required : optional
+    description : <p>By default the API should only send active events. If the client wants to retrieve archived events, it should provide the status with the value <code>archived</code> or a star <code>*</code> to retrieve both active and inative events. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
+  d :
+    name : severity
+    required : optional
+    description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below or equal level 2 with <code>severity=2-</code> or above or equal to level 2 <code>severity=2+</code> <code><a href="https://github.com/opennorth/Open511API/issues/2">issue 2</a></code></p>
+  e :
+    name : jurisdiction
+    required : optional
+    description : <p>Clients should be able to request events for a given jurisdiction on multi-jurisdiction endpoints or on agregators. The method still has to be defined &colon; <code><a href="https://github.com/opennorth/Open511API/issues/3">issue 3</a></code></p>
+  f :
+    name : geography
+    required : optional
+    description : <p>Filtering near a point or linestring or within a polygon. The method still has to be defined &colon; <code><a href="https://github.com/opennorth/Open511API/issues/4">issue 4</a></code></p>
+representation : 
+  a :
+    name: self
+    mandatory: Mandatory
+    type: <a href="guidelines.html#links">Link</a>
+    desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>.</p> 
+  b :
+    name: up
+    type: <a href="guidelines.html#links">Link</a>   
+    mandatory: Mandatory
+    desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
+  c :
+    name: events
+    type: Collection of <a href="#event">Event</a>
+    mandatory: Mandatory. Can contain multiple <code>event</code> elements, at least one occurrence is <b>mandatory</b>
+    desc: <p>Main content of the events resource, a collection of <code>event</code> elements.</p>
+  d :
+    name: pagination
+    type: Pagination structure
+    mandatory: Conditional (mandatory if more than one page)
+    desc: <p>The pagination structure provides information about the current position in the pagination and links to other pages</p>
+  f :
+    name: <p>&mdash; offset</p>
+    type: integer    
+    mandatory: Optional
+    desc: <p>Offset used to access the current page</p>
+  g :
+    name: <p>&mdash; limit</p>
+    type: integer
+    mandatory: Optional
+    desc: <p>Number of events listed in the current page</p>
+  h :
+    name: <p>&mdash; next</p>
+    type: <a href="guidelines.html#links">Link</a>
+    mandatory: Conditional (mandatory if a next page exists)
+    desc: <p>Atom link pointing to the next page of the event. Relation attribute value is <code>next</code></p>        
+  i :
+    name: <p>&mdash; previous</p>
+    type: <a href="guidelines.html#links">Link</a>
+    mandatory: Conditional (mandatory if a previous page exists)
+    desc: <p>Atom link pointing the previous page of event. Relation attribute value is <code>previous</code></p>   
+event : 
+  a :
+    name: self
+    mandatory: Mandatory
+    type: <a href="guidelines.html#links">Link</a>
+    desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>.</p> 
+  b :
+    name: jurisdiction
+    type: <a href="guidelines.html#links">Link</a>
+    mandatory: Mandatory
+    desc: <p>Link to the jurisdiction which published the event. In XML, the <code>rel</code> attribute needs the value <code>jurisdiction</code>.</p> 
+  c :
+    name: status
+    type: Enum
+    mandatory: Mandatory
+    desc: <p>Status of the event. The status allows a client to determine if the current event should be considered as currently effective. Value list&colon;</p><pre>- active &colon; The event should be considered as effective<br>- archived &colon; The event should not be considered as effective</pre>
+  d :
+    name: headline
+    type: Free text
+    mandatory: Mandatory
+    desc: <p>Title of the event. Should be shorter than 500 characters.</p>
+  e :
+    name: eventType
+    type: Enum
+    mandatory: Mandatory
+    desc: <p>Basic type of event. Value list</p><pre>- construction &colon;  planned road work<br>- event &colon; special events (fair, sport event, etc.)<br>- incident &colon; accidents and unplanned road work.</pre>
+  f :
+    name: eventSubType
+    type: Enum
+    mandatory: Optional
+    desc: <p>List of values to provide more detail about the type of event.</p>  
+  g :
+    name: severity
+    type: Enum
+    mandatory: Mandatory <code><a href="https://github.com/opennorth/Open511API/issues/16">Issue 16</a></code>
+    desc: <p>Value list to be defined, either a scale (1 to N) or value list with defined semantics (Extreme/Severe/Moderate/Minor/Unknown) <code><a href="https://github.com/opennorth/Open511API/issues/2">Issue 2</a></code></p> 
+  i :
+    name: certainty
+    type: Enum
+    mandatory: Optional
+    desc: <p>Degree of certainty of the event. Should only be used for unplanned events (<code>eventType = incident</code>). Value list to be confirmed. Could be observed/likely/possible/unknown </p> 
+  j :
+    name: creationDate
+    type:  <a href="guidelines.html#datetime">DateTime</a>
+    mandatory: Mandatory
+    desc: <p>Date of creation of the event element</p>     
+  k :
+    name: lastUpdate
+    type:   <a href="guidelines.html#datetime">DateTime</a>
+    mandatory: Mandatory
+    desc: <p>This field provides the date and time of the last update. The value is the same as the creation date if no change occurred.</pre>
+  l :
+    name: relatedEvent
+    type: <a href="guidelines.html#links">Link</a>
+    mandatory: Optional
+    desc: <p>This field is used to group events together. In specific situations (for example complex construction projects), several events might be related together. This field should be used to point a related event. In XML, the <code>rel</code> attribute needs the value <code>related</code></p> 
+  m :
+    name: detour
+    type: Free text
+    mandatory: Optional
+    desc: <p>If some detour information is available, it could be provided in this field as free text <code><a href="https://github.com/opennorth/Open511API/issues/9">Issue 9</a></code></p>
+  n :
+    name: travelerMessage
+    type: Enum
+    mandatory: Optional
+    desc: <p>In order to simplify analysis by automated tools, this field allows for providing predefined messages with a known semantic. For example <code>resident-only</code> means that the circulation is limited to people living on this street. The exact enum still has to be determined.<code><a href="https://github.com/opennorth/Open511API/issues/17">Issue 17</a></code></p>     
+  o :
+    name: geometry
+    type: <a href="guidelines.html#geospatial">geography field</a>
+    mandatory: Mandatory
+    desc: <p>Geographical information about the event using the GML notation. Valid type of geometry can be points, multipoints, linestring, multilinestrings and polygon. </p>
+  p :
+    name: roads
+    type: Collection of <a href="#road">road</a>
+    mandatory: Mandatory, support multiple occurrences of <code><a href="#road">road</a></code> element.
+    desc: <p>List of roads affected by the current event. One event can impact several roads.</p>    
+  q :
+    name: schedule
+    type: <a href="#schedule">schedule</a> structure
+    mandatory: Mandatory
+    desc: <p>Complex item to provide time related information</p>   
+  r :
+    name: attachments
+    type: Collection of <a href="#attachment">attachment</a>
+    mandatory: Optional, support multiple occurrences of <code><a href="#attachment">attachment</a></code> element.
+    desc: <p>Collection of attachments provided additional information about the event (PDFs, images, etc.)</p> 
+road : 
+  a :
+    name: roadName
+    mandatory: Mandatory
+    type: Free text
+    desc: <p>Name of the road affected by the event. When possible, this field should contain a value that fits the national symbology for roads and highways. <code><a href="https://github.com/opennorth/Open511API/issues/11">Issue 11</a></code></p> 
+  b :
+    name: from
+    type: free text
+    mandatory: Optional
+    desc: <p>Approximate start point of the event on the road. It can be an intersection with another street or it can be a mileage indication.</p><p> This value should not be used to determine the exact start point since it can be an approximation. The <code>geometry</code> field should be considered as the reference for exact location.</p><p>If no <code>to</code> field is provided, the from can be considered as a "near".</p>
+  c :
+    name: to
+    type: free text
+    mandatory: Optional
+    desc: <p>Approximate end point of the event on the road. It can be an intersection with another street or it can be mileage indication</p>
+  d :
+    name: direction
+    type: Enum
+    mandatory: Conditional
+    desc: <p>Direction of the road that is affected by the event.</p><p>If a <code>lane_status</code> is provided, the direction becomes <b>mandatory</b>. In the same situation, if both directions are affected, two occurrences of the road element are needed, one for each direction and with a dedicated <code>lane_status</code> for each direction.</p>
+  e :
+    name: laneStatus
+    type: bitmap
+    mandatory: Optional
+    desc: <p>Bitmap representing the lanes that are closed because of the event. For example <code>0110</code> means that the 2 central lanes of a 4 lanes roads are closed.</p><p>The lane status is applied to direction provided</p>
+  f :
+    name: city
+    type: free text
+    mandatory: Optional
+    desc: <p>City in which the event is taking place (or near)</p>  
+  g :
+    name: impactedSystems
+    type: Collection of <code>impactedSystem</code>
+    mandatory: Optional
+    desc: <p>Allows provision of information about other systems that can be affected</p> 
+  i :
+    name:  <p>&mdash; impactedSystem</p>
+    type: Enum
+    mandatory: Optional
+    desc: <p>Value list of systems:</p> <pre>ROAD<br>SIDEWALK<br>BIKELANE<br>ONSTREET-PARKING<br>PARKING</pre> 
+  j :
+    name: restrictions
+    type: Collection of <code>restriction</code>
+    mandatory: Optional
+    desc: <p>Some events may come with some restrictions in terms of vehicles using the road (speed, weigth). The restriction structure provides a way to provide the restrictions</p>     
+  k :
+    name:  <p>&mdash; restriction</p>
+    type: Enum
+    mandatory: Optional
+    desc: <p>Each restriction element provides a limitation on the current road element. The node element can be speed, weight, length, width. A <code>unit</code> can provide the unit used to measure the restriction (t for tons, lb for pounds, etc.).<p></p>Detail for the restrictions supported and formatting to be determined <code><a href="https://github.com/opennorth/Open511API/issues/18">Issue 18</a></code></p>
+schedule : 
+  a :
+    name: timezone
+    mandatory: Optional
+    type: <a href="guidelines.html#timezone">timezone</a>
+    desc: <p>Timezone to be used for this event. Timezone abbreviation (e.g <code>EST</code>) or the continent/city timezone code <code>America/Montreal</code></p> 
+  b :
+    name: startDate
+    type: <a href="guidelines.html#datetime">Date</a>
+    mandatory: Mandatory
+    desc: <p>Start date of the event.</p>
+  c :
+    name: endDate
+    type: <a href="guidelines.html#datetime">Date</a>
+    mandatory: Optional
+    desc: <p>End date of the event. If no end date is provided, the event should be considered continuing forever.</p>
+  d :
+    name: dayOfWeek
+    type: Enum
+    mandatory: Optional
+    desc: <p>Comma separated list of days of the week where the event should be considered as active. For example wednesday, thursday, friday would be <code>3,4,5</code>. The days are Monday to Sunday from 1 to 7.</p> 
+  e :
+    name: time
+    type: structure
+    mandatory: Optional
+    desc: <p>Provide detail about the specific times of the event. Multiple occurrences of the time structure are allowed so specify multiple timeframes in a day.</p>
+  f :
+    name: <p>&mdash; startTime</p>
+    type: <a href="guidelines.html#datetime">Time</a>
+    mandatory: Optional
+    desc: <p>Start time of the event. If the event is spread across several days, the start time is to be applied for each day</p>
+  g :
+    name: <p>&mdash; endTime</p>
+    type: <a href="guidelines.html#datetime">Time</a>
+    mandatory: Optional
+    desc: <p>Start time of the event. If the event is spread across several days, the start time is to be applied for each day. end_time is mandatory if a start_time is provided.</p>  
+  i :
+    name: specificDates
+    type: Collection of specificDate
+    mandatory: Optional
+    desc: <p>Since some days might not follow the regular schedule, it is possible to provide a schedule for individual days (for example vacations). <code><a href="https://github.com/opennorth/Open511API/issues/19">Issue 19</a></code></</p>
+attachment : 
+  a :
+    name: mediaType
+    mandatory: Optional
+    type: Enum
+    desc: <p>Type of content that is linked. Must follow the IANA content type. For example <code>image/jpg</code> for an image encoded with JPEG</p> 
+  b :
+    name: size
+    type: number
+    mandatory: Optional
+    desc: <p>Size of the content that is linked expressed in kilobytes (kb)</p>
+  c :
+    name: url
+    type: <a href="guidelines.html#links">Link</a>
+    mandatory: Mandatory
+    desc: <p>Atom link pointing the attachment with attribute <code>related</code></p>
+  d :
+    name: description
+    type: Free text
+    mandatory: Optional
+    desc: <p>Human readeable description of the attachment.</p>
+---
+{% include JB/setup %}
+
+{% include specsnav.html %}
+
+<h3>Overview</h3>
+
+  <table class="resource_pres">
+{% for item in page.presentation %} 
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td class="vertical_header">{{ elem.name }}</td><td>{{ elem.value }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </table>
+
+<h3>Parameters</h3>
+
+<p>In addition to the filters described below, the events resource also supports <a href="guidelines.html#format">format selection</a> and <a href="guidelines.html#lang">language negotiation</a>.</p>
+
+<p>By default, all fields of the <code>event</code> structure can be used as filtering criteria. So for example, a query to retrieve events on road HWY-73 will just contain <code>...?road_name=HWY-73</code>. Also, the following parameters are supported</p>
+
+  <table class="parameters">
+        <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
+{% for item in page.parameters  %} 
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td>{{ elem.name }}</td><td>{{ elem.required }}</td><td>{{ elem.description }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </table>
+
+
+  <h3>Example</h3>
+
+<p>Example of event representations (XML and JSON)</p>
+
+    <script>
+    $(function() {
+        $( "#tabs" ).tabs();
+    });
+    </script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+<pre class="brush: xml">
+&lt;open511
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:gml="http://www.opengis.net/gml"
+    xml:lang="en"
+    xml:base="http://api.open511.info/"
+&gt;
+  &lt;atom:link rel="self" href="http://api.open511.info/events/" /&gt;
+  &lt;atom:link rel="up" href="http://api.open511.info/"/&gt;
+  &lt;roadEvent&gt;
+    &lt;status&gt;active&lt;/status&gt; 
+    &lt;atom:link rel="self" href="/events/23948/" /&gt;
+    &lt;atom:link rel="jurisdiction" href="http://my.city.gov/open511/jurisdiction/my-city/" /&gt;
+    &lt;headline&gt;Urgent rebuilding of sewer pipes&lt;/headline&gt; 
+    &lt;headline xml:lang="fr"&gt;Réfection d'urgence d'une conduite d'égout&lt;/headline&gt; 
+    &lt;description&gt;The City inform you that broadway street will be closed between 1st and 4th avenue during the month of april due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.&lt;/description&gt;
+    &lt;description xml:lang="fr"&gt;La Ville de Montréal vous informe que la Grande avenue sera fermée à la circulation entre la 1ère et la 4ème avenue pour le mois d'avril pour cause de travaux d'urgence sur une conduite d'égouts. La circulation locale en direction de l'est sera permise sur une voie.&lt;/description&gt;
+    &lt;eventType&gt;Incident&lt;/eventType&gt; 
+    &lt;eventSubType&gt;Urgent roadwork&lt;/eventSubType&gt;
+    &lt;severity&gt;2&lt;/severity&gt; 
+    &lt;certainty&gt;Observed&lt;/certainty&gt; 
+    &lt;creationDate&gt;2012-05-23T20:33:10Z&lt;/creationDate&gt;
+    &lt;lastUpdate&gt;2012-05-24T10:00:10Z&lt;/lastUpdate&gt;
+    &lt;detour&gt;Take Sherbrooke travelling east, and Wellington travelling west.&lt;/detour&gt;
+    &lt;travelerMessage&gt;Avoid-region.&lt;/travelerMessage&gt;
+    &lt;geometry&gt;
+      &lt;gml:Linestring srsName="EPSG:4326"&gt;
+        &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40&lt;/gml:coordinates&gt;
+      &lt;/gml:Linestring&gt;
+    &lt;/geometry&gt;
+    &lt;roads&gt;
+      &lt;road&gt;
+        &lt;roadName&gt;Broadway St East&lt;/roadName&gt;
+        &lt;from&gt;1st avenue&lt;/from&gt;
+        &lt;to&gt;4th avenue&lt;/to&gt;
+        &lt;direction&gt;E&lt;/direction&gt;
+        &lt;laneStatus&gt;10&lt;/direction&gt;          
+        &lt;impactedSystems&gt;
+          &lt;impactedSystem&gt;Road&lt;/impactedSystem&gt;
+          &lt;impactedSystem&gt;On-Street Parking&lt;/impactedSystem&gt;
+        &lt;/impactedSystems&gt;
+        &lt;restrictions&gt;
+          &lt;restriction&gt;Local Traffic Only&lt;/restriction&gt;
+        &lt;/restrictions&gt;
+      &lt;/road&gt;
+      &lt;road&gt;
+        &lt;roadName&gt;Broadway St West&lt;/roadName&gt;
+        &lt;from&gt;1st avenue&lt;/from&gt;
+        &lt;to&gt;4th avenue&lt;/to&gt;
+        &lt;direction&gt;W&lt;/direction&gt;  
+        &lt;laneStatus&gt;11&lt;/direction&gt;              
+        &lt;impactedSystems&gt;
+          &lt;impactedSystem&gt;Road&lt;/impactedSystem&gt;
+          &lt;impactedSystem&gt;On-Street Parking&lt;/impactedSystem&gt;
+        &lt;/impactedSystems&gt;
+      &lt;/road&gt;      
+    &lt;/roads&gt;
+    &lt;schedule&gt;
+      &lt;startDate&gt;2012-04-01&lt;/startDate&gt; 
+      &lt;endDate&gt;2012-04-30&lt;/endDate&gt; 
+    &lt;/schedule&gt;
+    &lt;attachment&gt;
+      &lt;startDate&gt;2012-04-01&lt;/startDate&gt; 
+      &lt;endDate&gt;2012-04-30&lt;/endDate&gt; 
+    &lt;/attachment&gt;    
+    &lt;atom:link rel="enclosure" type="application/pdf" href="http://my.city.gov/trafic/advisory/39473/com.pdf" length="200000" /&gt;
+  &lt;/roadEvent&gt;
+&lt;/open511&gt;  
+</pre>
+    </div>
+    <div id="tabs-2">
+<pre class="brush: js">
+{
+  "self" : "http://api.open511.info/events/",
+  "up" : "http://api.open511.info/"
+  "event" : [
+     {
+         "url" : "/events/montreal/7894f73ce2243bc24810fa0048a4a819/",
+         "jurisdiction" : "http://my.city.gov/open511/jurisdiction/my-city/",
+         "headline" : "Urgent rebuilding of sewer pipes",
+         "status" : "active", 
+         "lastUpdate" : "2012-09-19T17:49:16.392996+00:00", 
+         "creationDate" : "2012-09-19T17:47:46.644610+00:00",
+         "description" : "The City informs you that Broadway Street will be closed between 1st and 4th avenue during the month of April due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.",
+         "eventType": "Incident", 
+         "eventSubType" : "Urgent roadwork", 
+         "severity" : 2,
+         "certainty" : "observed",
+         "detour" : "Take Sherbrooke travelling East, and Wellington travelling West.",
+         "travelerMessage" : "Avoid-region", 
+         "geometry": {
+             "type": "Point", 
+             "coordinates": [
+                 -75.6585181951523, 
+                 40.5487123139747
+             ]
+         },
+         "roads" : [
+            {
+                "roadName" : "Broadway St. East",
+                "from" : "1st avenue",
+                "to" : "4th avenue",
+                "direction" : "E",
+                "laneStatus" : "10",
+                "ImpactedSystems" : ["Road", "On-street parking"],
+                "Restrictions" : ["Local traffic only"]
+            },
+            {
+                "roadName" : "Broadway St. West",
+                "from" : "4th avenue",
+                "to" : "1st avenue",
+                "direction" : "W",
+                "laneStatus" : "11",
+                "ImpactedSystems" : ["Road", "On-street parking"]
+            }
+         ],
+         "schedule" : {
+             "startDate": "2012-04-01", 
+             "endDate": "2012-04-30"
+         },
+         "attachment" : {
+            "media-type" : "application/pdf",
+            "size" : 200000,
+            "url" : "http://my.city.gov/trafic/advisory/39473/com.pdf",
+            "description" : "Citizen notification"
+         }
+     }
+  ] 
+}
+</pre>  
+</div>
+</div>
+
+
+<h3>Data structure</h3>
+
+<p>The following table provide the general message structure for the <code>events</code> resource. <code>Events</code> is a collection of the <code><a href="#event">event</a></code> structure.</p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'representation' %}
+{% for item in page.representation  %} 
+   {% include tablegen.html %} 
+{% endfor %}
+  </table>
+
+<a id="event"></a><h4>Event structure</h4>
+
+<p>The event structure is the main element of the events collection. Although an event should be considered as independent, it is possible that one major event (mainly construction) could be split across several events</p>
+
+<p><code><a href="https://github.com/opennorth/Open511API/issues/1">issue 1</a></code></p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'event' %}
+{% for item in page.event  %}
+   {% include tablegen.html %} 
+{% endfor %}
+  </table>
+
+<a id="road"></a><h4>Road structure</h4>
+
+<p>The road data format is used to provide information about the road(s) affected by an event.</p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'road' %}
+{% for item in page.road  %} 
+   {% include tablegen.html %}
+{% endfor %}
+  </table>
+
+<a id="schedule"></a><h4>Schedule structure</h4>
+
+<p></p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'schedule' %}
+{% for item in page.schedule  %} 
+   {% include tablegen.html %}
+{% endfor %}
+  </table>
+
+<a id="attachment"></a><h4>Attachment structure</h4>
+
+<p></p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'attachment' %}
+{% for item in page.attachment  %} 
+   {% include tablegen.html %}
+{% endfor %}
+  </table>
+
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>

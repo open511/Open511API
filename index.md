@@ -16,6 +16,7 @@ This document describes the specifications of the Open511 API. It will provide a
 * The [technical guidelines](guidelines.html) provide specifics about encoding, formats, architecture and content negotiation.
 
 **Supported Resources:**
+
 * [Root (aka discovery)](root.html): this resource is the single entry point for the entire framework. It provides links to all the other resources. 
 Below is an example of the discovery resource. This example demonstrates an aggregator (open511.info) which gathers information from two different jurisdictions (My City and My Region). The jurisdiction link points to the original jurisdiction resource while the events are aggregated and served locally.  
 * [Jurisdictions](jurisdiction.html): represent a specific government with some metadata (contact info, geographical coverage and other options). 
@@ -32,5 +33,6 @@ This specification is a first draft. The format is expected to evolve in the com
 The first draft of the specification was released to collaborators in October 2012 and will be made public in December 2012. A second iteration will be released in January 2013 with the final version expected in April 2013. At that point, the specification should be stable enough for general implementation.
 
 The second iteration will provide improvements to architecture and data formatting. It may also include two new services:
+
 * Crowdsourcing: the ability for citizens to submit reports like in the open311 framework.
 * Network data: with the first release, we noticed a need for linking an event with the road network. Also, some transportation agencies would like to publish their road network so a new resource might be added to support this feature but it is still under discussion. [(Issue 11)](https://github.com/opennorth/Open511API/issues/11)

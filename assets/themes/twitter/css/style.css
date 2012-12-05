@@ -127,6 +127,11 @@ p, ul, li {
 	width: 85%;
 }
 
+#changelog {
+
+	width: 50%;
+}
+
 td.name{
 	font-size: 100%;
 	min-width: 120px;
@@ -146,7 +151,7 @@ td.type {
 	/*min-width: 80px;*/
 }
 
-.resource_pres tr, .parameters tr {
+.resource_pres tr, .parameters tr, #changelog tr {
 
 	border: 1px solid #ccc;
 
@@ -159,24 +164,27 @@ td.type {
 
 }
 
-.resource_pres tr td, .parameters tr td, .parameters tr th, .representation tr td, .representation tr th {
+.resource_pres tr td, .parameters tr td, .parameters tr th, .representation tr td, .representation tr th, #changelog tr th, #changelog tr td {
 
 	padding: 10px;
 
 }
 
-.parameters tr td, .parameters tr th, .representation tr td, .representation tr th {
+.parameters tr td, .parameters tr th, .representation tr td, .representation tr th, #changelog tr td, #changelog tr th {
 	border: 1px solid #ccc;
 }
 
 .parameters tr th, .representation tr th {
-	background-color: #fffff0;
+	background-color: #eeeeee;
 }
 
 .representation tr.structure {
 	background-color: #fffff0;
 }
 
+/*.representation tr.mandatory {
+	background-color: #f9fcff;
+}*/
 
 .vertical_header {
 	background-color: #eee;
@@ -201,3 +209,8 @@ footer p {
 	width: 100%;
 }
 
+.sub {
+	padding-left: 28px!important;
+    background-image:url('bg-cell.png');
+    background-repeat: repeat-y;
+}
