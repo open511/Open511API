@@ -9,7 +9,7 @@ title: Context and future plans
 
 ## Overview {#overview}
 
-The Open511 project is an initiative to develop an open API for publishing road events (accidents, construction, etc) and other mobility related data. The project is led by [Open North](http://opennorth.ca) with funding from Natural Resource Canada's [GeoConnections](http://geoconnections.nrcan.gc.ca/) program. Open North has collaborated with several organizations to design Open511 (see list [below](#collaborators)).
+The goal of the Open511 project is to develop an open API for publishing road events (accidents, construction, etc) and other mobility related data. The project is led by [Open North](http://opennorth.ca) with funding from Natural Resource Canada's [GeoConnections](http://geoconnections.nrcan.gc.ca/) program. Open North has collaborated with several organizations to design Open511 (see list [below](#collaborators)).
 
 Open511 is currently under active development. The content shared here is a first draft and is published as-is. Our wish is to continue to collaborate on the design of the API; any organization that would like to provide feedback is encouraged to do so. Please refer to the "contribute" section on the menu.
 
