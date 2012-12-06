@@ -94,3 +94,7 @@ These limitations are set to allow for interoperability.
 <p>The Open511 API is designed to support multi-jurisdiction endpoints (an endpoint that provides data for several jurisdictions) and aggregation of the content (an endpoint that gathers information from other endpoints). The last feature is meant to simplify the work of clients. For example a region can setup an aggregator for all the jurisdictions of the region, or a third party can build a service that serves a province or a country.</p>
 
 <p>For the client, these features should be fairly transparent: endpoints will work the same way as described in the documentation. It is important to know that the jurisdiction links (in discovery and in events) must always point to the original resource (e.g, the original endpoint). This way, the client always has the opportunity to access the data of the original endpoint.</p>
+
+<h3>Cross domain requests</h3>
+
+<code><a href="https://github.com/opennorth/Open511API/issues/21">Issue 21</a></code>

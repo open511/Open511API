@@ -8,7 +8,7 @@ title: Open511 API specification change log
 
 ## Change log
 
-(Please refer to the commit history for detailed change log)
+(Please refer to the commit [history](https://github.com/opennorth/Open511API/commits/gh-pages) for detailed change log)
 
 Date | Description                                               |
 -----|-----------------------------------------------------------|
