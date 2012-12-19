@@ -9,30 +9,30 @@ presentation :
     name : method
     value : GET
 parameters : 
-  a :
-    name : startDate
-    required : optional 
-    description : <p>The start date parameter allows for searching events that will be or have been active anytime <i>after</i> the provided value. The start date parameter can be past or future. The parameter should be complete <a href="guidelines.html#datetime">DateTime</a>. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
-  b :
-    name : endDate
-    required : optional
-    description : <p>The end date parameter allows for searching events that will be or have been active anytime <i>before</i> the provided parameter. The end date parameter can be past or future. The parameter should include complete <a href="guidelines.html#datetime">DateTime</a> including the timezone.</p>
-  c :
-    name : status
-    required : optional
-    description : <p>By default the API should only send active events. If the client wants to retrieve archived events, it should provide the status with the value <code>archived</code> or a star <code>*</code> to retrieve both active and inative events. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
-  d :
-    name : severity
-    required : optional
-    description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below or equal level 2 with <code>severity=2-</code> or above or equal to level 2 <code>severity=2+</code> <code><a href="https://github.com/opennorth/Open511API/issues/2">issue 2</a></code></p>
-  e :
-    name : jurisdiction
-    required : optional
-    description : <p>Clients should be able to request events for a given jurisdiction on multi-jurisdiction endpoints or on agregators. The method still has to be defined &colon; <code><a href="https://github.com/opennorth/Open511API/issues/3">issue 3</a></code></p>
-  f :
-    name : geography
-    required : optional
-    description : <p>Filtering near a point or linestring or within a polygon. The method still has to be defined &colon; <code><a href="https://github.com/opennorth/Open511API/issues/4">issue 4</a></code></p>
+    - name : startDate
+      required : optional 
+      description : <p>The start date parameter allows for searching events that will be or have been active anytime <i>after</i> the provided value. The start date parameter can be past or future. The parameter should be complete <a href="guidelines.html#datetime">DateTime</a>. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
+
+    - name : endDate
+      required : optional
+      description : <p>The end date parameter allows for searching events that will be or have been active anytime <i>before</i> the provided parameter. The end date parameter can be past or future. The parameter should include complete <a href="guidelines.html#datetime">DateTime</a> including the timezone.</p>
+
+    - name : status
+      required : optional
+      description : <p>By default the API should only send active events. If the client wants to retrieve archived events, it should provide the status with the value <code>archived</code> or a star <code>*</code> to retrieve both active and inative events. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
+
+    - name : severity
+      required : optional
+      description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below or equal level 2 with <code>severity=2-</code> or above or equal to level 2 <code>severity=2+</code> <code><a href="https://github.com/opennorth/Open511API/issues/2">issue 2</a></code></p>
+
+    - name : jurisdiction
+      required : optional
+      description : <p>Clients should be able to request events for a given jurisdiction on multi-jurisdiction endpoints or on agregators. The method still has to be defined &colon; <code><a href="https://github.com/opennorth/Open511API/issues/3">issue 3</a></code></p>
+
+    - name : geography
+      required : optional
+      description : <p>Filtering near a point or linestring or within a polygon. The method still has to be defined &colon; <code><a href="https://github.com/opennorth/Open511API/issues/4">issue 4</a></code></p>
+
 representation : 
   a :
     name: self
@@ -297,6 +297,17 @@ attachment :
 <p>In addition to the filters described below, the events resource also supports <a href="guidelines.html#format">format selection</a> and <a href="guidelines.html#lang">language negotiation</a>.</p>
 
 <p>By default, all fields of the <code>event</code> structure can be used as filtering criteria. So for example, a query to retrieve events on road HWY-73 will just contain <code>...?road_name=HWY-73</code>. Also, the following parameters are supported</p>
+
+
+  <table class="parameters">
+        <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
+{% for item in page.parameters  %} 
+  <tr>
+      <td>{{ item.name }}</td><td>{{ item.required }}</td><td>{{ item.description }}</td>
+  </tr>
+{% endfor %}
+  </table>
+
 
   <table class="parameters">
         <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
