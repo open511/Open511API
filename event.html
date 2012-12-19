@@ -125,7 +125,7 @@ event :
       mandatory: Mandatory
       desc: <p>This field provides the date and time of the last update. The value is the same as the creation date if no change occurred.</pre>
 
-    - name: relatedEvent
+    - name: related
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Optional
       desc: <p>This field is used to group events together. In specific situations (for example complex construction projects), several events might be related together. This field should be used to point a related event. In XML, the <code>rel</code> attribute needs the value <code>related</code></p> 
@@ -147,7 +147,7 @@ event :
 
     - name: roads
       type: Collection of <a href="#road">road</a>
-      mandatory: Mandatory, support multiple occurrences of <code><a href="#road">road</a></code> element.
+      mandatory: Optional, support multiple occurrences of <code><a href="#road">road</a></code> element.
       desc: <p>List of roads affected by the current event. One event can impact several roads.</p>    
 
     - name: schedule
@@ -230,10 +230,21 @@ schedule :
       mandatory: Optional
       desc: <p>Comma separated list of days of the week where the event should be considered as active. For example wednesday, thursday, friday would be <code>3,4,5</code>. The days are Monday to Sunday from 1 to 7.</p> 
 
+    - name: times
+      type: Collection of <a href="#time">time</a>
+      mandatory: Optional,  mulltiple occurrences of the time structure are allowed
+      desc: <p>Provide detail about the specific times of the event. so specify multiple timeframes in a day.</p>
+
+    - name: specificDates
+      type: Collection of specificDate
+      mandatory: Optional
+      desc: <p>Since some days might not follow the regular schedule, it is possible to provide a schedule for individual days (for example vacations). <code><a href="https://github.com/opennorth/Open511API/issues/19">Issue 19</a></code></</p>
+
+time :
     - name: time
       type: structure
       mandatory: Optional
-      desc: <p>Provide detail about the specific times of the event. Multiple occurrences of the time structure are allowed so specify multiple timeframes in a day.</p>
+      desc: <p>Provide detail about the specific times of the event.</p>
 
     - name: <p>&mdash; startTime</p>
       type: <a href="guidelines.html#datetime">Time</a>
@@ -243,12 +254,7 @@ schedule :
     - name: <p>&mdash; endTime</p>
       type: <a href="guidelines.html#datetime">Time</a>
       mandatory: Optional
-      desc: <p>Start time of the event. If the event is spread across several days, the start time is to be applied for each day. end_time is mandatory if a start_time is provided.</p>  
-
-    - name: specificDates
-      type: Collection of specificDate
-      mandatory: Optional
-      desc: <p>Since some days might not follow the regular schedule, it is possible to provide a schedule for individual days (for example vacations). <code><a href="https://github.com/opennorth/Open511API/issues/19">Issue 19</a></code></</p>
+      desc: <p>Start time of the event. If the event is spread across
 
 attachment : 
     - name: mediaType
@@ -261,7 +267,7 @@ attachment :
       mandatory: Optional
       desc: <p>Size of the content that is linked expressed in kilobytes (kb)</p>
 
-    - name: url
+    - name: related
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Mandatory
       desc: <p>Atom link pointing the attachment with attribute <code>related</code></p>
@@ -502,6 +508,18 @@ attachment :
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'schedule' %}
 {% for item in page.schedule  %} 
+   {% include tablegen.html %}
+{% endfor %}
+  </table>
+
+<a id="time"></a><h4>Time structure</h4>
+
+<p></p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'time' %}
+{% for item in page.time  %} 
    {% include tablegen.html %}
 {% endfor %}
   </table>
