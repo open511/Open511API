@@ -75,91 +75,90 @@ representation :
     mandatory: Conditional (mandatory if a previous page exists)
     desc: <p>Atom link pointing the previous page of event. Relation attribute value is <code>previous</code></p>   
 event : 
-  a :
-    name: self
-    mandatory: Mandatory
-    type: <a href="guidelines.html#links">Link</a>
-    desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>.</p> 
-  b :
-    name: jurisdiction
-    type: <a href="guidelines.html#links">Link</a>
-    mandatory: Mandatory
-    desc: <p>Link to the jurisdiction which published the event. In XML, the <code>rel</code> attribute needs the value <code>jurisdiction</code>.</p> 
-  c :
-    name: status
-    type: Enum
-    mandatory: Mandatory
-    desc: <p>Status of the event. The status allows a client to determine if the current event should be considered as currently effective. Value list&colon;</p><pre>- active &colon; The event should be considered as effective<br>- archived &colon; The event should not be considered as effective</pre>
-  d :
-    name: headline
-    type: Free text
-    mandatory: Mandatory
-    desc: <p>Title of the event. Should be shorter than 500 characters.</p>
-  e :
-    name: eventType
-    type: Enum
-    mandatory: Mandatory
-    desc: <p>Basic type of event. Value list</p><pre>- construction &colon;  planned road work<br>- event &colon; special events (fair, sport event, etc.)<br>- incident &colon; accidents and unplanned road work.</pre>
-  f :
-    name: eventSubType
-    type: Enum
-    mandatory: Optional
-    desc: <p>List of values to provide more detail about the type of event.</p>  
-  g :
-    name: severity
-    type: Enum
-    mandatory: Mandatory <code><a href="https://github.com/opennorth/Open511API/issues/16">Issue 16</a></code>
-    desc: <p>Value list to be defined, either a scale (1 to N) or value list with defined semantics (Extreme/Severe/Moderate/Minor/Unknown) <code><a href="https://github.com/opennorth/Open511API/issues/2">Issue 2</a></code></p> 
-  i :
-    name: certainty
-    type: Enum
-    mandatory: Optional
-    desc: <p>Degree of certainty of the event. Should only be used for unplanned events (<code>eventType = incident</code>). Value list to be confirmed. Could be observed/likely/possible/unknown </p> 
-  j :
-    name: creationDate
-    type:  <a href="guidelines.html#datetime">DateTime</a>
-    mandatory: Mandatory
-    desc: <p>Date of creation of the event element</p>     
-  k :
-    name: lastUpdate
-    type:   <a href="guidelines.html#datetime">DateTime</a>
-    mandatory: Mandatory
-    desc: <p>This field provides the date and time of the last update. The value is the same as the creation date if no change occurred.</pre>
-  l :
-    name: relatedEvent
-    type: <a href="guidelines.html#links">Link</a>
-    mandatory: Optional
-    desc: <p>This field is used to group events together. In specific situations (for example complex construction projects), several events might be related together. This field should be used to point a related event. In XML, the <code>rel</code> attribute needs the value <code>related</code></p> 
-  m :
-    name: detour
-    type: Free text
-    mandatory: Optional
-    desc: <p>If some detour information is available, it could be provided in this field as free text <code><a href="https://github.com/opennorth/Open511API/issues/9">Issue 9</a></code></p>
-  n :
-    name: travelerMessage
-    type: Enum
-    mandatory: Optional
-    desc: <p>In order to simplify analysis by automated tools, this field allows for providing predefined messages with a known semantic. For example <code>resident-only</code> means that the circulation is limited to people living on this street. The exact enum still has to be determined.<code><a href="https://github.com/opennorth/Open511API/issues/17">Issue 17</a></code></p>     
-  o :
-    name: geometry
-    type: <a href="guidelines.html#geospatial">geography field</a>
-    mandatory: Mandatory
-    desc: <p>Geographical information about the event using the GML notation. Valid type of geometry can be points, multipoints, linestring, multilinestrings and polygon. </p>
-  p :
-    name: roads
-    type: Collection of <a href="#road">road</a>
-    mandatory: Mandatory, support multiple occurrences of <code><a href="#road">road</a></code> element.
-    desc: <p>List of roads affected by the current event. One event can impact several roads.</p>    
-  q :
-    name: schedule
-    type: <a href="#schedule">schedule</a> structure
-    mandatory: Mandatory
-    desc: <p>Complex item to provide time related information</p>   
-  r :
-    name: attachments
-    type: Collection of <a href="#attachment">attachment</a>
-    mandatory: Optional, support multiple occurrences of <code><a href="#attachment">attachment</a></code> element.
-    desc: <p>Collection of attachments provided additional information about the event (PDFs, images, etc.)</p> 
+    -  name: self
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>.</p> 
+
+    - name: jurisdiction
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Mandatory
+      desc: <p>Link to the jurisdiction which published the event. In XML, the <code>rel</code> attribute needs the value <code>jurisdiction</code>.</p> 
+
+    - name: status
+      type: Enum
+      mandatory: Mandatory
+      desc: <p>Status of the event. The status allows a client to determine if the current event should be considered as currently effective. Value list&colon;</p><pre>- active &colon; The event should be considered as effective<br>- archived &colon; The event should not be considered as effective</pre>
+
+    - name: headline
+      type: Free text
+      mandatory: Mandatory
+      desc: <p>Title of the event. Should be shorter than 500 characters.</p>
+
+    - name: eventType
+      type: Enum
+      mandatory: Mandatory
+      desc: <p>Basic type of event. Value list</p><pre>- construction &colon;  planned road work<br>- event &colon; special events (fair, sport event, etc.)<br>- incident &colon; accidents and unplanned road work.</pre>
+
+    - name: eventSubType
+      type: Enum
+      mandatory: Optional
+      desc: <p>List of values to provide more detail about the type of event.</p>  
+
+    - name: severity
+      type: Enum
+      mandatory: Mandatory <code><a href="https://github.com/opennorth/Open511API/issues/16">Issue 16</a></code>
+      desc: <p>Value list to be defined, either a scale (1 to N) or value list with defined semantics (Extreme/Severe/Moderate/Minor/Unknown) <code><a href="https://github.com/opennorth/Open511API/issues/2">Issue 2</a></code></p> 
+
+    - name: certainty
+      type: Enum
+      mandatory: Optional
+      desc: <p>Degree of certainty of the event. Should only be used for unplanned events (<code>eventType = incident</code>). Value list to be confirmed. Could be observed/likely/possible/unknown </p> 
+
+    - name: creationDate
+      type:  <a href="guidelines.html#datetime">DateTime</a>
+      mandatory: Mandatory
+      desc: <p>Date of creation of the event element</p>     
+
+    - name: lastUpdate
+      type:   <a href="guidelines.html#datetime">DateTime</a>
+      mandatory: Mandatory
+      desc: <p>This field provides the date and time of the last update. The value is the same as the creation date if no change occurred.</pre>
+
+    - name: relatedEvent
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Optional
+      desc: <p>This field is used to group events together. In specific situations (for example complex construction projects), several events might be related together. This field should be used to point a related event. In XML, the <code>rel</code> attribute needs the value <code>related</code></p> 
+
+    - name: detour
+      type: Free text
+      mandatory: Optional
+      desc: <p>If some detour information is available, it could be provided in this field as free text <code><a href="https://github.com/opennorth/Open511API/issues/9">Issue 9</a></code></p>
+
+    - name: travelerMessage
+      type: Enum
+      mandatory: Optional
+      desc: <p>In order to simplify analysis by automated tools, this field allows for providing predefined messages with a known semantic. For example <code>resident-only</code> means that the circulation is limited to people living on this street. The exact enum still has to be determined.<code><a href="https://github.com/opennorth/Open511API/issues/17">Issue 17</a></code></p>     
+
+    - name: geometry
+      type: <a href="guidelines.html#geospatial">geography field</a>
+      mandatory: Mandatory
+      desc: <p>Geographical information about the event using the GML notation. Valid type of geometry can be points, multipoints, linestring, multilinestrings and polygon. </p>
+
+    - name: roads
+      type: Collection of <a href="#road">road</a>
+      mandatory: Mandatory, support multiple occurrences of <code><a href="#road">road</a></code> element.
+      desc: <p>List of roads affected by the current event. One event can impact several roads.</p>    
+
+    - name: schedule
+      type: <a href="#schedule">schedule</a> structure
+      mandatory: Mandatory
+      desc: <p>Complex item to provide time related information</p>   
+
+    - name: attachments
+      type: Collection of <a href="#attachment">attachment</a>
+      mandatory: Optional, support multiple occurrences of <code><a href="#attachment">attachment</a></code> element.
+      desc: <p>Collection of attachments provided additional information about the event (PDFs, images, etc.)</p> 
 road : 
   a :
     name: roadName
@@ -495,7 +494,33 @@ attachment :
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'event' %}
 {% for item in page.event  %}
-   {% include tablegen.html %} 
+
+        {% if item.type contains 'structure' or item.type contains 'Collection' %}
+          <tr class="structure">             
+        {% else %} 
+          {% if item.mandatory contains 'andatory' %}
+          <tr class="mandatory">
+           {% else %}   
+          <tr>
+          {% endif %}
+        {% endif %}
+
+        {% if item.name contains 'dash' %}
+          <td class="name sub">
+        {% else %} 
+          <td class="name">
+        {% endif %}
+      <a id="{{ anchor }}-{{ item.name }}"></a>{{ item.name }}</td><!-- <td class="mandatory">{{ item.mandatory }}</td>--><td class="type">{{ item.type }}</td>
+      <td><p>
+        {% if item.mandatory contains 'andatory' %}
+        <b><i>{{ item.mandatory }}</i></b>
+        {% else %} 
+        <i>{{ item.mandatory }}</i>
+        {% endif %}
+
+      </p>{{ item.desc }}</td>
+  </tr>
+
 {% endfor %}
   </table>
 
