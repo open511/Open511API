@@ -1,6 +1,90 @@
 ---
 layout: page
-title: Jurisdiction 
+title: Jurisdiction
+presentation : 
+  a :
+    name : purpose
+    value : The jurisdiction represents any government entity (city, state/province, agency, etc.) publishes open511 data. It is a functional concept used to provide metadata about events such as contact information, etc.
+  b :
+    name : method
+    value : GET
+representation : 
+
+    - name: self
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code></p>
+
+    - name: up
+      type: <a href="guidelines.html#links">Link</a> 
+      mandatory: Mandatory
+      desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
+
+    - name: name
+      type: free text
+      mandatory: Mandatory
+      desc: <p>Name of the jurisdiction.</p>
+
+    - name: email
+      type: Free text
+      mandatory: Mandatory
+      desc: <p>Valid email that can be used to contact the department or person in charge of the data provided by the Open511 API</p>    
+
+    - name: url
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Optional
+      desc: <p>Link pointing to a human readable resource (web page, pdf file, etc) providing details about the Open511 service and the jurisdiction covered.</p>  
+
+    - name: phone
+      type: Free text
+      mandatory: Optional
+      desc: <p>Phone number to contact the department or person in charge of the data provided by the Open511 API</p>  
+
+    - name: description
+      type: Free text
+      mandatory: Optional
+      desc: <p>Free text that can be used by a client application to provide some information about the Open511 service and the jurisdiction covered.</p> 
+
+    - name: area
+      type: <a href="guidelines.html#geospatial">geography field</a>
+      mandatory: Mandatory <code><a href="https://github.com/opennorth/Open511API/issues/14">Issue 14</a></code>
+      desc: <p>Geographical coverage of the jurisdiction. This field only accepts a polygon or multipolygons.</p>
+
+    - name: license
+      type: <a href="#license">License</a> structure
+      mandatory: Mandatory
+      desc: <p>Provides information concerning the license covering the data provided by the API. <code><a href="https://github.com/opennorth/Open511API/issues/6">Issue 6</a></code></p> 
+
+    - name: languages
+      type: Collection of <code>language</code>
+      mandatory: Optional
+      desc: <p>List of languages supported by this endpoint. A <code>language</code> element should be provided for each language supported</p> 
+
+    - name: <p>&mdash;  language</p>
+      type: Enum
+      mandatory: Mandatory
+      desc: <p>Multiple occurrences supported. The values supported are the same as the <a href="guidelines.html#lang">language negotiation</a> feature</p>  
+license : 
+
+    - name: url
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Mandatory
+      desc: <p>Direct link to the license covering the data provided by the API.  In XML, the <code>rel</code> attribute needs the value <code>license</code></p>     
+
+    - name: licenseName
+      type: Enum
+      mandatory: Optional
+      desc: <p>The name of one of the well-known licenses and part of the enum supported by open511 </p><p>Enum:</p><pre>- ODBL<br>- CC0<br>- CC-BY<br>- ...</pre>
+
+    - name: licenseConditions
+      type: Collection of <code>condition</code>
+      mandatory: Optional
+      desc: <p>List of languages supported by this endpoint. A <code>language</code> element should be provided for each language supported</p> 
+
+    - name: <p>&mdash; licenseCondition</p>
+      type: Enum
+      mandatory: At least one element mandatory if the licenseConditions structure is present
+      desc: <p>Generic conditions that are contained in the license.</p><p>Enum:</p><pre>- ATTRIBUTION<br>- SHAREALIKE<br>- ...</pre>     
 ---
 {% include JB/setup %}
 
@@ -9,27 +93,15 @@ title: Jurisdiction
 <h3>Overview</h3>
 
   <table class="resource_pres">
- 
+{% for item in page.presentation %} 
   <tr>
-     
-      
-     
-      
-      <td class="vertical_header">purpose</td><td>The jurisdiction represents any government entity (city, state/province, agency, etc.) publishes open511 data. It is a functional concept used to provide metadata about events such as contact information, etc.</td>
-      
-    
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td class="vertical_header">{{ elem.name }}</td><td>{{ elem.value }}</td>
+      {% endif %}
+    {% endfor %}
   </tr>
- 
-  <tr>
-     
-      
-     
-      
-      <td class="vertical_header">method</td><td>GET</td>
-      
-    
-  </tr>
-
+{% endfor %}
   </table>
 
 
@@ -131,279 +203,10 @@ $(function() {
 
   <table class="representation">
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-
- 
-        
-      
-     
-      
-
-         
-          
-          <tr class="mandatory">
-           
-        
-
-         
-          <td class="name">
-        
-      <a id="representation-self"></a>self</td><!-- <td class="mandatory">Mandatory</td>--><td class="type"><a href="guidelines.html#links">Link</a></td>
-      <td><p>
-        
-        <b><i>Mandatory</i></b>
-        
-
-      </p><p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code></p></td>
-  </tr>
-      
-    
- 
-        
-      
-     
-      
-
-         
-          
-          <tr class="mandatory">
-           
-        
-
-         
-          <td class="name">
-        
-      <a id="representation-up"></a>up</td><!-- <td class="mandatory">Mandatory</td>--><td class="type"><a href="guidelines.html#links">Link</a></td>
-      <td><p>
-        
-        <b><i>Mandatory</i></b>
-        
-
-      </p><p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p></td>
-  </tr>
-      
-    
- 
-        
-      
-     
-      
-
-         
-          
-          <tr class="mandatory">
-           
-        
-
-         
-          <td class="name">
-        
-      <a id="representation-name"></a>name</td><!-- <td class="mandatory">Mandatory</td>--><td class="type">free text</td>
-      <td><p>
-        
-        <b><i>Mandatory</i></b>
-        
-
-      </p><p>Name of the jurisdiction.</p></td>
-  </tr>
-      
-    
- 
-        
-      
-     
-      
-
-         
-          
-          <tr class="mandatory">
-           
-        
-
-         
-          <td class="name">
-        
-      <a id="representation-email"></a>email</td><!-- <td class="mandatory">Mandatory</td>--><td class="type">Free text</td>
-      <td><p>
-        
-        <b><i>Mandatory</i></b>
-        
-
-      </p><p>Valid email that can be used to contact the department or person in charge of the data provided by the Open511 API</p></td>
-  </tr>
-      
-    
- 
-        
-      
-     
-      
-
-         
-             
-          <tr>
-          
-        
-
-         
-          <td class="name">
-        
-      <a id="representation-url"></a>url</td><!-- <td class="mandatory">Optional</td>--><td class="type"><a href="guidelines.html#links">Link</a></td>
-      <td><p>
-         
-        <i>Optional</i>
-        
-
-      </p><p>Link pointing to a human readable resource (web page, pdf file, etc) providing details about the Open511 service and the jurisdiction covered.</p></td>
-  </tr>
-      
-    
- 
-        
-      
-     
-      
-
-         
-             
-          <tr>
-          
-        
-
-         
-          <td class="name">
-        
-      <a id="representation-phone"></a>phone</td><!-- <td class="mandatory">Optional</td>--><td class="type">Free text</td>
-      <td><p>
-         
-        <i>Optional</i>
-        
-
-      </p><p>Phone number to contact the department or person in charge of the data provided by the Open511 API</p></td>
-  </tr>
-      
-    
- 
-        
-      
-     
-      
-
-         
-             
-          <tr>
-          
-        
-
-         
-          <td class="name">
-        
-      <a id="representation-description"></a>description</td><!-- <td class="mandatory">Optional</td>--><td class="type">Free text</td>
-      <td><p>
-         
-        <i>Optional</i>
-        
-
-      </p><p>Free text that can be used by a client application to provide some information about the Open511 service and the jurisdiction covered.</p></td>
-  </tr>
-      
-    
- 
-        
-      
-     
-      
-
-         
-          
-          <tr class="mandatory">
-           
-        
-
-         
-          <td class="name">
-        
-      <a id="representation-area"></a>area</td><!-- <td class="mandatory">Mandatory <code><a href="https://github.com/opennorth/Open511API/issues/14">Issue 14</a></code></td>--><td class="type"><a href="guidelines.html#geospatial">geography field</a></td>
-      <td><p>
-        
-        <b><i>Mandatory <code><a href="https://github.com/opennorth/Open511API/issues/14">Issue 14</a></code></i></b>
-        
-
-      </p><p>Geographical coverage of the jurisdiction. This field only accepts a polygon or multipolygons.</p></td>
-  </tr>
-      
-    
- 
-        
-      
-     
-      
-
-        
-          <tr class="structure">             
-        
-
-         
-          <td class="name">
-        
-      <a id="representation-license"></a>license</td><!-- <td class="mandatory">Mandatory</td>--><td class="type"><a href="#license">License</a> structure</td>
-      <td><p>
-        
-        <b><i>Mandatory</i></b>
-        
-
-      </p><p>Provides information concerning the license covering the data provided by the API. <code><a href="https://github.com/opennorth/Open511API/issues/6">Issue 6</a></code></p></td>
-  </tr>
-      
-    
- 
-        
-      
-     
-      
-
-        
-          <tr class="structure">             
-        
-
-         
-          <td class="name">
-        
-      <a id="representation-languages"></a>languages</td><!-- <td class="mandatory">Optional</td>--><td class="type">Collection of <code>language</code></td>
-      <td><p>
-         
-        <i>Optional</i>
-        
-
-      </p><p>List of languages supported by this endpoint. A <code>language</code> element should be provided for each language supported</p></td>
-  </tr>
-      
-    
- 
-        
-      
-     
-      
-
-         
-          
-          <tr class="mandatory">
-           
-        
-
-        
-          <td class="name sub">
-        
-      <a id="representation-<p>&mdash;  language</p>"></a><p>&mdash;  language</p></td><!-- <td class="mandatory">Mandatory</td>--><td class="type">Enum</td>
-      <td><p>
-        
-        <b><i>Mandatory</i></b>
-        
-
-      </p><p>Multiple occurrences supported. The values supported are the same as the <a href="guidelines.html#lang">language negotiation</a> feature</p></td>
-  </tr>
-      
-    
-   
+{% assign anchor = 'representation' %}
+{% for item in page.representation %} 
+   {% include tablegen.html %}
+{% endfor %}   
      </table>
 
 <a id="license"></a>
@@ -411,106 +214,9 @@ $(function() {
 
   <table class="representation">
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-
- 
-        
-      
-     
-      
-
-         
-          
-          <tr class="mandatory">
-           
-        
-
-         
-          <td class="name">
-        
-      <a id="license-url"></a>url</td><!-- <td class="mandatory">Mandatory</td>--><td class="type"><a href="guidelines.html#links">Link</a></td>
-      <td><p>
-        
-        <b><i>Mandatory</i></b>
-        
-
-      </p><p>Direct link to the license covering the data provided by the API.  In XML, the <code>rel</code> attribute needs the value <code>license</code></p></td>
-  </tr>
-      
-    
- 
-        
-      
-     
-      
-
-         
-             
-          <tr>
-          
-        
-
-         
-          <td class="name">
-        
-      <a id="license-licenseName"></a>licenseName</td><!-- <td class="mandatory">Optional</td>--><td class="type">Enum</td>
-      <td><p>
-         
-        <i>Optional</i>
-        
-
-      </p><p>The name of one of the well-known licenses and part of the enum supported by open511 </p><p>Enum:</p><pre>- ODBL<br>- CC0<br>- CC-BY<br>- ...</pre></td>
-  </tr>
-      
-    
- 
-        
-      
-     
-      
-
-        
-          <tr class="structure">             
-        
-
-         
-          <td class="name">
-        
-      <a id="license-licenseConditions"></a>licenseConditions</td><!-- <td class="mandatory">Optional</td>--><td class="type">Collection of <code>condition</code></td>
-      <td><p>
-         
-        <i>Optional</i>
-        
-
-      </p><p>List of languages supported by this endpoint. A <code>language</code> element should be provided for each language supported</p></td>
-  </tr>
-      
-    
- 
-        
-      
-     
-      
-
-         
-          
-          <tr class="mandatory">
-           
-        
-
-        
-          <td class="name sub">
-        
-      <a id="license-<p>&mdash; licenseCondition</p>"></a><p>&mdash; licenseCondition</p></td><!-- <td class="mandatory">At least one element mandatory if the licenseConditions structure is present</td>--><td class="type">Enum</td>
-      <td><p>
-        
-        <b><i>At least one element mandatory if the licenseConditions structure is present</i></b>
-        
-
-      </p><p>Generic conditions that are contained in the license.</p><p>Enum:</p><pre>- ATTRIBUTION<br>- SHAREALIKE<br>- ...</pre></td>
-  </tr>
-      
-    
-   
+{% assign anchor = 'license' %}
+{% for item in page.license %} 
+   {% include tablegen.html %}
+{% endfor %}   
      </table>     
-
 
