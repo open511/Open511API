@@ -1,30 +1,25 @@
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-
-        {% if elem.type contains 'structure' or elem.type contains 'Collection' %}
+        {% if item.type contains 'structure' or item.type contains 'Collection' %}
           <tr class="structure">             
         {% else %} 
-          {% if elem.mandatory contains 'andatory' %}
+          {% if item.mandatory contains 'andatory' %}
           <tr class="mandatory">
            {% else %}   
           <tr>
           {% endif %}
         {% endif %}
 
-        {% if elem.name contains 'dash' %}
+        {% if item.name contains 'dash' %}
           <td class="name sub">
         {% else %} 
           <td class="name">
         {% endif %}
-      <a id="{{ anchor }}-{{ elem.name }}"></a>{{ elem.name }}</td><!-- <td class="mandatory">{{ elem.mandatory }}</td>--><td class="type">{{ elem.type }}</td>
+      <a id="{{ anchor }}-{{ item.name }}"></a>{{ item.name }}</td><!-- <td class="mandatory">{{ item.mandatory }}</td>--><td class="type">{{ item.type }}</td>
       <td><p>
-        {% if elem.mandatory contains 'andatory' %}
-        <b><i>{{ elem.mandatory }}</i></b>
+        {% if item.mandatory contains 'andatory' %}
+        <b><i>{{ item.mandatory }}</i></b>
         {% else %} 
-        <i>{{ elem.mandatory }}</i>
+        <i>{{ item.mandatory }}</i>
         {% endif %}
 
-      </p>{{ elem.desc }}</td>
+      </p>{{ item.desc }}</td>
   </tr>
-      {% endif %}
-    {% endfor %}

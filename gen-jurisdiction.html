@@ -9,82 +9,82 @@ presentation :
     name : method
     value : GET
 representation : 
-  a :
-    name: self
-    mandatory: Mandatory
-    type: <a href="guidelines.html#links">Link</a>
-    desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code></p>
-  b :
-    name: up
-    type: <a href="guidelines.html#links">Link</a> 
-    mandatory: Mandatory
-    desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
-  c :
-    name: name
-    type: free text
-    mandatory: Mandatory
-    desc: <p>Name of the jurisdiction.</p>
-  d :
-    name: email
-    type: Free text
-    mandatory: Mandatory
-    desc: <p>Valid email that can be used to contact the department or person in charge of the data provided by the Open511 API</p>    
-  e :
-    name: url
-    type: <a href="guidelines.html#links">Link</a>
-    mandatory: Optional
-    desc: <p>Link pointing to a human readable resource (web page, pdf file, etc) providing details about the Open511 service and the jurisdiction covered.</p>  
-  f :
-    name: phone
-    type: Free text
-    mandatory: Optional
-    desc: <p>Phone number to contact the department or person in charge of the data provided by the Open511 API</p>  
-  g :
-    name: description
-    type: Free text
-    mandatory: Optional
-    desc: <p>Free text that can be used by a client application to provide some information about the Open511 service and the jurisdiction covered.</p> 
-  h :
-    name: area
-    type: <a href="guidelines.html#geospatial">geography field</a>
-    mandatory: Mandatory <code><a href="https://github.com/opennorth/Open511API/issues/14">Issue 14</a></code>
-    desc: <p>Geographical coverage of the jurisdiction. This field only accepts a polygon or multipolygons.</p>
-  i :
-    name: license
-    type: <a href="#license">License</a> structure
-    mandatory: Mandatory
-    desc: <p>Provides information concerning the license covering the data provided by the API. <code><a href="https://github.com/opennorth/Open511API/issues/6">Issue 6</a></code></p> 
-  k :
-    name: languages
-    type: Collection of <code>language</code>
-    mandatory: Optional
-    desc: <p>List of languages supported by this endpoint. A <code>language</code> element should be provided for each language supported</p> 
-  m :
-    name: <p>&mdash;  language</p>
-    type: Enum
-    mandatory: Mandatory
-    desc: <p>Multiple occurrences supported. The values supported are the same as the <a href="guidelines.html#lang">language negotiation</a> feature</p>  
+
+    - name: self
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code></p>
+
+    - name: up
+      type: <a href="guidelines.html#links">Link</a> 
+      mandatory: Mandatory
+      desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
+
+    - name: name
+      type: free text
+      mandatory: Mandatory
+      desc: <p>Name of the jurisdiction.</p>
+
+    - name: email
+      type: Free text
+      mandatory: Mandatory
+      desc: <p>Valid email that can be used to contact the department or person in charge of the data provided by the Open511 API</p>    
+
+    - name: url
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Optional
+      desc: <p>Link pointing to a human readable resource (web page, pdf file, etc) providing details about the Open511 service and the jurisdiction covered.</p>  
+
+    - name: phone
+      type: Free text
+      mandatory: Optional
+      desc: <p>Phone number to contact the department or person in charge of the data provided by the Open511 API</p>  
+
+    - name: description
+      type: Free text
+      mandatory: Optional
+      desc: <p>Free text that can be used by a client application to provide some information about the Open511 service and the jurisdiction covered.</p> 
+
+    - name: area
+      type: <a href="guidelines.html#geospatial">geography field</a>
+      mandatory: Mandatory <code><a href="https://github.com/opennorth/Open511API/issues/14">Issue 14</a></code>
+      desc: <p>Geographical coverage of the jurisdiction. This field only accepts a polygon or multipolygons.</p>
+
+    - name: license
+      type: <a href="#license">License</a> structure
+      mandatory: Mandatory
+      desc: <p>Provides information concerning the license covering the data provided by the API. <code><a href="https://github.com/opennorth/Open511API/issues/6">Issue 6</a></code></p> 
+
+    - name: languages
+      type: Collection of <code>language</code>
+      mandatory: Optional
+      desc: <p>List of languages supported by this endpoint. A <code>language</code> element should be provided for each language supported</p> 
+
+    - name: <p>&mdash;  language</p>
+      type: Enum
+      mandatory: Mandatory
+      desc: <p>Multiple occurrences supported. The values supported are the same as the <a href="guidelines.html#lang">language negotiation</a> feature</p>  
 license : 
-  a :
-    name: url
-    type: <a href="guidelines.html#links">Link</a>
-    mandatory: Mandatory
-    desc: <p>Direct link to the license covering the data provided by the API.  In XML, the <code>rel</code> attribute needs the value <code>license</code></p>     
-  b :
-    name: licenseName
-    type: Enum
-    mandatory: Optional
-    desc: <p>The name of one of the well-known licenses and part of the enum supported by open511 </p><p>Enum:</p><pre>- ODBL<br>- CC0<br>- CC-BY<br>- ...</pre>
-  c :
-    name: licenseConditions
-    type: Collection of <code>condition</code>
-    mandatory: Optional
-    desc: <p>List of languages supported by this endpoint. A <code>language</code> element should be provided for each language supported</p> 
-  d :
-    name: <p>&mdash; licenseCondition</p>
-    type: Enum
-    mandatory: At least one element mandatory if the licenseConditions structure is present
-    desc: <p>Generic conditions that are contained in the license.</p><p>Enum:</p><pre>- ATTRIBUTION<br>- SHAREALIKE<br>- ...</pre>     
+
+    - name: url
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Mandatory
+      desc: <p>Direct link to the license covering the data provided by the API.  In XML, the <code>rel</code> attribute needs the value <code>license</code></p>     
+
+    - name: licenseName
+      type: Enum
+      mandatory: Optional
+      desc: <p>The name of one of the well-known licenses and part of the enum supported by open511 </p><p>Enum:</p><pre>- ODBL<br>- CC0<br>- CC-BY<br>- ...</pre>
+
+    - name: licenseConditions
+      type: Collection of <code>condition</code>
+      mandatory: Optional
+      desc: <p>List of languages supported by this endpoint. A <code>language</code> element should be provided for each language supported</p> 
+
+    - name: <p>&mdash; licenseCondition</p>
+      type: Enum
+      mandatory: At least one element mandatory if the licenseConditions structure is present
+      desc: <p>Generic conditions that are contained in the license.</p><p>Enum:</p><pre>- ATTRIBUTION<br>- SHAREALIKE<br>- ...</pre>     
 ---
 {% include JB/setup %}
 

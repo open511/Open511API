@@ -34,46 +34,46 @@ parameters :
       description : <p>Filtering near a point or linestring or within a polygon. The method still has to be defined &colon; <code><a href="https://github.com/opennorth/Open511API/issues/4">issue 4</a></code></p>
 
 representation : 
-  a :
-    name: self
-    mandatory: Mandatory
-    type: <a href="guidelines.html#links">Link</a>
-    desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>.</p> 
-  b :
-    name: up
-    type: <a href="guidelines.html#links">Link</a>   
-    mandatory: Mandatory
-    desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
-  c :
-    name: events
-    type: Collection of <a href="#event">Event</a>
-    mandatory: Mandatory. Can contain multiple <code>event</code> elements, at least one occurrence is <b>mandatory</b>
-    desc: <p>Main content of the events resource, a collection of <code>event</code> elements.</p>
-  d :
-    name: pagination
-    type: Pagination structure
-    mandatory: Conditional (mandatory if more than one page)
-    desc: <p>The pagination structure provides information about the current position in the pagination and links to other pages</p>
-  f :
-    name: <p>&mdash; offset</p>
-    type: integer    
-    mandatory: Optional
-    desc: <p>Offset used to access the current page</p>
-  g :
-    name: <p>&mdash; limit</p>
-    type: integer
-    mandatory: Optional
-    desc: <p>Number of events listed in the current page</p>
-  h :
-    name: <p>&mdash; next</p>
-    type: <a href="guidelines.html#links">Link</a>
-    mandatory: Conditional (mandatory if a next page exists)
-    desc: <p>Atom link pointing to the next page of the event. Relation attribute value is <code>next</code></p>        
-  i :
-    name: <p>&mdash; previous</p>
-    type: <a href="guidelines.html#links">Link</a>
-    mandatory: Conditional (mandatory if a previous page exists)
-    desc: <p>Atom link pointing the previous page of event. Relation attribute value is <code>previous</code></p>   
+
+    - name: self
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>.</p> 
+
+    - name: up
+      type: <a href="guidelines.html#links">Link</a>   
+      mandatory: Mandatory
+      desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
+
+    - name: events
+      type: Collection of <a href="#event">Event</a>
+      mandatory: Mandatory. Can contain multiple <code>event</code> elements, at least one occurrence is <b>mandatory</b>
+      desc: <p>Main content of the events resource, a collection of <code>event</code> elements.</p>
+
+    - name: pagination
+      type: Pagination structure
+      mandatory: Conditional (mandatory if more than one page)
+      desc: <p>The pagination structure provides information about the current position in the pagination and links to other pages</p>
+
+    - name: <p>&mdash; offset</p>
+      type: integer    
+      mandatory: Optional
+      desc: <p>Offset used to access the current page</p>
+
+    - name: <p>&mdash; limit</p>
+      type: integer
+      mandatory: Optional
+      desc: <p>Number of events listed in the current page</p>
+
+    - name: <p>&mdash; next</p>
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Conditional (mandatory if a next page exists)
+      desc: <p>Atom link pointing to the next page of the event. Relation attribute value is <code>next</code></p>        
+
+    - name: <p>&mdash; previous</p>
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Conditional (mandatory if a previous page exists)
+      desc: <p>Atom link pointing the previous page of event. Relation attribute value is <code>previous</code></p>   
 event : 
     - name: self
       mandatory: Mandatory
@@ -160,118 +160,116 @@ event :
       mandatory: Optional, support multiple occurrences of <code><a href="#attachment">attachment</a></code> element.
       desc: <p>Collection of attachments provided additional information about the event (PDFs, images, etc.)</p> 
 road : 
-  a :
-    name: roadName
-    mandatory: Mandatory
-    type: Free text
-    desc: <p>Name of the road affected by the event. When possible, this field should contain a value that fits the national symbology for roads and highways. <code><a href="https://github.com/opennorth/Open511API/issues/11">Issue 11</a></code></p> 
-  b :
-    name: from
-    type: free text
-    mandatory: Optional
-    desc: <p>Approximate start point of the event on the road. It can be an intersection with another street or it can be a mileage indication.</p><p> This value should not be used to determine the exact start point since it can be an approximation. The <code>geometry</code> field should be considered as the reference for exact location.</p><p>If no <code>to</code> field is provided, the from can be considered as a "near".</p>
-  c :
-    name: to
-    type: free text
-    mandatory: Optional
-    desc: <p>Approximate end point of the event on the road. It can be an intersection with another street or it can be mileage indication</p>
-  d :
-    name: direction
-    type: Enum
-    mandatory: Conditional
-    desc: <p>Direction of the road that is affected by the event.</p><p>If a <code>lane_status</code> is provided, the direction becomes <b>mandatory</b>. In the same situation, if both directions are affected, two occurrences of the road element are needed, one for each direction and with a dedicated <code>lane_status</code> for each direction.</p>
-  e :
-    name: laneStatus
-    type: bitmap
-    mandatory: Optional
-    desc: <p>Bitmap representing the lanes that are closed because of the event. For example <code>0110</code> means that the 2 central lanes of a 4 lanes roads are closed.</p><p>The lane status is applied to direction provided</p>
-  f :
-    name: city
-    type: free text
-    mandatory: Optional
-    desc: <p>City in which the event is taking place (or near)</p>  
-  g :
-    name: impactedSystems
-    type: Collection of <code>impactedSystem</code>
-    mandatory: Optional
-    desc: <p>Allows provision of information about other systems that can be affected</p> 
-  i :
-    name:  <p>&mdash; impactedSystem</p>
-    type: Enum
-    mandatory: Optional
-    desc: <p>Value list of systems:</p> <pre>ROAD<br>SIDEWALK<br>BIKELANE<br>ONSTREET-PARKING<br>PARKING</pre> 
-  j :
-    name: restrictions
-    type: Collection of <code>restriction</code>
-    mandatory: Optional
-    desc: <p>Some events may come with some restrictions in terms of vehicles using the road (speed, weigth). The restriction structure provides a way to provide the restrictions</p>     
-  k :
-    name:  <p>&mdash; restriction</p>
-    type: Enum
-    mandatory: Optional
-    desc: <p>Each restriction element provides a limitation on the current road element. The node element can be speed, weight, length, width. A <code>unit</code> can provide the unit used to measure the restriction (t for tons, lb for pounds, etc.).<p></p>Detail for the restrictions supported and formatting to be determined <code><a href="https://github.com/opennorth/Open511API/issues/18">Issue 18</a></code></p>
+    - name: roadName
+      mandatory: Mandatory
+      type: Free text
+      desc: <p>Name of the road affected by the event. When possible, this field should contain a value that fits the national symbology for roads and highways. <code><a href="https://github.com/opennorth/Open511API/issues/11">Issue 11</a></code></p> 
+
+    - name: from
+      type: free text
+      mandatory: Optional
+      desc: <p>Approximate start point of the event on the road. It can be an intersection with another street or it can be a mileage indication.</p><p> This value should not be used to determine the exact start point since it can be an approximation. The <code>geometry</code> field should be considered as the reference for exact location.</p><p>If no <code>to</code> field is provided, the from can be considered as a "near".</p>
+
+    - name: to
+      type: free text
+      mandatory: Optional
+      desc: <p>Approximate end point of the event on the road. It can be an intersection with another street or it can be mileage indication</p>
+
+    - name: direction
+      type: Enum
+      mandatory: Conditional
+      desc: <p>Direction of the road that is affected by the event.</p><p>If a <code>lane_status</code> is provided, the direction becomes <b>mandatory</b>. In the same situation, if both directions are affected, two occurrences of the road element are needed, one for each direction and with a dedicated <code>lane_status</code> for each direction.</p>
+
+    - name: laneStatus
+      type: bitmap
+      mandatory: Optional
+      desc: <p>Bitmap representing the lanes that are closed because of the event. For example <code>0110</code> means that the 2 central lanes of a 4 lanes roads are closed.</p><p>The lane status is applied to direction provided</p>
+
+    - name: city
+      type: free text
+      mandatory: Optional
+      desc: <p>City in which the event is taking place (or near)</p>  
+
+    - name: impactedSystems
+      type: Collection of <code>impactedSystem</code>
+      mandatory: Optional
+      desc: <p>Allows provision of information about other systems that can be affected</p> 
+
+    - name:  <p>&mdash; impactedSystem</p>
+      type: Enum
+      mandatory: Optional
+      desc: <p>Value list of systems:</p> <pre>ROAD<br>SIDEWALK<br>BIKELANE<br>ONSTREET-PARKING<br>PARKING</pre> 
+
+    - name: restrictions
+      type: Collection of <code>restriction</code>
+      mandatory: Optional
+      desc: <p>Some events may come with some restrictions in terms of vehicles using the road (speed, weigth). The restriction structure provides a way to provide the restrictions</p>     
+
+    - name:  <p>&mdash; restriction</p>
+      type: Enum
+      mandatory: Optional
+      desc: <p>Each restriction element provides a limitation on the current road element. The node element can be speed, weight, length, width. A <code>unit</code> can provide the unit used to measure the restriction (t for tons, lb for pounds, etc.).<p></p>Detail for the restrictions supported and formatting to be determined <code><a href="https://github.com/opennorth/Open511API/issues/18">Issue 18</a></code></p>
 schedule : 
-  a :
-    name: timezone
-    mandatory: Optional
-    type: <a href="guidelines.html#timezone">timezone</a>
-    desc: <p>Timezone to be used for this event. Timezone abbreviation (e.g <code>EST</code>) or the continent/city timezone code <code>America/Montreal</code></p> 
-  b :
-    name: startDate
-    type: <a href="guidelines.html#datetime">Date</a>
-    mandatory: Mandatory
-    desc: <p>Start date of the event.</p>
-  c :
-    name: endDate
-    type: <a href="guidelines.html#datetime">Date</a>
-    mandatory: Optional
-    desc: <p>End date of the event. If no end date is provided, the event should be considered continuing forever.</p>
-  d :
-    name: dayOfWeek
-    type: Enum
-    mandatory: Optional
-    desc: <p>Comma separated list of days of the week where the event should be considered as active. For example wednesday, thursday, friday would be <code>3,4,5</code>. The days are Monday to Sunday from 1 to 7.</p> 
-  e :
-    name: time
-    type: structure
-    mandatory: Optional
-    desc: <p>Provide detail about the specific times of the event. Multiple occurrences of the time structure are allowed so specify multiple timeframes in a day.</p>
-  f :
-    name: <p>&mdash; startTime</p>
-    type: <a href="guidelines.html#datetime">Time</a>
-    mandatory: Optional
-    desc: <p>Start time of the event. If the event is spread across several days, the start time is to be applied for each day</p>
-  g :
-    name: <p>&mdash; endTime</p>
-    type: <a href="guidelines.html#datetime">Time</a>
-    mandatory: Optional
-    desc: <p>Start time of the event. If the event is spread across several days, the start time is to be applied for each day. end_time is mandatory if a start_time is provided.</p>  
-  i :
-    name: specificDates
-    type: Collection of specificDate
-    mandatory: Optional
-    desc: <p>Since some days might not follow the regular schedule, it is possible to provide a schedule for individual days (for example vacations). <code><a href="https://github.com/opennorth/Open511API/issues/19">Issue 19</a></code></</p>
+    - name: timezone
+      mandatory: Optional
+      type: <a href="guidelines.html#timezone">timezone</a>
+      desc: <p>Timezone to be used for this event. Timezone abbreviation (e.g <code>EST</code>) or the continent/city timezone code <code>America/Montreal</code></p> 
+
+    - name: startDate
+      type: <a href="guidelines.html#datetime">Date</a>
+      mandatory: Mandatory
+      desc: <p>Start date of the event.</p>
+
+    - name: endDate
+      type: <a href="guidelines.html#datetime">Date</a>
+      mandatory: Optional
+      desc: <p>End date of the event. If no end date is provided, the event should be considered continuing forever.</p>
+
+    - name: dayOfWeek
+      type: Enum
+      mandatory: Optional
+      desc: <p>Comma separated list of days of the week where the event should be considered as active. For example wednesday, thursday, friday would be <code>3,4,5</code>. The days are Monday to Sunday from 1 to 7.</p> 
+
+    - name: time
+      type: structure
+      mandatory: Optional
+      desc: <p>Provide detail about the specific times of the event. Multiple occurrences of the time structure are allowed so specify multiple timeframes in a day.</p>
+
+    - name: <p>&mdash; startTime</p>
+      type: <a href="guidelines.html#datetime">Time</a>
+      mandatory: Optional
+      desc: <p>Start time of the event. If the event is spread across several days, the start time is to be applied for each day</p>
+
+    - name: <p>&mdash; endTime</p>
+      type: <a href="guidelines.html#datetime">Time</a>
+      mandatory: Optional
+      desc: <p>Start time of the event. If the event is spread across several days, the start time is to be applied for each day. end_time is mandatory if a start_time is provided.</p>  
+
+    - name: specificDates
+      type: Collection of specificDate
+      mandatory: Optional
+      desc: <p>Since some days might not follow the regular schedule, it is possible to provide a schedule for individual days (for example vacations). <code><a href="https://github.com/opennorth/Open511API/issues/19">Issue 19</a></code></</p>
+
 attachment : 
-  a :
-    name: mediaType
-    mandatory: Optional
-    type: Enum
-    desc: <p>Type of content that is linked. Must follow the IANA content type. For example <code>image/jpg</code> for an image encoded with JPEG</p> 
-  b :
-    name: size
-    type: number
-    mandatory: Optional
-    desc: <p>Size of the content that is linked expressed in kilobytes (kb)</p>
-  c :
-    name: url
-    type: <a href="guidelines.html#links">Link</a>
-    mandatory: Mandatory
-    desc: <p>Atom link pointing the attachment with attribute <code>related</code></p>
-  d :
-    name: description
-    type: Free text
-    mandatory: Optional
-    desc: <p>Human readeable description of the attachment.</p>
+    - name: mediaType
+      mandatory: Optional
+      type: Enum
+      desc: <p>Type of content that is linked. Must follow the IANA content type. For example <code>image/jpg</code> for an image encoded with JPEG</p> 
+
+    - name: size
+      type: number
+      mandatory: Optional
+      desc: <p>Size of the content that is linked expressed in kilobytes (kb)</p>
+
+    - name: url
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Mandatory
+      desc: <p>Atom link pointing the attachment with attribute <code>related</code></p>
+
+    - name: description
+      type: Free text
+      mandatory: Optional
+      desc: <p>Human readeable description of the attachment.</p>
 ---
 {% include JB/setup %}
 
@@ -303,20 +301,6 @@ attachment :
 {% for item in page.parameters  %} 
   <tr>
       <td>{{ item.name }}</td><td>{{ item.required }}</td><td>{{ item.description }}</td>
-  </tr>
-{% endfor %}
-  </table>
-
-
-  <table class="parameters">
-        <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
-{% for item in page.parameters  %} 
-  <tr>
-    {% for elem in item %} 
-      {% if elem.name != nil %}
-      <td>{{ elem.name }}</td><td>{{ elem.required }}</td><td>{{ elem.description }}</td>
-      {% endif %}
-    {% endfor %}
   </tr>
 {% endfor %}
   </table>
@@ -494,33 +478,7 @@ attachment :
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'event' %}
 {% for item in page.event  %}
-
-        {% if item.type contains 'structure' or item.type contains 'Collection' %}
-          <tr class="structure">             
-        {% else %} 
-          {% if item.mandatory contains 'andatory' %}
-          <tr class="mandatory">
-           {% else %}   
-          <tr>
-          {% endif %}
-        {% endif %}
-
-        {% if item.name contains 'dash' %}
-          <td class="name sub">
-        {% else %} 
-          <td class="name">
-        {% endif %}
-      <a id="{{ anchor }}-{{ item.name }}"></a>{{ item.name }}</td><!-- <td class="mandatory">{{ item.mandatory }}</td>--><td class="type">{{ item.type }}</td>
-      <td><p>
-        {% if item.mandatory contains 'andatory' %}
-        <b><i>{{ item.mandatory }}</i></b>
-        {% else %} 
-        <i>{{ item.mandatory }}</i>
-        {% endif %}
-
-      </p>{{ item.desc }}</td>
-  </tr>
-
+     {% include tablegen.html %}
 {% endfor %}
   </table>
 
