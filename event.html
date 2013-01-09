@@ -9,11 +9,11 @@ presentation :
     name : method
     value : GET
 parameters : 
-    - name : startDate
+    - name : start_date
       required : optional 
       description : <p>The start date parameter allows for searching events that will be or have been active anytime <i>after</i> the provided value. The start date parameter can be past or future. The parameter should be complete <a href="guidelines.html#datetime">DateTime</a>. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
 
-    - name : endDate
+    - name : end_date
       required : optional
       description : <p>The end date parameter allows for searching events that will be or have been active anytime <i>before</i> the provided parameter. The end date parameter can be past or future. The parameter should include complete <a href="guidelines.html#datetime">DateTime</a> including the timezone.</p>
 
@@ -44,11 +44,6 @@ representation :
       type: <a href="guidelines.html#links">Link</a>   
       mandatory: Mandatory
       desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
-
-    - name: events
-      type: Collection of <a href="#event">Event</a>
-      mandatory: Mandatory. Can contain multiple <code>event</code> elements, at least one occurrence is <b>mandatory</b>
-      desc: <p>Main content of the events resource, a collection of <code>event</code> elements.</p>
 
     - name: pagination
       type: Pagination structure
@@ -88,19 +83,19 @@ event :
     - name: status
       type: Enum
       mandatory: Mandatory
-      desc: <p>Status of the event. The status allows a client to determine if the current event should be considered as currently effective. Value list&colon;</p><pre>- active &colon; The event should be considered as effective<br>- archived &colon; The event should not be considered as effective</pre>
+      desc: <p>Status of the event. The status allows a client to determine if the current event should be considered as currently effective. Value list&colon;</p><pre>- ACTIVE &colon; The event should be considered as effective<br>- ARCHIVED &colon; The event should not be considered as effective</pre>
 
     - name: headline
       type: Free text
       mandatory: Mandatory
       desc: <p>Title of the event. Should be shorter than 500 characters.</p>
 
-    - name: eventType
+    - name: event_type
       type: Enum
       mandatory: Mandatory
-      desc: <p>Basic type of event. Value list</p><pre>- construction &colon;  planned road work<br>- event &colon; special events (fair, sport event, etc.)<br>- incident &colon; accidents and unplanned road work.</pre>
+      desc: <p>Basic type of event. Value list</p><pre>- CONSTRUCTION &colon;  planned road work<br>- SPECIAL_EVENT &colon; special events (fair, sport event, etc.)<br>- INCIDENT &colon; accidents and unplanned road work.</pre>
 
-    - name: eventSubType
+    - name: event_subtype
       type: Enum
       mandatory: Optional
       desc: <p>List of values to provide more detail about the type of event.</p>  
@@ -115,12 +110,12 @@ event :
       mandatory: Optional
       desc: <p>Degree of certainty of the event. Should only be used for unplanned events (<code>eventType = incident</code>). Value list to be confirmed. Could be observed/likely/possible/unknown </p> 
 
-    - name: creationDate
+    - name: created
       type:  <a href="guidelines.html#datetime">DateTime</a>
       mandatory: Mandatory
       desc: <p>Date of creation of the event element</p>     
 
-    - name: lastUpdate
+    - name: updated
       type:   <a href="guidelines.html#datetime">DateTime</a>
       mandatory: Mandatory
       desc: <p>This field provides the date and time of the last update. The value is the same as the creation date if no change occurred.</pre>
@@ -135,15 +130,15 @@ event :
       mandatory: Optional
       desc: <p>If some detour information is available, it could be provided in this field as free text <code><a href="https://github.com/opennorth/Open511API/issues/9">Issue 9</a></code></p>
 
-    - name: travelerMessage
+    - name: traveler_message
       type: Enum
       mandatory: Optional
       desc: <p>In order to simplify analysis by automated tools, this field allows for providing predefined messages with a known semantic. For example <code>resident-only</code> means that the circulation is limited to people living on this street. The exact enum still has to be determined.<code><a href="https://github.com/opennorth/Open511API/issues/17">Issue 17</a></code></p>     
 
-    - name: geometry
+    - name: geography
       type: <a href="guidelines.html#geospatial">geography field</a>
       mandatory: Mandatory
-      desc: <p>Geographical information about the event using the GML notation. Valid type of geometry can be points, multipoints, linestring, multilinestrings and polygon. </p>
+      desc: <p>Geographical information about the event using the GML notation. Can be Point, MultiPoint, LineString, MultiLineString, or Polygon.</p>
 
     - name: roads
       type: Collection of <a href="#road">road</a>
@@ -160,7 +155,7 @@ event :
       mandatory: Optional, support multiple occurrences of <code><a href="#attachment">attachment</a></code> element.
       desc: <p>Collection of attachments provided additional information about the event (PDFs, images, etc.)</p> 
 road : 
-    - name: roadName
+    - name: road_name
       mandatory: Mandatory
       type: Free text
       desc: <p>Name of the road affected by the event. When possible, this field should contain a value that fits the national symbology for roads and highways. <code><a href="https://github.com/opennorth/Open511API/issues/11">Issue 11</a></code></p> 
@@ -180,7 +175,7 @@ road :
       mandatory: Conditional
       desc: <p>Direction of the road that is affected by the event.</p><p>If a <code>lane_status</code> is provided, the direction becomes <b>mandatory</b>. In the same situation, if both directions are affected, two occurrences of the road element are needed, one for each direction and with a dedicated <code>lane_status</code> for each direction.</p>
 
-    - name: laneStatus
+    - name: lane_status
       type: bitmap
       mandatory: Optional
       desc: <p>Bitmap representing the lanes that are closed because of the event. For example <code>0110</code> means that the 2 central lanes of a 4 lanes roads are closed.</p><p>The lane status is applied to direction provided</p>
@@ -190,15 +185,15 @@ road :
       mandatory: Optional
       desc: <p>City in which the event is taking place (or near)</p>  
 
-    - name: impactedSystems
-      type: Collection of <code>impactedSystem</code>
+    - name: impacted_systems
+      type: Collection of <code>impacted_system</code>
       mandatory: Optional
       desc: <p>Allows provision of information about other systems that can be affected</p> 
 
-    - name:  <p>&mdash; impactedSystem</p>
+    - name:  <p>&mdash; impacted_system</p>
       type: Enum
       mandatory: Optional
-      desc: <p>Value list of systems:</p> <pre>ROAD<br>SIDEWALK<br>BIKELANE<br>ONSTREET-PARKING<br>PARKING</pre> 
+      desc: <p>Value list of systems:</p> <pre>ROAD<br>SIDEWALK<br>BIKELANE<br>ON_STREET_PARKING<br>PARKING</pre> 
 
     - name: restrictions
       type: Collection of <code>restriction</code>
@@ -215,17 +210,17 @@ schedule :
       type: <a href="guidelines.html#timezone">timezone</a>
       desc: <p>Timezone to be used for this event. Timezone abbreviation (e.g <code>EST</code>) or the continent/city timezone code <code>America/Montreal</code></p> 
 
-    - name: startDate
+    - name: start_date
       type: <a href="guidelines.html#datetime">Date</a>
       mandatory: Mandatory
       desc: <p>Start date of the event.</p>
 
-    - name: endDate
+    - name: end_date
       type: <a href="guidelines.html#datetime">Date</a>
       mandatory: Optional
       desc: <p>End date of the event. If no end date is provided, the event should be considered continuing forever.</p>
 
-    - name: dayOfWeek
+    - name: day_of_week
       type: Enum
       mandatory: Optional
       desc: <p>Comma separated list of days of the week where the event should be considered as active. For example wednesday, thursday, friday would be <code>3,4,5</code>. The days are Monday to Sunday from 1 to 7.</p> 
@@ -235,8 +230,8 @@ schedule :
       mandatory: Optional,  mulltiple occurrences of the time structure are allowed
       desc: <p>Provide detail about the specific times of the event. so specify multiple timeframes in a day.</p>
 
-    - name: specificDates
-      type: Collection of specificDate
+    - name: specific_dates
+      type: Collection of specific_date
       mandatory: Optional
       desc: <p>Since some days might not follow the regular schedule, it is possible to provide a schedule for individual days (for example vacations). <code><a href="https://github.com/opennorth/Open511API/issues/19">Issue 19</a></code></</p>
 
@@ -246,18 +241,18 @@ time :
       mandatory: Optional
       desc: <p>Provide detail about the specific times of the event.</p>
 
-    - name: <p>&mdash; startTime</p>
+    - name: <p>&mdash; start_time</p>
       type: <a href="guidelines.html#datetime">Time</a>
       mandatory: Optional
       desc: <p>Start time of the event. If the event is spread across several days, the start time is to be applied for each day</p>
 
-    - name: <p>&mdash; endTime</p>
+    - name: <p>&mdash; end_time</p>
       type: <a href="guidelines.html#datetime">Time</a>
       mandatory: Optional
       desc: <p>Start time of the event. If the event is spread across
 
 attachment : 
-    - name: mediaType
+    - name: media_type
       mandatory: Optional
       type: Enum
       desc: <p>Type of content that is linked. Must follow the IANA content type. For example <code>image/jpg</code> for an image encoded with JPEG</p> 
@@ -338,66 +333,68 @@ attachment :
 &gt;
   &lt;atom:link rel="self" href="http://api.open511.info/events/" /&gt;
   &lt;atom:link rel="up" href="http://api.open511.info/"/&gt;
-  &lt;roadEvent&gt;
-    &lt;status&gt;active&lt;/status&gt; 
+  &lt;event&gt;
+    &lt;status&gt;ACTIVE&lt;/status&gt; 
     &lt;atom:link rel="self" href="/events/23948/" /&gt;
     &lt;atom:link rel="jurisdiction" href="http://my.city.gov/open511/jurisdiction/my-city/" /&gt;
     &lt;headline&gt;Urgent rebuilding of sewer pipes&lt;/headline&gt; 
     &lt;headline xml:lang="fr"&gt;Réfection d'urgence d'une conduite d'égout&lt;/headline&gt; 
     &lt;description&gt;The City inform you that broadway street will be closed between 1st and 4th avenue during the month of april due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.&lt;/description&gt;
     &lt;description xml:lang="fr"&gt;La Ville de Montréal vous informe que la Grande avenue sera fermée à la circulation entre la 1ère et la 4ème avenue pour le mois d'avril pour cause de travaux d'urgence sur une conduite d'égouts. La circulation locale en direction de l'est sera permise sur une voie.&lt;/description&gt;
-    &lt;eventType&gt;Incident&lt;/eventType&gt; 
-    &lt;eventSubType&gt;Urgent roadwork&lt;/eventSubType&gt;
+    &lt;event_type&gt;INCIDENT&lt;/eventType&gt; 
+    &lt;event_subtype&gt;Urgent roadwork&lt;/eventSubType&gt;
     &lt;severity&gt;2&lt;/severity&gt; 
-    &lt;certainty&gt;Observed&lt;/certainty&gt; 
-    &lt;creationDate&gt;2012-05-23T20:33:10Z&lt;/creationDate&gt;
-    &lt;lastUpdate&gt;2012-05-24T10:00:10Z&lt;/lastUpdate&gt;
+    &lt;certainty&gt;OBSERVED&lt;/certainty&gt; 
+    &lt;created&gt;2012-05-23T20:33:10Z&lt;/creationDate&gt;
+    &lt;updated&gt;2012-05-24T10:00:10Z&lt;/lastUpdate&gt;
     &lt;detour&gt;Take Sherbrooke travelling east, and Wellington travelling west.&lt;/detour&gt;
-    &lt;travelerMessage&gt;Avoid-region.&lt;/travelerMessage&gt;
-    &lt;geometry&gt;
+    &lt;traveler_messages&gt;
+      &lt;traveler_message&gt;AVOID_REGION&lt;/traveler_message&gt;
+    &lt;/traveler_messages&gt;
+    &lt;geography&gt;
       &lt;gml:Linestring srsName="EPSG:4326"&gt;
         &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40&lt;/gml:coordinates&gt;
       &lt;/gml:Linestring&gt;
     &lt;/geometry&gt;
     &lt;roads&gt;
       &lt;road&gt;
-        &lt;roadName&gt;Broadway St East&lt;/roadName&gt;
+        &lt;road_name&gt;Broadway St East&lt;/roadName&gt;
         &lt;from&gt;1st avenue&lt;/from&gt;
         &lt;to&gt;4th avenue&lt;/to&gt;
         &lt;direction&gt;E&lt;/direction&gt;
-        &lt;laneStatus&gt;10&lt;/direction&gt;          
-        &lt;impactedSystems&gt;
-          &lt;impactedSystem&gt;Road&lt;/impactedSystem&gt;
-          &lt;impactedSystem&gt;On-Street Parking&lt;/impactedSystem&gt;
-        &lt;/impactedSystems&gt;
+        &lt;lane_status&gt;10&lt;/direction&gt;          
+        &lt;impacted_systems&gt;
+          &lt;impacted_system&gt;ROAD&lt;/impactedSystem&gt;
+          &lt;impacted_system&gt;ON_STREET_PARKING&lt;/impactedSystem&gt;
+        &lt;/impacted_systems&gt;
         &lt;restrictions&gt;
           &lt;restriction&gt;Local Traffic Only&lt;/restriction&gt;
         &lt;/restrictions&gt;
       &lt;/road&gt;
       &lt;road&gt;
-        &lt;roadName&gt;Broadway St West&lt;/roadName&gt;
+        &lt;road_name&gt;Broadway St West&lt;/roadName&gt;
         &lt;from&gt;1st avenue&lt;/from&gt;
         &lt;to&gt;4th avenue&lt;/to&gt;
         &lt;direction&gt;W&lt;/direction&gt;  
-        &lt;laneStatus&gt;11&lt;/direction&gt;              
-        &lt;impactedSystems&gt;
-          &lt;impactedSystem&gt;Road&lt;/impactedSystem&gt;
-          &lt;impactedSystem&gt;On-Street Parking&lt;/impactedSystem&gt;
-        &lt;/impactedSystems&gt;
+        &lt;lane_status&gt;11&lt;/direction&gt;              
+        &lt;impacted_systems&gt;
+          &lt;impacted_system&gt;ROAD&lt;/impactedSystem&gt;
+          &lt;impacted_system&gt;ON_STREET_PARKING&lt;/impactedSystem&gt;
+        &lt;/impacted_systems&gt;
       &lt;/road&gt;      
     &lt;/roads&gt;
     &lt;schedule&gt;
-      &lt;startDate&gt;2012-04-01&lt;/startDate&gt; 
-      &lt;endDate&gt;2012-04-30&lt;/endDate&gt; 
+      &lt;start_date&gt;2012-04-01&lt;/startDate&gt; 
+      &lt;end_date&gt;2012-04-30&lt;/endDate&gt; 
     &lt;/schedule&gt;
     &lt;attachments&gt;
       &lt;attachment&gt;
         &lt;atom:link rel="related" href="http://my.city.gov/trafic/advisory/39473/com.pdf" /&gt;
         &lt;size&gt;200000&lt;/size&gt;
-        &lt;mediaType&gt;application/pdf&lt;/mediaType&gt;
+        &lt;media_type&gt;application/pdf&lt;/mediaType&gt;
       &lt;attachment&gt;
     &lt;/attachments&gt;
-  &lt;/roadEvent&gt;
+  &lt;/event&gt;
 &lt;/open511&gt;  
 </pre>
     </div>
@@ -413,17 +410,17 @@ attachment :
        "url" : "/events/montreal/7894/",
        "jurisdiction" : "http://my.city.gov/open511/jurisdiction/my-city/",
        "headline" : "Urgent rebuilding of sewer pipes",
-       "status" : "active", 
-       "lastUpdate" : "2012-09-19T17:49:16.392996+00:00", 
-       "creationDate" : "2012-09-19T17:47:46.644610+00:00",
+       "status" : "ACTIVE", 
+       "updated" : "2012-09-19T17:49:16.392996+00:00", 
+       "created" : "2012-09-19T17:47:46.644610+00:00",
        "description" : "The City informs you that Broadway Street will be closed between 1st and 4th avenue during the month of April due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.",
-       "eventType": "Incident", 
-       "eventSubType" : "Urgent roadwork", 
+       "event_type": "INCIDENT", 
+       "event_subype" : "Urgent roadwork", 
        "severity" : 2,
-       "certainty" : "observed",
+       "certainty" : "OBSERVED",
        "detour" : "Take Sherbrooke travelling East, and Wellington travelling West.",
-       "travelerMessage" : "Avoid-region", 
-       "geometry": {
+       "traveler_messages" : ["AVOID_REGION"], 
+       "geography": {
            "type": "Point", 
            "coordinates": [
                -75.6585181951523, 
@@ -432,29 +429,29 @@ attachment :
        },
        "roads" : [
           {
-              "roadName" : "Broadway St. East",
+              "road_name" : "Broadway St. East",
               "from" : "1st avenue",
               "to" : "4th avenue",
               "direction" : "E",
-              "laneStatus" : "10",
-              "ImpactedSystems" : ["Road", "On-street parking"],
-              "Restrictions" : ["Local traffic only"]
+              "lane_status" : "10",
+              "impacted_systems" : ["ROAD", "ON_STREET_PARKING"],
+              "restrictions" : ["Local traffic only"]
           },
           {
-              "roadName" : "Broadway St. West",
+              "road_name" : "Broadway St. West",
               "from" : "4th avenue",
               "to" : "1st avenue",
               "direction" : "W",
-              "laneStatus" : "11",
-              "ImpactedSystems" : ["Road", "On-street parking"]
+              "lane_status" : "11",
+              "impacted_systems" : ["ROAD", "ON_STREET_PARKING"],
           }
        ],
        "schedule" : {
-           "startDate": "2012-04-01", 
-           "endDate": "2012-04-30"
+           "start_date": "2012-04-01", 
+           "end_date": "2012-04-30"
        },
        "attachments" : [{
-          "mediaType" : "application/pdf",
+          "media_type" : "application/pdf",
           "size" : 200000,
           "related_url" : "http://my.city.gov/trafic/advisory/39473/com.pdf",
           "description" : "Citizen notification"
