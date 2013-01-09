@@ -9,17 +9,13 @@ presentation :
     name : method
     value : GET
 parameters : 
-    - name : start_date
-      required : optional 
-      description : <p>The start date parameter allows for searching events that will be or have been active anytime <i>after</i> the provided value. The start date parameter can be past or future. The parameter should be complete <a href="guidelines.html#datetime">DateTime</a>. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
-
-    - name : end_date
-      required : optional
-      description : <p>The end date parameter allows for searching events that will be or have been active anytime <i>before</i> the provided parameter. The end date parameter can be past or future. The parameter should include complete <a href="guidelines.html#datetime">DateTime</a> including the timezone.</p>
-
     - name : status
       required : optional
-      description : <p>By default the API should only send active events. If the client wants to retrieve archived events, it should provide the status with the value <code>archived</code> or a star <code>*</code> to retrieve both active and inative events. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
+      description : <p>By default the API should only send active events. If the client wants to retrieve archived events, it should provide the status with the value <code>archived</code> or a star <code>*</code> to retrieve both active and inactive events. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
+
+    - name : in_effect_on
+      required : optional
+      description: <p>Show only events that are active at a specific time, or during a specific time period.</p><p>Can be either a single time, or a start and end time joined by a comma. You must provide a complete ISO 8601 <a href="guidelines.html#datetime">datetime</a>, including timezone. So to find, for example, all events active on June 20th (US Eastern Time), you would use <code>in_effect_on=2013-06-20T00:00-05,2013-06-20T11:59-05</code>.</p>
 
     - name : severity
       required : optional
