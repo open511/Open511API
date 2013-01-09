@@ -15,7 +15,7 @@ parameters :
 
     - name : in_effect_on
       required : optional
-      description: <p>Show only events that are active at a specific time, or during a specific time period.</p><p>Can be either a single time, or a start and end time joined by a comma. You must provide a complete ISO 8601 <a href="guidelines.html#datetime">datetime</a>, including timezone. So to find, for example, all events active on June 20th (US Eastern Time), you would use <code>in_effect_on=2013-06-20T00:00-05,2013-06-20T11:59-05</code>.</p>
+      description: <p>Show only events that are active at a specific time, or during a specific time period.</p><p>Can be either a single time, or a start and end time joined by a comma. You must provide a complete ISO 8601 <a href="guidelines.html#datetime">datetime</a>, including timezone. So to find, for example, all events active on June 20th (US Eastern Time), you would use <code>in_effect_on=2013-06-20T00:00-05,2013-06-20T23:59-05</code>.</p>
 
     - name : severity
       required : optional
