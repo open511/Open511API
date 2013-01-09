@@ -334,6 +334,7 @@ attachment :
     xmlns:gml="http://www.opengis.net/gml"
     xml:lang="en"
     xml:base="http://api.open511.info/"
+    version="v0"
 &gt;
   &lt;atom:link rel="self" href="http://api.open511.info/events/" /&gt;
   &lt;atom:link rel="up" href="http://api.open511.info/"/&gt;
@@ -403,61 +404,62 @@ attachment :
     <div id="tabs-2">
 <pre class="brush: js">
 {
-  "self" : "http://api.open511.info/events/",
-  "up" : "http://api.open511.info/"
-  "event" : [
-     {
-         "url" : "/events/montreal/7894f73ce2243bc24810fa0048a4a819/",
-         "jurisdiction" : "http://my.city.gov/open511/jurisdiction/my-city/",
-         "headline" : "Urgent rebuilding of sewer pipes",
-         "status" : "active", 
-         "lastUpdate" : "2012-09-19T17:49:16.392996+00:00", 
-         "creationDate" : "2012-09-19T17:47:46.644610+00:00",
-         "description" : "The City informs you that Broadway Street will be closed between 1st and 4th avenue during the month of April due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.",
-         "eventType": "Incident", 
-         "eventSubType" : "Urgent roadwork", 
-         "severity" : 2,
-         "certainty" : "observed",
-         "detour" : "Take Sherbrooke travelling East, and Wellington travelling West.",
-         "travelerMessage" : "Avoid-region", 
-         "geometry": {
-             "type": "Point", 
-             "coordinates": [
-                 -75.6585181951523, 
-                 40.5487123139747
-             ]
-         },
-         "roads" : [
-            {
-                "roadName" : "Broadway St. East",
-                "from" : "1st avenue",
-                "to" : "4th avenue",
-                "direction" : "E",
-                "laneStatus" : "10",
-                "ImpactedSystems" : ["Road", "On-street parking"],
-                "Restrictions" : ["Local traffic only"]
-            },
-            {
-                "roadName" : "Broadway St. West",
-                "from" : "4th avenue",
-                "to" : "1st avenue",
-                "direction" : "W",
-                "laneStatus" : "11",
-                "ImpactedSystems" : ["Road", "On-street parking"]
-            }
-         ],
-         "schedule" : {
-             "startDate": "2012-04-01", 
-             "endDate": "2012-04-30"
-         },
-         "attachments" : [{
-            "mediaType" : "application/pdf",
-            "size" : 200000,
-            "related_url" : "http://my.city.gov/trafic/advisory/39473/com.pdf",
-            "description" : "Citizen notification"
-         }]
+  "meta": {
+    "url": "http://api.open511.info/events/montreal/7894/",
+    "up_url": "http://api.open511.info/events/montreal/",
+    "version": "v0"
+  },
+  "content": {
+       "url" : "/events/montreal/7894/",
+       "jurisdiction" : "http://my.city.gov/open511/jurisdiction/my-city/",
+       "headline" : "Urgent rebuilding of sewer pipes",
+       "status" : "active", 
+       "lastUpdate" : "2012-09-19T17:49:16.392996+00:00", 
+       "creationDate" : "2012-09-19T17:47:46.644610+00:00",
+       "description" : "The City informs you that Broadway Street will be closed between 1st and 4th avenue during the month of April due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.",
+       "eventType": "Incident", 
+       "eventSubType" : "Urgent roadwork", 
+       "severity" : 2,
+       "certainty" : "observed",
+       "detour" : "Take Sherbrooke travelling East, and Wellington travelling West.",
+       "travelerMessage" : "Avoid-region", 
+       "geometry": {
+           "type": "Point", 
+           "coordinates": [
+               -75.6585181951523, 
+               40.5487123139747
+           ]
+       },
+       "roads" : [
+          {
+              "roadName" : "Broadway St. East",
+              "from" : "1st avenue",
+              "to" : "4th avenue",
+              "direction" : "E",
+              "laneStatus" : "10",
+              "ImpactedSystems" : ["Road", "On-street parking"],
+              "Restrictions" : ["Local traffic only"]
+          },
+          {
+              "roadName" : "Broadway St. West",
+              "from" : "4th avenue",
+              "to" : "1st avenue",
+              "direction" : "W",
+              "laneStatus" : "11",
+              "ImpactedSystems" : ["Road", "On-street parking"]
+          }
+       ],
+       "schedule" : {
+           "startDate": "2012-04-01", 
+           "endDate": "2012-04-30"
+       },
+       "attachments" : [{
+          "mediaType" : "application/pdf",
+          "size" : 200000,
+          "related_url" : "http://my.city.gov/trafic/advisory/39473/com.pdf",
+          "description" : "Citizen notification"
+       }]
      }
-  ] 
 }
 </pre>  
 </div>
