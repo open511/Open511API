@@ -77,7 +77,7 @@ These limitations are set to allow for interoperability.
 <a id="lang"></a>
 <h3>Response Language</h3>
 
-<p>Open511 has the ability to support multiple languages. The negotiation of the language can be done in two ways:
+<p>Open511 has the ability to support multiple languages. However, unilingual server implementations don't need to worry about anything here beyond ensuring that XML responses contain an appropriate <code>xml:lang</code> attribute. The negotiation of the language can be done in two ways:</p>
   <ul>
   <li>HTTP Header <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a></code> specifies the language the client would like to receive.
   <li>URL parameter <code>Accept-Language</code> can also be used (and will override the HTTP header if both are present) with the same values as the HTTP header.
