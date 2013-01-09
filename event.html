@@ -19,11 +19,15 @@ parameters :
 
     - name : severity
       required : optional
-      description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below or equal level 2 with <code>severity=2-</code> or above or equal to level 2 <code>severity=2+</code> <code><a href="https://github.com/opennorth/Open511API/issues/2">issue 2</a></code></p>
+      description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below level 2 with <code>severity=&lt;2</code> or above or equal to level 2 with <code>severity=&gt;=2</code>, which is URL-encoded as <code>severity=%3E%3D2</code> <code><a href="https://github.com/opennorth/Open511API/issues/2">issue 2</a></code></p>
 
     - name : jurisdiction
       required : optional
       description : <p>Clients should be able to request events for a given jurisdiction on multi-jurisdiction endpoints or on agregators. The method still has to be defined &colon; <code><a href="https://github.com/opennorth/Open511API/issues/3">issue 3</a></code></p>
+
+    - name : bbox
+      required: optional
+      description: <p>Filter events by geographical bounding box. Four comma-separated coordinates, <code>xmin, ymin, xmax, ymax</code>.</p>
 
     - name : geography
       required : optional
