@@ -50,6 +50,11 @@ representation :
       mandatory: Mandatory <code><a href="https://github.com/opennorth/Open511API/issues/14">Issue 14</a></code>
       desc: <p>Geographical coverage of the jurisdiction. This field only accepts a polygon or multipolygons.</p>
 
+    - name: timezone
+      type: <a href="guidelines.html#timezone">timezone</a>
+      mandatory: Optional
+      desc: <p>The timezone of the jurisdiction; will be used as the default for events belonging to this jurisdiction. Should always be provided, except in cases where a jurisdiction spans multiple timezones.</p>
+
     - name: license
       type: <a href="#license">License</a> structure
       mandatory: Mandatory
@@ -141,6 +146,7 @@ $(function() {
     &lt;phone&gt;+1 555-555-0000&lt;/phone&gt;
     &lt;description&gt;Official traffic data (construction) from My City&lt;/phone&gt;
     &lt;atom:link rel="description" href="http://my.city.gov/open511/presentation.html" /&gt;
+    &lt;timezone&gt;US/Eastern&lt;/timezone&gt;
     &lt;area&gt;
       &lt;gml:Polygon srsName="EPSG:4326"&gt;
         &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40 -71.17,47.33&lt;/gml:coordinates&gt;
@@ -172,6 +178,7 @@ $(function() {
   "phone" : "1 555-555-0000",
   "description" : "Official traffic data (construction) from My City",
   "url" : "http://my.city.gov/open511/presentation.html",
+  "timezone" : "US/Eastern",
   "area" :  {
       "type": "Polygon",
       "coordinates": [
