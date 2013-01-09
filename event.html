@@ -389,11 +389,13 @@ attachment :
       &lt;startDate&gt;2012-04-01&lt;/startDate&gt; 
       &lt;endDate&gt;2012-04-30&lt;/endDate&gt; 
     &lt;/schedule&gt;
-    &lt;attachment&gt;
-      &lt;startDate&gt;2012-04-01&lt;/startDate&gt; 
-      &lt;endDate&gt;2012-04-30&lt;/endDate&gt; 
-    &lt;/attachment&gt;    
-    &lt;atom:link rel="enclosure" type="application/pdf" href="http://my.city.gov/trafic/advisory/39473/com.pdf" length="200000" /&gt;
+    &lt;attachments&gt;
+      &lt;attachment&gt;
+        &lt;atom:link rel="related" href="http://my.city.gov/trafic/advisory/39473/com.pdf" /&gt;
+        &lt;size&gt;200000&lt;/size&gt;
+        &lt;mediaType&gt;application/pdf&lt;/mediaType&gt;
+      &lt;attachment&gt;
+    &lt;/attachments&gt;
   &lt;/roadEvent&gt;
 &lt;/open511&gt;  
 </pre>
@@ -448,12 +450,12 @@ attachment :
              "startDate": "2012-04-01", 
              "endDate": "2012-04-30"
          },
-         "attachment" : {
-            "media-type" : "application/pdf",
+         "attachments" : [{
+            "mediaType" : "application/pdf",
             "size" : 200000,
-            "url" : "http://my.city.gov/trafic/advisory/39473/com.pdf",
+            "related_url" : "http://my.city.gov/trafic/advisory/39473/com.pdf",
             "description" : "Citizen notification"
-         }
+         }]
      }
   ] 
 }
