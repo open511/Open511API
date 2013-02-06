@@ -1,0 +1,296 @@
+---
+layout: page
+title: Reports
+presentation : 
+  purpose :
+    name : purpose
+    value : <p>Reports are events reported by citizens/untrusted sources, it is the crowdsource feature of the Open511 resource.</p><p>The POST method should be used in conjunction with the x-www-form format to submit new crowdsourced reports.</p><p>The GET methode will return a list of all the active reports</p><p>Report submission can only be sent to the orignal endpoint (not to an agregator)
+  method :
+    name : method
+    value : POST, GET 
+parameters : 
+    - name : status
+      required : optional
+      description : <p>By default the API should only send active events. Supported values&colon; <ul><li><code>active</code> Default value, returns only active events.</li><li><code>archived</code> Returns only archived events</li><li><code>all</code> Returns both active and archived events.</li></ul></p>
+
+    - name : bbox
+      required: optional
+      description: <p>Filter events by geographical bounding box. Four comma-separated coordinates, <code>xmin, ymin, xmax, ymax</code>.</p> 
+
+postrepresentation : 
+
+    - name: jurisdiction
+      mandatory: Mandatory
+      type: Free text
+      desc: <p>Full url of the jurisdiction linked with the report.</p> 
+
+    - name: lat
+      type: float   
+      mandatory: Mandatory
+      desc: <p>Latitude of the report in WGS84 projection</p>
+
+    - name: long
+      type: float
+      mandatory: Mandatory
+      desc: <p>Longitude of the report in WGS84 projection</p>
+
+    - name: first_name
+      type: free text 
+      mandatory: Optional
+      desc: <p>First name of the person submitting the report</p>
+
+    - name: last_name
+      type: free text
+      mandatory: Optional
+      desc: <p>Last name of the person submitting the report</p>
+
+    - name: email
+      type: free text
+      mandatory: Mandatory
+      desc: <p>Email of the person submitting the report</p>        
+
+    - name: phone
+      type: free text
+      mandatory: Optional
+      desc: <p>Phone number of the person who submitted the event</p>
+
+    - name: device_id
+      mandatory: Mandatory
+      type: Free text
+      desc: <p>Unique identifier for the device used to submit the report. It can be the MAC address of the network interface or use the getDeviceId() of Android devices or [UIDevice currentDevice].uniqueIdentifier for iPhone device</p> 
+
+    - name: description
+      type: Free text
+      mandatory: Mandatory
+      desc: <p>Description provided by the person who submitted the report.</p> 
+
+    - name: event_type
+      type: Enum
+      mandatory: Mandatory
+      desc: <p>Type of event declared by the person who submitted the report. Same value list as the event.event_type field.</p>
+
+    - name: severity
+      type: Enum
+      mandatory: Optional
+      desc: <p>Severity of the event as judged by the person who submitted the report. This field use the same enumeration as the severity field of the event resource</p>
+
+    - name: media
+      type: binary
+      mandatory: Optional
+      desc: <p>Inline media data related to the event.</p>
+
+getrepresentation :
+    - name: juridiction
+      type: free text
+      mandatory: Mandatory
+      desc: <p>Jurisdiction related to the report.</p>  
+
+    - name: geography
+      type: <a href="guidelines.html#geospatial">geography field</a>
+      mandatory: Mandatory
+      desc: <p>Location of the report. Only <code>POINT</code> is supported.</p> 
+
+    - name: description
+      type: Free text
+      mandatory: Mandatory
+      desc: <p>Description provided by the submitter of the report.</p> 
+
+    - name: event_type
+      type:  Enum
+      mandatory: Optional
+      desc: <p>Event type as provided by the submitter of the report. Same value list as the event.event_type list.</p>     
+
+    - name: severity
+      type: Enum
+      mandatory: Optional
+      desc: <p>Severity as provided by the submitter of the report. Same value list as the event.severity</pre>
+
+    - name: status
+      type: Enum
+      mandatory: Mandatory
+      desc: <p>Status attributed by the jurisdiction. Value list&colon;<ul><li><code>OPEN</code> - Default value. The report is active but not confirmed by the jurisdiction</li><li><code>CONFIRMED</code> - The report is active and the jurisdiction has confirmed the report.</li><li><code>REJECTED</code> - The jurisdiction has rejected the report</li><li><code>CLOSED</code> - The report has been closed (either after being confirmed or not)</li><li><code>DUPLICATED</code> - The report is considered as a duplicated of an existing event/report.</p>  
+
+    - name: creation_date
+      type: DateTime
+      mandatory: Mandatory
+      desc: <p>Creation date as defined by the jurisdiction.</p> 
+
+    - name: last_update
+      type: DateTime
+      mandatory: Mandatory
+      desc: <p>Comment provided by the jurisdiction</p> 
+
+    - name: related_url
+      type:  Link
+      mandatory: Optional
+      desc: <p>Link pointing a related resource. As a general rule, the related link should used to point an official event that would replace the report.</p>     
+---
+{% include JB/setup %}
+
+{% include specsnav.html %}
+
+<h3>Overview</h3>
+
+  <table class="resource_pres">
+{% for item in page.presentation %} 
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td class="vertical_header">{{ elem.name }}</td><td>{{ elem.value }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </table>
+
+<h3>POST a report</h3>
+
+<p>In order to post a report, the client has to send values with x-www-form or multiple/form-data (<code><a href="https://github.com/opennorth/Open511API/issues/32">issue 32</a></code>) content types.</p>
+
+<p>The URL to use for the post is the one defined in the discovery resource for the report service (the same to send GET requests)</p>
+
+<h4>POST data structure</h4>
+
+<p>Example of report POST with content-type x-www-form.</p>
+
+
+<pre class="brush: xml">
+POST /reports.xml
+Host: api.city.gov
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+
+jurisdiction=city.gov&lat=37.76524078&long=-122.4212043&device_id=tt222111&
+first_name=John&last_name=Smith&phone=111111111&description=Major+accident+on+highway+680&
+event_type=ACCIDENT&severity=2
+</pre>
+ 
+
+<h4>POST data structure</h4>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'postrepresentation' %}
+{% for item in page.postrepresentation  %} 
+   {% include tablegen.html %} 
+{% endfor %}
+  </table>
+
+<h3>GET reports</h3>
+
+<h4>Parameters</h4>
+
+
+<p>In addition to the filters described below, the events resource also supports <a href="guidelines.html#format">format selection</a> and <a href="guidelines.html#lang">language negotiation</a>.</p>
+
+
+  <table class="parameters">
+        <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
+{% for item in page.parameters  %} 
+  <tr>
+      <td>{{ item.name }}</td><td>{{ item.required }}</td><td>{{ item.description }}</td>
+  </tr>
+{% endfor %}
+  </table>
+
+
+<h4>Example</h4>
+
+<p>Example of the XML and JSON representations of the report resource</p>
+
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+});
+</script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+<pre class="brush: xml">
+&lt;open511 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:gml="http://www.opengis.net/gml" 
+  xml:base="http://dev.open511.ca" 
+  version="v0"&gt;
+  &lt;reports&gt;
+    &lt;report&gt;
+      &lt;atom:link rel="self" href="http://dev.open511.ca/api/report/1234/"/&gt;
+      &lt;jurisdiction&gt;moti.bc.gov&lt;/name&gt;
+      &lt;geography&gt;
+          &lt;gml:point srsName="EPSG:4326"&gt;
+            &lt;gml:coordinates&gt;-71.17,47.33&lt;/gml:coordinates&gt;
+          &lt;/gml:point&gt;
+      &lt;/geography&gt;    
+      &lt;description&gt;Major accident on 8080E. Cars stopped in 2 lanes&lt;/timezone&gt;
+      &lt;event_type&gt;ACCIDENT&lt;/event_type&gt;
+      &lt;severity&gt;2&lt;/severity&gt;
+      &lt;status&gt;OPEN&lt;/status&gt;
+      &lt;created&gt;2013-01-03T06:43:04+00:00&lt;/created&gt;
+      &lt;updated&gt;2013-01-09T21:31:04.967931+00:00&lt;/updated&gt;
+    &lt;/report&gt;
+  &lt;/reports&gt;
+  &lt;atom:link rel="self" href="/api/reports/"/&gt;
+  &lt;atom:link rel="up" href="/api/"/&gt;
+&lt;/open511&gt;
+</pre>
+    </div>
+    <div id="tabs-2">
+<pre class="brush: js">
+{
+    "content": [
+        {
+            "jurisdiction": "moti.bc.gov", 
+            "geography": {
+                "type": "Point", 
+                "coordinates": [
+                    -71.17, 
+                    47.33
+                ]
+            },
+            "description": "Major accident on 8080E. Cars stopped in 2 lanes",
+            "event_type": "ACCIDENT",
+            "severity": "2",
+            "status": "OPEN",
+            "created": "2013-01-03T06:43:04+00:00",
+            "updated": "2013-01-09T21:31:04+00:00",
+        } 
+    ], 
+    "pagination": {
+        "next_url": "/api/reports/?limit=20&offset=20", 
+        "limit": 20, 
+        "previous_url": null, 
+        "offset": 0
+    }, 
+    "meta": {
+        "url": "/api/reports/", 
+        "version": "v0", 
+        "up_url": "/api/"
+    }
+}        
+</pre>
+</div>
+</div>
+
+
+
+<p>&nbsp;</p>
+
+<h3>GET data structure</h3>
+
+<p>The following table provide the general message structure for the <code>reports</code> resource. <code>reports</code> is a collection of  <code>report</code> structure.</p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'getrepresentation' %}
+{% for item in page.getrepresentation  %} 
+   {% include tablegen.html %} 
+{% endfor %}
+  </table>
+
+
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>

@@ -4,22 +4,22 @@ title: Events
 presentation : 
   purpose :
     name : purpose
-    value : <p>The event resource provides information about road events (accidents, constructions, special events). The <code>events</code> resource is a list of <code>event</code> elements matching the filtering parameters if any are provided.
+    value : <p>The event resource provides information about road events (accidents, constructions, special events). The <code>events</code> resource is a list of <code>event</code> elements matching the filtering parameters if any are provided.</p><p>Most the access should be done with the GET method. However the use of the geography filtering might generate an URL longer than the safe 2kB. If the URL is longer than that, the client should send a POST request containing all the filtering parameters encoded in x-www-form format. The API should forward the client to a temporary URL matching the filtering criteria.</p>
   method :
     name : method
-    value : GET
+    value : GET (and POST)
 parameters : 
     - name : status
       required : optional
-      description : <p>By default the API should only send active events. If the client wants to retrieve archived events, it should provide the status with the value <code>archived</code> or a star <code>*</code> to retrieve both active and inactive events. <code><a href="https://github.com/opennorth/Open511API/issues/7">Issue 7</a></code></p>
+      description : <p>By default the API should only send active events. Supported values&colon; <ul><li><code>active</code> Default value, returns only active events.</li><li><code>archived</code> Returns only archived events</li><li><code>all</code> Returns both active and archived events.</li></ul></p>
 
     - name : in_effect_on
       required : optional
-      description: <p>Show only events that are active at a specific time, or during a specific time period.</p><p>Can be either a single time, or a start and end time joined by a comma. You must provide a complete ISO 8601 <a href="guidelines.html#datetime">datetime</a>, including timezone. So to find, for example, all events active on June 20th (US Eastern Time), you would use <code>in_effect_on=2013-06-20T00:00-05,2013-06-20T23:59-05</code>. You can also use the special value <code>now</code> to show events currently taking place.</p>
+      description: <p>Show only events that are active at a specific time, or during a specific time period.</p><p>Can be either a single time, or a start and end time joined by a comma. You must provide a complete ISO 8601 <a href="guidelines.html#datetime">datetime</a>, including timezone. So to find, for example, all events active on June 20th (US Eastern Time), you would ask for events between 00:00 and 23:59&colon;<br/><code>in_effect_on=2013-06-20T00&colon;00-05,2013-06-20T23&colon;59-05</code><br/> You can also use the special value <code>now</code> to show events currently taking place.<br/>If this argument is not provided, the API will NOT do any time filtering and will provide all active event, present or future.</p>
 
     - name : severity
       required : optional
-      description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below level 2 with <code>severity=&lt;2</code> or above or equal to level 2 with <code>severity=&gt;=2</code>, which is URL-encoded as <code>severity=%3E%3D2</code> <code><a href="https://github.com/opennorth/Open511API/issues/2">issue 2</a></code></p>
+      description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below level 2 with <code>severity=&lt;2</code> or above or equal to level 2 with <code>severity=&gt;=2</code>, which is URL-encoded as <code>severity=%3E%3D2</code>.
 
     - name : jurisdiction
       required : optional
@@ -31,7 +31,11 @@ parameters :
 
     - name : geography
       required : optional
-      description : <p>Filtering near a point or linestring or within a polygon. The method still has to be defined &colon; <code><a href="https://github.com/opennorth/Open511API/issues/4">issue 4</a></code></p>
+      description : <p>Filtering near a point or linestring or within a polygon. The geography value should be provided as a WKT (well-known text) in WGS84 latitude/longitudes with support of <code>POINT</code>, <code>LINESTRING</code> and <code>POLYGON</code>.Example&colon;<br/> <code>...geography=POINT(45.45,-84.85)</code><br/> If a point or linestring is provided, the <code>tolerance</code> filter must be provided also.</br>This URL parameters are usually limited to 2kB, the event resource should also accept POST method in x-www-form format.</p>
+
+    - name : tolerance
+      required : conditional
+      description : <p>Provide a tolerance of radius in meters around if a POINT or LINESTRING is used as filtering parameter. For example <code>...geography=POINT(45.45,-84.85)&tolerance=50</code> would retrieve all the events within a circle of 50m radius around the selected point.</p>      
 
 representation : 
 
@@ -69,6 +73,7 @@ representation :
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Conditional (mandatory if a previous page exists)
       desc: <p>Atom link pointing the previous page of event. Relation attribute value is <code>previous</code></p>   
+
 event : 
     - name: self
       mandatory: Mandatory
@@ -79,7 +84,6 @@ event :
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Mandatory
       desc: <p>Link to the jurisdiction which published the event. In XML, the <code>rel</code> attribute needs the value <code>jurisdiction</code>.</p> 
-
     - name: status
       type: Enum
       mandatory: Mandatory
@@ -102,8 +106,8 @@ event :
 
     - name: severity
       type: Enum
-      mandatory: Mandatory <code><a href="https://github.com/opennorth/Open511API/issues/16">Issue 16</a></code>
-      desc: <p>Value list to be defined, either a scale (1 to N) or value list with defined semantics (Extreme/Severe/Moderate/Minor/Unknown) <code><a href="https://github.com/opennorth/Open511API/issues/2">Issue 2</a></code></p> 
+      mandatory: Mandatory
+      desc: <p>Severity of the event. Value list&colon;<pre><ul><li><code>1</code>&colon; Minor, the event has very limited impact on the traffic.</li><li><code>2</code>&colon; Moderate, the event will have a visible impact on the traffic but should not create significant delay and if there is a delay, it should be small and local.</li><li><code>3</code>&colon; Major, the event will have a significant impact on the traffic, probably on a large scale.</li><li><code>9</code>&colon; Undefined. The event has a unknown impact, for example an accident that have been declared without any precise description.</li></ul></pre></p> 
 
     - name: certainty
       type: Enum
@@ -123,17 +127,12 @@ event :
     - name: related
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Optional
-      desc: <p>This field is used to group events together. In specific situations (for example complex construction projects), several events might be related together. This field should be used to point a related event. In XML, the <code>rel</code> attribute needs the value <code>related</code></p> 
+      desc: <p>This field is used to group events together. In specific situations (for example complex construction projects), several events might be related together. This field should be used to point a related event. In XML, the <code>rel</code> attribute needs the value <code>groupedEvent</code></p> 
 
     - name: detour
       type: Free text
       mandatory: Optional
-      desc: <p>If some detour information is available, it could be provided in this field as free text <code><a href="https://github.com/opennorth/Open511API/issues/9">Issue 9</a></code></p>
-
-    - name: traveler_message
-      type: Enum
-      mandatory: Optional
-      desc: <p>In order to simplify analysis by automated tools, this field allows for providing predefined messages with a known semantic. For example <code>resident-only</code> means that the circulation is limited to people living on this street. The exact enum still has to be determined.<code><a href="https://github.com/opennorth/Open511API/issues/17">Issue 17</a></code></p>     
+      desc: <p>If some detour information is available, it could be provided in this field as free text</p>   
 
     - name: geography
       type: <a href="guidelines.html#geospatial">geography field</a>
@@ -151,14 +150,26 @@ event :
       desc: <p>Complex item to provide time related information</p>   
 
     - name: attachments
-      type: Collection of <a href="#attachment">attachment</a>
-      mandatory: Optional, support multiple occurrences of <code><a href="#attachment">attachment</a></code> element.
+      type: Collection of attachement <a href="guidelines.html#links">links</a>
+      mandatory: Optional, support multiple occurrences.
       desc: <p>Collection of attachments provided additional information about the event (PDFs, images, etc.)</p> 
+
+    - name:  <p>&mdash; attachment</p>
+      type: Enum
+      mandatory: Optional
+      desc: <p>Link pointing relavant data about the event. In XML, use an atom link with the rel attribute set to <code>related</code>. In JSON, the various atom attributes have to use custom fields&colon; <code>url</code>, <code>title</code>, <code>type</code>, <code>length</code>.</pre>
+
+      
 road : 
     - name: road_name
       mandatory: Mandatory
       type: Free text
-      desc: <p>Name of the road affected by the event. When possible, this field should contain a value that fits the national symbology for roads and highways. <code><a href="https://github.com/opennorth/Open511API/issues/11">Issue 11</a></code></p> 
+      desc: <p>Name of the road affected by the event. When possible, this field should contain a value that fits the national symbology for roads and highways.</p> 
+
+    - name: road_url
+      mandatory: Optional
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>If the jurisdiction provides its network, the <code>road_url</code> field provides a link to the road segment that is affected. <b>(TBD)</b></p> 
 
     - name: from
       type: free text
@@ -193,17 +204,14 @@ road :
     - name:  <p>&mdash; impacted_system</p>
       type: Enum
       mandatory: Optional
-      desc: <p>Value list of systems:</p> <pre>ROAD<br>SIDEWALK<br>BIKELANE<br>ON_STREET_PARKING<br>PARKING</pre> 
+      desc: <p>Value list of systems&colon;</p> <pre>ROAD<br>SIDEWALK<br>BIKELANE<br>ON_STREET_PARKING<br>PARKING</pre> 
 
     - name: restrictions
-      type: Collection of <code>restriction</code>
+      type: Collection of <code><a href="#restriction">restriction</a></code>
       mandatory: Optional
-      desc: <p>Some events may come with some restrictions in terms of vehicles using the road (speed, weigth). The restriction structure provides a way to provide the restrictions</p>     
+      desc: <p>Some events may come with some restrictions affecting vehicles using the road (speed, weigth).</p>     
 
-    - name:  <p>&mdash; restriction</p>
-      type: Enum
-      mandatory: Optional
-      desc: <p>Each restriction element provides a limitation on the current road element. The node element can be speed, weight, length, width. A <code>unit</code> can provide the unit used to measure the restriction (t for tons, lb for pounds, etc.).<p></p>Detail for the restrictions supported and formatting to be determined <code><a href="https://github.com/opennorth/Open511API/issues/18">Issue 18</a></code></p>
+
 schedule : 
     - name: timezone
       mandatory: Optional
@@ -231,9 +239,14 @@ schedule :
       desc: <p>Provide detail about the specific times of the event. so specify multiple timeframes in a day.</p>
 
     - name: specific_dates
-      type: Collection of specific_date
+      type: Collection of <code>specific_date</code>
       mandatory: Optional
       desc: <p>Since some days might not follow the regular schedule, it is possible to provide a schedule for individual days (for example vacations). <code><a href="https://github.com/opennorth/Open511API/issues/19">Issue 19</a></code></</p>
+    - name: <p>&mdash; specific_date</p>
+      type: Custom time format
+      mandatory: Optional
+      desc: <p>Text string containing the affected date, the start hour and the end hour with the follow format&colon; <code>YYYY-MM-DD HH:mm:ss-HH:mm:ss</code>. If the event is not active that day, no time should be provided&colon; <code>YYYY-MM-DD</p></p>
+
 
 time :
     - name: time
@@ -250,6 +263,17 @@ time :
       type: <a href="guidelines.html#datetime">Time</a>
       mandatory: Optional
       desc: <p>Start time of the event. If the event is spread across
+
+restriction :
+    - name: restriction_type
+      type: Enum
+      mandatory: Mandatory
+      desc: <p>Type of restriction that affects vehicles. Value list&colon; <pre><ul><li><code>SPEED</code>&colon; Limitation of the speed of vehicles. Unit is in kilometers/hour.</li><li><code>WIDTH</code>&colon; Width limitation, mainly for trucks. Unit is meters.</li><li><code>HEIGHT</code>&colon; Height limitation, mainly for trucks. Unit is meters</li><li><code>WEIGHT</code>&colon; Weight limitation for vehicles. Unit is metric tons.</li><li><code>AXLE_WEIGHT</code>&colon; Weight limitation per axle for truck. Unit is metric tons.</li></ul></p>
+
+    - name: value
+      type: float
+      mandatory: Mandatory
+      desc: <p>Value of the limitation. For example a speed limitation of 60km/h will have a value of <code>60</code> with a <code>restriction_type</code> set to <code>SPEED</code></p>
 
 attachment : 
     - name: media_type
@@ -388,11 +412,7 @@ attachment :
       &lt;end_date&gt;2012-04-30&lt;/end_date&gt; 
     &lt;/schedule&gt;
     &lt;attachments&gt;
-      &lt;attachment&gt;
-        &lt;atom:link rel="related" href="http://my.city.gov/trafic/advisory/39473/com.pdf" /&gt;
-        &lt;size&gt;200000&lt;/size&gt;
-        &lt;media_type&gt;application/pdf&lt;/media_type&gt;
-      &lt;attachment&gt;
+      &lt;atom:link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" /&gt;
     &lt;/attachments&gt;
   &lt;/event&gt;
 &lt;/open511&gt;  
@@ -454,7 +474,7 @@ attachment :
           "media_type" : "application/pdf",
           "size" : 200000,
           "related_url" : "http://my.city.gov/trafic/advisory/39473/com.pdf",
-          "description" : "Citizen notification"
+          "description" : "Detour map"
        }]
      }
 }
@@ -501,6 +521,18 @@ attachment :
 {% endfor %}
   </table>
 
+<a id="restriction"></a><h4>Restriction structure</h4>
+
+<p></p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'restriction' %}
+{% for item in page.restriction  %} 
+   {% include tablegen.html %}
+{% endfor %}
+  </table>
+
 <a id="schedule"></a><h4>Schedule structure</h4>
 
 <p></p>
@@ -525,17 +557,6 @@ attachment :
 {% endfor %}
   </table>
 
-<a id="attachment"></a><h4>Attachment structure</h4>
-
-<p></p>
-
-  <table class="representation">
-        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-{% assign anchor = 'attachment' %}
-{% for item in page.attachment  %} 
-   {% include tablegen.html %}
-{% endfor %}
-  </table>
 
 <script type="text/javascript">
      SyntaxHighlighter.all()

@@ -55,10 +55,10 @@ representation :
       mandatory: Optional
       desc: <p>The timezone of the jurisdiction; will be used as the default for events belonging to this jurisdiction. Should always be provided, except in cases where a jurisdiction spans multiple timezones.</p>
 
-    - name: license
-      type: <a href="#license">License</a> structure
+    - name: license_url
+      type: <a href="guidelines.html#links">Link</a>
       mandatory: Mandatory
-      desc: <p>Provides information concerning the license covering the data provided by the API. <code><a href="https://github.com/opennorth/Open511API/issues/6">Issue 6</a></code></p> 
+      desc: <p>Link to a resource containing the license covering the data provided in the API. In XML, the <code>rel</code> attribute needs the value <code>license</code></p> 
 
     - name: languages
       type: Collection of <code>language</code>
@@ -69,27 +69,7 @@ representation :
       type: Enum
       mandatory: Mandatory
       desc: <p>Multiple occurrences supported. The values supported are the same as the <a href="guidelines.html#lang">language negotiation</a> feature</p>  
-license : 
 
-    - name: url
-      type: <a href="guidelines.html#links">Link</a>
-      mandatory: Mandatory
-      desc: <p>Direct link to the license covering the data provided by the API.  In XML, the <code>rel</code> attribute needs the value <code>license</code></p>     
-
-    - name: licenseName
-      type: Enum
-      mandatory: Optional
-      desc: <p>The name of one of the well-known licenses and part of the enum supported by open511 </p><p>Enum:</p><pre>- ODBL<br>- CC0<br>- CC-BY<br>- ...</pre>
-
-    - name: licenseConditions
-      type: Collection of <code>condition</code>
-      mandatory: Optional
-      desc: <p>List of languages supported by this endpoint. A <code>language</code> element should be provided for each language supported</p> 
-
-    - name: <p>&mdash; licenseCondition</p>
-      type: Enum
-      mandatory: At least one element mandatory if the licenseConditions structure is present
-      desc: <p>Generic conditions that are contained in the license.</p><p>Enum:</p><pre>- ATTRIBUTION<br>- SHAREALIKE<br>- ...</pre>     
 ---
 {% include JB/setup %}
 
@@ -152,14 +132,7 @@ $(function() {
         &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40 -71.17,47.33&lt;/gml:coordinates&gt;
       &lt;/gml:Polygon&gt;
     &lt;/area&gt;
-    &lt;license&gt;
-      &lt;atom:link rel="license" href="http://my.city.gov/opendatalicense/"/&gt;
-      &lt;licenseName&gt;CC-BY&lt;/licenseName&gt;
-      &lt;conditions&gt;
-        &lt;condition&gt;ATTRIBUTION&lt;/condition&gt;
-        &lt;condition&gt;SHAREALIKE&lt;/condition&gt;
-      &lt;/conditions&gt;
-    &lt;/license&gt;
+    &lt;atom:link rel="license" href="http://my.city.gov/opendatalicense/"/&gt;
     &lt;languages&gt;
       &lt;language&gt;fr&lt;/language&gt;
       &lt;language&gt;en&lt;/language&gt;
@@ -186,11 +159,7 @@ $(function() {
               [-71.20,47.40], [-71.17,47.33] ]
           ]
     },
-  "license" : {
-      "url" : "http://my.city.gov/opendatalicense/",
-      "name" : "CC-BY",
-      "conditions" : ["ATTRIBUTION", "SHAREALIKE"]
-    },
+  "license_url" : "http://my.city.gov/opendatalicense/",
   "languages" : ["en", "fr"]
 }
 </pre>
@@ -206,8 +175,6 @@ $(function() {
 
 <p>The following table provides the struture of the message expected for this resource. Although the format of the representation might change (XML or JSON), the overall data structure should remain except when specified otherwise.</p>
 
-<p><code><a href="https://github.com/opennorth/Open511API/issues/15">Issue 15</a></code></p>
-
   <table class="representation">
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'representation' %}
@@ -215,15 +182,5 @@ $(function() {
    {% include tablegen.html %}
 {% endfor %}   
      </table>
-
-<a id="license"></a>
-<h3>License data structure</h3>
-
-  <table class="representation">
-        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-{% assign anchor = 'license' %}
-{% for item in page.license %} 
-   {% include tablegen.html %}
-{% endfor %}   
-     </table>     
+  
 

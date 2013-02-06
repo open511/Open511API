@@ -35,4 +35,4 @@ The first draft of the specification was released to collaborators in October 20
 The second iteration will provide improvements to architecture and data formatting. It may also include two new services:
 
 * Crowdsourcing: the ability for citizens to submit reports like in the open311 framework.
-* Network data: with the first release, we noticed a need for linking an event with the road network. Also, some transportation agencies would like to publish their road network so a new resource might be added to support this feature but it is still under discussion. [(Issue 11)](https://github.com/opennorth/Open511API/issues/11)
+* Network data: with the first release, we noticed a need for linking an event with the road network. Also, some transportation agencies would like to publish their road network so a new resource might be added to support this feature but it is still under discussion.
