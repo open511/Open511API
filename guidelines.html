@@ -66,13 +66,13 @@ title: Technical Guidelines
 <a id="auth"></a>
 <h3>Authentication and Encryption Mechanisms</h3>
 
-<p>Authentication and encryption should be managed by the regular HTTP layer. Authentication and encryption are optional for each implementation within the following limits:</p>
-<ul>
-  <li>Authentication: The only authentication mechanism accepted is <a href="http://www.httpwatch.com/httpgallery/authentication/">HTTP Basic</a></li>
-  <li>Encryption: The only encryption accepted <a href="https://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a></li>
-</ul>
+<p>From an open data point of view, it is strongly encouraged that implementors make their API available for unauthenticated read access. For write access (e.g post <a href="report.html">reports</a>) or implementors wishing to have authentication features, this section presents how to manage it.</p>
 
-These limitations are set to allow for interoperability.
+<p>Encryption should be managed by the regular HTTP layer. The only encryption accepted <a href="https://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a></p>
+
+<p>For authentication, Open511 will work like many other APIs with an API key to be passed in a URL parameter <code>api_key</code>. When such authentication is implemented, it is strongly recommended to enable SSL/HTTPS in order to provide a basic protection of the API key</p>
+
+<p>These limitations are set to allow for interoperability.</p>
 
 <a id="lang"></a>
 <h3>Response Language</h3>
@@ -97,4 +97,11 @@ These limitations are set to allow for interoperability.
 
 <h3>Cross domain requests</h3>
 
-<code><a href="https://github.com/opennorth/Open511API/issues/22">Issue 22</a></code>
+<p>The Open511 API implementation will probably need to serve cross-domain requests, when the client is not hosted on the server of the endpoint. As a consequence, the specification provides some rules for cross-domain request. Open511 intent to support both current methods for crossdomaine requests:</p>
+<ul>
+  <li><a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a>: provides a well-known cross-domain request feature working on a vast number of browsers. In order to provide an easy interoperability, the callback function should be named <code>callback</code>.<br/>Example: <code>...?callback=parameter</code></li>
+  <li><a href="http://www.w3.org/TR/cors/">CORS</a>: offers a more standardized way of implementing cross-domain requests. Clients should prefer CORS when possible. Part of the CORS support, the implementation should include the following header:<br><code>Access-Control-Allow-Origin: *</code></li>
+</ul>
+
+<h3>Custom fields</h3>
+<p>Since some organizations might want to support some specific features within Open511 that are not part of the target of the specification. At the same time, a schema would still allow to have some validation (for the XML representation); the consequence of such schema is that custom fields would fail the validation. Custom fields must be added in a <code>extension</code> structure that could be added at any level of the data structure supported by Open511.</p>

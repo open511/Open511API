@@ -31,7 +31,7 @@ parameters :
 
     - name : geography
       required : optional
-      description : <p>Filtering near a point or linestring or within a polygon. The geography value should be provided as a WKT (well-known text) in WGS84 latitude/longitudes with support of <code>POINT</code>, <code>LINESTRING</code> and <code>POLYGON</code>.Example&colon;<br/> <code>...geography=POINT(45.45,-84.85)</code><br/> If a point or linestring is provided, the <code>tolerance</code> filter must be provided also.</br>This URL parameters are usually limited to 2kB, the event resource should also accept POST method in x-www-form format.</p>
+      description : <p>Filtering near a point or linestring or within a polygon. The geography value should be provided as a WKT (well-known text) in WGS84 latitude/longitudes with support of <code>POINT</code> and <code>LINESTRING</code>. Example&colon;<br/> <code>...geography=POINT(45.45,-84.85)</code>.<br/> The <code>geography</code> must be used in conjuction with the <code>tolerance</code> filter.</br>This URL parameters are usually limited to 2kB (mainly due to browser limitations), so the event resource must also accept POST method in x-www-form format.</p>
 
     - name : tolerance
       required : conditional
