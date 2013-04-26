@@ -68,11 +68,9 @@ title: Technical Guidelines
 
 <p>From an open data point of view, it is strongly encouraged that implementors make their API available for unauthenticated read access. For write access (e.g post <a href="report.html">reports</a>) or implementors wishing to have authentication features, this section presents how to manage it.</p>
 
-<p>Encryption should be managed by the regular HTTP layer. The only encryption accepted <a href="https://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a></p>
+<p>Encryption should be managed by the regular HTTP layer. The only encryption accepted is <a href="https://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a></p>
 
-<p>For authentication, Open511 will work like many other APIs with an API key to be passed in a URL parameter <code>api_key</code>. When such authentication is implemented, it is strongly recommended to enable SSL/HTTPS in order to provide a basic protection of the API key</p>
-
-<p>These limitations are set to allow for interoperability.</p>
+<p>For authentication, Open511 will work like many other APIs with an API key to be passed in a URL parameter <code>api_key</code>. When such authentication is implemented, it is strongly recommended to enable SSL/HTTPS in order to provide a protection of the API key</p>
 
 <a id="lang"></a>
 <h3>Response Language</h3>
@@ -89,19 +87,22 @@ title: Technical Guidelines
 
 <p>Mixed language within an event (some fields in one language, some fields in an other language) will not be supported. The XML representation should provide all the languages avaiable for all the fields when no <code>Accept-Language</code> is provided (either in HTTP or URL). In this case, each free-text field must contain a <code>xml:lang</code> attribute.</p>
 
+<a id="aggreg"></a>
 <h3>Aggregation and Multi-jurisdiction Endpoint</h3>
 
 <p>The Open511 API is designed to support multi-jurisdiction endpoints (an endpoint that provides data for several jurisdictions) and aggregation of the content (an endpoint that gathers information from other endpoints). The last feature is meant to simplify the work of clients. For example a region can setup an aggregator for all the jurisdictions of the region, or a third party can build a service that serves a province or a country.</p>
 
 <p>For the client, these features should be fairly transparent: endpoints will work the same way as described in the documentation. It is important to know that the jurisdiction links (in discovery and in events) must always point to the original resource (e.g, the original endpoint). This way, the client always has the opportunity to access the data of the original endpoint.</p>
 
+<a id="cross"></a>
 <h3>Cross domain requests</h3>
 
-<p>The Open511 API implementation will probably need to serve cross-domain requests, when the client is not hosted on the server of the endpoint. As a consequence, the specification provides some rules for cross-domain request. Open511 intent to support both current methods for crossdomaine requests:</p>
+<p>In most cases, Open511 API implementations will have to serve cross-domain requests, when the client is not hosted on the server of the endpoint. As a consequence, the specification provides some rules for cross-domain request. Open511 intend to support both current methods for cross-domain requests:</p>
 <ul>
   <li><a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a>: provides a well-known cross-domain request feature working on a vast number of browsers. In order to provide an easy interoperability, the callback function should be named <code>callback</code>.<br/>Example: <code>...?callback=parameter</code></li>
   <li><a href="http://www.w3.org/TR/cors/">CORS</a>: offers a more standardized way of implementing cross-domain requests. Clients should prefer CORS when possible. Part of the CORS support, the implementation should include the following header:<br><code>Access-Control-Allow-Origin: *</code></li>
 </ul>
 
+<a id="custom"></a>
 <h3>Custom fields</h3>
 <p>Since some organizations might want to support some specific features within Open511 that are not part of the target of the specification. At the same time, a schema would still allow to have some validation (for the XML representation); the consequence of such schema is that custom fields would fail the validation. Custom fields must be added in a <code>extension</code> structure that could be added at any level of the data structure supported by Open511.</p>

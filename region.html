@@ -1,0 +1,178 @@
+---
+layout: page
+title: Jurisdiction
+presentation : 
+  a :
+    name : purpose
+    value : The regions represent some geographical entities where an event takes place. The region concept relies on the geonames structure.
+  b :
+    name : method
+    value : GET
+
+representation : 
+
+    - name: self
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>.</p> 
+
+    - name: up
+      type: <a href="guidelines.html#links">Link</a>   
+      mandatory: Mandatory
+      desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
+
+    - name: regions
+      type: Collection of region
+      mandatory: Mandatory
+      desc: <p>List of all the regions supported by the endpoint</p>
+
+    - name: pagination
+      type: Pagination structure
+      mandatory: Conditional (mandatory if more than one page)
+      desc: <p>The pagination structure provides information about the current position in the pagination and links to other pages</p>
+
+    - name: <p>&mdash; offset</p>
+      type: integer    
+      mandatory: Optional
+      desc: <p>Offset used to access the current page</p>
+
+    - name: <p>&mdash; limit</p>
+      type: integer
+      mandatory: Optional
+      desc: <p>Number of events listed in the current page</p>
+
+    - name: <p>&mdash; next</p>
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Conditional (mandatory if a next page exists)
+      desc: <p>Atom link pointing to the next page of the event. Relation attribute value is <code>next</code></p>        
+
+    - name: <p>&mdash; previous</p>
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Conditional (mandatory if a previous page exists)
+      desc: <p>Atom link pointing the previous page of event. Relation attribute value is <code>previous</code></p>   
+
+region : 
+    - name: name
+      mandatory: Mandatory
+      type: Free text
+      desc: <p>Name assigned to the region</p> 
+
+    - name: geonames_id
+      type: Free text
+      mandatory: Mandatory
+      desc: <p>Unique identifier of the region in the geonames database</p> 
+
+    - name: self
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Optional
+      desc: <p>Link pointing the geoname resource</p>
+
+---
+{% include JB/setup %}
+
+{% include specsnav.html %}
+
+<h3>Overview</h3>
+
+  <table class="resource_pres">
+{% for item in page.presentation %} 
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td class="vertical_header">{{ elem.name }}</td><td>{{ elem.value }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </table>
+
+
+<h3>Parameters and filters</h3>
+
+<p>The region resource does not support any URL parameter or filter besides <a href="guidelines.html#format">format selection</a> and <a href="guidelines.html#lang">language negotiation</a>.</p>
+
+
+<h3>Example</h3>
+
+<p>Example of the XML and JSON representations of the jurisdiction resource</p>
+
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+});
+</script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+<pre class="brush: xml">
+&lt;open511
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:gml="http://www.opengis.net/gml"
+    xml:lang="en"
+    xml:base="http://my.city.gov/open511/"
+&gt;  
+  &lt;region&gt; 
+    &lt;name&gt;A City&lt;/name&gt;
+    &lt;geonames_id&gt;123456&lt;/geonames_id&gt;
+    &lt;atom:link rel="self" href="http://geonames.org/123456/about.rdf" /&gt;  
+  &lt;/region&gt;
+  &lt;region&gt; 
+    &lt;name&gt;A County&lt;/name&gt;
+    &lt;geonames_id&gt;98765&lt;/geonames_id&gt;
+    &lt;atom:link rel="self" href="http://geonames.org/98765/about.rdf" /&gt;  
+  &lt;/region&gt;    
+&lt;/open511&gt;  
+</pre>
+    </div>
+    <div id="tabs-2">
+<pre class="brush: js">
+{
+  "self" : "http://my.city.gov/open511/regions/",
+  "up" : "http://my.city.gov/open511/",
+  "content" : [
+    {
+      "name" : ,
+      "geonames_id" : ,
+      "self_url" : 
+    },
+    {
+      "name" : ,
+      "geonames_id" : ,
+      "self_url" : 
+    }
+  ]
+}    
+</pre>
+</div>
+</div>
+
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>
+
+
+<h3>Region data structure</h3>
+
+<p>Since the self link is relying on the <a href="http://www.geonames.org/">geonames</a> API, region do not have individual resource. The list is designed to allow client to lookup all the regions available and, for example, filter accordingly.</p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'representation' %}
+{% for item in page.representation %} 
+   {% include tablegen.html %}
+{% endfor %}   
+     </table>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'region' %}
+{% for item in page.region %} 
+   {% include tablegen.html %}
+{% endfor %}   
+     </table>
+  
+

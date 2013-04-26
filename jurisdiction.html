@@ -45,10 +45,10 @@ representation :
       mandatory: Optional
       desc: <p>Free text that can be used by a client application to provide some information about the Open511 service and the jurisdiction covered.</p> 
 
-    - name: area
-      type: <a href="guidelines.html#geospatial">geography field</a>
-      mandatory: Mandatory <code><a href="https://github.com/opennorth/Open511API/issues/14">Issue 14</a></code>
-      desc: <p>Geographical coverage of the jurisdiction. This field only accepts a polygon or multipolygons.</p>
+    - name: geography
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Mandatory
+      desc: <p>The geography field links an open511 <code><a href="jurisdictiongeo.html">jurisdiction geography</a></code> resource providing the jurisdiction boundaries.</p>
 
     - name: timezone
       type: <a href="guidelines.html#timezone">timezone</a>

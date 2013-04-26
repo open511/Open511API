@@ -4,10 +4,10 @@ title: Events
 presentation : 
   purpose :
     name : purpose
-    value : <p>The event resource provides information about road events (accidents, constructions, special events). The <code>events</code> resource is a list of <code>event</code> elements matching the filtering parameters if any are provided.</p><p>Most the access should be done with the GET method. However the use of the geography filtering might generate an URL longer than the safe 2kB. If the URL is longer than that, the client should send a POST request containing all the filtering parameters encoded in x-www-form format. The API should forward the client to a temporary URL matching the filtering criteria.</p>
+    value : <p>The event resource provides information about road events (accidents, constructions, special events). The <code>events</code> resource is a list of <code>event</code> elements matching the filtering parameters if any are provided.</p>
   method :
     name : method
-    value : GET (and POST)
+    value : GET
 parameters : 
     - name : status
       required : optional
@@ -31,7 +31,7 @@ parameters :
 
     - name : geography
       required : optional
-      description : <p>Filtering near a point or linestring or within a polygon. The geography value should be provided as a WKT (well-known text) in WGS84 latitude/longitudes with support of <code>POINT</code> and <code>LINESTRING</code>. Example&colon;<br/> <code>...geography=POINT(45.45,-84.85)</code>.<br/> The <code>geography</code> must be used in conjuction with the <code>tolerance</code> filter.</br>This URL parameters are usually limited to 2kB (mainly due to browser limitations), so the event resource must also accept POST method in x-www-form format.</p>
+      description : <p>Filtering near a point or linestring. The geography value should be provided as a <a href="http://en.wikipedia.org/wiki/Well-known_text">WKT</a>  string in WGS84 latitude/longitudes with support of <code>POINT</code> and <code>LINESTRING</code>. Example&colon;<br/> <code>...geography=POINT(45.45,-84.85)</code>.<br/> The <code>geography</code> must be used in conjuction with the <code>tolerance</code> filter.</p>
 
     - name : tolerance
       required : conditional
@@ -191,10 +191,10 @@ road :
       mandatory: Optional
       desc: <p>Bitmap representing the lanes that are closed because of the event. For example <code>0110</code> means that the 2 central lanes of a 4 lanes roads are closed.</p><p>The lane status is applied to direction provided</p>
 
-    - name: city
-      type: free text
+    - name: regions
+      type: Collections of <a href="region.html">region</a>
       mandatory: Optional
-      desc: <p>City in which the event is taking place (or near)</p>  
+      desc: <p>Regions affected by the event</p>  
 
     - name: impacted_systems
       type: Collection of <code>impacted_system</code>
@@ -372,9 +372,18 @@ attachment :
     &lt;created&gt;2012-05-23T20:33:10Z&lt;/created&gt;
     &lt;updated&gt;2012-05-24T10:00:10Z&lt;/updated&gt;
     &lt;detour&gt;Take Sherbrooke travelling east, and Wellington travelling west.&lt;/detour&gt;
-    &lt;traveler_messages&gt;
-      &lt;traveler_message&gt;AVOID_REGION&lt;/traveler_message&gt;
-    &lt;/traveler_messages&gt;
+    &lt;regions&gt;
+      &lt;region&gt; 
+        &lt;name&gt;A City&lt;/name&gt;
+        &lt;geonames_id&gt;123456&lt;/geonames_id&gt;
+        &lt;atom:link rel="self" href="http://geonames.org/123456/about.rdf" /&gt;  
+      &lt;/region&gt;
+      &lt;region&gt; 
+        &lt;name&gt;A County&lt;/name&gt;
+        &lt;geonames_id&gt;98765&lt;/geonames_id&gt;
+        &lt;atom:link rel="self" href="http://geonames.org/98765/about.rdf" /&gt;  
+      &lt;/region&gt;     
+    &lt;regions&gt;
     &lt;geography&gt;
       &lt;gml:Linestring srsName="EPSG:4326"&gt;
         &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40&lt;/gml:coordinates&gt;
@@ -439,7 +448,18 @@ attachment :
        "severity" : 2,
        "certainty" : "OBSERVED",
        "detour" : "Take Sherbrooke travelling East, and Wellington travelling West.",
-       "traveler_messages" : ["AVOID_REGION"], 
+       "regions" : [
+        {
+          "name" : "A city",
+          "geonames_id" : "123456",
+          "self_url" : "http://geonames.org/123456/about.rdf"
+        },
+        {
+          "name" : , "A county"
+          "geonames_id" : "98765",
+          "self_url" : "http://geonames.org/98765/about.rdf"
+        }
+       ],
        "geography": {
            "type": "Point", 
            "coordinates": [

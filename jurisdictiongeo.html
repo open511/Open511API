@@ -1,0 +1,120 @@
+---
+layout: page
+title: Jurisdiction Geography
+presentation : 
+  a :
+    name : purpose
+    value : The jurisdiction geography contains the boundaries of the jurisdiction.
+  b :
+    name : method
+    value : GET
+representation : 
+
+    - name: self
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code></p>
+
+    - name: up
+      type: <a href="guidelines.html#links">Link</a> 
+      mandatory: Mandatory
+      desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
+
+    - name: geography
+      type: geography
+      mandatory: Mandatory
+      desc: <p>Boundaries of the jurisdiction.</p> 
+
+---
+{% include JB/setup %}
+
+{% include specsnav.html %}
+
+<h3>Overview</h3>
+
+  <table class="resource_pres">
+{% for item in page.presentation %} 
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td class="vertical_header">{{ elem.name }}</td><td>{{ elem.value }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </table>
+
+
+<h3>Parameters and filters</h3>
+
+<p>The jurisdiction geometry resource does not support any URL parameter or filter besides <a href="guidelines.html#format">format selection</a>.</p>
+
+
+<h3>Example</h3>
+
+<p>Example of the XML and JSON representations of the jurisdiction resource</p>
+
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+});
+</script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+<pre class="brush: xml">
+&lt;open511
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:gml="http://www.opengis.net/gml"
+    xml:lang="en"
+    xml:base="http://my.city.gov/open511/"
+&gt;  
+  &lt;geography&gt;
+    &lt;gml:Polygon srsName="EPSG:4326"&gt;
+      &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40 -71.17,47.33&lt;/gml:coordinates&gt;
+    &lt;/gml:Polygon&gt;
+  &lt;/geography&gt;
+&lt;/open511&gt;  
+</pre>
+    </div>
+    <div id="tabs-2">
+<pre class="brush: js">
+{
+  "self" : "http://my.city.gov/open511/jurisdiction/my-city/geography/",
+  "up" : "http://my.city.gov/open511/jurisdiction/my-city/",
+  "geography" :  {
+      "type": "Polygon",
+      "coordinates": [
+          [ [71.17,47.33], [-71.15,47.36], [-71.10,47.35],
+              [-71.20,47.40], [-71.17,47.33] ]
+          ]
+    },
+}
+</pre>
+</div>
+</div>
+
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>
+
+
+<h3>Jurisdiction geometry data structure</h3>
+
+<p>Remark : Although the jurisdiction geography could have been integrated directly in the jurisdiction resource, this data can easily take several kilobytes or even megabytes for complex countries/states. Since the use case for the geography is mostly for lookup purpose and that many applications might need to access the jurisdiction to retrieve basic information, the geography has a dedicated resource.</p>
+
+<p>The following table provides the struture of the message expected for this resource. Although the format of the representation might change (XML or JSON), the overall data structure should remain except when specified otherwise.</p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'representation' %}
+{% for item in page.representation %} 
+   {% include tablegen.html %}
+{% endfor %}   
+     </table>
+  
+
