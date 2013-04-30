@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Jurisdiction
+title: Region
 presentation : 
   a :
     name : purpose
@@ -64,7 +64,7 @@ region :
 
     - name: self
       type: <a href="guidelines.html#links">Link</a>
-      mandatory: Optional
+      mandatory: Mandatory
       desc: <p>Link pointing the geoname resource</p>
 
 ---
@@ -94,7 +94,7 @@ region :
 
 <h3>Example</h3>
 
-<p>Example of the XML and JSON representations of the jurisdiction resource</p>
+<p>Example of the XML and JSON representations of the region resource in the context of a list.</p>
 
 <script>
 $(function() {
@@ -114,6 +114,7 @@ $(function() {
     xmlns:gml="http://www.opengis.net/gml"
     xml:lang="en"
     xml:base="http://my.city.gov/open511/"
+    version="v0"
 &gt;  
   &lt;region&gt; 
     &lt;name&gt;A City&lt;/name&gt;
@@ -125,27 +126,47 @@ $(function() {
     &lt;geonames_id&gt;98765&lt;/geonames_id&gt;
     &lt;atom:link rel="self" href="http://geonames.org/98765/about.rdf" /&gt;  
   &lt;/region&gt;    
-&lt;/open511&gt;  
+  &lt;pagination&gt;
+    &lt;offset>0&lt;/offset&gt;
+    &lt;limit>20&lt;/limit&gt;
+    &lt;atom:link rel="next" href="/api/regions/?limit=20&offset=20"/&gt;
+  &lt;/pagination&gt;
+  &lt;atom:link rel="self" href="/api/regions/"/&gt;
+  &lt;atom:link rel="up" href="/api/"/&gt;    
+&lt;/open511&gt;
+
+
 </pre>
     </div>
     <div id="tabs-2">
 <pre class="brush: js">
 {
-  "self" : "http://my.city.gov/open511/regions/",
-  "up" : "http://my.city.gov/open511/",
+  "meta": {
+      "self_url": "http://api.open511.info/regions/",
+       "up_url": "http://api.open511.info/",
+       "version": "v0"
+  },
   "content" : [
     {
-      "name" : ,
-      "geonames_id" : ,
-      "self_url" : 
+      "name" : "A City",
+      "geonames_id" : "123456",
+      "self_url" : "http://geonames.org/123456/about.rdf"
     },
     {
-      "name" : ,
-      "geonames_id" : ,
-      "self_url" : 
+      "name" : "A county",
+      "geonames_id" : "98765",
+      "self_url" : "http://geonames.org/98765/about.rdf"
     }
-  ]
-}    
+  ],
+  "pagination": {
+      "next_url": "/api/events/?limit=20&offset=20",
+      "limit": 20,
+      "previous_url": null,
+      "offset": 0
+    }
+} 
+
+
 </pre>
 </div>
 </div>
@@ -155,17 +176,12 @@ $(function() {
 </script>
 
 
-<h3>Region data structure</h3>
+<h3>Region item data structure</h3>
 
-<p>Since the self link is relying on the <a href="http://www.geonames.org/">geonames</a> API, region do not have individual resource. The list is designed to allow client to lookup all the regions available and, for example, filter accordingly.</p>
+<p>Since the self link is relying on the <a href="http://www.geonames.org/">geonames API</a>, region do not have individual resource. The list is designed to allow client to lookup all the regions available and, for example, filter accordingly.</p>
 
-  <table class="representation">
-        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-{% assign anchor = 'representation' %}
-{% for item in page.representation %} 
-   {% include tablegen.html %}
-{% endfor %}   
-     </table>
+<p>The region resource is a list of items. As a consequence, the overall data structure will follow the list structure as defined in the <a href="guidelines.html#format">formatting guidelines</a>. The data structure below defines a single <code>region</code> item.
+
 
   <table class="representation">
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>

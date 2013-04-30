@@ -10,20 +10,20 @@ presentation :
     value : GET
 representation : 
 
-    - name: self
-      mandatory: Mandatory
-      type: <a href="guidelines.html#links">Link</a>
-      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>.</p>
+#    - name: self
+#      mandatory: Mandatory
+#      type: <a href="guidelines.html#links">Link</a>
+#      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>.</p>
 
     - name: jurisdictions
       mandatory: Mandatory, at least one <code>jurisdiction</code> element is mandatory
       type: Collection of <code>jurisdiction</code>
       desc: <p>List all the jurisdictions that are supported by the endpoint. Most of the time, there will be only one occurrence, except for multiple jurisdictions endpoints and aggregators.</p>
 
-    - name: <p>&mdash; name</p>
+    - name: <p>&mdash; id</p>
       mandatory: Mandatory
       type: Free text
-      desc: <p>Name of the jurisdiction. The field is simply for description and should not be considered as a key</p>
+      desc: <p>Id of the jurisdiction.</p>
 
     - name: <p>&mdash;  url</p>
       mandatory: Mandatory
@@ -70,7 +70,7 @@ representation :
 
 <h3>Example</h3>
 
-<p>Example of the XML and JSON representations of the root resource</p>
+<p>Example of the XML and JSON representations of the discovery resource</p>
 
 <script>
 $(function() {
@@ -89,49 +89,54 @@ $(function() {
     xmlns:atom="http://www.w3.org/2005/Atom"
     xml:lang="en"
     xml:base="http://api.open511.info/"
+    version="v0"
 &gt;  
-  &lt;atom:link rel="self" href="http://api.open511.info/" /&gt;
   &lt;jurisdictions&gt;
     &lt;jurisdiction&gt;
-      &lt;name&gt;My City&lt;/name&gt;
-      &lt;atom:link rel="self" href="http://my.city.gov/open511/jurisdiction/my-city/" /&gt;
+      &lt;id&gt;mycity.gov&lt;/name&gt;
+      &lt;atom:link rel="self" href="http://mycity.gov/open511/jurisdiction/mycity.gov/" /&gt;
     &lt;/jurisdiction&gt;
     &lt;jurisdiction&gt;
-      &lt;name&gt;My Region&lt;/name&gt;
-      &lt;atom:link rel="self" href="http://my.region.gov/open511/jurisdiction/my-region/" /&gt;
+      &lt;id&gt;myregion.gov&lt;/id&gt;
+      &lt;atom:link rel="self" href="http://myregion.gov/open511/jurisdiction/myregion.gov/" /&gt;
     &lt;/jurisdiction&gt;    
   &lt;/jurisdiction&gt;
   &lt;services&gt;
     &lt;service&gt;
       &lt;service_type&gt;events&lt;/service_type&gt;
       &lt;service_description&gt;Provide information about events impacting the road system&lt;/service_description&gt;
-      &lt;atom:link rel="self" href="http://api.open511.info/events" /&gt;
+      &lt;atom:link rel="self" href="/events/" /&gt;
     &lt;service&gt;
   &lt;/services&gt;
+  &lt;atom:link rel="self" href="/"/&gt;
 &lt;/open511&gt;
 </pre>
     </div>
     <div id="tabs-2">
 <pre class="brush: js">
 {
-  "self" : "http://api.open511.info/"
   "jurisdictions" : [
       {
-          "name" : "My City", 
-          "url" : "http://my.city.gov/open511/jurisdiction/my-city/"
+          "id" : "mycity.gov", 
+          "url" : "http://my.city.gov/open511/jurisdiction/mycity.gov/"
       },
       {
-          "name" : "My Region", 
-          "url" : "http://my.region.gov/open511/jurisdiction/my-city/"
+          "id" : "myregion.gov", 
+          "url" : "http://my.region.gov/open511/jurisdiction/myregion.gov/"
       }
   ],
   "services" : [
       {
           "type" : "events",
           "description" : "Provide information about events impacting the road system",
-          "url" : "http://api.open511.info/events"
+          "url" : "/events/"
       }
-  ]
+  ],
+  "meta": {
+      "version": "v0",
+      "self_url": "/"
+  }
+
 }
 </pre>
 </div>
@@ -143,7 +148,9 @@ $(function() {
 
 <h3>Data structure</h3>
 
-<p>The following table provides the data structure for the root resource (aka discovery). Although the format of the representation might change (XML or JSON), the overall data structure should remain except when specified otherwise.
+<p>The following table provides the data structure for the root resource (aka discovery). Although the format of the representation might change (XML or JSON), the overall data structure should remain except when specified otherwise.</p>
+
+<p>Note that the discovery resource follows the rules of an individual item in <a href="guidelines.html#format">formatting guidelines</a> and <b>not</b> of list since it contains different types of items. There is no <code>up</code> link since the discovery is the upper level.</p>
 
 
 

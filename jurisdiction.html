@@ -4,21 +4,26 @@ title: Jurisdiction
 presentation : 
   a :
     name : purpose
-    value : The jurisdiction represents any government entity (city, state/province, agency, etc.) publishes open511 data. It is a functional concept used to provide metadata about events such as contact information, etc.
+    value : The jurisdiction represents any government entity (city, state/province, agency, etc.) publishing open511 data. It is a functional concept used to provide metadata such as contact information, etc.
   b :
     name : method
     value : GET
 representation : 
 
-    - name: self
-      mandatory: Mandatory
-      type: <a href="guidelines.html#links">Link</a>
-      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code></p>
+#    - name: self
+#      mandatory: Mandatory
+#      type: <a href="guidelines.html#links">Link</a>
+#      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code></p>
 
-    - name: up
-      type: <a href="guidelines.html#links">Link</a> 
+#    - name: up
+#      type: <a href="guidelines.html#links">Link</a> 
+#      mandatory: Mandatory
+#      desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
+
+    - name: id
+      type: free text
       mandatory: Mandatory
-      desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
+      desc: <p>Unique identifier of jurisdiction in the open511 scheme. By convention it should be a jurisdiction domain (e.g mycity.gov)</p>
 
     - name: name
       type: free text
@@ -30,7 +35,7 @@ representation :
       mandatory: Mandatory
       desc: <p>Valid email that can be used to contact the department or person in charge of the data provided by the Open511 API</p>    
 
-    - name: url
+    - name: description_url
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Optional
       desc: <p>Link pointing to a human readable resource (web page, pdf file, etc) providing details about the Open511 service and the jurisdiction covered.</p>  
@@ -45,7 +50,7 @@ representation :
       mandatory: Optional
       desc: <p>Free text that can be used by a client application to provide some information about the Open511 service and the jurisdiction covered.</p> 
 
-    - name: geography
+    - name: geography_url
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Mandatory
       desc: <p>The geography field links an open511 <code><a href="jurisdictiongeo.html">jurisdiction geography</a></code> resource providing the jurisdiction boundaries.</p>
@@ -116,51 +121,47 @@ $(function() {
     xmlns:atom="http://www.w3.org/2005/Atom"
     xmlns:gml="http://www.opengis.net/gml"
     xml:lang="en"
-    xml:base="http://my.city.gov/open511/"
+    xml:base="http://my.city.gov/open511"
+    version="v0"
 &gt;  
-  &lt;jurisdiction&gt;
-    &lt;atom:link rel="self" href="http://my.city.gov/open511/jurisdiction/my-city/" /&gt;
-    &lt;atom:link rel="up" href="http://my.city.gov/open511/" /&gt;    
+  &lt;jurisdiction&gt;   
+    &lt;id&gt;mycity.gov&lt;/id&gt;
     &lt;name&gt;My City&lt;/name&gt;
     &lt;email&gt;mayor@my.city.gov&lt;/email&gt;
     &lt;phone&gt;+1 555-555-0000&lt;/phone&gt;
-    &lt;description&gt;Official traffic data (construction) from My City&lt;/phone&gt;
+    &lt;description&gt;Official traffic data (construction) from My City&lt;/description&gt;
     &lt;atom:link rel="description" href="http://my.city.gov/open511/presentation.html" /&gt;
     &lt;timezone&gt;US/Eastern&lt;/timezone&gt;
-    &lt;area&gt;
-      &lt;gml:Polygon srsName="EPSG:4326"&gt;
-        &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40 -71.17,47.33&lt;/gml:coordinates&gt;
-      &lt;/gml:Polygon&gt;
-    &lt;/area&gt;
+    &lt;atom:link rel="geography" href="/jurisdiction/my-city/geography/"/&gt;
     &lt;atom:link rel="license" href="http://my.city.gov/opendatalicense/"/&gt;
     &lt;languages&gt;
       &lt;language&gt;fr&lt;/language&gt;
       &lt;language&gt;en&lt;/language&gt;
     &lt;/languages&gt;
   &lt;/jurisdiction&gt;
+  &lt;atom:link rel="self" href="/jurisdiction/my-city/" /&gt;
+  &lt;atom:link rel="up" href="/" /&gt;   
 &lt;/open511&gt;  
 </pre>
     </div>
     <div id="tabs-2">
 <pre class="brush: js">
 {
-  "self" : "http://my.city.gov/open511/jurisdiction/my-city/",
-  "up" : "http://my.city.gov/open511/",
+  "id" : "mycity.gov"
   "name" : "My City",
-  "email" : "mayor@my.city.gov",
+  "email" : "mayor@mycity.gov",
   "phone" : "1 555-555-0000",
   "description" : "Official traffic data (construction) from My City",
-  "url" : "http://my.city.gov/open511/presentation.html",
+  "description_url" : "http://my.city.gov/open511/presentation.html",
   "timezone" : "US/Eastern",
-  "area" :  {
-      "type": "Polygon",
-      "coordinates": [
-          [ [71.17,47.33], [-71.15,47.36], [-71.10,47.35],
-              [-71.20,47.40], [-71.17,47.33] ]
-          ]
-    },
+  "geography_url" : "/jurisdiction/my-city/geography/",
   "license_url" : "http://my.city.gov/opendatalicense/",
-  "languages" : ["en", "fr"]
+  "languages" : ["en", "fr"],
+  "meta": {
+      "version": "v0",
+      "self_url": "/jurisdiction/My-City",
+      "up_url": "/"
+  }  
 }
 </pre>
 </div>
@@ -174,6 +175,8 @@ $(function() {
 <h3>Jurisdiction data structure</h3>
 
 <p>The following table provides the struture of the message expected for this resource. Although the format of the representation might change (XML or JSON), the overall data structure should remain except when specified otherwise.</p>
+
+<p>The jurisdiction follows the <a href="guidelines.html#format">formatting guidelines</a> of an individual item.</p>
 
   <table class="representation">
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>

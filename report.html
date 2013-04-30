@@ -155,7 +155,7 @@ getrepresentation :
 
 
 <pre class="brush: xml">
-POST /reports.xml
+POST /open511/reports/
 Host: api.city.gov
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 
@@ -195,7 +195,7 @@ event_type=ACCIDENT&severity=2
 
 <h4>Example</h4>
 
-<p>Example of the XML and JSON representations of the report resource</p>
+<p>Example of the XML and JSON representations of the report resource as a list</p>
 
 <script>
 $(function() {
@@ -215,23 +215,29 @@ $(function() {
   xmlns:gml="http://www.opengis.net/gml" 
   xml:base="http://dev.open511.ca" 
   version="v0"&gt;
-  &lt;reports&gt;
-    &lt;report&gt;
-      &lt;atom:link rel="self" href="http://dev.open511.ca/api/report/1234/"/&gt;
-      &lt;jurisdiction&gt;moti.bc.gov&lt;/name&gt;
-      &lt;geography&gt;
-          &lt;gml:point srsName="EPSG:4326"&gt;
-            &lt;gml:coordinates&gt;-71.17,47.33&lt;/gml:coordinates&gt;
-          &lt;/gml:point&gt;
-      &lt;/geography&gt;    
-      &lt;description&gt;Major accident on 8080E. Cars stopped in 2 lanes&lt;/timezone&gt;
-      &lt;event_type&gt;ACCIDENT&lt;/event_type&gt;
-      &lt;severity&gt;2&lt;/severity&gt;
-      &lt;status&gt;OPEN&lt;/status&gt;
-      &lt;created&gt;2013-01-03T06:43:04+00:00&lt;/created&gt;
-      &lt;updated&gt;2013-01-09T21:31:04.967931+00:00&lt;/updated&gt;
-    &lt;/report&gt;
-  &lt;/reports&gt;
+  &lt;report&gt;
+    &lt;atom:link rel="self" href="http://dev.open511.ca/api/report/1234/"/&gt;
+    &lt;jurisdiction&gt;moti.bc.gov&lt;/name&gt;
+    &lt;geography&gt;
+        &lt;gml:point srsName="EPSG:4326"&gt;
+          &lt;gml:coordinates&gt;-71.17,47.33&lt;/gml:coordinates&gt;
+        &lt;/gml:point&gt;
+    &lt;/geography&gt;    
+    &lt;description&gt;Major accident on 8080E. Cars stopped in 2 lanes&lt;/timezone&gt;
+    &lt;event_type&gt;ACCIDENT&lt;/event_type&gt;
+    &lt;severity&gt;2&lt;/severity&gt;
+    &lt;status&gt;OPEN&lt;/status&gt;
+    &lt;created&gt;2013-01-03T06:43:04+00:00&lt;/created&gt;
+    &lt;updated&gt;2013-01-09T21:31:04.967931+00:00&lt;/updated&gt;
+  &lt;/report&gt;
+  &lt;report&gt;
+    ...
+  &lt;/report&gt;
+  &lt;pagination&gt;
+    &lt;offset>0&lt;/offset&gt;
+    &lt;limit>20&lt;/limit&gt;
+    &lt;atom:link rel="next" href="/api/reports/?limit=20&offset=20"/&gt;
+  &lt;/pagination&gt;  
   &lt;atom:link rel="self" href="/api/reports/"/&gt;
   &lt;atom:link rel="up" href="/api/"/&gt;
 &lt;/open511&gt;
@@ -278,9 +284,9 @@ $(function() {
 
 <p>&nbsp;</p>
 
-<h3>GET data structure</h3>
+<h3>GET report data structure</h3>
 
-<p>The following table provide the general message structure for the <code>reports</code> resource. <code>reports</code> is a collection of  <code>report</code> structure.</p>
+<p>The following table provide the general message structure of an individual <code>report</code> item. When provided in a list, the report resource follow the <a href="guidelines.html#format"></a>formatting guidelines for lists.</p>
 
   <table class="representation">
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>

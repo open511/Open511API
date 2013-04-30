@@ -10,15 +10,15 @@ presentation :
     value : GET
 representation : 
 
-    - name: self
-      mandatory: Mandatory
-      type: <a href="guidelines.html#links">Link</a>
-      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code></p>
+#    - name: self
+#      mandatory: Mandatory
+#      type: <a href="guidelines.html#links">Link</a>
+#      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code></p>
 
-    - name: up
-      type: <a href="guidelines.html#links">Link</a> 
-      mandatory: Mandatory
-      desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
+#    - name: up
+#      type: <a href="guidelines.html#links">Link</a> 
+#      mandatory: Mandatory
+#      desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
 
     - name: geography
       type: geography
@@ -72,20 +72,21 @@ $(function() {
     xmlns:gml="http://www.opengis.net/gml"
     xml:lang="en"
     xml:base="http://my.city.gov/open511/"
+    version="v0"
 &gt;  
   &lt;geography&gt;
     &lt;gml:Polygon srsName="EPSG:4326"&gt;
       &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40 -71.17,47.33&lt;/gml:coordinates&gt;
     &lt;/gml:Polygon&gt;
   &lt;/geography&gt;
+  &lt;atom:link rel="self" href="/jurisdiction/mycity.gov/geography/" /&gt;
+  &lt;atom:link rel="up" href="/jurisdiction/mycity.gov/" /&gt;   
 &lt;/open511&gt;  
 </pre>
     </div>
     <div id="tabs-2">
 <pre class="brush: js">
 {
-  "self" : "http://my.city.gov/open511/jurisdiction/my-city/geography/",
-  "up" : "http://my.city.gov/open511/jurisdiction/my-city/",
   "geography" :  {
       "type": "Polygon",
       "coordinates": [
@@ -93,6 +94,11 @@ $(function() {
               [-71.20,47.40], [-71.17,47.33] ]
           ]
     },
+  "meta": {
+      "version": "v0",
+      "self_url": "http://my.city.gov/open511/jurisdiction/mycity.gov/geography/",
+      "up_url": "http://my.city.gov/open511/jurisdiction/mycity.gov/"
+  }     
 }
 </pre>
 </div>

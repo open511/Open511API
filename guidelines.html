@@ -51,7 +51,121 @@ title: Technical Guidelines
 
 <p>Each implementation is free to determine its default representation when the client does not specify which format is to be received.</p>
 
+<p>&nbsp;</p>
+
+<a id="xmlspec"></a>
+<h4>XML specificities</h4>
+
 <p>An XSD schema for the XML representation will be provided once the data structure is stabilized</p>
+
+
+<ul><li>On top of namespaces, the Open511 container structure contains the version delivered
+  <pre>&lt;open511 <b>version="v0"</b> xmlns:atom="http://www.w3.org/2005/Atom" ... &gt;</pre>
+</li> 
+
+<li>Resources should always have a self link, providing the current url, and a up link providing the url of the parent resource (except for the discovery resource which does not have any parent). These up and self link are directly located in the Open511 structure.
+<pre>  &lt;open511 version="v0" ...&gt;
+    &lt;atom:link rel="<b>self</b>" href="/api/jurisdictions/test/"/&gt;
+    &lt;atom:link rel="<b>up</b>" href="/api/jurisdictions/"/&gt;
+    ...
+  &lt;/open511&gt;   </pre></li>
+
+<li>Lists resources (like lists of events of reports) always contain a pagination block containing navigation info:<ul>
+  <li><code>offset</code>: the starting offset of the current page.</li>
+  <li><code>limit</code>: the maximum number of items to be listed in a response</li>
+  <li><code>next</code>: a link to the next page of results if any</li>
+  <li><code>previous</code>: a link to the previous page of results if any</li></ul>
+    <pre>&lt;open511 ...&gt;
+    ...
+    &lt;pagination&gt;
+      &lt;offset&gt;0&lt;/offset&gt;
+      &lt;limit&gt;20&lt;/limit&gt;
+      &lt;atom:link rel="next" href="/api/events/?limit=20&offset=20"/&gt;
+    &lt;/pagination&gt;
+  &lt;/open511&gt;</pre>
+</li>
+
+<li>In a list of first order (e.g <code>event</code> in the events resource) are directly embed in the open511 structure: 
+    <pre>&lt;open511 ...&gt;
+    &lt;event&gt;...&lt;/event&gt;
+    &lt;event&gt;...&lt;/event&gt;
+    &lt;event&gt;...&lt;/event&gt; 
+    &lt;pagination&gt;...&lt;/pagination&gt;           
+  &lt;/open511&gt;</pre>
+</li>
+<li>Lists included in a first order are included in a container structure: 
+    <pre>&lt;open511 ...&gt;
+    &lt;event&gt;
+      ...
+      <b>&lt;roads&gt;
+        &lt;road&gt;...&lt;/road&gt;
+        &lt;road&gt;...&lt;/road&gt;
+      &lt;roads&gt;</b>        
+    &lt;/event&gt;
+  &lt;/open511&gt;</pre>
+</li>
+
+</ul>
+
+<p>&nbsp;</p>
+<a id="jsonspec"></a>
+<h4>JSON specificities</h4>
+
+<ul>
+  <li>In XML, the links are using atom structure where possible. Since the atom structure does not exist in JSON, link will be declared as with a key <i>keyword</i>_url where keyword is the <code>rel</code> field in XML. For example
+    <pre>&lt;atom:link rel="<b>description</b>" href="http://example.net/description.html"/&gt;</pre>
+  becomes
+    <pre>"<b>description</b>_url": "http://example.net/description.html"</pre></li>
+  <li>For list resources, the content will be an array of items places in a <code>content</code> structure:
+<pre>  {
+    <b>"content": [</b>
+        { "name" : "item1" ...},
+        { "name" : "item2" ...}
+    ]
+  }</pre>       
+</li> 
+<li>For individual item, the content is directly in the first level structure</li>
+<li>A <code>meta</code> structure has to be contained in each response. This <code>meta</code> structure contains the format version number as well as the self link (providing the current url) and the up link (providing the url of the parent ressource). The <code>meta</code> structure is contained directly in the first level structure.
+<pre>  {
+    ...
+    "meta": {
+        "version": "v0", 
+        "up_url": "/api/events/mtq/",
+        "self_url": "http://dev.open511.ca/api/events/mtq/maj39012/"
+    }    
+  }</pre></li>  
+
+<li>Lists resources (like lists of events of reports) always contain a pagination block containing navigation info:<ul>
+  <li><code>offset</code>: the starting offset of the current page.</li>
+  <li><code>limit</code>: the maximum number of items to be listed in a response</li>
+  <li><code>next</code>: a link to the next page of results if any</li>
+  <li><code>previous</code>: a link to the previous page of results if any</li></ul>
+  <pre>
+  {
+    ...
+    "pagination": {
+      "next_url": "/api/events/?limit=20&offset=20", 
+      "limit": 20, 
+      "previous_url": null, 
+      "offset": 0
+    }
+  } </pre>
+</li>
+
+<li>Lists included in a first order are presented as an array: 
+    <pre>
+  {
+    ...
+    "roads": [
+      { "name": "road1", ...},
+      { "name": "road2", ...}
+    ],
+    ...
+  }
+</pre>
+</li>
+</ul>
+
 
 <a id="bandwidth"></a>
 <h3>Bandwidth Optimization and Conditional Requests</h3>

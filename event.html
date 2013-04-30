@@ -8,6 +8,7 @@ presentation :
   method :
     name : method
     value : GET
+
 parameters : 
     - name : status
       required : optional
@@ -19,12 +20,8 @@ parameters :
 
     - name : severity
       required : optional
-      description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below level 2 with <code>severity=&lt;2</code> or above or equal to level 2 with <code>severity=&gt;=2</code>, which is URL-encoded as <code>severity=%3E%3D2</code>.
-
-    - name : jurisdiction
-      required : optional
-      description : <p>Clients should be able to request events for a given jurisdiction on multi-jurisdiction endpoints or on agregators. The method still has to be defined &colon; <code><a href="https://github.com/opennorth/Open511API/issues/3">issue 3</a></code></p>
-
+      description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below level 2 with <code>severity=&lt;2</code> or above or equal to level 2 with <code>severity=&gt;=2</code>, which is URL-encoded as <code>severity=%3E%3D2</code></p>.
+    
     - name : bbox
       required: optional
       description: <p>Filter events by geographical bounding box. Four comma-separated coordinates, <code>xmin, ymin, xmax, ymax</code>.</p>
@@ -35,7 +32,11 @@ parameters :
 
     - name : tolerance
       required : conditional
-      description : <p>Provide a tolerance of radius in meters around if a POINT or LINESTRING is used as filtering parameter. For example <code>...geography=POINT(45.45,-84.85)&tolerance=50</code> would retrieve all the events within a circle of 50m radius around the selected point.</p>      
+      description : <p>Provide a tolerance of radius in meters around if a POINT or LINESTRING is used as filtering parameter. For example <code>...geography=POINT(45.45,-84.85)&tolerance=50</code> would retrieve all the events within a circle of 50m radius around the selected point.</p> 
+
+    - name : jurisdiction
+      required : optional
+      description : <p>Client could filter events coming from a specific jurisdiction using the jurisdiction id.</p><p>Example&colon; <code>jurisdiction=mycity.gov</code>.</p>      
 
 representation : 
 
@@ -333,7 +334,7 @@ attachment :
 
   <h3>Example</h3>
 
-<p>Example of event representations (XML and JSON)</p>
+<p>Example of event representations (XML and JSON) as presented in a list of events</p>
 
     <script>
     $(function() {
@@ -355,8 +356,6 @@ attachment :
     xml:base="http://api.open511.info/"
     version="v0"
 &gt;
-  &lt;atom:link rel="self" href="http://api.open511.info/events/" /&gt;
-  &lt;atom:link rel="up" href="http://api.open511.info/"/&gt;
   &lt;event&gt;
     &lt;status&gt;ACTIVE&lt;/status&gt; 
     &lt;atom:link rel="self" href="/events/23948/" /&gt;
@@ -424,102 +423,115 @@ attachment :
       &lt;atom:link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" /&gt;
     &lt;/attachments&gt;
   &lt;/event&gt;
+  &lt;event&gt;
+     ...
+  &lt;/event&gt;
+  &lt;pagination&gt;
+    &lt;offset>0&lt;/offset&gt;
+    &lt;limit>20&lt;/limit&gt;
+    &lt;atom:link rel="next" href="/api/events/?limit=20&offset=20"/&gt;
+  &lt;/pagination&gt;
+  &lt;atom:link rel="self" href="/api/events/"/&gt;
+  &lt;atom:link rel="up" href="/api/"/&gt;  
 &lt;/open511&gt;  
 </pre>
     </div>
     <div id="tabs-2">
 <pre class="brush: js">
 {
-  "meta": {
-    "url": "http://api.open511.info/events/montreal/7894/",
-    "up_url": "http://api.open511.info/events/montreal/",
-    "version": "v0"
-  },
-  "content": {
-       "url" : "/events/montreal/7894/",
-       "jurisdiction" : "http://my.city.gov/open511/jurisdiction/my-city/",
-       "headline" : "Urgent rebuilding of sewer pipes",
-       "status" : "ACTIVE", 
-       "updated" : "2012-09-19T17:49:16.392996+00:00", 
-       "created" : "2012-09-19T17:47:46.644610+00:00",
-       "description" : "The City informs you that Broadway Street will be closed between 1st and 4th avenue during the month of April due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.",
-       "event_type": "INCIDENT", 
-       "event_subype" : "Urgent roadwork", 
-       "severity" : 2,
-       "certainty" : "OBSERVED",
-       "detour" : "Take Sherbrooke travelling East, and Wellington travelling West.",
-       "regions" : [
+    "meta": {
+        "self_url": "http://api.open511.info/events/",
+        "up_url": "http://api.open511.info/",
+        "version": "v0"
+    },
+    "content": [
         {
-          "name" : "A city",
-          "geonames_id" : "123456",
-          "self_url" : "http://geonames.org/123456/about.rdf"
+            "url": "/events/7894/",
+            "jurisdiction": "http://my.city.gov/open511/jurisdiction/my-city/",
+            "headline": "Urgent rebuilding of sewer pipes",
+            "status": "ACTIVE",
+            "updated": "2012-09-19T17:49:16.392996+00:00",
+            "created": "2012-09-19T17:47:46.644610+00:00",
+            "description": "The City informs you that Broadway Street will be closed between 1st and 4th avenue during the month of April due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.",
+            "event_type": "INCIDENT",
+            "event_subype": "Urgent roadwork",
+            "severity": 2,
+            "certainty": "OBSERVED",
+            "detour": "Take Sherbrooke travelling East, and Wellington travelling West.",
+            "regions": [
+                {
+                    "name": "A city",
+                    "geonames_id": "123456",
+                    "self_url": "http://geonames.org/123456/about.rdf"
+                },
+                {
+                    "name": "a county",
+                    "geonames_id": "98765",
+                    "self_url": "http://geonames.org/98765/about.rdf"
+                }
+            ],
+            "geography": {
+                "type": "Point",
+                "coordinates": [
+                    -75.6585181951523,
+                    40.5487123139747
+                ]
+            },
+            "roads": [
+                {
+                    "road_name": "Broadway St. East",
+                    "from": "1st avenue",
+                    "to": "4th avenue",
+                    "direction": "E",
+                    "lane_status": "10",
+                    "impacted_systems": [
+                        "ROAD",
+                        "ON_STREET_PARKING"
+                    ],
+                    "restrictions": [
+                        "Local traffic only"
+                    ]
+                },
+                {
+                    "road_name": "Broadway St. West",
+                    "from": "4th avenue",
+                    "to": "1st avenue",
+                    "direction": "W",
+                    "lane_status": "11"
+                }
+            ],
+            "schedule": {
+                "start_date": "2012-04-01",
+                "end_date": "2012-04-30"
+            },
+            "attachments": [
+                {
+                    "media_type": "application/pdf",
+                    "size": 200000,
+                    "related_url": "http://my.city.gov/trafic/advisory/39473/com.pdf",
+                    "description": "Detour map"
+                }
+            ]
         },
         {
-          "name" : , "A county"
-          "geonames_id" : "98765",
-          "self_url" : "http://geonames.org/98765/about.rdf"
+            "url": "/events/7894/"
         }
-       ],
-       "geography": {
-           "type": "Point", 
-           "coordinates": [
-               -75.6585181951523, 
-               40.5487123139747
-           ]
-       },
-       "roads" : [
-          {
-              "road_name" : "Broadway St. East",
-              "from" : "1st avenue",
-              "to" : "4th avenue",
-              "direction" : "E",
-              "lane_status" : "10",
-              "impacted_systems" : ["ROAD", "ON_STREET_PARKING"],
-              "restrictions" : ["Local traffic only"]
-          },
-          {
-              "road_name" : "Broadway St. West",
-              "from" : "4th avenue",
-              "to" : "1st avenue",
-              "direction" : "W",
-              "lane_status" : "11",
-              "impacted_systems" : ["ROAD", "ON_STREET_PARKING"],
-          }
-       ],
-       "schedule" : {
-           "start_date": "2012-04-01", 
-           "end_date": "2012-04-30"
-       },
-       "attachments" : [{
-          "media_type" : "application/pdf",
-          "size" : 200000,
-          "related_url" : "http://my.city.gov/trafic/advisory/39473/com.pdf",
-          "description" : "Detour map"
-       }]
-     }
+    ],
+    "pagination": {
+        "next_url": "/api/events/?limit=20&offset=20",
+        "limit": 20,
+        "previous_url": null,
+        "offset": 0
+    }
 }
 </pre>  
 </div>
 </div>
 
+<a id="event"></a>
+<h3>Event item structure</h3>
 
-<h3>Data structure</h3>
-
-<p>The following table provide the general message structure for the <code>events</code> resource. <code>Events</code> is a collection of the <code><a href="#event">event</a></code> structure.</p>
-
-  <table class="representation">
-        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-{% assign anchor = 'representation' %}
-{% for item in page.representation  %} 
-   {% include tablegen.html %} 
-{% endfor %}
-  </table>
-
-<a id="event"></a><h4>Event structure</h4>
-
-<p>The event structure is the main element of the events collection. Although an event should be considered as independent, it is possible that one major event (mainly construction) could be split across several events</p>
-
-<p><code><a href="https://github.com/opennorth/Open511API/issues/1">issue 1</a></code></p>
+<p>When events are provided as a list, they are formatted following the list <a href="guideline.html#format"></a>format guidelines. The structure below defines an individual event item.</p>
 
   <table class="representation">
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>

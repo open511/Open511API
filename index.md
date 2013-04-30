@@ -15,24 +15,21 @@ This document describes the specifications of the Open511 API. It will provide a
 
 * The [technical guidelines](guidelines.html) provide specifics about encoding, formats, architecture and content negotiation.
 
-**Supported Resources:**
+**Main Resources:**
 
-* [Root (aka discovery)](root.html): this resource is the single entry point for the entire framework. It provides links to all the other resources. 
-Below is an example of the discovery resource. This example demonstrates an aggregator (open511.info) which gathers information from two different jurisdictions (My City and My Region). The jurisdiction link points to the original jurisdiction resource while the events are aggregated and served locally.  
+* [Root (aka discovery)](root.html): this resource is the single entry point for the entire framework. It provides links to all the other resources.   
 * [Jurisdictions](jurisdiction.html): represent a specific government with some metadata (contact info, geographical coverage and other options). 
-Below is a example of the jurisdiction resource. The resource presents the data of the "My City" jurisdiction including the geographical coverage of the jurisdiction, the license applied to the content, and the languages supported.
-* [Events](event.html): represent events that are published by jurisdictions. 
-Below is an example of the events resource. The example demonstrates how an event from juridiction "My City" is served by an aggregator (open511.info). The jurisdiction link still points to the original jurisdiction, but the self resource of the event is local (as well as the collection of events).
+* [Events](event.html): represent events (construction, accident, etc.) that are published by jurisdictions. 
+* [Reports](report.html): The report is the crowdsourcing feature of Open511. A road use can submit a report to notify the jurisdiction that something is ongoing (e.g an accident). Other clients can also retrieve reports submitted to a jurisdiction.
+
+**Support resources:**
+* [Region](region.html): Open511 contains the concept of region that can be attached to events. A region can be any location with a name: city, county, district, etc. It allows jurisdiction to provide additional location data without providing other geospatial data.
+* [Jurisdiction geography](jurisdictiongeo.html): Contain the geographical boundaries of a jurisdiction.
 
 ## Status {#status}
 
-This specification is a first draft. The format is expected to evolve in the coming months. Therefore, the present specifications should not be used to develop tools.
+This specification is a second draft. The format is expected to evolve in the coming weeks. Therefore, the present specifications should not be used to develop tools.
 
 ## Roadmap and Timeline {#timeline}
 
-The first draft of the specification was released to collaborators in October 2012 and will be made public in December 2012. A second iteration will be released in January 2013 with the final version expected in April 2013. At that point, the specification should be stable enough for general implementation.
-
-The second iteration will provide improvements to architecture and data formatting. It may also include two new services:
-
-* Crowdsourcing: the ability for citizens to submit reports like in the open311 framework.
-* Network data: with the first release, we noticed a need for linking an event with the road network. Also, some transportation agencies would like to publish their road network so a new resource might be added to support this feature but it is still under discussion.
+The first draft of the specification was released to collaborators in October 2012 and the second iteration  released in January 2013. The first official release (ready for implementation) is expected in May 2013.
