@@ -38,7 +38,7 @@ representation :
     - name: <p>&mdash; type</p>
       mandatory: Mandatory
       type: Value list
-      desc: <p>The service type value comes from a predefined list of services that are supported by the open511 API. Currently the only service supported is the event service.</p><p>Value list:</p> <pre>events</pre>
+      desc: <p>The service type value comes from a predefined list of services that are supported by the open511 API. Currently the only service supported is the event service.</p><p>Value list:</p> <pre>- events<br/>- regions</pre>
 
     - name: <p>&mdash; url</p>
       mandatory: Mandatory
@@ -97,8 +97,8 @@ $(function() {
       &lt;atom:link rel="self" href="http://mycity.gov/open511/jurisdiction/mycity.gov/" /&gt;
     &lt;/jurisdiction&gt;
     &lt;jurisdiction&gt;
-      &lt;id&gt;myregion.gov&lt;/id&gt;
-      &lt;atom:link rel="self" href="http://myregion.gov/open511/jurisdiction/myregion.gov/" /&gt;
+      &lt;id&gt;myrcounty.gov&lt;/id&gt;
+      &lt;atom:link rel="self" href="http://mycounty.gov/open511/jurisdiction/mycounty.gov/" /&gt;
     &lt;/jurisdiction&gt;    
   &lt;/jurisdiction&gt;
   &lt;services&gt;
@@ -107,6 +107,11 @@ $(function() {
       &lt;service_description&gt;Provide information about events impacting the road system&lt;/service_description&gt;
       &lt;atom:link rel="self" href="/events/" /&gt;
     &lt;service&gt;
+    &lt;service&gt;
+      &lt;service_type&gt;regions&lt;/service_type&gt;
+      &lt;service_description&gt;Provides a list of regions supported&lt;/service_description&gt;
+      &lt;atom:link rel="self" href="/regions/" /&gt;
+    &lt;service&gt;    
   &lt;/services&gt;
   &lt;atom:link rel="self" href="/"/&gt;
 &lt;/open511&gt;
@@ -130,7 +135,12 @@ $(function() {
           "type" : "events",
           "description" : "Provide information about events impacting the road system",
           "url" : "/events/"
-      }
+      },
+      {
+          "type" : "regions",
+          "description" : "Provides a list of regions supported",
+          "url" : "/regions/"
+      }      
   ],
   "meta": {
       "version": "v0",

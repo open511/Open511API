@@ -38,6 +38,11 @@ parameters :
       required : optional
       description : <p>Client could filter events coming from a specific jurisdiction using the jurisdiction id.</p><p>Example&colon; <code>jurisdiction=mycity.gov</code>.</p>      
 
+
+    - name : geoname_id
+      required : optional
+      description : <p>The open511 provides the concept of region to attach some location information onto of the geospatial data. In order to filter events by region, the clients has to request for a specific geoname identifier (provided in the <a href="region.html">region resource</a>).</p><p>Example&colon; <code>geoname_id=4454324</code>.</p>      
+
 representation : 
 
     - name: self
