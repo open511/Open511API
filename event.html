@@ -103,7 +103,7 @@ event :
     - name: event_type
       type: Enum
       mandatory: Mandatory
-      desc: <p>Basic type of event. Value list</p><pre>- CONSTRUCTION &colon;  planned road work<br>- SPECIAL_EVENT &colon; special events (fair, sport event, etc.)<br>- INCIDENT &colon; accidents and unplanned road work.</pre>
+      desc: <p>Basic type of event. Value list</p><pre>- CONSTRUCTION &colon;  planned road work<br>- SPECIAL_EVENT &colon; special events (fair, sport event, etc.)<br>- INCIDENT &colon; accidents and unplanned road work<br>- WEATHER_CONDITION &colon; Weather condition affecting the road<br>- ROAD_CONDITION &colon; Status of the road that might affect travelers.</pre>
 
     - name: event_subtype
       type: Enum
@@ -130,10 +130,15 @@ event :
       mandatory: Mandatory
       desc: <p>This field provides the date and time of the last update. The value is the same as the creation date if no change occurred.</pre>
 
-    - name: related
+    - name: grouped_events
+      type: Collection of links
+      mandatory: Optional
+      desc: <p>This structure is used to group events together. In specific situations (for example complex construction projects), several events might be related together. This field should be used to point a related event.</p> 
+
+    - name:  <p>&mdash; grouped_event</p>
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Optional
-      desc: <p>This field is used to group events together. In specific situations (for example complex construction projects), several events might be related together. This field should be used to point a related event. In XML, the <code>rel</code> attribute needs the value <code>groupedEvent</code></p> 
+      desc: <p>Link pointing other <code>event</code> resource that are related to the current event. In XML, the <code>rel</code> attribute needs the value <code>groupedEvent</code></p>
 
     - name: detour
       type: Free text
@@ -172,10 +177,10 @@ road :
       type: Free text
       desc: <p>Name of the road affected by the event. When possible, this field should contain a value that fits the national symbology for roads and highways.</p> 
 
-    - name: road_url
-      mandatory: Optional
-      type: <a href="guidelines.html#links">Link</a>
-      desc: <p>If the jurisdiction provides its network, the <code>road_url</code> field provides a link to the road segment that is affected. <b>(TBD)</b></p> 
+#    - name: road_url
+#      mandatory: Optional
+#      type: <a href="guidelines.html#links">Link</a>
+#      desc: <p>If the jurisdiction provides its network, the <code>road_url</code> field provides a link to the road segment that is affected. <b>(TBD)</b></p> 
 
     - name: from
       type: free text
@@ -375,6 +380,10 @@ attachment :
     &lt;certainty&gt;OBSERVED&lt;/certainty&gt; 
     &lt;created&gt;2012-05-23T20:33:10Z&lt;/created&gt;
     &lt;updated&gt;2012-05-24T10:00:10Z&lt;/updated&gt;
+    &lt;grouped_events&gt;
+        &lt;atom:link rel="groupedEvent" href="/events/345832 /&gt; 
+        &lt;atom:link rel="groupedEvent" href="/events/433452 /&gt;         
+    &lt;/grouped_events&gt;
     &lt;detour&gt;Take Sherbrooke travelling east, and Wellington travelling west.&lt;/detour&gt;
     &lt;regions&gt;
       &lt;region&gt; 
@@ -462,6 +471,10 @@ attachment :
             "event_subype": "Urgent roadwork",
             "severity": 2,
             "certainty": "OBSERVED",
+            "grouped_events": [
+              "/events/937272",
+              "/events/334542",
+            ],
             "detour": "Take Sherbrooke travelling East, and Wellington travelling West.",
             "regions": [
                 {

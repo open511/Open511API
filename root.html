@@ -25,6 +25,11 @@ representation :
       type: Free text
       desc: <p>Id of the jurisdiction.</p>
 
+    - name: <p>&mdash; name</p>
+      mandatory: Mandatory
+      type: Free text
+      desc: <p>Full text name of the jurisdiction.</p>
+
     - name: <p>&mdash;  url</p>
       mandatory: Mandatory
       type: <a href="guidelines.html#links">Link</a>
@@ -33,17 +38,27 @@ representation :
     - name: <p>services</p>
       mandatory: Mandatory
       type: Collection of <code>service</code>
-      desc: <p>List all the services supported by the endpoint. Currently, only one service is supported (events), so this structure should only contain one item.</p>
+      desc: <p>List all the services supported by the endpoint.</p>
 
     - name: <p>&mdash; type</p>
       mandatory: Mandatory
       type: Value list
-      desc: <p>The service type value comes from a predefined list of services that are supported by the open511 API. Currently the only service supported is the event service.</p><p>Value list:</p> <pre>- events<br/>- regions</pre>
+      desc: <p>The service type value comes from a predefined list of services that are supported by the open511 API. Currently the only service supported is the event service.</p><p>Value list:</p> <pre>- EVENTS<br/>- REGIONS</pre>
 
     - name: <p>&mdash; url</p>
       mandatory: Mandatory
       type: <a href="guidelines.html#links">Link</a>
-      desc: <p>Link pointing to the jurisdiction resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>. Even if the current endpoint supports multiple jurisdictions or is an aggregator, there is only one service resource that aggregates the data for all the jurisdictions.</p>    
+      desc: <p>Link pointing to the resource resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>. Even if the current endpoint supports multiple jurisdictions or is an aggregator, there is only one service resource that aggregates the data for all the jurisdictions.</p>    
+
+    - name: <p>supported_versions</p>
+      mandatory: Optional
+      type: Collection of <code>supported_version</code>
+      desc: <p>List all the versions supported by the current server.</p>
+
+    - name: <p>&mdash; supported_version</p>
+      mandatory: Mandatory
+      type: enum
+      desc: <p>Version identifier. As the specification evolves, version identifier will be added. For the moment, the only version supporter is <code>v0</code> and is not an official value.</p>
   
 ---
 {% include JB/setup %}
@@ -93,22 +108,24 @@ $(function() {
 &gt;  
   &lt;jurisdictions&gt;
     &lt;jurisdiction&gt;
-      &lt;id&gt;mycity.gov&lt;/name&gt;
+      &lt;id&gt;mycity.gov&lt;/id&gt;
+      &lt;name&gt;My City&lt;/name&gt;
       &lt;atom:link rel="self" href="http://mycity.gov/open511/jurisdiction/mycity.gov/" /&gt;
     &lt;/jurisdiction&gt;
     &lt;jurisdiction&gt;
-      &lt;id&gt;myrcounty.gov&lt;/id&gt;
+      &lt;id&gt;mycounty.gov&lt;/id&gt;
+      &lt;name&gt;My County&lt;/name&gt;
       &lt;atom:link rel="self" href="http://mycounty.gov/open511/jurisdiction/mycounty.gov/" /&gt;
     &lt;/jurisdiction&gt;    
   &lt;/jurisdiction&gt;
   &lt;services&gt;
     &lt;service&gt;
-      &lt;service_type&gt;events&lt;/service_type&gt;
+      &lt;service_type&gt;EVENTS&lt;/service_type&gt;
       &lt;service_description&gt;Provide information about events impacting the road system&lt;/service_description&gt;
       &lt;atom:link rel="self" href="/events/" /&gt;
     &lt;service&gt;
     &lt;service&gt;
-      &lt;service_type&gt;regions&lt;/service_type&gt;
+      &lt;service_type&gt;REGIONS&lt;/service_type&gt;
       &lt;service_description&gt;Provides a list of regions supported&lt;/service_description&gt;
       &lt;atom:link rel="self" href="/regions/" /&gt;
     &lt;service&gt;    
@@ -123,21 +140,23 @@ $(function() {
   "jurisdictions" : [
       {
           "id" : "mycity.gov", 
+          "name" : "My City",           
           "url" : "http://my.city.gov/open511/jurisdiction/mycity.gov/"
       },
       {
           "id" : "myregion.gov", 
+          "name" : "My Region",               
           "url" : "http://my.region.gov/open511/jurisdiction/myregion.gov/"
       }
   ],
   "services" : [
       {
-          "type" : "events",
+          "type" : "EVENTS",
           "description" : "Provide information about events impacting the road system",
           "url" : "/events/"
       },
       {
-          "type" : "regions",
+          "type" : "REGIONS",
           "description" : "Provides a list of regions supported",
           "url" : "/regions/"
       }      

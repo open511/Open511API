@@ -20,7 +20,7 @@ This document describes the specifications of the Open511 API. It will provide a
 * [Root (aka discovery)](root.html): this resource is the single entry point for the entire framework. It provides links to all the other resources.   
 * [Jurisdictions](jurisdiction.html): represent a specific government with some metadata (contact info, geographical coverage and other options). 
 * [Events](event.html): represent events (construction, accident, etc.) that are published by jurisdictions. 
-* [Reports](report.html): The report is the crowdsourcing feature of Open511. A road use can submit a report to notify the jurisdiction that something is ongoing (e.g an accident). Other clients can also retrieve reports submitted to a jurisdiction.
+* [Reports](report.html): The report is the crowdsourcing feature of Open511. A road user can submit a report to notify the jurisdiction that something is ongoing (e.g an accident). Other clients can also retrieve reports submitted to a jurisdiction.
 
 **Support resources:**
 * [Region](region.html): Open511 contains the concept of region that can be attached to events. A region can be any location with a name: city, county, district, etc. It allows jurisdiction to provide additional location data without providing other geospatial data.

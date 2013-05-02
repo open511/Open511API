@@ -63,7 +63,7 @@ title: Technical Guidelines
   <pre>&lt;open511 <b>version="v0"</b> xmlns:atom="http://www.w3.org/2005/Atom" ... &gt;</pre>
 </li> 
 
-<li>Resources should always have a self link, providing the current url, and a up link providing the url of the parent resource (except for the discovery resource which does not have any parent). These up and self link are directly located in the Open511 structure.
+<li>Resources should always have a <code>self</code> link, providing the current url, and a <code>up</code> link providing the url of the parent resource (except for the discovery resource which does not have any parent). These <code>up</code> and <code>self</code> link are directly located in the Open511 structure.
 <pre>  &lt;open511 version="v0" ...&gt;
     &lt;atom:link rel="<b>self</b>" href="/api/jurisdictions/test/"/&gt;
     &lt;atom:link rel="<b>up</b>" href="/api/jurisdictions/"/&gt;
@@ -85,7 +85,7 @@ title: Technical Guidelines
   &lt;/open511&gt;</pre>
 </li>
 
-<li>In a list of first order (e.g <code>event</code> in the events resource) are directly embed in the open511 structure: 
+<li>In a list of first order (e.g <code>event</code> in the events resource) elements are directly embed in the open511 structure: 
     <pre>&lt;open511 ...&gt;
     &lt;event&gt;...&lt;/event&gt;
     &lt;event&gt;...&lt;/event&gt;
@@ -116,7 +116,7 @@ title: Technical Guidelines
     <pre>&lt;atom:link rel="<b>description</b>" href="http://example.net/description.html"/&gt;</pre>
   becomes
     <pre>"<b>description</b>_url": "http://example.net/description.html"</pre></li>
-  <li>For list resources, the content will be an array of items places in a <code>content</code> structure:
+  <li>For list resources, the content will be an array of items placed in a <code>content</code> structure:
 <pre>  {
     <b>"content": [</b>
         { "name" : "item1" ...},
@@ -182,7 +182,7 @@ title: Technical Guidelines
 
 <p>From an open data point of view, it is strongly encouraged that implementors make their API available for unauthenticated read access. For write access (e.g post <a href="report.html">reports</a>) or implementors wishing to have authentication features, this section presents how to manage it.</p>
 
-<p>Encryption should be managed by the regular HTTP layer. The only encryption accepted is <a href="https://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a></p>
+<p>Encryption should be managed by the regular HTTP layer. The only encryption accepted is <a href="https://en.wikipedia.org/wiki/HTTP_Secure">HTTPS with SSL.</a></p>
 
 <p>For authentication, Open511 will work like many other APIs with an API key to be passed in a URL parameter <code>api_key</code>. When such authentication is implemented, it is strongly recommended to enable SSL/HTTPS in order to provide a protection of the API key</p>
 
