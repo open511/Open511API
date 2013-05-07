@@ -4,7 +4,7 @@ title: Jurisdiction
 presentation : 
   a :
     name : purpose
-    value : The jurisdiction represents any government entity (city, state/province, agency, etc.) publishing open511 data. It is a functional concept used to provide metadata such as contact information, etc.
+    value : The jurisdiction represents a government entity (city, state/province, agency, etc.) publishing Open511 data.
   b :
     name : method
     value : GET
@@ -23,25 +23,25 @@ representation :
     - name: id
       type: free text
       mandatory: Mandatory
-      desc: <p>Unique identifier of jurisdiction in the open511 scheme. By convention it should be a jurisdiction domain (e.g mycity.gov)</p>
+      desc: <p>Unique identifier for the jurisdiction. It&rsquo;s expected to be unique across all Open511 implementations. It must take the form of a hostname within a domain owned by the government entity. The hostname doesn&rsquo;t necessarily need to resolve in DNS; for example, if Roadsville owns <code>roadsville.gov</code>, it&rsquo;s fine to create <code>agency1.roadsville.gov</code> and <code>agency2.roadsville.gov</code> jurisdictions, even if those don&rsquo;t resolve to IP addresses.</p>
 
     - name: name
-      type: free text
+      type: Free text
       mandatory: Mandatory
       desc: <p>Name of the jurisdiction.</p>
 
     - name: email
-      type: Free text
+      type: String
       mandatory: Mandatory
       desc: <p>Valid email that can be used to contact the department or person in charge of the data provided by the Open511 API</p>    
 
-    - name: description_url
+    - name: description
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Optional
       desc: <p>Link pointing to a human readable resource (web page, pdf file, etc) providing details about the Open511 service and the jurisdiction covered.</p>  
 
     - name: phone
-      type: Free text
+      type: String
       mandatory: Optional
       desc: <p>Phone number to contact the department or person in charge of the data provided by the Open511 API</p>  
 
@@ -50,7 +50,7 @@ representation :
       mandatory: Optional
       desc: <p>Free text that can be used by a client application to provide some information about the Open511 service and the jurisdiction covered.</p> 
 
-    - name: geography_url
+    - name: geography
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Mandatory
       desc: <p>The geography field links an open511 <code><a href="jurisdictiongeo.html">jurisdiction geography</a></code> resource providing the jurisdiction boundaries.</p>
@@ -60,10 +60,10 @@ representation :
       mandatory: Optional
       desc: <p>The timezone of the jurisdiction; will be used as the default for events belonging to this jurisdiction. Should always be provided, except in cases where a jurisdiction spans multiple timezones.</p>
 
-    - name: license_url
+    - name: license
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Mandatory
-      desc: <p>Link to a resource containing the license covering the data provided in the API. In XML, the <code>rel</code> attribute needs the value <code>license</code></p> 
+      desc: <p>Link to a resource containing the license covering the data provided in the API.</p> 
 
     - name: languages
       type: Collection of <code>language</code>
@@ -159,7 +159,7 @@ $(function() {
   "languages" : ["en", "fr"],
   "meta": {
       "version": "v0",
-      "self_url": "/jurisdiction/My-City",
+      "url": "/jurisdiction/My-City",
       "up_url": "/"
   }  
 }
@@ -173,8 +173,6 @@ $(function() {
 
 
 <h3>Jurisdiction data structure</h3>
-
-<p>The following table provides the struture of the message expected for this resource. Although the format of the representation might change (XML or JSON), the overall data structure should remain except when specified otherwise.</p>
 
 <p>The jurisdiction follows the <a href="guidelines.html#format">formatting guidelines</a> of an individual item.</p>
 
