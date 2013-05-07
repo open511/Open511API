@@ -121,12 +121,10 @@ $(function() {
   &lt;services&gt;
     &lt;service&gt;
       &lt;service_type&gt;EVENTS&lt;/service_type&gt;
-      &lt;service_description&gt;Provide information about events impacting the road system&lt;/service_description&gt;
       &lt;atom:link rel="self" href="/events/" /&gt;
     &lt;service&gt;
     &lt;service&gt;
       &lt;service_type&gt;REGIONS&lt;/service_type&gt;
-      &lt;service_description&gt;Provides a list of regions supported&lt;/service_description&gt;
       &lt;atom:link rel="self" href="/regions/" /&gt;
     &lt;service&gt;    
   &lt;/services&gt;
@@ -141,23 +139,21 @@ $(function() {
       {
           "id" : "mycity.gov", 
           "name" : "My City",           
-          "url" : "http://my.city.gov/open511/jurisdiction/mycity.gov/"
+          "url" : "http://mycity.gov/open511/jurisdiction/mycity.gov/"
       },
       {
           "id" : "myregion.gov", 
           "name" : "My Region",               
-          "url" : "http://my.region.gov/open511/jurisdiction/myregion.gov/"
+          "url" : "http://myregion.gov/open511/jurisdiction/myregion.gov/"
       }
   ],
   "services" : [
       {
           "type" : "EVENTS",
-          "description" : "Provide information about events impacting the road system",
           "url" : "/events/"
       },
       {
           "type" : "REGIONS",
-          "description" : "Provides a list of regions supported",
           "url" : "/regions/"
       }      
   ],
@@ -177,7 +173,7 @@ $(function() {
 
 <h3>Data structure</h3>
 
-<p>The following table provides the data structure for the root resource (aka discovery). Although the format of the representation might change (XML or JSON), the overall data structure should remain except when specified otherwise.</p>
+<p>The following table provides the data structure for the root (discovery) resource.</p>
 
 <p>Note that the discovery resource follows the rules of an individual item in <a href="guidelines.html#format">formatting guidelines</a> and <b>not</b> of list since it contains different types of items. There is no <code>up</code> link since the discovery is the upper level.</p>
 
