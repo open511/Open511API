@@ -14,16 +14,16 @@ title: Technical Guidelines
   <li><a id="utf8"></a><b>Character encoding</b> must be in UTF-8</li>
   <li><a id="datetime"></a><b>DateTime and Date </b> fields will follow the ISO 8601 subset as per the <a href="http://www.w3.org/TR/NOTE-datetime">W3c note</a> except when specified otherwise</li>
   <li><a id="timezone"></a>When a <b>time zone</b> has to be specified explicitly (in an independent field), it should use a time zone name from the <a href="http://en.wikipedia.org/wiki/Tz_database">TZ Database</a></li>
-  <li><a id="geospatial"></a><b>Geographical data</b> will follow existing standards:
+  <li><a id="geospatial"></a><b>Geospatial data</b> will follow existing standards:
     <ul>
-      <li>In XML, geometrics will use <a href="http://en.wikipedia.org/wiki/Geography_Markup_Language">GML notation</a></li>
-      <li>In JSON, the geometrics will use <a href="http://www.geojson.org/">GeoJSON notation</a></li>
+      <li>In XML, use <a href="http://en.wikipedia.org/wiki/Geography_Markup_Language">GML</a> with the EPSG:4326 (latitude/longitude) spatial reference system.</li>
+      <li>In JSON, use <a href="http://www.geojson.org/">GeoJSON</a></li>
     </ul>
   </li>
   <li><a id="links"></a><b>Links</b> will use the following rules</li>
   <ul>
-    <li>In XML, links will use the <a href="http://tools.ietf.org/html/rfc4287">Atom link structure</a> and the IANA <a href="http://www.iana.org/assignments/link-relations/link-relations.xml">link relation list</a> where relevant</li>
-    <li>In JSON, links will be regular attributes with their own names</li>
+    <li>In XML, links will use the <a href="http://tools.ietf.org/html/rfc4287">Atom link tag</a>; the name of the link is placed in the <code>rel</code> attribute, and the URL in the <code>href</code> attribute.</li>
+    <li>In JSON, as a rule, link attribute names have <code>_url</code> added to the end. There are some exceptions; see the JSON section below.</li>
   </ul>
 </ul>
 
@@ -54,12 +54,12 @@ title: Technical Guidelines
 <p>&nbsp;</p>
 
 <a id="xmlspec"></a>
-<h4>XML specificities</h4>
+<h4>XML serialization</h4>
 
 <p>An XSD schema for the XML representation will be provided once the data structure is stabilized</p>
 
 
-<ul><li>On top of namespaces, the Open511 container structure contains the version delivered
+<ul><li>The Open511 container tag includes a version attribute:
   <pre>&lt;open511 <b>version="v0"</b> xmlns:atom="http://www.w3.org/2005/Atom" ... &gt;</pre>
 </li> 
 
@@ -70,7 +70,7 @@ title: Technical Guidelines
     ...
   &lt;/open511&gt;   </pre></li>
 
-<li>Lists resources (like lists of events of reports) always contain a pagination block containing navigation info:<ul>
+<li>List resources (like lists of events of reports) always contain a pagination block containing navigation info:<ul>
   <li><code>offset</code>: the starting offset of the current page.</li>
   <li><code>limit</code>: the maximum number of items to be listed in a response</li>
   <li><code>next</code>: a link to the next page of results if any</li>
@@ -109,14 +109,30 @@ title: Technical Guidelines
 
 <p>&nbsp;</p>
 <a id="jsonspec"></a>
-<h4>JSON specificities</h4>
+<h4>JSON serialization</h4>
 
 <ul>
-  <li>In XML, the links are using atom structure where possible. Since the atom structure does not exist in JSON, link will be declared as with a key <i>keyword</i>_url where keyword is the <code>rel</code> field in XML. For example
+  <li>In XML, links use <code>&lt;atom:link&gt;</code>. In JSON, links are generally normal attributes, but <code>_url</code> is appended to the field name (which is in the <code>rel</code> attribute in XML). For example
     <pre>&lt;atom:link rel="<b>description</b>" href="http://example.net/description.html"/&gt;</pre>
   becomes
-    <pre>"<b>description</b>_url": "http://example.net/description.html"</pre></li>
-  <li>For list resources, the content will be an array of items placed in a <code>content</code> structure:
+    <pre>"<b>description</b>_url": "http://example.net/description.html"</pre>
+  But there are some exceptions:
+  <ul>
+    <li>Links with <code>rel="self"</code> are named simple <code>url</code> in JSON.</li>
+    <li>In the <code>attachments</code> section of events, where links are expected to include several attributes, links are serialized as JSON objects.
+      <pre>&lt;atom:link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" /&gt;</pre>
+      becomes
+      <pre>{
+    "type": "application/pdf",
+    "size": 200345,
+    "url": "http://my.city.gov/trafic/advisory/39473/com.pdf",
+    "title": "Detour map"
+}</pre></li>
+    <li>The <code>grouped_events</code> section of events is simply an array: <code>["/events/mycity.gov/4877", "/events/mycity.gov/8897"]</code></li>
+
+  </ul>  
+  </li>
+  <li>For list resources, the content will be an array of items under a <code>content</code> attribute:
 <pre>  {
     <b>"content": [</b>
         { "name" : "item1" ...},
@@ -131,15 +147,15 @@ title: Technical Guidelines
     "meta": {
         "version": "v0", 
         "up_url": "/api/events/mtq/",
-        "self_url": "http://dev.open511.ca/api/events/mtq/maj39012/"
+        "url": "/api/events/mtq/maj39012/"
     }    
   }</pre></li>  
 
-<li>Lists resources (like lists of events of reports) always contain a pagination block containing navigation info:<ul>
+<li>List resources (like lists of events of reports) always contain a pagination block containing navigation info:<ul>
   <li><code>offset</code>: the starting offset of the current page.</li>
   <li><code>limit</code>: the maximum number of items to be listed in a response</li>
-  <li><code>next</code>: a link to the next page of results if any</li>
-  <li><code>previous</code>: a link to the previous page of results if any</li></ul>
+  <li><code>next_url</code>: a link to the next page of results if any</li>
+  <li><code>previous_url</code>: a link to the previous page of results if any</li></ul>
   <pre>
   {
     ...
@@ -152,7 +168,7 @@ title: Technical Guidelines
   } </pre>
 </li>
 
-<li>Lists included in a first order are presented as an array: 
+<li>Lists included within an individual resource &mdash; structures like <code>&lt;roads&gt;&lt;road&gt; ...</code> in XML &mdash; also become arrays.
     <pre>
   {
     ...
@@ -170,7 +186,7 @@ title: Technical Guidelines
 <a id="bandwidth"></a>
 <h3>Bandwidth Optimization and Conditional Requests</h3>
 
-<p>Since the API will likely be used by mobile applications, bandwidth optimization is an important criteria. Clients and servers should support the following features:</p>
+<p>Since the API will likely be used by mobile applications, bandwidth optimization is important. Servers should support the following features:</p>
 
 <ul>
   <li>Conditional request with <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.19">ETag</a></code> (for the server) and <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26">If-None-Match</a></code> (for the client) HTTP headers. See <a href="http://developer.yahoo.com/performance/rules.html#etags">Configure ETags</a> and <a href="http://en.wikipedia.org/wiki/HTTP_ETag">Wikipedia</a>.</li>
@@ -182,17 +198,19 @@ title: Technical Guidelines
 
 <p>From an open data point of view, it is strongly encouraged that implementors make their API available for unauthenticated read access. For write access (e.g post <a href="report.html">reports</a>) or implementors wishing to have authentication features, this section presents how to manage it.</p>
 
-<p>Encryption should be managed by the regular HTTP layer. The only encryption accepted is <a href="https://en.wikipedia.org/wiki/HTTP_Secure">HTTPS with SSL.</a></p>
+<p>Encryption should be managed by the regular HTTP layer. The only encryption accepted is <a href="https://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a>.</p>
 
-<p>For authentication, Open511 will work like many other APIs with an API key to be passed in a URL parameter <code>api_key</code>. When such authentication is implemented, it is strongly recommended to enable SSL/HTTPS in order to provide a protection of the API key</p>
+<p>For authentication, Open511 will work like many other APIs with an API key to be passed in a URL parameter <code>api_key</code>. When such authentication is implemented, it is strongly recommended to enable SSL/HTTPS in order to protect the API key.</p>
 
 <a id="lang"></a>
 <h3>Response Language</h3>
 
-<p>Open511 has the ability to support multiple languages. However, unilingual server implementations don't need to worry about anything here beyond ensuring that XML responses contain an appropriate <code>xml:lang</code> attribute. The negotiation of the language can be done in two ways:</p>
+<p>Open511 has the ability to support multiple languages. However, unilingual server implementations don't need to worry about anything here beyond ensuring that XML responses contain an appropriate <code>xml:lang</code> attribute.
+
+<p>For multilingual implementations, language negotiation can be done in two ways:</p>
   <ul>
   <li>HTTP Header <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a></code> specifies the language the client would like to receive.
-  <li>URL parameter <code>Accept-Language</code> can also be used (and will override the HTTP header if both are present) with the same values as the HTTP header.
+  <li>URL parameter <code>accept-language</code> can also be used (and will override the HTTP header if both are present) with the same values as the HTTP header.
 </ul>
 
 <p>In order to use the Accept-Language selector (either HTTP or URL parameter), the client provides a list of supported languages in order of priority. For example <code>pt, en</code> to get Portuguese before English. The language values accepted are specified in <a href="http://www.ietf.org/rfc/rfc1766.txt">RFC 1766</a>. For simpliciy, we recommend using the two-letter language-tag as defined by <a href="http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO-639-1</a></p>
@@ -211,10 +229,10 @@ title: Technical Guidelines
 <a id="cross"></a>
 <h3>Cross domain requests</h3>
 
-<p>In most cases, Open511 API implementations will have to serve cross-domain requests, when the client is not hosted on the server of the endpoint. As a consequence, the specification provides some rules for cross-domain request. Open511 intend to support both current methods for cross-domain requests:</p>
+<p>In most cases, Open511 API implementations will have to serve cross-domain requests, when the client is not hosted on the server of the endpoint. As a consequence, the specification provides some rules for cross-domain request. Open511 supports both current methods for cross-domain requests:</p>
 <ul>
-  <li><a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a>: provides a well-known cross-domain request feature working on a vast number of browsers. In order to provide an easy interoperability, the callback function should be named <code>callback</code>.<br/>Example: <code>...?callback=parameter</code></li>
-  <li><a href="http://www.w3.org/TR/cors/">CORS</a>: offers a more standardized way of implementing cross-domain requests. Clients should prefer CORS when possible. Part of the CORS support, the implementation should include the following header:<br><code>Access-Control-Allow-Origin: *</code></li>
+  <li><a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a>: provides a well-known cross-domain request feature working on all browsers. In order to provide an easy interoperability, the callback function should be named <code>callback</code>.<br/>Example: <code>...?callback=parameter</code></li>
+  <li><a href="http://www.w3.org/TR/cors/">CORS</a>: offers a more standardized way of implementing cross-domain requests. Open511 responses should include the following header:<br><code>Access-Control-Allow-Origin: *</code></li>
 </ul>
 
 <a id="custom"></a>
