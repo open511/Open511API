@@ -4,68 +4,26 @@ title: Region
 presentation : 
   a :
     name : purpose
-    value : The regions represent some geographical entities where an event takes place. The region concept relies on the geonames structure.
+    value : A region is a geographical area. Regions map directly to places in the <a href="http://www.geonames.org/">GeoNames</a> database. This database already contains millions of places, and so it is extremely likely that any region you&rsquo;d want to include is there already, but it&rsquo;s also possible to <a href="http://www.geonames.org/manual.html#create">add to GeoNames</a> regions not already in their database.
   b :
     name : method
     value : GET
-
-representation : 
-
-    - name: self
-      mandatory: Mandatory
-      type: <a href="guidelines.html#links">Link</a>
-      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>.</p> 
-
-    - name: up
-      type: <a href="guidelines.html#links">Link</a>   
-      mandatory: Mandatory
-      desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
-
-    - name: regions
-      type: Collection of region
-      mandatory: Mandatory
-      desc: <p>List of all the regions supported by the endpoint</p>
-
-    - name: pagination
-      type: Pagination structure
-      mandatory: Conditional (mandatory if more than one page)
-      desc: <p>The pagination structure provides information about the current position in the pagination and links to other pages</p>
-
-    - name: <p>&mdash; offset</p>
-      type: integer    
-      mandatory: Optional
-      desc: <p>Offset used to access the current page</p>
-
-    - name: <p>&mdash; limit</p>
-      type: integer
-      mandatory: Optional
-      desc: <p>Number of events listed in the current page</p>
-
-    - name: <p>&mdash; next</p>
-      type: <a href="guidelines.html#links">Link</a>
-      mandatory: Conditional (mandatory if a next page exists)
-      desc: <p>Atom link pointing to the next page of the event. Relation attribute value is <code>next</code></p>        
-
-    - name: <p>&mdash; previous</p>
-      type: <a href="guidelines.html#links">Link</a>
-      mandatory: Conditional (mandatory if a previous page exists)
-      desc: <p>Atom link pointing the previous page of event. Relation attribute value is <code>previous</code></p>   
 
 region : 
     - name: name
       mandatory: Mandatory
       type: Free text
-      desc: <p>Name assigned to the region</p> 
+      desc: <p>The name of the region</p> 
 
     - name: geonames_id
-      type: Free text
+      type: Integer
       mandatory: Mandatory
-      desc: <p>Unique identifier of the region in the geonames database</p> 
+      desc: <p>Unique <a href="http://www.geonames.org/">GeoNames</a> identifier for the region</p> 
 
     - name: self
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Mandatory
-      desc: <p>Link pointing the geoname resource</p>
+      desc: <p>Link pointing to the RDF representation of the GeoNames place, i.e. <code>http://geonames.org/{id}/about.rdf</code></p>
 
 ---
 {% include JB/setup %}
@@ -111,20 +69,19 @@ $(function() {
 <pre class="brush: xml">
 &lt;open511
     xmlns:atom="http://www.w3.org/2005/Atom"
-    xmlns:gml="http://www.opengis.net/gml"
     xml:lang="en"
     xml:base="http://my.city.gov/open511/"
     version="v0"
 &gt;  
   &lt;region&gt; 
-    &lt;name&gt;A City&lt;/name&gt;
-    &lt;geonames_id&gt;123456&lt;/geonames_id&gt;
-    &lt;atom:link rel="self" href="http://geonames.org/123456/about.rdf" /&gt;  
+    &lt;name&gt;Anaheim&lt;/name&gt;
+    &lt;geonames_id&gt;5323810&lt;/geonames_id&gt;
+    &lt;atom:link rel="self" href="http://geonames.org/5323810/about.rdf" /&gt;  
   &lt;/region&gt;
   &lt;region&gt; 
-    &lt;name&gt;A County&lt;/name&gt;
-    &lt;geonames_id&gt;98765&lt;/geonames_id&gt;
-    &lt;atom:link rel="self" href="http://geonames.org/98765/about.rdf" /&gt;  
+    &lt;name&gt;Orange County&lt;/name&gt;
+    &lt;geonames_id&gt;5379524&lt;/geonames_id&gt;
+    &lt;atom:link rel="self" href="http://geonames.org/5379524/about.rdf" /&gt;  
   &lt;/region&gt;    
   &lt;pagination&gt;
     &lt;offset>0&lt;/offset&gt;
@@ -142,20 +99,20 @@ $(function() {
 <pre class="brush: js">
 {
   "meta": {
-      "self_url": "http://api.open511.info/regions/",
-       "up_url": "http://api.open511.info/",
-       "version": "v0"
+      "url": "http://api.open511.info/regions/",
+      "up_url": "http://api.open511.info/",
+      "version": "v0"
   },
   "content" : [
     {
-      "name" : "A City",
-      "geonames_id" : "123456",
-      "self_url" : "http://geonames.org/123456/about.rdf"
+      "name" : "Anaheim",
+      "geonames_id" : 5323810,
+      "url" : "http://geonames.org/5323810/about.rdf"
     },
     {
-      "name" : "A county",
-      "geonames_id" : "98765",
-      "self_url" : "http://geonames.org/98765/about.rdf"
+      "name" : "Orange County",
+      "geonames_id" : 5379524,
+      "url" : "http://geonames.org/5379524/about.rdf"
     }
   ],
   "pagination": {
@@ -178,9 +135,7 @@ $(function() {
 
 <h3>Region item data structure</h3>
 
-<p>Since the self link is relying on the <a href="http://www.geonames.org/">geonames API</a>, region do not have individual resource. The list is designed to allow client to lookup all the regions available and, for example, filter accordingly.</p>
-
-<p>The region resource is a list of items. As a consequence, the overall data structure will follow the list structure as defined in the <a href="guidelines.html#format">formatting guidelines</a>. The data structure below defines a single <code>region</code> item.
+<p>The regions resource is a <b>list</b> of items. (A single region is not assigned its own resource URL in Open511, though it has a URL at <a href="http://www.geonames.org/">GeoNames</a>.) So the overall data structure follows the list structure as defined in the <a href="guidelines.html#format">formatting guidelines</a>. What follows defines a single <code>region</code> item.</p>
 
 
   <table class="representation">
