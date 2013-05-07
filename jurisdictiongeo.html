@@ -21,9 +21,9 @@ representation :
 #      desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
 
     - name: geography
-      type: geography
+      type: Geospatial (GeoJSON or GML in EPSG:4326)
       mandatory: Mandatory
-      desc: <p>Boundaries of the jurisdiction.</p> 
+      desc: <p>Boundaries of the jurisdiction; a Polygon or MultiPolygon.</p> 
 
 ---
 {% include JB/setup %}
@@ -92,11 +92,11 @@ $(function() {
       "coordinates": [
           [ [71.17,47.33], [-71.15,47.36], [-71.10,47.35],
               [-71.20,47.40], [-71.17,47.33] ]
-          ]
+      ]
     },
   "meta": {
       "version": "v0",
-      "self_url": "http://my.city.gov/open511/jurisdiction/mycity.gov/geography/",
+      "url": "http://my.city.gov/open511/jurisdiction/mycity.gov/geography/",
       "up_url": "http://my.city.gov/open511/jurisdiction/mycity.gov/"
   }     
 }
@@ -111,10 +111,7 @@ $(function() {
 
 <h3>Jurisdiction geometry data structure</h3>
 
-<p>Remark : Although the jurisdiction geography could have been integrated directly in the jurisdiction resource, this data can easily take several kilobytes or even megabytes for complex countries/states. Since the use case for the geography is mostly for lookup purpose and that many applications might need to access the jurisdiction to retrieve basic information, the geography has a dedicated resource.</p>
-
-<p>The following table provides the struture of the message expected for this resource. Although the format of the representation might change (XML or JSON), the overall data structure should remain except when specified otherwise.</p>
-
+<p>Although the jurisdiction geography could have been integrated directly in the jurisdiction resource, this data can easily take several kilobytes or even megabytes for complex countries/states, so we include it as a separate resource.</p>
   <table class="representation">
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'representation' %}
