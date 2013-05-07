@@ -16,7 +16,7 @@ parameters :
 
     - name : in_effect_on
       required : optional
-      description: <p>Show only events that are active at a specific time, or during a specific time period.</p><p>Can be either a single time, or a start and end time joined by a comma. You must provide a complete ISO 8601 <a href="guidelines.html#datetime">datetime</a>, including timezone. So to find, for example, all events active on June 20th (US Eastern Time), you would ask for events between 00:00 and 23:59&colon;<br/><code>in_effect_on=2013-06-20T00&colon;00-05,2013-06-20T23&colon;59-05</code><br/> You can also use the special value <code>now</code> to show events currently taking place.<br/>If this argument is not provided, the API will NOT do any time filtering and will provide all active event, present or future.</p>
+      description: <p>Show only events that are active at a specific time, or during a specific time period.</p><p>Can be either a single time, or a start and end time joined by a comma. You must provide a complete ISO 8601 <a href="guidelines.html#datetime">datetime</a>, including timezone. So to find, for example, all events active on June 20th (US Eastern Time), you would ask for events between 00:00 and 23:59&colon;<br/><code>in_effect_on=2013-06-20T00&colon;00-05,2013-06-20T23&colon;59-05</code><br/> You can also use the special value <code>now</code> to show events currently taking place.</p><p>If this argument is <strong>not</strong> provided, the API will not do any time filtering and will provide all active events, present and future.</p>
 
     - name : severity
       required : optional
@@ -28,7 +28,7 @@ parameters :
 
     - name : geography
       required : optional
-      description : <p>Filtering near a point or linestring. The geography value should be provided as a <a href="http://en.wikipedia.org/wiki/Well-known_text">WKT</a>  string in WGS84 latitude/longitudes with support of <code>POINT</code> and <code>LINESTRING</code>. Example&colon;<br/> <code>...geography=POINT(45.45,-84.85)</code>.<br/> The <code>geography</code> must be used in conjuction with the <code>tolerance</code> filter.</p>
+      description : <p>Filtering near a point or linestring. The geography value should be provided as a <a href="http://en.wikipedia.org/wiki/Well-known_text">WKT</a>  string in WGS84 latitude/longitude. Example&colon;<br/> <code>...geography=POINT(45.45,-84.85)</code>.<br/> The <code>geography</code> must be used in conjuction with the <code>tolerance</code> filter.</p>
 
     - name : tolerance
       required : conditional
@@ -37,59 +37,19 @@ parameters :
     - name : jurisdiction
       required : optional
       description : <p>Client could filter events coming from a specific jurisdiction using the jurisdiction id.</p><p>Example&colon; <code>jurisdiction=mycity.gov</code>.</p>      
-
-
-    - name : geoname_id
-      required : optional
-      description : <p>The open511 provides the concept of region to attach some location information onto of the geospatial data. In order to filter events by region, the clients has to request for a specific geoname identifier (provided in the <a href="region.html">region resource</a>).</p><p>Example&colon; <code>geoname_id=4454324</code>.</p>      
-
-representation : 
-
-    - name: self
-      mandatory: Mandatory
-      type: <a href="guidelines.html#links">Link</a>
-      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>.</p> 
-
-    - name: up
-      type: <a href="guidelines.html#links">Link</a>   
-      mandatory: Mandatory
-      desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
-
-    - name: pagination
-      type: Pagination structure
-      mandatory: Conditional (mandatory if more than one page)
-      desc: <p>The pagination structure provides information about the current position in the pagination and links to other pages</p>
-
-    - name: <p>&mdash; offset</p>
-      type: integer    
-      mandatory: Optional
-      desc: <p>Offset used to access the current page</p>
-
-    - name: <p>&mdash; limit</p>
-      type: integer
-      mandatory: Optional
-      desc: <p>Number of events listed in the current page</p>
-
-    - name: <p>&mdash; next</p>
-      type: <a href="guidelines.html#links">Link</a>
-      mandatory: Conditional (mandatory if a next page exists)
-      desc: <p>Atom link pointing to the next page of the event. Relation attribute value is <code>next</code></p>        
-
-    - name: <p>&mdash; previous</p>
-      type: <a href="guidelines.html#links">Link</a>
-      mandatory: Conditional (mandatory if a previous page exists)
-      desc: <p>Atom link pointing the previous page of event. Relation attribute value is <code>previous</code></p>   
+  
 
 event : 
     - name: self
       mandatory: Mandatory
       type: <a href="guidelines.html#links">Link</a>
-      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>.</p> 
+      desc: <p>Self link to the current resource.</p> 
 
     - name: jurisdiction
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Mandatory
-      desc: <p>Link to the jurisdiction which published the event. In XML, the <code>rel</code> attribute needs the value <code>jurisdiction</code>.</p> 
+      desc: <p>Link to the jurisdiction which published the event.</p> 
+
     - name: status
       type: Enum
       mandatory: Mandatory
@@ -135,24 +95,24 @@ event :
       mandatory: Optional
       desc: <p>This structure is used to group events together. In specific situations (for example complex construction projects), several events might be related together. This field should be used to point a related event.</p> 
 
-    - name:  <p>&mdash; grouped_event</p>
+    - name:  <p>&mdash; related</p>
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Optional
-      desc: <p>Link pointing other <code>event</code> resource that are related to the current event. In XML, the <code>rel</code> attribute needs the value <code>groupedEvent</code></p>
+      desc: <p>Link pointing to another <code>event</code> resource related to the current event.</p>
 
     - name: detour
       type: Free text
       mandatory: Optional
-      desc: <p>If some detour information is available, it could be provided in this field as free text</p>   
+      desc: <p>Description of a detour route to avoid this event.</p>   
 
     - name: geography
-      type: <a href="guidelines.html#geospatial">geography field</a>
+      type: <a href="guidelines.html#geospatial">Geospatial</a>
       mandatory: Mandatory
-      desc: <p>Geographical information about the event using the GML notation. Can be Point, MultiPoint, LineString, MultiLineString, or Polygon.</p>
+      desc: <p>Geographical information about the event. Can be Point, MultiPoint, LineString, MultiLineString, or Polygon.</p>
 
     - name: roads
-      type: Collection of <a href="#road">road</a>
-      mandatory: Optional, support multiple occurrences of <code><a href="#road">road</a></code> element.
+      type: Collection of <a href="#road">road</a> elements
+      mandatory: Optional
       desc: <p>List of roads affected by the current event. One event can impact several roads.</p>    
 
     - name: schedule
@@ -161,14 +121,14 @@ event :
       desc: <p>Complex item to provide time related information</p>   
 
     - name: attachments
-      type: Collection of attachement <a href="guidelines.html#links">links</a>
-      mandatory: Optional, support multiple occurrences.
-      desc: <p>Collection of attachments provided additional information about the event (PDFs, images, etc.)</p> 
-
-    - name:  <p>&mdash; attachment</p>
-      type: Enum
+      type: Collection of attachment <a href="guidelines.html#links">links</a>
       mandatory: Optional
-      desc: <p>Link pointing relavant data about the event. In XML, use an atom link with the rel attribute set to <code>related</code>. In JSON, the various atom attributes have to use custom fields&colon; <code>url</code>, <code>title</code>, <code>type</code>, <code>length</code>.</pre>
+      desc: <p>Collection of attachments providing additional information about the event (PDFs, images, etc.)</p> 
+
+    - name:  <p>&mdash; related</p>
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Optional
+      desc: <p>Link to an attachment. While only the URL is mandatory, providing the content type, size, and title of the resource (via the <code>type</code>, <code>length</code>, and <code>title</code> attributes in XML) is encouraged.</p>
 
       
 road : 
@@ -183,14 +143,14 @@ road :
 #      desc: <p>If the jurisdiction provides its network, the <code>road_url</code> field provides a link to the road segment that is affected. <b>(TBD)</b></p> 
 
     - name: from
-      type: free text
+      type: Free text
       mandatory: Optional
       desc: <p>Approximate start point of the event on the road. It can be an intersection with another street or it can be a mileage indication.</p><p> This value should not be used to determine the exact start point since it can be an approximation. The <code>geometry</code> field should be considered as the reference for exact location.</p><p>If no <code>to</code> field is provided, the from can be considered as a "near".</p>
 
     - name: to
-      type: free text
+      type: Free text
       mandatory: Optional
-      desc: <p>Approximate end point of the event on the road. It can be an intersection with another street or it can be mileage indication</p>
+      desc: <p>Approximate end point of the event on the road. It can be an intersection with another street or it can be a distance indication.</p>
 
     - name: direction
       type: Enum
@@ -203,12 +163,12 @@ road :
       desc: <p>Bitmap representing the lanes that are closed because of the event. For example <code>0110</code> means that the 2 central lanes of a 4 lanes roads are closed.</p><p>The lane status is applied to direction provided</p>
 
     - name: regions
-      type: Collections of <a href="region.html">region</a>
+      type: Collections of <a href="region.html">region</a> elements
       mandatory: Optional
       desc: <p>Regions affected by the event</p>  
 
     - name: impacted_systems
-      type: Collection of <code>impacted_system</code>
+      type: Collection of <code>impacted_system</code> elements
       mandatory: Optional
       desc: <p>Allows provision of information about other systems that can be affected</p> 
 
@@ -218,16 +178,16 @@ road :
       desc: <p>Value list of systems&colon;</p> <pre>ROAD<br>SIDEWALK<br>BIKELANE<br>ON_STREET_PARKING<br>PARKING</pre> 
 
     - name: restrictions
-      type: Collection of <code><a href="#restriction">restriction</a></code>
+      type: Collection of <code><a href="#restriction">restriction</a></code> elements
       mandatory: Optional
-      desc: <p>Some events may come with some restrictions affecting vehicles using the road (speed, weigth).</p>     
+      desc: <p>Some events may come with some restrictions affecting vehicles using the road (speed, weight).</p>     
 
 
 schedule : 
     - name: timezone
       mandatory: Optional
       type: <a href="guidelines.html#timezone">timezone</a>
-      desc: <p>Timezone to be used for this event. Timezone abbreviation (e.g <code>EST</code>) or the continent/city timezone code <code>America/Montreal</code></p> 
+      desc: <p>Timezone to be used for this event, e.g. <code>America/Montreal</code></p> 
 
     - name: start_date
       type: <a href="guidelines.html#datetime">Date</a>
@@ -237,17 +197,17 @@ schedule :
     - name: end_date
       type: <a href="guidelines.html#datetime">Date</a>
       mandatory: Optional
-      desc: <p>End date of the event. If no end date is provided, the event should be considered continuing forever.</p>
+      desc: <p>End date of the event. If no end date is provided, the event should be considered as continuing indefinitely.</p>
 
     - name: day_of_week
       type: Enum
       mandatory: Optional
-      desc: <p>Comma separated list of days of the week where the event should be considered as active. For example wednesday, thursday, friday would be <code>3,4,5</code>. The days are Monday to Sunday from 1 to 7.</p> 
+      desc: <p>Comma separated list of days of the week where the event should be considered as active. For example Wednesday, Thursday, Friday would be <code>3,4,5</code>. The days are Monday to Sunday from 1 to 7.</p> 
 
     - name: times
       type: Collection of <a href="#time">time</a>
-      mandatory: Optional,  mulltiple occurrences of the time structure are allowed
-      desc: <p>Provide detail about the specific times of the event. so specify multiple timeframes in a day.</p>
+      mandatory: Optional, multiple occurrences of the time structure are allowed to specify multiple active periods within a day.
+      desc: <p>Provide detail about the specific times of the event.</p>
 
     - name: specific_dates
       type: Collection of <code>specific_date</code>
@@ -256,7 +216,7 @@ schedule :
     - name: <p>&mdash; specific_date</p>
       type: Custom time format
       mandatory: Optional
-      desc: <p>Text string containing the affected date, the start hour and the end hour with the follow format&colon; <code>YYYY-MM-DD HH:mm:ss-HH:mm:ss</code>. If the event is not active that day, no time should be provided&colon; <code>YYYY-MM-DD</p></p>
+      desc: <p>Text string containing the affected date, the start hour and the end hour with the follow format&colon; <code>YYYY-MM-DD HH:mm:ss-HH:mm:ss</code>. If there are multiple disjoint periods on that day, more than one start-end period can be included: <code>YYYY-MM-DD HH:mm:ss-HH:mm:ss HH:mm:ss-HH:mm:ss</code>. If the event is not active that day, no time should be provided&colon; <code>YYYY-MM-DD</p></p>
 
 
 time :
@@ -267,13 +227,13 @@ time :
 
     - name: <p>&mdash; start_time</p>
       type: <a href="guidelines.html#datetime">Time</a>
-      mandatory: Optional
-      desc: <p>Start time of the event. If the event is spread across several days, the start time is to be applied for each day</p>
+      mandatory: Mandatory in each <code>time</code> element
+      desc: <p>Start time of the event. Valid for each day on which the event is active.</p>
 
     - name: <p>&mdash; end_time</p>
       type: <a href="guidelines.html#datetime">Time</a>
-      mandatory: Optional
-      desc: <p>Start time of the event. If the event is spread across
+      mandatory: Mandatory in each <code>time</code> element
+      desc: <p>End time of the event. Valid for each day on which the event is active.</p>
 
 restriction :
     - name: restriction_type
@@ -286,26 +246,6 @@ restriction :
       mandatory: Mandatory
       desc: <p>Value of the limitation. For example a speed limitation of 60km/h will have a value of <code>60</code> with a <code>restriction_type</code> set to <code>SPEED</code></p>
 
-attachment : 
-    - name: media_type
-      mandatory: Optional
-      type: Enum
-      desc: <p>Type of content that is linked. Must follow the IANA content type. For example <code>image/jpg</code> for an image encoded with JPEG</p> 
-
-    - name: size
-      type: number
-      mandatory: Optional
-      desc: <p>Size of the content that is linked expressed in kilobytes (kb)</p>
-
-    - name: related
-      type: <a href="guidelines.html#links">Link</a>
-      mandatory: Mandatory
-      desc: <p>Atom link pointing the attachment with attribute <code>related</code></p>
-
-    - name: description
-      type: Free text
-      mandatory: Optional
-      desc: <p>Human readeable description of the attachment.</p>
 ---
 {% include JB/setup %}
 
@@ -454,26 +394,26 @@ attachment :
 <pre class="brush: js">
 {
     "meta": {
-        "self_url": "http://api.open511.info/events/",
+        "url": "http://api.open511.info/events/",
         "up_url": "http://api.open511.info/",
         "version": "v0"
     },
     "content": [
         {
-            "url": "/events/7894/",
-            "jurisdiction": "http://my.city.gov/open511/jurisdiction/my-city/",
+            "url": "/events/mycity.gov/7894/",
+            "jurisdiction": "http://my.city.gov/open511/jurisdictions/mycity.gov/",
             "headline": "Urgent rebuilding of sewer pipes",
             "status": "ACTIVE",
-            "updated": "2012-09-19T17:49:16.392996+00:00",
-            "created": "2012-09-19T17:47:46.644610+00:00",
-            "description": "The City informs you that Broadway Street will be closed between 1st and 4th avenue during the month of April due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.",
+            "updated": "2012-09-19T17:49:16Z",
+            "created": "2012-09-19T17:47:46Z",
+            "description": "Broadway Street will be closed between 1st and 4th avenue during the month of April due to an emergency sewer rebuilding. Local traffic will be permitted on one eastbound lane.",
             "event_type": "INCIDENT",
             "event_subype": "Urgent roadwork",
             "severity": 2,
             "certainty": "OBSERVED",
             "grouped_events": [
-              "/events/937272",
-              "/events/334542",
+              "/events/mycity.gov/937272",
+              "/events/mycity.gov/334542",
             ],
             "detour": "Take Sherbrooke travelling East, and Wellington travelling West.",
             "regions": [
@@ -483,7 +423,7 @@ attachment :
                     "self_url": "http://geonames.org/123456/about.rdf"
                 },
                 {
-                    "name": "a county",
+                    "name": "A county",
                     "geonames_id": "98765",
                     "self_url": "http://geonames.org/98765/about.rdf"
                 }
@@ -524,10 +464,10 @@ attachment :
             },
             "attachments": [
                 {
-                    "media_type": "application/pdf",
+                    "type": "application/pdf",
                     "size": 200000,
-                    "related_url": "http://my.city.gov/trafic/advisory/39473/com.pdf",
-                    "description": "Detour map"
+                    "url": "http://my.city.gov/trafic/advisory/39473/com.pdf",
+                    "title": "Detour map"
                 }
             ]
         },
