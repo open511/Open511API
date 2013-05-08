@@ -15,7 +15,7 @@ region :
       type: Free text
       desc: <p>The name of the region</p> 
 
-    - name: geonames_id
+    - name: region_id
       type: Integer
       mandatory: Mandatory
       desc: <p>Unique <a href="http://www.geonames.org/">GeoNames</a> identifier for the region</p> 
@@ -75,12 +75,12 @@ $(function() {
 &gt;  
   &lt;region&gt; 
     &lt;name&gt;Anaheim&lt;/name&gt;
-    &lt;geonames_id&gt;5323810&lt;/geonames_id&gt;
+    &lt;region_id&gt;5323810&lt;/region_id&gt;
     &lt;atom:link rel="self" href="http://geonames.org/5323810/about.rdf" /&gt;  
   &lt;/region&gt;
   &lt;region&gt; 
     &lt;name&gt;Orange County&lt;/name&gt;
-    &lt;geonames_id&gt;5379524&lt;/geonames_id&gt;
+    &lt;region_id&gt;5379524&lt;/region_id&gt;
     &lt;atom:link rel="self" href="http://geonames.org/5379524/about.rdf" /&gt;  
   &lt;/region&gt;    
   &lt;pagination&gt;
@@ -106,12 +106,12 @@ $(function() {
   "content" : [
     {
       "name" : "Anaheim",
-      "geonames_id" : 5323810,
+      "region_id" : 5323810,
       "url" : "http://geonames.org/5323810/about.rdf"
     },
     {
       "name" : "Orange County",
-      "geonames_id" : 5379524,
+      "region_id" : 5379524,
       "url" : "http://geonames.org/5379524/about.rdf"
     }
   ],

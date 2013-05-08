@@ -36,7 +36,7 @@ parameters :
 
     - name : jurisdiction
       required : optional
-      description : <p>Client could filter events coming from a specific jurisdiction using the jurisdiction id.</p><p>Example&colon; <code>jurisdiction=mycity.gov</code>.</p>      
+      description : <p>The ID or URL of a jurisdiction, in order to show only events from a given jurisdiction.</p><p>Example&colon; <code>jurisdiction=mycity.gov</code>.</p>      
   
 
 event : 
@@ -328,12 +328,12 @@ restriction :
     &lt;regions&gt;
       &lt;region&gt; 
         &lt;name&gt;A City&lt;/name&gt;
-        &lt;geonames_id&gt;123456&lt;/geonames_id&gt;
+        &lt;region_id&gt;123456&lt;/region_id&gt;
         &lt;atom:link rel="self" href="http://geonames.org/123456/about.rdf" /&gt;  
       &lt;/region&gt;
       &lt;region&gt; 
         &lt;name&gt;A County&lt;/name&gt;
-        &lt;geonames_id&gt;98765&lt;/geonames_id&gt;
+        &lt;region_id&gt;98765&lt;/region_id&gt;
         &lt;atom:link rel="self" href="http://geonames.org/98765/about.rdf" /&gt;  
       &lt;/region&gt;     
     &lt;regions&gt;
@@ -419,12 +419,12 @@ restriction :
             "regions": [
                 {
                     "name": "A city",
-                    "geonames_id": "123456",
+                    "region_id": "123456",
                     "self_url": "http://geonames.org/123456/about.rdf"
                 },
                 {
                     "name": "A county",
-                    "geonames_id": "98765",
+                    "region_id": "98765",
                     "self_url": "http://geonames.org/98765/about.rdf"
                 }
             ],

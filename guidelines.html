@@ -239,4 +239,5 @@ title: Technical Guidelines
 
 <a id="custom"></a>
 <h3>Custom fields</h3>
-<p>Since some organizations might want to support some specific features within Open511 that are not part of the target of the specification. At the same time, a schema would still allow to have some validation (for the XML representation); the consequence of such schema is that custom fields would fail the validation. Custom fields must be added in a <code>extension</code> structure that could be added at any level of the data structure supported by Open511.</p>
+<p>Some implementors might have specific requirements that aren&rsquo;t supported by the existing Open511 fields. While we encourage implementors to stay within the specification if possible, we also provide guidelines for adding custom fields to a specific implementation.</p>
+<p>In XML serializations, custom tags may be placed anywhere, but must belong to a separate XML namespace. In JSON serializations, custom attribute names must begin with <code>+</code> (e.g. <code>+bus_number</code>).</p>
