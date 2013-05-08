@@ -16,7 +16,7 @@ parameters :
 
     - name : in_effect_on
       required : optional
-      description: <p>Show only events that are active at a specific time, or during a specific time period.</p><p>Can be either a single time, or a start and end time joined by a comma. You must provide a complete ISO 8601 <a href="guidelines.html#datetime">datetime</a>, including timezone. So to find, for example, all events active on June 20th (US Eastern Time), you would ask for events between 00:00 and 23:59&colon;<br/><code>in_effect_on=2013-06-20T00&colon;00-05,2013-06-20T23&colon;59-05</code><br/> You can also use the special value <code>now</code> to show events currently taking place.</p><p>If this argument is <strong>not</strong> provided, the API will not do any time filtering and will provide all active events, present and future.</p>
+      description: <p>Show only events that are active at a specific time, or during a specific time period.</p><p>Can be either a single time, or a start and end time joined by a comma. You must provide a complete ISO 8601 <a href="guidelines.html#datetime">datetime</a>, including timezone. So to find, for example, all events active on June 20th (US Eastern Time), you would ask for events between 00&colon;00 and 23&colon;59&colon;<br/><code>in_effect_on=2013-06-20T00&colon;00-05,2013-06-20T23&colon;59-05</code><br/> You can also use the special value <code>now</code> to show events currently taking place.</p><p>If this argument is <strong>not</strong> provided, the API will not do any time filtering and will provide all active events, present and future.</p>
 
     - name : severity
       required : optional
@@ -216,7 +216,7 @@ schedule :
     - name: <p>&mdash; specific_date</p>
       type: Custom time format
       mandatory: Optional
-      desc: <p>Text string containing the affected date, the start hour and the end hour with the follow format&colon; <code>YYYY-MM-DD HH:mm:ss-HH:mm:ss</code>. If there are multiple disjoint periods on that day, more than one start-end period can be included: <code>YYYY-MM-DD HH:mm:ss-HH:mm:ss HH:mm:ss-HH:mm:ss</code>. If the event is not active that day, no time should be provided&colon; <code>YYYY-MM-DD</p></p>
+      desc: <p>Text string containing the affected date, the start hour and the end hour with the follow format&colon; <code>YYYY-MM-DD HH&colon;mm&colon;ss-HH&colon;mm&colon;ss</code>. If there are multiple disjoint periods on that day, more than one start-end period can be included&colon; <code>YYYY-MM-DD HH&colon;mm&colon;ss-HH&colon;mm&colon;ss HH&colon;mm&colon;ss-HH&colon;mm&colon;ss</code>. If the event is not active that day, no time should be provided&colon; <code>YYYY-MM-DD</p></p>
 
 
 time :
