@@ -4,7 +4,7 @@ title: Reports
 presentation : 
   purpose :
     name : purpose
-    value : <p>Reports are events reported by citizens/untrusted sources, it is the crowdsource feature of the Open511 resource.</p><p>The POST method should be used in conjunction with the x-www-form format to submit new crowdsourced reports.</p><p>The GET methode will return a list of all the active reports</p><p>Report submission can only be sent to the orignal endpoint (not to an agregator)
+    value : <p>Reports are road events reported by citizens/untrusted sources. The scope is the same as for the Event resorce, but the data are crowdsourced and unverified.</p><p>POST requests should be used to submit new reports.</p><p>GET requests will return a list of all the active reports.</p>
   method :
     name : method
     value : POST, GET 
@@ -21,8 +21,8 @@ postrepresentation :
 
     - name: jurisdiction
       mandatory: Mandatory
-      type: Free text
-      desc: <p>Full url of the jurisdiction linked with the report.</p> 
+      type: String
+      desc: <p>ID of the jurisdiction to submit the report to.</p> 
 
     - name: lat
       type: float   
@@ -35,28 +35,28 @@ postrepresentation :
       desc: <p>Longitude of the report in WGS84 projection</p>
 
     - name: first_name
-      type: free text 
+      type: String
       mandatory: Optional
       desc: <p>First name of the person submitting the report</p>
 
     - name: last_name
-      type: free text
+      type: String
       mandatory: Optional
       desc: <p>Last name of the person submitting the report</p>
 
     - name: email
-      type: free text
+      type: String
       mandatory: Mandatory
       desc: <p>Email of the person submitting the report</p>        
 
     - name: phone
-      type: free text
+      type: String
       mandatory: Optional
       desc: <p>Phone number of the person who submitted the event</p>
 
     - name: device_id
       mandatory: Mandatory
-      type: Free text
+      type: String
       desc: <p>Unique identifier for the device used to submit the report. It can be the MAC address of the network interface or use the getDeviceId() of Android devices or [UIDevice currentDevice].uniqueIdentifier for iPhone device</p> 
 
     - name: description
@@ -67,12 +67,12 @@ postrepresentation :
     - name: event_type
       type: Enum
       mandatory: Mandatory
-      desc: <p>Type of event declared by the person who submitted the report. Same value list as the event.event_type field.</p>
+      desc: <p>Type of event declared by the person who submitted the report. Same value list as <code>event_type</code> on Event.</p>
 
     - name: severity
       type: Enum
       mandatory: Optional
-      desc: <p>Severity of the event as judged by the person who submitted the report. This field use the same enumeration as the severity field of the event resource</p>
+      desc: <p>Severity of the event as judged by the person who submitted the report. Same value list as <code>severity</code> on Event.</p>
 
     - name: media
       type: binary
@@ -80,15 +80,15 @@ postrepresentation :
       desc: <p>Inline media data related to the event.</p>
 
 getrepresentation :
-    - name: juridiction
-      type: free text
+    - name: jurisdiction
+      type: <a href="guidelines.html#links">Link</a>
       mandatory: Mandatory
-      desc: <p>Jurisdiction related to the report.</p>  
+      desc: <p>Jurisdiction to whom the report was submitted.</p>  
 
     - name: geography
       type: <a href="guidelines.html#geospatial">geography field</a>
       mandatory: Mandatory
-      desc: <p>Location of the report. Only <code>POINT</code> is supported.</p> 
+      desc: <p>Location of the report. Only <code>Point</code> is supported.</p> 
 
     - name: description
       type: Free text
@@ -97,31 +97,32 @@ getrepresentation :
 
     - name: event_type
       type:  Enum
-      mandatory: Optional
-      desc: <p>Event type as provided by the submitter of the report. Same value list as the event.event_type list.</p>     
+      mandatory: Mandatory
+      desc: <p>Event type as provided by the submitter of the report. Same value list as <code>event_type</code> on Event.</p>     
 
     - name: severity
       type: Enum
       mandatory: Optional
-      desc: <p>Severity as provided by the submitter of the report. Same value list as the event.severity</pre>
+      desc: <p>Severity as provided by the submitter of the report. Same value list as <code>severity</code> on Event.</pre>
 
     - name: status
       type: Enum
       mandatory: Mandatory
       desc: <p>Status attributed by the jurisdiction. Value list&colon;<ul><li><code>OPEN</code> - Default value. The report is active but not confirmed by the jurisdiction</li><li><code>CONFIRMED</code> - The report is active and the jurisdiction has confirmed the report.</li><li><code>REJECTED</code> - The jurisdiction has rejected the report</li><li><code>CLOSED</code> - The report has been closed (either after being confirmed or not)</li><li><code>DUPLICATED</code> - The report is considered as a duplicated of an existing event/report.</p>  
 
-    - name: creation_date
-      type: DateTime
+    - name: created
+      type:  <a href="guidelines.html#datetime">DateTime</a> (UTC)
       mandatory: Mandatory
-      desc: <p>Creation date as defined by the jurisdiction.</p> 
+      desc: <p>When the event was initially created.</p>     
 
-    - name: last_update
-      type: DateTime
+    - name: updated
+      type:   <a href="guidelines.html#datetime">DateTime</a> (UTC)
       mandatory: Mandatory
+      desc: <p>When the content of the event last changed. Will be the same as <code>created</code> if no updates have occurred.</pre>
       desc: <p>Comment provided by the jurisdiction</p> 
 
-    - name: related_url
-      type:  Link
+    - name: related
+      type: <a href="guidelines.html#links">Link</a>
       mandatory: Optional
       desc: <p>Link pointing a related resource. As a general rule, the related link should used to point an official event that would replace the report.</p>     
 ---
@@ -145,13 +146,13 @@ getrepresentation :
 
 <h3>POST a report</h3>
 
-<p>In order to post a report, the client has to send values with x-www-form (if not image is provided) or multiple/form-data (if an image is provided) content types.</p>
+<p>Report data can be sent via the <code>application/x-www-form-urlencoded</code> or <code>multipart/form-data</code> content types. In general, the former is the better choice unless media are also being uploaded.</p>
 
 <p>The URL to use for the post is the one defined in the discovery resource for the report service (the same to send GET requests)</p>
 
 <h4>POST data structure</h4>
 
-<p>Example of report POST with content-type x-www-form.</p>
+<p>Example of report POST with content-\ type <code>application/x-www-form-urlencoded</code>&colon;</p>
 
 
 <pre class="brush: xml">
@@ -216,8 +217,8 @@ $(function() {
   xml:base="http://dev.open511.ca" 
   version="v0"&gt;
   &lt;report&gt;
-    &lt;atom:link rel="self" href="http://dev.open511.ca/api/report/1234/"/&gt;
-    &lt;jurisdiction&gt;moti.bc.gov&lt;/name&gt;
+    &lt;atom:link rel="self" href="http://dev.open511.ca/api/report/1234/" /&gt;
+    &lt;atom:link rel="jurisdiction" href="http://open511.ca/api/jurisdictions/mycity.gov/" /&gt;
     &lt;geography&gt;
         &lt;gml:point srsName="EPSG:4326"&gt;
           &lt;gml:coordinates&gt;-71.17,47.33&lt;/gml:coordinates&gt;
@@ -248,7 +249,8 @@ $(function() {
 {
     "content": [
         {
-            "jurisdiction": "moti.bc.gov", 
+            "url": "http://dev.open511.ca/api/report/1234/",
+            "jurisdiction_url": "http://open511.ca/api/jurisdictions/mycity.gov/", 
             "geography": {
                 "type": "Point", 
                 "coordinates": [

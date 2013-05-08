@@ -118,7 +118,7 @@ title: Technical Guidelines
     <pre>"<b>description</b>_url": "http://example.net/description.html"</pre>
   But there are some exceptions:
   <ul>
-    <li>Links with <code>rel="self"</code> are named simple <code>url</code> in JSON.</li>
+    <li>Links with <code>rel="self"</code> are named simply <code>url</code> in JSON.</li>
     <li>In the <code>attachments</code> section of events, where links are expected to include several attributes, links are serialized as JSON objects.
       <pre>&lt;atom:link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" /&gt;</pre>
       becomes
@@ -223,6 +223,8 @@ title: Technical Guidelines
 <h3>Aggregation and Multi-jurisdiction Endpoint</h3>
 
 <p>The Open511 API is designed to support multi-jurisdiction endpoints (an endpoint that provides data for several jurisdictions) and aggregation of the content (an endpoint that gathers information from other endpoints). The last feature is meant to simplify the work of clients. For example a region can setup an aggregator for all the jurisdictions of the region, or a third party can build a service that serves a province or a country.</p>
+
+<p>Aggregators should not accept any client requests to modify aggregated data. Endpoints for aggregated data should accept only GET requests.</p>
 
 <p>For the client, these features should be fairly transparent: endpoints will work the same way as described in the documentation. It is important to know that the jurisdiction links (in discovery and in events) must always point to the original resource (e.g, the original endpoint). This way, the client always has the opportunity to access the data of the original endpoint.</p>
 

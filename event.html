@@ -81,14 +81,14 @@ event :
       desc: <p>Degree of certainty of the event. Should only be used for unplanned events (<code>eventType = incident</code>). Value list to be confirmed. Could be observed/likely/possible/unknown </p> 
 
     - name: created
-      type:  <a href="guidelines.html#datetime">DateTime</a>
+      type:  <a href="guidelines.html#datetime">DateTime</a> (UTC)
       mandatory: Mandatory
-      desc: <p>Date of creation of the event element</p>     
+      desc: <p>When the event was initially created.</p>     
 
     - name: updated
-      type:   <a href="guidelines.html#datetime">DateTime</a>
+      type:   <a href="guidelines.html#datetime">DateTime</a> (UTC)
       mandatory: Mandatory
-      desc: <p>This field provides the date and time of the last update. The value is the same as the creation date if no change occurred.</pre>
+      desc: <p>When the content of the event last changed. Will be the same as <code>created</code> if no updates have occurred.</pre>
 
     - name: grouped_events
       type: Collection of links
