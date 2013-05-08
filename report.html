@@ -11,7 +11,7 @@ presentation :
 parameters : 
     - name : status
       required : optional
-      description : <p>By default the API should only send active events. Supported values&colon; <ul><li><code>active</code> Default value, returns only active events.</li><li><code>archived</code> Returns only archived events</li><li><code>all</code> Returns both active and archived events.</li></ul></p>
+      description : <p>By default, requests should return only reports that are <code>OPEN</code> or <code>CONFIRMED</code>. If this parameter is set to any of the valid status options, only reports with that status should be returned. If this parameter is set to <code>ALL</code> (case insensitive), all reports should be returned.</p>
 
     - name : bbox
       required: optional
@@ -96,7 +96,7 @@ getrepresentation :
       desc: <p>Description provided by the submitter of the report.</p> 
 
     - name: event_type
-      type:  Enum
+      type: Enum
       mandatory: Mandatory
       desc: <p>Event type as provided by the submitter of the report. Same value list as <code>event_type</code> on Event.</p>     
 
@@ -108,7 +108,7 @@ getrepresentation :
     - name: status
       type: Enum
       mandatory: Mandatory
-      desc: <p>Status attributed by the jurisdiction. Value list&colon;<ul><li><code>OPEN</code> - Default value. The report is active but not confirmed by the jurisdiction</li><li><code>CONFIRMED</code> - The report is active and the jurisdiction has confirmed the report.</li><li><code>REJECTED</code> - The jurisdiction has rejected the report</li><li><code>CLOSED</code> - The report has been closed (either after being confirmed or not)</li><li><code>DUPLICATED</code> - The report is considered as a duplicated of an existing event/report.</p>  
+      desc: <p>Status attributed by the jurisdiction. Value list&colon;<ul><li><code>OPEN</code> - Default value. The report is active but not confirmed by the jurisdiction</li><li><code>CONFIRMED</code> - The report is active and the jurisdiction has confirmed the report.</li><li><code>REJECTED</code> - The jurisdiction has rejected the report</li><li><code>CLOSED</code> - The report has been closed (either after being confirmed or not)</li><li><code>DUPLICATED</code> - The report is considered as a duplicated of an existing event/report, which should be lined in the <code>related</code> field</p>  
 
     - name: created
       type:  <a href="guidelines.html#datetime">DateTime</a> (UTC)
@@ -152,7 +152,7 @@ getrepresentation :
 
 <h4>POST data structure</h4>
 
-<p>Example of report POST with content-\ type <code>application/x-www-form-urlencoded</code>&colon;</p>
+<p>Example of report POST with content type <code>application/x-www-form-urlencoded</code>&colon;</p>
 
 
 <pre class="brush: xml">
@@ -220,12 +220,12 @@ $(function() {
     &lt;atom:link rel="self" href="http://dev.open511.ca/api/report/1234/" /&gt;
     &lt;atom:link rel="jurisdiction" href="http://open511.ca/api/jurisdictions/mycity.gov/" /&gt;
     &lt;geography&gt;
-        &lt;gml:point srsName="EPSG:4326"&gt;
+        &lt;gml:Point srsName="EPSG:4326"&gt;
           &lt;gml:coordinates&gt;-71.17,47.33&lt;/gml:coordinates&gt;
-        &lt;/gml:point&gt;
+        &lt;/gml:Point&gt;
     &lt;/geography&gt;    
-    &lt;description&gt;Major accident on 8080E. Cars stopped in 2 lanes&lt;/timezone&gt;
-    &lt;event_type&gt;ACCIDENT&lt;/event_type&gt;
+    &lt;description&gt;Major accident on 8080E. Cars stopped in 2 lanes&lt;/description&gt;
+    &lt;event_type&gt;INCIDENT&lt;/event_type&gt;
     &lt;severity&gt;2&lt;/severity&gt;
     &lt;status&gt;OPEN&lt;/status&gt;
     &lt;created&gt;2013-01-03T06:43:04+00:00&lt;/created&gt;
@@ -259,7 +259,7 @@ $(function() {
                 ]
             },
             "description": "Major accident on 8080E. Cars stopped in 2 lanes",
-            "event_type": "ACCIDENT",
+            "event_type": "INCIDENT",
             "severity": "2",
             "status": "OPEN",
             "created": "2013-01-03T06:43:04+00:00",
