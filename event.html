@@ -68,7 +68,7 @@ event :
     - name: event_subtype
       type: Enum
       mandatory: Optional
-      desc: <p>List of values to provide more detail about the type of event.</p>  
+      desc: <p>List of values to provide more detail about the type of event.</p><p>For INCIDENT:</p><pre>- CONSTRUCTION<br>- ACCIDENT<br>- SERIOUS_ACCIDENT<br>- NUMEROUS_ACCIDENTS<br>- INCIDENT<br>- STALLED_VEHICLE<br>- SPILL<br>- OBSTRUCTION<br>- MAJOR_HAZARD<br>- DEMONSTRATION</pre><p>For CONSTRUCTION:</p><pre>- ROAD_CONSTRUCTION<br>- WORK_IN_THE_MEDIAM<br>- NARROW_LANES<br>- TRAFFIC_ALTERNATING_DIRECTIONS<br>- BRIDGE_OPERATIONS<br>- BLASTING<br>- WORK_ON_UNDERGROUND<br>- EMERGENGY_MAINTENANCE</pre> <p>For SPECIAL_EVENT:</p><pre>- SPORTING_EVENT<br>- MAJOR_EVENT<br>- CONCERT<br>- FESTIVAL<br>- FIREWORKS<br>- PARADE<br>- CROWD</pre> <p>For WEATHER_CONDITION:</p><pre>- SEVERE_WEATHER<br>- HEAVY_SNOW<br>- SNOW<br>- ICE_GLAZE<br>- HEAVY_FROST<br>- ICE_STORM<br>- DAMAGING_HAIL<br>- THUNDERSTORM<br>- HEAVY_DOWNPOUR<br>- TORNADO<br>- HURRICANE<br>- STRONG_WINDS<br>- DENSE_FOG<br>- FREEZING_FOG<br>- ICE_FOG MIST<br>- VISIBILITY_REDUCED<br>- VISIBILITY_BLOCKED<br>- BLOWING_SNOW<br>- BLOWING_DUST<br>- SANDSTORM<br>- INSECT_SWARMS</pre> <p>For PAVEMENT_CONDITION:</p><pre>- IMPASSABLE<br>- ALMOST_IMPASSABLE<br>- PASSABLE_WITH_CARE<br>- SURFACE_WATER_HAZARD<br>- HYDROPLANING_DANGER<br>- SLIPPERY<br>- MUD<br>- LOOSE_GRAVEL<br>- OIL_ON_ROADWAY<br>- ICE<br>- BLACK_ICE<br>- WET_ICY_ROAD<br>- SLUSH<br>- FROZEN_SLUSH<br>- SNOW<br>- PACKED_SNOW<br>- PLOWED_SNOW<br>- POWDER_SNOW<br>- DEEP_SNOW</pre>       
 
     - name: severity
       type: Enum
@@ -78,7 +78,7 @@ event :
     - name: certainty
       type: Enum
       mandatory: Optional
-      desc: <p>Degree of certainty of the event. Should only be used for unplanned events (<code>eventType = incident</code>). Value list to be confirmed. Could be observed/likely/possible/unknown </p> 
+      desc: <p>Degree of certainty of the event. Should only be used for unplanned events (e.g incidents, weather conditions and pavement conditions events). Value list to be confirmed. Could be observed/likely/possible/unknown. </p><p>Value list</p><pre>- OBSERVED<br>- LIKELY<br>- POSSIBLE<br>- UNKNOWN</pre>  
 
     - name: created
       type:  <a href="guidelines.html#datetime">DateTime</a> (UTC)
@@ -155,7 +155,7 @@ road :
     - name: direction
       type: Enum
       mandatory: Conditional
-      desc: <p>Direction of the road that is affected by the event.</p><p>If a <code>lane_status</code> is provided, the direction becomes <b>mandatory</b>. In the same situation, if both directions are affected, two occurrences of the road element are needed, one for each direction and with a dedicated <code>lane_status</code> for each direction.</p>
+      desc: <p>Direction of the road that is affected by the event.</p><p>If a <code>lane_status</code> is provided, the direction becomes <b>mandatory</b>. In the same situation, if both directions are affected, two occurrences of the road element are needed, one for each direction and with a dedicated <code>lane_status</code> for each direction.</p><p>Value list:</p><pre>- N<br>- NW<br>- W<br>- SW<br>- S<br>- SE<br>- E<br>- NE<br>- NONE<br>- BOTH</pre>
 
     - name: lane_status
       type: bitmap
@@ -314,8 +314,8 @@ restriction :
     &lt;headline xml:lang="fr"&gt;Réfection d'urgence d'une conduite d'égout&lt;/headline&gt; 
     &lt;description&gt;The City inform you that broadway street will be closed between 1st and 4th avenue during the month of april due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.&lt;/description&gt;
     &lt;description xml:lang="fr"&gt;La Ville de Montréal vous informe que la Grande avenue sera fermée à la circulation entre la 1ère et la 4ème avenue pour le mois d'avril pour cause de travaux d'urgence sur une conduite d'égouts. La circulation locale en direction de l'est sera permise sur une voie.&lt;/description&gt;
-    &lt;event_type&gt;INCIDENT&lt;/event_type&gt; 
-    &lt;event_subtype&gt;Urgent roadwork&lt;/event_subtype&gt;
+    &lt;event_type&gt;CONSTRUCTION&lt;/event_type&gt; 
+    &lt;event_subtype&gt;EMERGENGY_MAINTENANCE&lt;/event_subtype&gt;
     &lt;severity&gt;2&lt;/severity&gt; 
     &lt;certainty&gt;OBSERVED&lt;/certainty&gt; 
     &lt;created&gt;2012-05-23T20:33:10Z&lt;/created&gt;
@@ -407,8 +407,8 @@ restriction :
             "updated": "2012-09-19T17:49:16Z",
             "created": "2012-09-19T17:47:46Z",
             "description": "Broadway Street will be closed between 1st and 4th avenue during the month of April due to an emergency sewer rebuilding. Local traffic will be permitted on one eastbound lane.",
-            "event_type": "INCIDENT",
-            "event_subype": "Urgent roadwork",
+            "event_type": "CONSTRUCTION",
+            "event_subype": "EMERGENGY_MAINTENANCE",
             "severity": 2,
             "certainty": "OBSERVED",
             "grouped_events": [
