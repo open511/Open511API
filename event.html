@@ -162,10 +162,10 @@ road :
       mandatory: Optional
       desc: <p>Bitmap representing the lanes that are closed because of the event. For example <code>0110</code> means that the 2 central lanes of a 4 lanes roads are closed.</p><p>The lane status is applied to direction provided</p>
 
-    - name: regions
-      type: Collections of <a href="region.html">region</a> elements
+    - name: area
+      type: Collections of <a href="area.html">area</a> elements
       mandatory: Optional
-      desc: <p>Regions affected by the event</p>  
+      desc: <p>Areas affected by the event</p>  
 
     - name: impacted_systems
       type: Collection of <code>impacted_system</code> elements
@@ -325,18 +325,18 @@ restriction :
         &lt;atom:link rel="groupedEvent" href="/events/433452 /&gt;         
     &lt;/grouped_events&gt;
     &lt;detour&gt;Take Sherbrooke travelling east, and Wellington travelling west.&lt;/detour&gt;
-    &lt;regions&gt;
-      &lt;region&gt; 
+    &lt;areas&gt;
+      &lt;area&gt; 
         &lt;name&gt;A City&lt;/name&gt;
-        &lt;region_id&gt;123456&lt;/region_id&gt;
+        &lt;area_id&gt;123456&lt;/area_id&gt;
         &lt;atom:link rel="self" href="http://geonames.org/123456/about.rdf" /&gt;  
-      &lt;/region&gt;
-      &lt;region&gt; 
+      &lt;/area&gt;
+      &lt;area&gt; 
         &lt;name&gt;A County&lt;/name&gt;
-        &lt;region_id&gt;98765&lt;/region_id&gt;
+        &lt;area_id&gt;98765&lt;/area_id&gt;
         &lt;atom:link rel="self" href="http://geonames.org/98765/about.rdf" /&gt;  
-      &lt;/region&gt;     
-    &lt;regions&gt;
+      &lt;/area&gt;     
+    &lt;areas&gt;
     &lt;geography&gt;
       &lt;gml:Linestring srsName="EPSG:4326"&gt;
         &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40&lt;/gml:coordinates&gt;
@@ -416,15 +416,15 @@ restriction :
               "/events/mycity.gov/334542",
             ],
             "detour": "Take Sherbrooke travelling East, and Wellington travelling West.",
-            "regions": [
+            "areas": [
                 {
                     "name": "A city",
-                    "region_id": "123456",
+                    "area_id": "123456",
                     "self_url": "http://geonames.org/123456/about.rdf"
                 },
                 {
                     "name": "A county",
-                    "region_id": "98765",
+                    "area_id": "98765",
                     "self_url": "http://geonames.org/98765/about.rdf"
                 }
             ],

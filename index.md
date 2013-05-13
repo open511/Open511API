@@ -23,7 +23,7 @@ This document describes the specifications of the Open511 API. It will provide a
 * [Reports](report.html): The report is the crowdsourcing feature of Open511. A road user can submit a report to notify the jurisdiction that something is ongoing (e.g an accident). Other clients can also retrieve reports submitted to a jurisdiction.
 
 **Support resources:**
-* [Region](region.html): Open511 contains the concept of region that can be attached to events. A region can be any location with a name: city, county, district, etc. It allows jurisdiction to provide additional location data without providing other geospatial data.
+* [Area](area.html): Open511 contains the concept of area that can be attached to events. An area can be any location with a name: city, county, district, etc. It allows jurisdiction to provide additional location data without providing other geospatial data.
 * [Jurisdiction geography](jurisdictiongeo.html): Contain the geographical boundaries of a jurisdiction.
 
 ## Status {#status}

@@ -43,7 +43,7 @@ representation :
     - name: <p>&mdash; type</p>
       mandatory: Mandatory
       type: Enum
-      desc: <p>The service type value comes from a predefined list of services that are supported by the open511 API.</p><p>Value list:</p> <pre>- EVENTS<br/>- REGIONS</pre>
+      desc: <p>The service type value comes from a predefined list of services that are supported by the open511 API.</p><p>Value list:</p> <pre>- EVENTS<br/>- AREAS</pre>
 
     - name: <p>&mdash; url</p>
       mandatory: Mandatory
@@ -124,8 +124,8 @@ $(function() {
       &lt;atom:link rel="self" href="/events/" /&gt;
     &lt;service&gt;
     &lt;service&gt;
-      &lt;service_type&gt;REGIONS&lt;/service_type&gt;
-      &lt;atom:link rel="self" href="/regions/" /&gt;
+      &lt;service_type&gt;AREAS&lt;/service_type&gt;
+      &lt;atom:link rel="self" href="/areas/" /&gt;
     &lt;service&gt;    
   &lt;/services&gt;
   &lt;atom:link rel="self" href="/"/&gt;
@@ -153,8 +153,8 @@ $(function() {
           "url" : "/events/"
       },
       {
-          "type" : "REGIONS",
-          "url" : "/regions/"
+          "type" : "AREAS",
+          "url" : "/areas/"
       }      
   ],
   "meta": {
