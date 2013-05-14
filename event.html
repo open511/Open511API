@@ -48,11 +48,11 @@ parameters :
 
     - name : created
       required : optional
-      description : <p>Filter events based on the creation date and time. This filter will mainly be used with a greater than or less than filter  <code>created=&gt;2013-05-10T12:00Z</code>.</p>   
+      description : <p>Filter events based on the creation date and time. This filter will mainly be used with a greater than or less than filter  <code>created=&gt;2013-05-10T12&colon;00Z</code>.</p>   
 
     - name : updated
       required : optional
-      description : <p>Filter events based on the last update timestamp. This filter will mainly be used with a greater than or less than filter  <code>updated=&gt;2013-05-10T12:00Z</code>.</p><p>Note: by default, the servers should only return <code>ACTIVE</code> events. When using the <code>updated</code> filter, in order to get events going from <code>ACTIVE</code> to <code>ARCHIVED</code>, the client must ask all events: <code>...?status=all</code></p> 
+      description : <p>Filter events based on the last update timestamp. This filter will mainly be used with a greater than or less than filter  <code>updated=&gt;2013-05-10T12&colon;00Z</code>.</p><p>Note&colon; by default, the servers should only return <code>ACTIVE</code> events. When using the <code>updated</code> filter, in order to get events going from <code>ACTIVE</code> to <code>ARCHIVED</code>, the client must ask all events&colon; <code>...?status=all</code></p> 
 
     - name : road_name
       required : optional
@@ -232,7 +232,8 @@ schedule :
     - name: specific_dates
       type: Collection of <code>specific_date</code>
       mandatory: Optional
-      desc: <p>Since some days might not follow the regular schedule, it is possible to provide a schedule for individual days (for example vacations). <code><a href="https://github.com/opennorth/Open511API/issues/19">Issue 19</a></code></</p>
+      desc: <p>Since some days might not follow the regular schedule, it is possible to provide a schedule for individual days (for example vacations).</p>
+      
     - name: <p>&mdash; specific_date</p>
       type: Custom time format
       mandatory: Optional
