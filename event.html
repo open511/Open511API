@@ -20,7 +20,7 @@ parameters :
 
     - name : severity
       required : optional
-      description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below level 2 with <code>severity=&lt;2</code> or above or equal to level 2 with <code>severity=&gt;=2</code>, which is URL-encoded as <code>severity=%3E%3D2</code></p>.
+      description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below level 2 with <code>severity=&lt;2</code> or above or equal to level 2 with <code>severity=&gt;=2</code>, which is URL-encoded as <code>severity=%3E%3D2</code>.</p>
     
     - name : bbox
       required: optional
@@ -37,7 +37,27 @@ parameters :
     - name : jurisdiction
       required : optional
       description : <p>The ID or URL of a jurisdiction, in order to show only events from a given jurisdiction.</p><p>Example&colon; <code>jurisdiction=mycity.gov</code>.</p>      
+
+    - name : event_type
+      required : optional
+      description : <p>Filter events using the <code>event_type</code> value list.</p>      
   
+    - name : event_subtype
+      required : optional
+      description : <p>Filter events using the <code>event_subtype</code> value list.</p>   
+
+    - name : created
+      required : optional
+      description : <p>Filter events based on the creation date and time. This filter will mainly be used with a greater than or less than filter  <code>created=&gt;2013-05-10T12:00Z</code>.</p>   
+
+    - name : updated
+      required : optional
+      description : <p>Filter events based on the last update timestamp. This filter will mainly be used with a greater than or less than filter  <code>updated=&gt;2013-05-10T12:00Z</code>.</p><p>Note: by default, the servers should only return <code>ACTIVE</code> events. When using the <code>updated</code> filter, in order to get events going from <code>ACTIVE</code> to <code>ARCHIVED</code>, the client must ask all events: <code>...?status=all</code></p> 
+
+    - name : road_name
+      required : optional
+      description : <p>Filter events based on the name of the road affected by the event.</p> 
+
 
 event : 
     - name: self
@@ -268,8 +288,6 @@ restriction :
 <h3>Parameters</h3>
 
 <p>In addition to the filters described below, the events resource also supports <a href="guidelines.html#format">format selection</a> and <a href="guidelines.html#lang">language negotiation</a>.</p>
-
-<p>By default, all fields of the <code>event</code> structure can be used as filtering criteria. So for example, a query to retrieve events on road HWY-73 will just contain <code>...?road_name=HWY-73</code>. Also, the following parameters are supported</p>
 
 
   <table class="parameters">
