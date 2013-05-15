@@ -215,7 +215,7 @@ title: Technical Guidelines
 
 <p>In order to use the Accept-Language selector (either HTTP or URL parameter), the client provides a list of supported languages in order of priority. For example <code>pt, en</code> to get Portuguese before English. The language values accepted are specified in <a href="http://www.ietf.org/rfc/rfc1766.txt">RFC 1766</a>. For simpliciy, we recommend using the two-letter language-tag as defined by <a href="http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO-639-1</a></p>
 
-<p>The response will contain information about the language. In XML, the <code>xml:lang</code> will provide the language used for the answer. In JSON, a custom attribute <code>lang</code> will specify the language used, including for event lists in several language.</p>
+<p>The response will contain information about the language. In XML, the <code>xml:lang</code> will provide the language used for the answer. In JSON, a custom attribute <code>lang</code> is designed to specify the language used, including for event lists in several language. In JSON, this <code>lang</code>attribute is mandatory only for endpoints serving multiple languages. For endpoint serving only one language, this field is optional</p>
 
 <p>Mixed language within an event (some fields in one language, some fields in an other language) will not be supported. The XML representation should provide all the languages avaiable for all the fields when no <code>Accept-Language</code> is provided (either in HTTP or URL). In this case, each free-text field must contain a <code>xml:lang</code> attribute.</p>
 
