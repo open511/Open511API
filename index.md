@@ -32,4 +32,6 @@ This specification is a second draft. The format is expected to evolve in the co
 
 ## Roadmap and Timeline {#timeline}
 
-The first draft of the specification was released to collaborators in October 2012 and the second iteration  released in January 2013. The first official release (ready for implementation) is expected in May 2013.
+The first draft of the specification was released to collaborators in October 2012 and the second iteration released publicly in January 2013. The current version (0.9) is the result of the third iteration and is considered as the first implementation-ready release and will be used for the first implementations. The version will switch to version 1.0 when the first implementations are live.
+
+A browsable implementation from Open North is [available](http://dev.open511.ca/api/) for further evaluation of the specification.
