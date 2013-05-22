@@ -21,7 +21,7 @@ representation :
 #      desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
 
     - name: id
-      type: free text
+      type: String
       mandatory: Mandatory
       desc: <p>Unique identifier for the jurisdiction. It&rsquo;s expected to be unique across all Open511 implementations. It must take the form of a hostname within a domain owned by the government entity. The hostname doesn&rsquo;t necessarily need to resolve in DNS; for example, if Roadsville owns <code>roadsville.gov</code>, it&rsquo;s fine to create <code>agency1.roadsville.gov</code> and <code>agency2.roadsville.gov</code> jurisdictions, even if those don&rsquo;t resolve to IP addresses.</p>
 
