@@ -343,14 +343,14 @@ restriction :
     &lt;description&gt;The City inform you that broadway street will be closed between 1st and 4th avenue during the month of april due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.&lt;/description&gt;
     &lt;description xml:lang="fr"&gt;La Ville de Montréal vous informe que la Grande avenue sera fermée à la circulation entre la 1ère et la 4ème avenue pour le mois d'avril pour cause de travaux d'urgence sur une conduite d'égouts. La circulation locale en direction de l'est sera permise sur une voie.&lt;/description&gt;
     &lt;event_type&gt;CONSTRUCTION&lt;/event_type&gt; 
-    &lt;event_subtype&gt;EMERGENGY_MAINTENANCE&lt;/event_subtype&gt;
+    &lt;event_subtype&gt;EMERGENCY_MAINTENANCE&lt;/event_subtype&gt;
     &lt;severity&gt;2&lt;/severity&gt; 
     &lt;certainty&gt;OBSERVED&lt;/certainty&gt; 
     &lt;created&gt;2012-05-23T20:33:10Z&lt;/created&gt;
     &lt;updated&gt;2012-05-24T10:00:10Z&lt;/updated&gt;
     &lt;grouped_events&gt;
-        &lt;atom:link rel="groupedEvent" href="/events/345832 /&gt; 
-        &lt;atom:link rel="groupedEvent" href="/events/433452 /&gt;         
+        &lt;atom:link rel="related" href="/events/345832" /&gt; 
+        &lt;atom:link rel="related" href="/events/433452" /&gt;         
     &lt;/grouped_events&gt;
     &lt;detour&gt;Take Sherbrooke travelling east, and Wellington travelling west.&lt;/detour&gt;
     &lt;areas&gt;
@@ -364,7 +364,7 @@ restriction :
         &lt;area_id&gt;98765&lt;/area_id&gt;
         &lt;atom:link rel="self" href="http://geonames.org/98765/about.rdf" /&gt;  
       &lt;/area&gt;     
-    &lt;areas&gt;
+    &lt;/areas&gt;
     &lt;geography&gt;
       &lt;gml:Linestring srsName="EPSG:4326"&gt;
         &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40&lt;/gml:coordinates&gt;
@@ -376,13 +376,16 @@ restriction :
         &lt;from&gt;1st avenue&lt;/from&gt;
         &lt;to&gt;4th avenue&lt;/to&gt;
         &lt;direction&gt;E&lt;/direction&gt;
-        &lt;lane_status&gt;10&lt;/direction&gt;          
+        &lt;lane_status&gt;10&lt;/lane_status&gt;          
         &lt;impacted_systems&gt;
           &lt;impacted_system&gt;ROAD&lt;/impacted_system&gt;
           &lt;impacted_system&gt;ON_STREET_PARKING&lt;/impacted_system&gt;
         &lt;/impacted_systems&gt;
         &lt;restrictions&gt;
-          &lt;restriction&gt;Local Traffic Only&lt;/restriction&gt;
+          &lt;restriction&gt;
+            &lt;restriction_type&gt;SPEED&lt;/restriction_type&gt;
+            &lt;value&gt;35&lt;/value&gt;
+          &lt;/restriction&gt;
         &lt;/restrictions&gt;
       &lt;/road&gt;
       &lt;road&gt;
@@ -390,7 +393,7 @@ restriction :
         &lt;from&gt;1st avenue&lt;/from&gt;
         &lt;to&gt;4th avenue&lt;/to&gt;
         &lt;direction&gt;W&lt;/direction&gt;  
-        &lt;lane_status&gt;11&lt;/direction&gt;              
+        &lt;lane_status&gt;11&lt;/lane_status&gt;              
         &lt;impacted_systems&gt;
           &lt;impacted_system&gt;ROAD&lt;/impacted_system&gt;
           &lt;impacted_system&gt;ON_STREET_PARKING&lt;/impacted_system&gt;
@@ -411,7 +414,7 @@ restriction :
   &lt;pagination&gt;
     &lt;offset>0&lt;/offset&gt;
     &lt;limit>20&lt;/limit&gt;
-    &lt;atom:link rel="next" href="/api/events/?limit=20&offset=20"/&gt;
+    &lt;atom:link rel="next" href="/api/events/?limit=20&amp;amp;offset=20"/&gt;
   &lt;/pagination&gt;
   &lt;atom:link rel="self" href="/api/events/"/&gt;
   &lt;atom:link rel="up" href="/api/"/&gt;  
@@ -436,8 +439,8 @@ restriction :
             "created": "2012-09-19T17:47:46Z",
             "description": "Broadway Street will be closed between 1st and 4th avenue during the month of April due to an emergency sewer rebuilding. Local traffic will be permitted on one eastbound lane.",
             "event_type": "CONSTRUCTION",
-            "event_subype": "EMERGENGY_MAINTENANCE",
-            "severity": 2,
+            "event_subype": "EMERGENCY_MAINTENANCE",
+            "severity": "2",
             "certainty": "OBSERVED",
             "grouped_events": [
               "/events/mycity.gov/937272",
@@ -475,7 +478,10 @@ restriction :
                         "ON_STREET_PARKING"
                     ],
                     "restrictions": [
-                        "Local traffic only"
+                        {
+                          "restriction_type": "SPEED",
+                          "value": "35"
+                        }
                     ]
                 },
                 {
@@ -493,7 +499,7 @@ restriction :
             "attachments": [
                 {
                     "type": "application/pdf",
-                    "size": 200000,
+                    "size": "200000",
                     "url": "http://my.city.gov/trafic/advisory/39473/com.pdf",
                     "title": "Detour map"
                 }
@@ -504,7 +510,7 @@ restriction :
         }
     ],
     "pagination": {
-        "next_url": "/api/events/?limit=20&offset=20",
+        "next_url": "/api/events/?limit=20&amp;offset=20",
         "limit": 20,
         "previous_url": null,
         "offset": 0
