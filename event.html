@@ -142,7 +142,12 @@ event :
     - name: roads
       type: Collection of <a href="#road">road</a> elements
       mandatory: Optional
-      desc: <p>List of roads affected by the current event. One event can impact several roads.</p>    
+      desc: <p>List of roads affected by the current event. One event can impact several roads.</p>
+
+    - name: areas
+      type: Collections of <a href="area.html">area</a> elements
+      mandatory: Optional
+      desc: <p>Areas affected by the event</p>  
 
     - name: schedule
       type: <a href="#schedule">schedule</a> structure
@@ -190,11 +195,6 @@ road :
       type: bitmap
       mandatory: Optional
       desc: <p>Bitmap representing the lanes that are closed because of the event. For example <code>0110</code> means that the 2 central lanes of a 4 lanes roads are closed.</p><p>The lane status is applied to direction provided</p>
-
-    - name: area
-      type: Collections of <a href="area.html">area</a> elements
-      mandatory: Optional
-      desc: <p>Areas affected by the event</p>  
 
     - name: impacted_systems
       type: Collection of <code>impacted_system</code> elements
