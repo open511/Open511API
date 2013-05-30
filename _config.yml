@@ -25,7 +25,7 @@ author :
 # Else if you are pushing to username.github.com, replace with your username.
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
-production_url : http://opennorth.github.com/Open511API
+production_url : http://open511.org
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
@@ -55,7 +55,7 @@ JB :
   #   - When setting BASE_PATH it must be a valid url.
   #     This means always setting the protocol (http|https) or prefixing with "/"
   #BASE_PATH : false
-  BASE_PATH : http://opennorth.github.com/Open511API
+  BASE_PATH : http://open511.org
   
   # By default, the asset_path is automatically defined relative to BASE_PATH plus the enabled theme.
   # ex: [BASE_PATH]/assets/themes/[THEME-NAME]
