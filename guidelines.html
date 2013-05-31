@@ -16,7 +16,7 @@ title: Technical Guidelines
   <li><a id="timezone"></a>When a <b>time zone</b> has to be specified explicitly (in an independent field), it should use a time zone name from the <a href="http://en.wikipedia.org/wiki/Tz_database">TZ Database</a></li>
   <li><a id="geospatial"></a><b>Geospatial data</b> will follow existing standards:
     <ul>
-      <li>In XML, use <a href="http://en.wikipedia.org/wiki/Geography_Markup_Language">GML</a> with the EPSG:4326 (latitude/longitude) spatial reference system.</li>
+      <li>In XML, use <a href="http://en.wikipedia.org/wiki/Geography_Markup_Language">GML</a> with the EPSG:4326 (latitude/longitude) spatial reference system. <code><a href="https://github.com/opennorth/Open511API/issues/36">Issue 36</a></code></li>
       <li>In JSON, use <a href="http://www.geojson.org/">GeoJSON</a></li>
     </ul>
   </li>
@@ -77,7 +77,7 @@ title: Technical Guidelines
 <a id="xmlspec"></a>
 <h4>XML serialization</h4>
 
-<p>An XSD schema for the XML representation will be provided once the data structure is stabilized</p>
+<p>A draft schema for the XML representation is <a href="https://github.com/opennorth/Open511API">available</a>.</p>
 
 
 <ul><li>The Open511 container tag includes a version attribute:

@@ -209,9 +209,10 @@ code {
 	color: #c00;
 	border: 1px solid#a00;
 	background-color: #fdd;
-	width: 70%;
-	margin: 10px 0 20px 10px;
-	padding: 20px;
+	width: 50%;
+	margin: 10px auto 20px 100px;
+	padding: 20px 50px;
+	font-size: 120%
 }
 
 footer p {
