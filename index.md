@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Introduction to the Open511 API (draft)
+title: Introduction to the Open511 API
 ---
 {% include JB/setup %}
 {% include specsnav.html %}
@@ -28,10 +28,15 @@ This document describes the specifications of the Open511 API. It will provide a
 
 ## Status {#status}
 
-This specification is a second draft. The format is expected to evolve in the coming weeks. Therefore, the present specifications should not be used to develop tools.
+**The open511 specification has reached version 0.9**. This first official version is also the first "implementation ready" specification. 
+
+Why not version 1.0? It would not be surprising that while developing the first implementations, some discrepancies or possible improvements are discovered. As a consequence, version 1.0 will be the result of the first implementations.
+
+Who will be the first implementors? [MTC](http://511.org/) and [OpenNorth](https://github.com/opennorth/open511) will work in parallel to build the two first implementations. Any other organization can start developping on this specification but it should be done in collaboration with MTC and OpenNorth since some minor changes could still occur. If your organization want to build software based on open511, please join the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511).
+
+A browsable implementation from Open North and matching about 80% of the current specification is [available](http://dev.open511.ca/api/) for further evaluation.
 
 ## Roadmap and Timeline {#timeline}
 
-The first draft of the specification was released to collaborators in October 2012 and the second iteration released publicly in January 2013. The current version (0.9) is the result of the third iteration and is considered as the first implementation-ready release and will be used for the first implementations. The version will switch to version 1.0 when the first implementations are live.
+The first draft of the specification was released to collaborators in October 2012 and the second iteration released publicly in January 2013. The current version (0.9) is the result of the third iteration and is considered as the first implementation-ready release and will be used for the first implementations. The version will switch to version 1.0 when the first implementations are live (target date: end of summer 2013).
 
-A browsable implementation from Open North is [available](http://dev.open511.ca/api/) for further evaluation of the specification.
