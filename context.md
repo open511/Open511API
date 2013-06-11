@@ -9,7 +9,7 @@ title: Context and future plans
 
 ## Overview {#overview}
 
-The goal of the Open511 project is to develop an open API for publishing road events (accidents, construction, etc) and other mobility related data. The project is led by [Open North](http://opennorth.ca) with funding from Natural Resource Canada's [GeoConnections](http://geoconnections.nrcan.gc.ca/) program. Open North has collaborated with several organizations to design Open511 (see list [below](#collaborators)).
+The goal of the Open511 project is to develop an open API for publishing road events (accidents, construction, etc) and other mobility related data. The project is led by [Open North](http://opennorth.ca) and [Metropolitan Transportation Commission](http://www.mtc.ca.gov/) in collaboration with several organizations to design Open511 (see list [below](#collaborators)).
 
 Open511 is currently under active development. The content shared here is a draft and is published as-is. Our wish is to continue to collaborate on the design of the API; anyone that would like to provide feedback is encouraged to do so. Please refer to the "contribute" section on the menu.
 
@@ -21,15 +21,14 @@ Intially, Open511 will focus on road events (accidents, constructions, etc.) but
 
 Open North will also develop open source software to publish road events so that public bodies (mainly small entities) will not need to develop brand new software to publish this information.
 
-## Collaborators {#collaborators}
+## Funding and Collaborators {#collaborators}
+
+Financial support for the project is provided by [GeoConnections](http://geoconnections.nrcan.gc.ca/), a national collaborative initiative led by National Resources Canada. GeoConnections supports the integration and use of Canadian Geospatial Data Infrastructure (CGDI), an on-line resource that improves the sharing, access and use of open geospatial information.
 
 The initial collaborators on this project were the [Ministry of Transportation and Infrastruture of British Columbia](http://www.gov.bc.ca/tran/), the [City of Ottawa](http://ottawa.ca/), the [City of Montréal](http://ville.montreal.qc.ca/), the [City of Repentigny](http://www.ville.repentigny.qc.ca/), the [Living Lab of Montréal](http://www.livinglabmontreal.org/), the [International Institute of Logistics of Montréal](http://www.iilm.ca/), [InstantGeo](http://www.instantgeo.com/), [David Eaves](http://eaves.ca/) and [Nicolas Saunier](http://n.saunier.free.fr/saunier/) from [École Polytechnique de Montréal](http://www.polymtl.ca/). 
 
-We are also working closely with the [Metropolitan Transportation Commission of San Francisco Bay Area](http://www.mtc.ca.gov/) (which is coordinating the [511.org](http://511.org/) project) and other actors in the 511 and transportation sector.
-
-
 ## Governance {#governance}
 
-The specification design is led by Open North with a consensus-based decision making process to include collaborators. With the public release of the specification, any organization that would like to collaborate is encouraged to do so. Do not hesitate to [contact](mailto:open511@opennorth.ca) Open North or contribute to the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511) and [submit comments and issues](https://github.com/opennorth/Open511API/issues).
+The specification design is led by Open North and MTC with a consensus-based decision making process to include collaborators. With the public release of the specification, any organization that would like to collaborate is encouraged to do so. Do not hesitate to contribute to the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511) and [submit comments and issues](https://github.com/opennorth/Open511API/issues).
 
 Once the specification is stable, we plan to submit Open511 to a relevant standardization body in order to ensure stability and evolution capabilities.
