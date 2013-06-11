@@ -5,8 +5,6 @@ title: Context and future plans
 {% include JB/setup %}
 {% include specsnav.html %}
 
-
-
 ## Overview {#overview}
 
 The goal of the Open511 project is to develop an open API for publishing road events (accidents, construction, etc) and other mobility related data. The project is led by [Open North](http://opennorth.ca) and [Metropolitan Transportation Commission](http://www.mtc.ca.gov/) in collaboration with several organizations to design Open511 (see list [below](#collaborators)).
