@@ -12,7 +12,7 @@ presentation :
 parameters : 
     - name : status
       required : optional
-      description : <p>By default the API should only send active events. Supported values&colon; <ul><li><code>active</code> Default value, returns only active events.</li><li><code>archived</code> Returns only archived events</li><li><code>all</code> Returns both active and archived events.</li></ul></p>
+      description : <p>By default the API should only send active events. Supported values&colon; <ul><li><code>ACTIVE</code> Default value, returns only active events.</li><li><code>ARCHIVED</code> Returns only archived events</li><li><code>ALL</code> Returns both active and archived events.</li></ul></p>
 
     - name : in_effect_on
       required : optional
@@ -94,10 +94,15 @@ event :
       mandatory: Mandatory
       desc: <p>Basic type of event. Value list</p><pre>- CONSTRUCTION &colon;  planned road work<br>- SPECIAL_EVENT &colon; special events (fair, sport event, etc.)<br>- INCIDENT &colon; accidents and unplanned road work<br>- WEATHER_CONDITION &colon; Weather condition affecting the road<br>- ROAD_CONDITION &colon; Status of the road that might affect travelers.</pre>
 
-    - name: event_subtype
+    - name: event_subtypes
+      type: Collection of <code>event_subtype</code> elements
+      mandatory: Optional
+      desc: <p>List of values to provide more detail about the type of event.</p>
+
+    - name: <p>&mdash; event_subtype</p>
       type: Enum
       mandatory: Optional
-      desc: <p>List of values to provide more detail about the type of event. <code><a href="https://github.com/opennorth/Open511API/issues/35">Issue 35</a></code>.</p><p>For INCIDENT:</p><pre>- ACCIDENT<br>- SERIOUS_ACCIDENT<br>- NUMEROUS_ACCIDENTS<br>- STALLED_VEHICLE<br>- SPILL<br>- OBSTRUCTION<br>- MAJOR_HAZARD<br>- DEMONSTRATION</pre><p>For CONSTRUCTION:</p><pre>- ROAD_CONSTRUCTION<br>- WORK_IN_THE_MEDIAM<br>- NARROW_LANES<br>- TRAFFIC_ALTERNATING_DIRECTIONS<br>- BRIDGE_OPERATIONS<br>- BLASTING<br>- WORK_ON_UNDERGROUND<br>- EMERGENGY_MAINTENANCE</pre> <p>For SPECIAL_EVENT:</p><pre>- SPORTING_EVENT<br>- MAJOR_EVENT<br>- CONCERT<br>- FESTIVAL<br>- FIREWORKS<br>- PARADE<br>- CROWD</pre> <p>For WEATHER_CONDITION:</p><pre>- SEVERE_WEATHER<br>- HEAVY_SNOW<br>- SNOW<br>- ICE_GLAZE<br>- HEAVY_FROST<br>- ICE_STORM<br>- DAMAGING_HAIL<br>- THUNDERSTORM<br>- HEAVY_DOWNPOUR<br>- TORNADO<br>- HURRICANE<br>- STRONG_WINDS<br>- DENSE_FOG<br>- FREEZING_FOG<br>- ICE_FOG MIST<br>- VISIBILITY_REDUCED<br>- VISIBILITY_BLOCKED<br>- BLOWING_SNOW<br>- BLOWING_DUST<br>- SANDSTORM<br>- INSECT_SWARMS</pre> <p>For PAVEMENT_CONDITION:</p><pre>- IMPASSABLE<br>- ALMOST_IMPASSABLE<br>- PASSABLE_WITH_CARE<br>- SURFACE_WATER_HAZARD<br>- HYDROPLANING_DANGER<br>- SLIPPERY<br>- MUD<br>- LOOSE_GRAVEL<br>- OIL_ON_ROADWAY<br>- ICE<br>- BLACK_ICE<br>- WET_ICY_ROAD<br>- SLUSH<br>- FROZEN_SLUSH<br>- SNOW<br>- PACKED_SNOW<br>- PLOWED_SNOW<br>- POWDER_SNOW<br>- DEEP_SNOW</pre>       
+      desc: <pre>- ACCIDENT<br>- SERIOUS_ACCIDENT<br>- NUMEROUS_ACCIDENTS<br>- STALLED_VEHICLE<br>- SPILL<br>- OBSTRUCTION<br>- MAJOR_HAZARD<br>- DEMONSTRATION<br><br>- ROAD_CONSTRUCTION<br>- WORK_IN_THE_MEDIAN<br>- NARROW_LANES<br>- TRAFFIC_ALTERNATING_DIRECTIONS<br>- BRIDGE_OPERATIONS<br>- BLASTING<br>- WORK_ON_UNDERGROUND<br>- EMERGENCY_MAINTENANCE<br><br>- SPORTING_EVENT<br>- MAJOR_EVENT<br>- CONCERT<br>- FESTIVAL<br>- FIREWORKS<br>- PARADE<br>- CROWD<br><br>- SEVERE_WEATHER<br>- HEAVY_SNOW<br>- SNOW<br>- ICE_GLAZE<br>- HEAVY_FROST<br>- ICE_STORM<br>- DAMAGING_HAIL<br>- THUNDERSTORM<br>- HEAVY_DOWNPOUR<br>- TORNADO<br>- HURRICANE<br>- STRONG_WINDS<br>- DENSE_FOG<br>- FREEZING_FOG<br>- ICE_FOG MIST<br>- VISIBILITY_REDUCED<br>- VISIBILITY_BLOCKED<br>- BLOWING_SNOW<br>- BLOWING_DUST<br>- SANDSTORM<br>- INSECT_SWARMS<br><br>- IMPASSABLE<br>- ALMOST_IMPASSABLE<br>- PASSABLE_WITH_CARE<br>- SURFACE_WATER_HAZARD<br>- HYDROPLANING_DANGER<br>- SLIPPERY<br>- MUD<br>- LOOSE_GRAVEL<br>- OIL_ON_ROADWAY<br>- ICE<br>- BLACK_ICE<br>- WET_ICY_ROAD<br>- SLUSH<br>- FROZEN_SLUSH<br>- SNOW<br>- PACKED_SNOW<br>- PLOWED_SNOW<br>- POWDER_SNOW<br>- DEEP_SNOW</pre>       
 
     - name: severity
       type: Enum
@@ -343,7 +348,9 @@ restriction :
     &lt;description&gt;The City inform you that broadway street will be closed between 1st and 4th avenue during the month of april due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.&lt;/description&gt;
     &lt;description xml:lang="fr"&gt;La Ville de Montréal vous informe que la Grande avenue sera fermée à la circulation entre la 1ère et la 4ème avenue pour le mois d'avril pour cause de travaux d'urgence sur une conduite d'égouts. La circulation locale en direction de l'est sera permise sur une voie.&lt;/description&gt;
     &lt;event_type&gt;CONSTRUCTION&lt;/event_type&gt; 
-    &lt;event_subtype&gt;EMERGENCY_MAINTENANCE&lt;/event_subtype&gt;
+    &lt;event_subtypes&gt;
+      &lt;event_subtype&gt;EMERGENCY_MAINTENANCE&lt;/event_subtype&gt;
+    &lt;/event_subtypes&gt;
     &lt;severity&gt;2&lt;/severity&gt; 
     &lt;certainty&gt;OBSERVED&lt;/certainty&gt; 
     &lt;created&gt;2012-05-23T20:33:10Z&lt;/created&gt;
@@ -366,9 +373,9 @@ restriction :
       &lt;/area&gt;     
     &lt;/areas&gt;
     &lt;geography&gt;
-      &lt;gml:Linestring srsName="EPSG:4326"&gt;
+      &lt;gml:LineString srsName="EPSG:4326"&gt;
         &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40&lt;/gml:coordinates&gt;
-      &lt;/gml:Linestring&gt;
+      &lt;/gml:LineString&gt;
     &lt;/geography&gt;
     &lt;roads&gt;
       &lt;road&gt;
