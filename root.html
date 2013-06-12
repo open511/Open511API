@@ -48,14 +48,14 @@ representation :
     - name: <p>&mdash; url</p>
       mandatory: Mandatory
       type: <a href="guidelines.html#links">Link</a>
-      desc: <p>Link pointing to the resource resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>. Even if the current endpoint supports multiple jurisdictions or is an aggregator, there is only one service resource that aggregates the data for all the jurisdictions.</p>    
+      desc: <p>Link pointing to the resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>. Even if the current endpoint supports multiple jurisdictions or is an aggregator, there is only one service resource that aggregates the data for all the jurisdictions.</p>    
 
-    - name: <p>supported_versions</p>
+    - name: <p>&mdash;supported_versions</p>
       mandatory: Optional
       type: Collection of <code>supported_version</code>
       desc: <p>List all the versions supported by the current server.</p>
 
-    - name: <p>&mdash; supported_version</p>
+    - name: <p>&mdash; &mdash; supported_version</p>
       mandatory: Optional
       type: Enum
       desc: <p>Version identifier. As the specification evolves, version identifiers will be added. For the moment, the only version supported is <code>v0</code> and is not an official value.</p>
