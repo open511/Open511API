@@ -233,10 +233,14 @@ schedule :
       mandatory: Optional
       desc: <p>End date of the event. If no end date is provided, the event should be considered as continuing indefinitely.</p>
 
-    - name: day_of_week
-      type: Enum
+    - name: days
+      type: Collection of <code>day</code> elements
       mandatory: Optional
-      desc: <p>Space separated list of days of the week where the event should be considered as active. For example Wednesday, Thursday, Friday would be <code>3 4 5</code>. The days are Monday to Sunday from 1 to 7. <code><a href="https://github.com/opennorth/Open511API/issues/37">Issue 37</a></code></p> 
+      desc: <p>Contains a <code>day</code> tag for every day of the week during which the event is active. So, for an event active on Monday and Wednesday, <days><day>1</day><day>3</day></days>. If omitted, the event is assumed to be active on all days of the week between its start and end dates.</p> 
+
+    - name: <p>&mdash; day</p>
+      type: Enum
+      desc: <p>An integer representing a day of the week during which the event is active. The days are Monday to Sunday from 1 to 7.</p>
 
     - name: times
       type: Collection of <a href="#time">time</a>
