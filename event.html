@@ -84,15 +84,35 @@ event :
       mandatory: Mandatory
       desc: <p>Title of the event. Should be shorter than 500 characters.</p>
 
-    - name: description 
-      type: Free text
-      mandatory: Mandatory
-      desc: <p>Description of the event. Plain text description of the event, the reason of the event and any other relevant information for travelers.</p>
-
     - name: event_type
       type: Enum
       mandatory: Mandatory
       desc: <p>Basic type of event. Value list</p><pre>- CONSTRUCTION &colon;  planned road work<br>- SPECIAL_EVENT &colon; special events (fair, sport event, etc.)<br>- INCIDENT &colon; accidents and unplanned road work<br>- WEATHER_CONDITION &colon; Weather condition affecting the road<br>- ROAD_CONDITION &colon; Status of the road that might affect travelers.</pre>
+
+    - name: severity
+      type: Enum
+      mandatory: Mandatory
+      desc: <p>Severity of the event. Value list&colon;<pre><ul><li><code>1</code>&colon; Minor, the event has very limited impact on the traffic.</li><li><code>2</code>&colon; Moderate, the event will have a visible impact on the traffic but should not create significant delay and if there is a delay, it should be small and local.</li><li><code>3</code>&colon; Major, the event will have a significant impact on the traffic, probably on a large scale.</li><li><code>9</code>&colon; Undefined. The event has a unknown impact, for example an accident that have been declared without any precise description.</li></ul></pre></p>
+
+    - name: geography
+      type: <a href="guidelines.html#geospatial">Geospatial</a>
+      mandatory: Mandatory
+      desc: <p>Geographical information about the event. Can be Point, MultiPoint, LineString, MultiLineString, or Polygon.</p>
+
+    - name: schedule
+      type: <a href="#schedule">schedule</a> structure
+      mandatory: Mandatory
+      desc: <p>Complex item to provide time related information</p>        
+
+    - name: created
+      type:  <a href="guidelines.html#datetime">DateTime</a> (UTC)
+      mandatory: Mandatory
+      desc: <p>When the event was initially created.</p>     
+
+    - name: updated
+      type:   <a href="guidelines.html#datetime">DateTime</a> (UTC)
+      mandatory: Mandatory
+      desc: <p>When the content of the event last changed. Will be the same as <code>created</code> if no updates have occurred.</pre>      
 
     - name: event_subtypes
       type: Collection of <code>event_subtype</code> elements
@@ -104,25 +124,15 @@ event :
       mandatory: Optional
       desc: <pre>- ACCIDENT<br>- SERIOUS_ACCIDENT<br>- NUMEROUS_ACCIDENTS<br>- STALLED_VEHICLE<br>- SPILL<br>- OBSTRUCTION<br>- MAJOR_HAZARD<br>- DEMONSTRATION<br><br>- ROAD_CONSTRUCTION<br>- WORK_IN_THE_MEDIAN<br>- NARROW_LANES<br>- TRAFFIC_ALTERNATING_DIRECTIONS<br>- BRIDGE_OPERATIONS<br>- BLASTING<br>- WORK_ON_UNDERGROUND<br>- EMERGENCY_MAINTENANCE<br><br>- SPORTING_EVENT<br>- MAJOR_EVENT<br>- CONCERT<br>- FESTIVAL<br>- FIREWORKS<br>- PARADE<br>- CROWD<br><br>- SEVERE_WEATHER<br>- HEAVY_SNOW<br>- SNOW<br>- ICE_GLAZE<br>- HEAVY_FROST<br>- ICE_STORM<br>- DAMAGING_HAIL<br>- THUNDERSTORM<br>- HEAVY_DOWNPOUR<br>- TORNADO<br>- HURRICANE<br>- STRONG_WINDS<br>- DENSE_FOG<br>- FREEZING_FOG<br>- ICE_FOG MIST<br>- VISIBILITY_REDUCED<br>- VISIBILITY_BLOCKED<br>- BLOWING_SNOW<br>- BLOWING_DUST<br>- SANDSTORM<br>- INSECT_SWARMS<br><br>- IMPASSABLE<br>- ALMOST_IMPASSABLE<br>- PASSABLE_WITH_CARE<br>- SURFACE_WATER_HAZARD<br>- HYDROPLANING_DANGER<br>- SLIPPERY<br>- MUD<br>- LOOSE_GRAVEL<br>- OIL_ON_ROADWAY<br>- ICE<br>- BLACK_ICE<br>- WET_ICY_ROAD<br>- SLUSH<br>- FROZEN_SLUSH<br>- SNOW<br>- PACKED_SNOW<br>- PLOWED_SNOW<br>- POWDER_SNOW<br>- DEEP_SNOW</pre>       
 
-    - name: severity
-      type: Enum
-      mandatory: Mandatory
-      desc: <p>Severity of the event. Value list&colon;<pre><ul><li><code>1</code>&colon; Minor, the event has very limited impact on the traffic.</li><li><code>2</code>&colon; Moderate, the event will have a visible impact on the traffic but should not create significant delay and if there is a delay, it should be small and local.</li><li><code>3</code>&colon; Major, the event will have a significant impact on the traffic, probably on a large scale.</li><li><code>9</code>&colon; Undefined. The event has a unknown impact, for example an accident that have been declared without any precise description.</li></ul></pre></p> 
+    - name: description 
+      type: Free text
+      mandatory: Optional
+      desc: <p>Description of the event. Plain text description of the event, the reason of the event and any other relevant information for travelers.</p> 
 
     - name: certainty
       type: Enum
       mandatory: Optional
       desc: <p>Degree of certainty of the event. Should only be used for unplanned events (e.g incidents, weather conditions and pavement conditions events). Value list to be confirmed. Could be observed/likely/possible/unknown. </p><p>Value list</p><pre>- OBSERVED<br>- LIKELY<br>- POSSIBLE<br>- UNKNOWN</pre>  
-
-    - name: created
-      type:  <a href="guidelines.html#datetime">DateTime</a> (UTC)
-      mandatory: Mandatory
-      desc: <p>When the event was initially created.</p>     
-
-    - name: updated
-      type:   <a href="guidelines.html#datetime">DateTime</a> (UTC)
-      mandatory: Mandatory
-      desc: <p>When the content of the event last changed. Will be the same as <code>created</code> if no updates have occurred.</pre>
 
     - name: grouped_events
       type: Collection of links
@@ -139,11 +149,6 @@ event :
       mandatory: Optional
       desc: <p>Description of a detour route to avoid this event.</p>   
 
-    - name: geography
-      type: <a href="guidelines.html#geospatial">Geospatial</a>
-      mandatory: Mandatory
-      desc: <p>Geographical information about the event. Can be Point, MultiPoint, LineString, MultiLineString, or Polygon.</p>
-
     - name: roads
       type: Collection of <a href="#road">road</a> elements
       mandatory: Optional
@@ -152,12 +157,7 @@ event :
     - name: areas
       type: Collections of <a href="area.html">area</a> elements
       mandatory: Optional
-      desc: <p>Areas affected by the event</p>  
-
-    - name: schedule
-      type: <a href="#schedule">schedule</a> structure
-      mandatory: Mandatory
-      desc: <p>Complex item to provide time related information</p>   
+      desc: <p>Areas affected by the event</p>   
 
     - name: attachments
       type: Collection of attachment <a href="guidelines.html#links">links</a>

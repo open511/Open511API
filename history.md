@@ -19,5 +19,5 @@ Apr 29th, 2013 | <ul><li>Remove the ability to filter events by polygon and the 
 May 13th, 2013 | <ul><li>Rename region into area</li></ul> |
 May 22nd, 2013 | <ul><li>Release the specification as version 0.9</li></ul> |
 June 5th, 2013 | <ul><li>Allow multi <code>event_subtype</code> values in an event</li></ul> |
-June 12th, 2013 | <ul><li>Remove <code>limit</code> parameter from pagination output</li><li>Rename <code>days_of_week</code> to <code>days</code>, and use a nested-element structure rather than a space-separated list, for consistency and easier serialization rules</li></ul> |
+June 12th, 2013 | <ul><li>Remove <code>limit</code> parameter from pagination output</li><li>Rename <code>days_of_week</code> to <code>days</code>, and use a nested-element structure rather than a space-separated list, for consistency and easier serialization rules</li><li>Description field is optional on event</li></ul> |
 {#changelog}
