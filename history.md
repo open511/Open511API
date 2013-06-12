@@ -19,4 +19,5 @@ Apr 29th, 2013 | <ul><li>Remove the ability to filter events by polygon and the 
 May 13th, 2013 | <ul><li>Rename region into area</li></ul> |
 May 22nd, 2013 | <ul><li>Release the specification as version 0.9</li></ul> |
 June 5th, 2013 | <ul><li>Allow multi <code>event_subtype</code> values in an event</li></ul> |
+June 12th, 2013 | <ul><li>Remove <code>limit</code> parameter from pagination output</li></ul> |
 {#changelog}

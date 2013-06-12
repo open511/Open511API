@@ -93,14 +93,12 @@ title: Technical Guidelines
 
 <li>List resources (like lists of events of reports) always contain a pagination block containing navigation info:<ul>
   <li><code>offset</code>: the starting offset of the current page.</li>
-  <li><code>limit</code>: the maximum number of items to be listed in a response</li>
   <li><code>next</code>: a link to the next page of results if any</li>
   <li><code>previous</code>: a link to the previous page of results if any</li></ul>
     <pre>&lt;open511 ...&gt;
     ...
     &lt;pagination&gt;
       &lt;offset&gt;0&lt;/offset&gt;
-      &lt;limit&gt;20&lt;/limit&gt;
       &lt;atom:link rel="next" href="/api/events/?limit=20&offset=20"/&gt;
     &lt;/pagination&gt;
   &lt;/open511&gt;</pre>
@@ -174,7 +172,6 @@ title: Technical Guidelines
 
 <li>List resources (like lists of events of reports) always contain a pagination block containing navigation info:<ul>
   <li><code>offset</code>: the starting offset of the current page.</li>
-  <li><code>limit</code>: the maximum number of items to be listed in a response</li>
   <li><code>next_url</code>: a link to the next page of results if any</li>
   <li><code>previous_url</code>: a link to the previous page of results if any</li></ul>
   <pre>
@@ -182,7 +179,6 @@ title: Technical Guidelines
     ...
     "pagination": {
       "next_url": "/api/events/?limit=20&offset=20", 
-      "limit": 20, 
       "previous_url": null, 
       "offset": 0
     }
