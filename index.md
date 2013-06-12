@@ -30,11 +30,11 @@ This document describes the specifications of the Open511 API. It will provide a
 
 **The open511 specification has reached version 0.9**. This first official version is also the first "implementation ready" specification. 
 
-Why not version 1.0? It would not be surprising that while developing the first implementations, some discrepancies or possible improvements are discovered. As a consequence, version 1.0 will be the result of the first implementations.
+Why not version 1.0? We expect that while developing the first implementations we'll some discrepancies and possible improvements. As a consequence, version 1.0 will be the result of the first implementations.
 
-Who will be the first implementors? [MTC](http://511.org/) and [OpenNorth](https://github.com/opennorth/open511) will work in parallel to build the two first implementations. Any other organization can start developping on this specification but it should be done in collaboration with MTC and OpenNorth since some minor changes could still occur. If your organization want to build software based on open511, please join the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511).
+Who will be the first implementors? [MTC](http://511.org/) and [OpenNorth](https://github.com/opennorth/open511) will work in parallel to build the two first implementations. Any other organization can start implementing this specification but it should be done in collaboration with MTC and OpenNorth since some minor changes could still occur. If your organization wants to build software based on open511, please join the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511).
 
-A browsable implementation from Open North and matching about 80% of the current specification is [available](http://dev.open511.ca/api/) for further evaluation.
+It may be helpful to [browse](http://dev.open511.ca/) the output of Open North's in-progress implementation of this API.
 
 ## Roadmap and Timeline {#timeline}
 
