@@ -20,7 +20,7 @@ parameters :
 
     - name : severity
       required : optional
-      description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below level 2 with <code>severity=&lt;2</code> or above or equal to level 2 with <code>severity=&gt;=2</code>, which is URL-encoded as <code>severity=%3E%3D2</code>.</p>
+      description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below level 2 with <code>severity=&lt;2</code> or above or equal to level 2 with <code>severity=&gt;=2</code>, which is URL-encoded as <code>severity=%3E%3D2</code>. The operators permitted are <code>&lt; &lt;= &gt; &gt;=</code>.</p>
     
     - name : bbox
       required: optional
@@ -48,11 +48,11 @@ parameters :
 
     - name : created
       required : optional
-      description : <p>Filter events based on the creation date and time. This filter will mainly be used with a greater than or less than filter  <code>created=&gt;2013-05-10T12&colon;00Z</code>.</p>   
+      description : <p>Filter events based on the creation date and time. This filter will mainly be used with a greater than or less than filter <code>created=&gt;2013-05-10T12&colon;00Z</code>. The operators permitted are <code>&lt; &lt;= &gt; &gt;=</code>.</p>   
 
     - name : updated
       required : optional
-      description : <p>Filter events based on the last update timestamp. This filter will mainly be used with a greater than or less than filter  <code>updated=&gt;2013-05-10T12&colon;00Z</code>.</p><p>Note&colon; by default, the servers should only return <code>ACTIVE</code> events. When using the <code>updated</code> filter, in order to get events going from <code>ACTIVE</code> to <code>ARCHIVED</code>, the client must ask all events&colon; <code>...?status=all</code></p> 
+      description : <p>Filter events based on the last update timestamp. The operators permitted are <code>&lt; &lt;= &gt; &gt;=</code>.</p><p>Note&colon; by default, the servers should only return <code>ACTIVE</code> events. When using the <code>updated</code> filter, in order to get events going from <code>ACTIVE</code> to <code>ARCHIVED</code>, the client must ask for all events&colon; <code>...?status=all</code></p> 
 
     - name : road_name
       required : optional
