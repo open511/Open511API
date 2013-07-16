@@ -22,7 +22,7 @@ title: Technical Guidelines
   </li>
   <li><a id="links"></a><b>Links</b> will use the following rules</li>
   <ul>
-    <li>In XML, links will use the <a href="http://tools.ietf.org/html/rfc4287">Atom link tag</a>; the name of the link is placed in the <code>rel</code> attribute, and the URL in the <code>href</code> attribute.</li>
+    <li>In XML, links will use the a <code>link</code> tag. The syntax is as in <a href="http://tools.ietf.org/html/rfc4287">Atom</a>, though the tag is not placed within an Atom namespace. The type of link is in the <code>rel</code> attribute, and the URL in the <code>href</code> attribute.</li>
     <li>In JSON, as a rule, link attribute names have <code>_url</code> added to the end. There are some exceptions; see the JSON section below.</li>
   </ul>
 </ul>
@@ -81,13 +81,13 @@ title: Technical Guidelines
 
 
 <ul><li>The Open511 container tag includes a version attribute:
-  <pre>&lt;open511 <b>version="v0"</b> xmlns:atom="http://www.w3.org/2005/Atom" ... &gt;</pre>
+  <pre>&lt;open511 <b>version="v0"</b> ... &gt;</pre>
 </li> 
 
 <li>Resources should always have a <code>self</code> link, providing the current url, and a <code>up</code> link providing the url of the parent resource (except for the discovery resource which does not have any parent). These <code>up</code> and <code>self</code> link are directly located in the Open511 structure.
 <pre>  &lt;open511 version="v0" ...&gt;
-    &lt;atom:link rel="<b>self</b>" href="/api/jurisdictions/test/"/&gt;
-    &lt;atom:link rel="<b>up</b>" href="/api/jurisdictions/"/&gt;
+    &lt;link rel="<b>self</b>" href="/api/jurisdictions/test/"/&gt;
+    &lt;link rel="<b>up</b>" href="/api/jurisdictions/"/&gt;
     ...
   &lt;/open511&gt;   </pre></li>
 
@@ -99,7 +99,7 @@ title: Technical Guidelines
     ...
     &lt;pagination&gt;
       &lt;offset&gt;0&lt;/offset&gt;
-      &lt;atom:link rel="next" href="/api/events/?limit=20&offset=20"/&gt;
+      &lt;link rel="next" href="/api/events/?limit=20&offset=20"/&gt;
     &lt;/pagination&gt;
   &lt;/open511&gt;</pre>
 </li>
@@ -131,15 +131,15 @@ title: Technical Guidelines
 <h4>JSON serialization</h4>
 
 <ul>
-  <li>In XML, links use <code>&lt;atom:link&gt;</code>. In JSON, links are generally normal attributes, but <code>_url</code> is appended to the field name (which is in the <code>rel</code> attribute in XML). For example
-    <pre>&lt;atom:link rel="<b>description</b>" href="http://example.net/description.html"/&gt;</pre>
+  <li>In XML, links use <code>&lt;link&gt;</code>. In JSON, links are generally normal attributes, but <code>_url</code> is appended to the field name (which is in the <code>rel</code> attribute in XML). For example
+    <pre>&lt;link rel="<b>description</b>" href="http://example.net/description.html"/&gt;</pre>
   becomes
     <pre>"<b>description</b>_url": "http://example.net/description.html"</pre>
   But there are some exceptions:
   <ul>
     <li>Links with <code>rel="self"</code> are named simply <code>url</code> in JSON.</li>
     <li>In the <code>attachments</code> section of events, where links are expected to include several attributes, links are serialized as JSON objects.
-      <pre>&lt;atom:link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" /&gt;</pre>
+      <pre>&lt;link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" /&gt;</pre>
       becomes
       <pre>{
     "type": "application/pdf",
