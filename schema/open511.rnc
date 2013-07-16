@@ -1,0 +1,264 @@
+namespace gml = "http://www.opengis.net/gml"
+namespace local = ""
+
+start =
+	element open511 {
+		attribute xml:base { xsd:anyURI }?,
+		XMLLang?,
+		attribute version { "v0" },
+		(
+			# The discovery page
+			((element jurisdictions {
+				MinimalJurisdiction+
+			},
+			element services {
+				ServiceDefinition+
+			},
+			SelfLink)
+			& ForeignElement*)
+		|
+			(
+			# A resource-list page
+				(RoadEvent* | Area* | ForeignElement*),
+				Pagination,
+				Link+
+			)
+		|
+			(
+			# A single-resource page
+				(RoadEvent | Jurisdiction | JurisdictionGeography | ForeignElement),
+				Link+
+			)
+		)
+	}
+
+
+MinimalJurisdiction = 
+	element jurisdiction {
+		element id { JurisdictionIDType }
+		& element name { FreeTextType }+
+		& SelfLink
+	}
+Jurisdiction = 
+	element jurisdiction {
+		element id { JurisdictionIDType },
+		(
+			element name { FreeTextType }+
+			& element email { EmailType }
+			& element phone { text }?
+			& element description { text }?
+			# FIXME type
+			& element timezone { text }?
+			& element languages {
+				element language { xsd:language }+
+			}?
+			# license, geography, self req'd; description optional
+			& Link+
+			& ForeignElement*
+		)
+	}
+JurisdictionGeography =
+	element geography {
+		(GMLPolygon | GMLMultiPolygon)
+	}
+
+RoadEvent = 
+	element event {
+		XMLLang?,
+		# self, jurisdiction, ...?
+		(Link+
+		& element status { "ACTIVE" | "ARCHIVED" }
+		& element headline { FreeTextType }+
+		& element description { FreeTextType }*
+		& element event_type { "CONSTRUCTION" | "SPECIAL_EVENT" | "INCIDENT" | "WEATHER_CONDITION" | "ROAD_CONDITION"}
+		& element event_subtypes { 
+			element event_subtype { "ACCIDENT" | "SERIOUS_ACCIDENT" | "NUMEROUS_ACCIDENTS" | "STALLED_VEHICLE" | "SPILL" | "OBSTRUCTION" | "MAJOR_HAZARD" | "DEMONSTRATION" | "ROAD_CONSTRUCTION" | "WORK_IN_THE_MEDIAN" | "NARROW_LANES" | "TRAFFIC_ALTERNATING_DIRECTIONS" | "BRIDGE_OPERATIONS" | "BLASTING" | "WORK_ON_UNDERGROUND" | "EMERGENCY_MAINTENANCE" | "SPORTING_EVENT" | "MAJOR_EVENT" | "CONCERT" | "FESTIVAL" | "FIREWORKS" | "PARADE" | "CROWD" | "SEVERE_WEATHER" | "HEAVY_SNOW" | "SNOW" | "ICE_GLAZE" | "HEAVY_FROST" | "ICE_STORM" | "DAMAGING_HAIL" | "THUNDERSTORM" | "HEAVY_DOWNPOUR" | "TORNADO" | "HURRICANE" | "STRONG_WINDS" | "DENSE_FOG" | "FREEZING_FOG" | "ICE_FOG MIST" | "VISIBILITY_REDUCED" | "VISIBILITY_BLOCKED" | "BLOWING_SNOW" | "BLOWING_DUST" | "SANDSTORM" | "INSECT_SWARMS" | "IMPASSABLE" | "ALMOST_IMPASSABLE" | "PASSABLE_WITH_CARE" | "SURFACE_WATER_HAZARD" | "HYDROPLANING_DANGER" | "SLIPPERY" | "MUD" | "LOOSE_GRAVEL" | "OIL_ON_ROADWAY" | "ICE" | "BLACK_ICE" | "WET_ICY_ROAD" | "SLUSH" | "FROZEN_SLUSH" | "SNOW" | "PACKED_SNOW" | "PLOWED_SNOW" | "POWDER_SNOW" | "DEEP_SNOW" }+
+		}?
+		& element severity { "1" | "2" | "3" | "9" }
+		& element certainty { "OBSERVED" | "LIKELY" | "POSSIBLE" | "UNKNOWN"}?
+		& element created { TimestampType }
+		& element updated { TimestampType }
+		& element detour { FreeTextType }*
+		& element geography { AnyGML }
+		& element grouped_events {
+			RelatedLink+
+		}?
+		& element areas {
+			Area+
+		}?
+		& element roads {
+			Road+
+		}?
+		& Schedule
+		& element attachments {
+			VerboseRelatedLink+
+		}?
+		& ForeignElement*)
+	}
+
+Road =
+	element road {
+		element road_name { FreeTextType }+
+		& element from { FreeTextType }*
+		& element to { FreeTextType }*
+		& element direction { "N" | "E" | "W" | "S" | "NW" | "SW" | "NE" | "SE" | "NONE" | "BOTH" }?
+		& element lane_status { xsd:string {pattern = "[10]+"}}?
+		& element impacted_systems {
+			element impacted_system { "ROAD" | "SIDEWALK" | "BIKELANE" | "ON_STREET_PARKING" | "PARKING" }+
+		}?
+		& element restrictions {
+			element restriction {
+				element restriction_type { "SPEED" | "WIDTH" | "HEIGHT" | "WEIGHT" | "AXLE_WEIGHT" },
+				element value { xsd:decimal }
+			}+
+		}?
+		& ForeignElement*
+	}
+Schedule =
+	element schedule {
+		element start_date { xsd:date }
+		& element end_date { xsd:date }?
+		& element days {
+			element day {
+				xsd:string {pattern="[1-7]"}
+			}+
+		}?
+		& element timezone { text }?
+		& element times {
+			element time {
+				element start_time { xsd:time },
+				element end_time { xsd:time }
+			}+
+		}?
+		& element specific_dates {
+			element specific_date {
+				xsd:string {pattern = "[12][0-9]{3}-[01][0-9]-[0-3][0-9]( [0-2][0-9]:[0-6][0-9]:[0-6][0-9]-[0-2][0-9]:[0-6][0-9]:[0-6][0-9])*"}
+			}+
+		}?
+		& ForeignElement*
+	}
+Area =
+	element area {
+		XMLLang?,
+		(element area_id { xsd:integer }
+		& element area_name { FreeTextType }+
+		& SelfLink
+		& ForeignElement*)
+	}
+
+ServiceDefinition = 
+	element service {
+		element service_type { text }
+		& SelfLink
+		& element supported_versions {
+			element supported_version { text }+
+		}?
+	}
+
+
+Link =
+	element link {
+		attribute rel { text },
+		attribute href { xsd:anyURI }
+	}
+SelfLink =
+	element link {
+		attribute rel { "self" },
+		attribute href { xsd:anyURI }
+	}
+UpLink = 
+	element link {
+		attribute rel { "up" },
+		attribute href { xsd:anyURI }
+	}
+RelatedLink =
+	element link {
+		attribute rel { "related" },
+		attribute href { xsd:anyURI }
+	}
+VerboseRelatedLink = 
+	element link {
+		attribute rel { "related" },
+		attribute href { xsd:anyURI },
+		attribute title { text }?,
+		attribute type { text }?,
+		attribute length { xsd:integer }?,
+		attribute hreflang { xsd:language }?
+	}
+Pagination = 
+	element pagination {
+		element offset { xsd:integer }
+		& Link*
+	}
+
+
+AnyGML = (GMLPoint | GMLMultiPoint | GMLLineString | GMLMultiLineString | GMLPolygon | GMLMultiPolygon)
+srsName = attribute srsName { "EPSG:4326" }
+GMLCoord = xsd:string {pattern = "-?[0-9]+\.[0-9]+,-?[0-9]+\.[0-9]+"}
+GMLCoordList = list { GMLCoord+ }
+GMLPoint = element gml:Point {
+	srsName,
+	element gml:coordinates { GMLCoord }
+}
+GMLMultiPoint = element gml:MultiPoint {
+	srsName,
+	element gml:pointMember {
+		element gml:Point {
+			element gml:coordinates { GMLCoord }
+		}
+	}+
+}
+GMLLineString = element gml:LineString {
+	srsName,
+	element gml:coordinates { GMLCoordList }
+}
+GMLMultiLineString = element gml:MultiLineString {
+	srsName,
+	element gml:lineStringMember {
+		element gml:LineString {
+			element gml:coordinates { GMLCoordList }
+		}
+	}+
+}
+GMLOuterBoundary = 	
+	element gml:outerBoundaryIs {
+		element gml:LinearRing {
+			element gml:coordinates { GMLCoordList }
+		}
+	}
+GMLInnerBoundary = 
+	element gml:innerBoundaryIs {
+		element gml:LinearRing {
+			element gml:coordinates { GMLCoordList }
+		}
+	}
+GMLPolygon = element gml:Polygon {
+	srsName,
+	GMLOuterBoundary+,
+	GMLInnerBoundary*
+}
+GMLMultiPolygon = element gml:MultiPolygon {
+	srsName,
+	element gml:polygonMember {
+		element gml:Polygon {
+			GMLOuterBoundary,
+			GMLInnerBoundary*
+		}
+	}+
+}
+
+ForeignElement = 
+	element * - (local:*) {
+		(attribute * { text }
+		| text
+		| ForeignElement)*
+	}
+
+
+JurisdictionIDType = xsd:string {pattern = "[a-z][a-z0-9\-]*\.[a-z0-9.\-]{2,}"}
+TimestampType = xsd:dateTime {pattern = ".+T.+(Z|[+\-].+)"}
+EmailType = xsd:string {pattern = "([a-zA-Z0-9_\-])([a-zA-Z0-9_\-\.]*)@(\[((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}|((([a-zA-Z0-9\-]+)\.)+))([a-zA-Z]{2,}|(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\])"}
+XMLLang = attribute xml:lang { xsd:language }
+FreeTextType =
+	XMLLang?,
+	text
