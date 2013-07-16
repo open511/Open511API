@@ -140,8 +140,8 @@ Schedule =
 Area =
 	element area {
 		XMLLang?,
-		(element area_id { xsd:integer }
-		& element area_name { FreeTextType }+
+		(element id { xsd:integer }
+		& element name { FreeTextType }+
 		& SelfLink
 		& ForeignElement*)
 	}

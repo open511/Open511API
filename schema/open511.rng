@@ -459,11 +459,11 @@
         <ref name="XMLLang"/>
       </optional>
       <interleave>
-        <element name="area_id">
+        <element name="id">
           <data type="integer"/>
         </element>
         <oneOrMore>
-          <element name="area_name">
+          <element name="name">
             <ref name="FreeTextType"/>
           </element>
         </oneOrMore>
