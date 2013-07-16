@@ -72,7 +72,12 @@ event :
     - name: jurisdiction
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Mandatory
-      desc: <p>Link to the jurisdiction which published the event.</p> 
+      desc: <p>Link to the jurisdiction which published the event.</p>
+
+    - name: id
+      type: String
+      mandatory: Mandatory
+      desc: <p>A globally unique ID for the event, following the format <code>jurisdiction-id/event-id</code>. For example, <code>my.city.gov/8c3f2</code>.</p><p>The first segment of the event ID is the <a href="jurisdiction.html">jurisdiction</a> ID. The second segment is a string ID that must be unique within its jurisdiction. It can contain the characters <code>a-zA-Z0-9_.-</code>. The two segments are separated with a <code>/</code>.</p><p>The event's <code>self</code> link is of course itself a globally unique ID, and it is a suggested practice to use the event ID in the event URL, but a separate ID field is included for user-friendliness.</p>
 
     - name: status
       type: Enum
@@ -344,8 +349,9 @@ restriction :
 &gt;
   &lt;event&gt;
     &lt;status&gt;ACTIVE&lt;/status&gt; 
-    &lt;link rel="self" href="/events/23948/" /&gt;
-    &lt;link rel="jurisdiction" href="http://my.city.gov/open511/jurisdiction/my-city/" /&gt;
+    &lt;link rel="self" href="/events/my.city.gov/23948/" /&gt;
+    &lt;link rel="jurisdiction" href="http://my.city.gov/open511/jurisdiction/my.city.gov/" /&gt;
+    &lt;id&gt;my.city.gov/23948&lt;/id&gt;
     &lt;headline&gt;Urgent rebuilding of sewer pipes&lt;/headline&gt; 
     &lt;headline xml:lang="fr"&gt;Réfection d'urgence d'une conduite d'égout&lt;/headline&gt; 
     &lt;description&gt;The City inform you that broadway street will be closed between 1st and 4th avenue during the month of april due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.&lt;/description&gt;
@@ -359,8 +365,8 @@ restriction :
     &lt;created&gt;2012-05-23T20:33:10Z&lt;/created&gt;
     &lt;updated&gt;2012-05-24T10:00:10Z&lt;/updated&gt;
     &lt;grouped_events&gt;
-        &lt;link rel="related" href="/events/345832" /&gt; 
-        &lt;link rel="related" href="/events/433452" /&gt;         
+        &lt;link rel="related" href="/events/my.city.gov/345832" /&gt; 
+        &lt;link rel="related" href="/events/my.city.gov/433452" /&gt;         
     &lt;/grouped_events&gt;
     &lt;detour&gt;Take Sherbrooke travelling east, and Wellington travelling west.&lt;/detour&gt;
     &lt;areas&gt;
@@ -440,8 +446,9 @@ restriction :
     },
     "content": [
         {
-            "url": "/events/mycity.gov/7894/",
-            "jurisdiction": "http://my.city.gov/open511/jurisdictions/mycity.gov/",
+            "url": "/events/my.city.gov/23948/",
+            "jurisdiction": "http://my.city.gov/open511/jurisdictions/my.city.gov/",
+            "id": "my.city.gov/23948"
             "headline": "Urgent rebuilding of sewer pipes",
             "status": "ACTIVE",
             "updated": "2012-09-19T17:49:16Z",
@@ -452,8 +459,8 @@ restriction :
             "severity": "2",
             "certainty": "OBSERVED",
             "grouped_events": [
-              "/events/mycity.gov/937272",
-              "/events/mycity.gov/334542",
+              "/events/my.city.gov/937272",
+              "/events/my.city.gov/334542",
             ],
             "detour": "Take Sherbrooke travelling East, and Wellington travelling West.",
             "areas": [
@@ -513,9 +520,6 @@ restriction :
                     "title": "Detour map"
                 }
             ]
-        },
-        {
-            "url": "/events/7894/"
         }
     ],
     "pagination": {

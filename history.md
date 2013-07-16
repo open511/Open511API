@@ -20,5 +20,5 @@ May 13th, 2013 | <ul><li>Rename region into area</li></ul> |
 May 22nd, 2013 | <ul><li>Release the specification as version 0.9</li></ul> |
 June 5th, 2013 | <ul><li>Allow multi <code>event_subtype</code> values in an event</li></ul> |
 June 12th, 2013 | <ul><li>Remove <code>limit</code> parameter from pagination output</li><li>Rename <code>days_of_week</code> to <code>days</code>, and use a nested-element structure rather than a space-separated list, for consistency and easier serialization rules</li><li>Description field is optional on event</li><li>Clarify that <code>supported_versions</code> is a subelement of <code>service</code> on discovery resource</li></ul> |
-July 16th, 2013 | <ul><li>Bring <code>link</code> tag into main namespace</li><li>Rename <code>area_name</code> and <code>area_id</code> tags to <code>name</code> and <code>id</code></li></ul> |
+July 16th, 2013 | <ul><li>Bring <code>link</code> tag into main namespace</li><li>Rename <code>area_name</code> and <code>area_id</code> tags to <code>name</code> and <code>id</code></li><li>Add <code>id</code> to event</li></ul> |
 {#changelog}

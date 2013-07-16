@@ -148,6 +148,9 @@
         <oneOrMore>
           <ref name="Link"/>
         </oneOrMore>
+        <element name="id">
+          <ref name="EventIDType"/>
+        </element>
         <element name="status">
           <choice>
             <value>ACTIVE</value>
@@ -705,6 +708,11 @@
   <define name="JurisdictionIDType">
     <data type="string">
       <param name="pattern">[a-z][a-z0-9\-]*\.[a-z0-9.\-]{2,}</param>
+    </data>
+  </define>
+  <define name="EventIDType">
+    <data type="string">
+      <param name="pattern">[a-z][a-z0-9\-]*\.[a-z0-9\.\-]{2,}/[a-zA-Z0-9_\.\-]+</param>
     </data>
   </define>
   <define name="TimestampType">
