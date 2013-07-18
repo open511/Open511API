@@ -14,9 +14,9 @@ title: Technical Guidelines
   <li><a id="utf8"></a><b>Character encoding</b> must be in UTF-8</li>
   <li><a id="datetime"></a><b>DateTime and Date </b> fields will follow the ISO 8601 subset as per the <a href="http://www.w3.org/TR/NOTE-datetime">W3c note</a> except when specified otherwise</li>
   <li><a id="timezone"></a>When a <b>time zone</b> has to be specified explicitly (in a <code>timezone</code> field, rather than as part of an ISO timestamp), it must use a time zone name from the <a href="http://en.wikipedia.org/wiki/Tz_database">TZ Database</a></li>
-  <li><a id="geospatial"></a><b>Geospatial data</b> will follow existing standards:
+  <li><a id="geospatial"></a><b>Geospatial data</b> will follow existing standards, using the standard EPSG:4326 (latitude/longitude) spatial reference system:
     <ul>
-      <li>In XML, use <a href="http://en.wikipedia.org/wiki/Geography_Markup_Language">GML</a> with the EPSG:4326 (latitude/longitude) spatial reference system. <code><a href="https://github.com/opennorth/Open511API/issues/36">Issue 36</a></code></li>
+      <li>In XML, use a <a href="#xmlgeo">subset of GML v2</a></li>
       <li>In JSON, use <a href="http://www.geojson.org/">GeoJSON</a></li>
     </ul>
   </li>
@@ -124,6 +124,55 @@ title: Technical Guidelines
   &lt;/open511&gt;</pre>
 </li>
 
+</ul>
+
+<p>&nbsp;</p>
+<a id="xmlgeo"></a>
+<h4>XML geographies</h4>
+
+<p>Geospatial fields use <a href="http://en.wikipedia.org/wiki/Geography_Markup_Language">GML</a>. As this is a complex format, we use a small subset of GML v2.</p>
+
+<p>All GML geometries must include the <code>srsName="EPSG:4326"</code> attribute. Coordinates are expressed using the <code>gml:coordinates</code> tag. Coordinates must be in <code>longitude,latitude</code> order, since despite great uncertainty over this topic x,y order remains more widely supported in software.</p>
+
+<p>Open511 supports the following geometry structures:</p>
+
+<ul>
+  <li><pre><code>&lt;gml:Point srsName="EPSG:4326"&gt;
+  &lt;gml:coordinates&gt;-73.5877,45.5261&lt;/gml:coordinates&gt;
+&lt;/gml:Point&gt;</code></pre></li>
+
+<li><pre><code>&lt;gml:LineString srsName="EPSG:4326"&gt;
+  &lt;gml:coordinates&gt;-73.592,45.523 -73.59,45.524 -73.592,45.523&lt;/gml:coordinates&gt;
+&lt;/gml:LineString&gt;</code></pre></li>
+
+<li><pre><code>&lt;gml:Polygon srsName="EPSG:4326"&gt;
+  &lt;gml:outerBoundaryIs&gt;
+    &lt;gml:LinearRing&gt;
+      &lt;gml:coordinates&gt;-73,40 -73,41 -74,41 -74,40 -73,40&lt;/gml:coordinates&gt;
+    &lt;/gml:LinearRing&gt;
+  &lt;/gml:outerBoundaryIs&gt;
+  &lt;gml:innerBoundaryIs&gt;
+    &lt;gml:LinearRing&gt;
+      &lt;gml:coordinates&gt;-73.2,40.2 -73.2,40.8 -73.8,40.8 -73.8,40.2 -73.2,40.2&lt;/gml:coordinates&gt;
+    &lt;/gml:LinearRing&gt;
+  &lt;/gml:innerBoundaryIs&gt;
+&lt;/gml:Polygon&gt;
+&lt;!-- note that most polygons will have only an outer boundary --&gt;</code></pre></li>
+
+<li><pre><code>&lt;gml:MultiPoint srsName="EPSG:4326"&gt;
+  &lt;gml:pointMember&gt;
+    &lt;gml:Point&gt;
+      &lt;gml:coordinates&gt;-73.5877,45.5261&lt;/gml:coordinates&gt;
+    &lt;/gml:Point&gt;
+  &lt;/gml:pointMember&gt;
+  &lt;gml:pointMember&gt;
+    &lt;gml:Point&gt;
+      &lt;gml:coordinates&gt;-73.6,45.4&lt;/gml:coordinates&gt;
+    &lt;/gml:Point&gt;
+  &lt;/gml:pointMember&gt;
+&lt;/gml:MultiPoint&gt;</code></pre></li>
+
+<li>MultiLineString and MultiPolygon geometries are similar, with <code>gml:lineStringMember</code> and <code>gml:polygonMember</code> tags</li>
 </ul>
 
 <p>&nbsp;</p>
