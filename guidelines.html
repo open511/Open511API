@@ -13,7 +13,7 @@ title: Technical Guidelines
 <ul>
   <li><a id="utf8"></a><b>Character encoding</b> must be in UTF-8</li>
   <li><a id="datetime"></a><b>DateTime and Date </b> fields will follow the ISO 8601 subset as per the <a href="http://www.w3.org/TR/NOTE-datetime">W3c note</a> except when specified otherwise</li>
-  <li><a id="timezone"></a>When a <b>time zone</b> has to be specified explicitly (in an independent field), it should use a time zone name from the <a href="http://en.wikipedia.org/wiki/Tz_database">TZ Database</a></li>
+  <li><a id="timezone"></a>When a <b>time zone</b> has to be specified explicitly (in a <code>timezone</code> field, rather than as part of an ISO timestamp), it must use a time zone name from the <a href="http://en.wikipedia.org/wiki/Tz_database">TZ Database</a></li>
   <li><a id="geospatial"></a><b>Geospatial data</b> will follow existing standards:
     <ul>
       <li>In XML, use <a href="http://en.wikipedia.org/wiki/Geography_Markup_Language">GML</a> with the EPSG:4326 (latitude/longitude) spatial reference system. <code><a href="https://github.com/opennorth/Open511API/issues/36">Issue 36</a></code></li>
@@ -30,7 +30,7 @@ title: Technical Guidelines
 <a id="rest"></a>
 <h3>REST</h3>
 
-<p>Like most open data APIs, Open511 will follow the <a href="http://www.restapitutorial.com/lessons/whatisrest.html">REST design</a>. REST does not provide fixed constraints but best practices that will be used by the API:</p>
+<p>Like many open data APIs, Open511 will follow the <a href="http://www.restapitutorial.com/lessons/whatisrest.html">REST design</a>. REST does not provide fixed constraints but best practices that will be used by the API:</p>
 <ul>
   <li>Uniform interface: use of HTTP to provide uniform methods and content negotiation features</li>
   <li>Stateless: each request is independent from the previous one which simplifies implementation for both server and client</li>
@@ -43,7 +43,7 @@ title: Technical Guidelines
 <a id="format"></a>
 <h3>Format and version negotation</h3>
 
-<p>Open511 supports two serialization formats (XML and JSON), and can also deals with future versions of the Open511 format. Format and version negotiation is done via content types.</p>
+<p>Open511 supports two serialization formats (XML and JSON), and includes mechanisms for dealing with future versions of the Open511 format. Format and version negotiation is done via content types.</p>
 
 <p>Versions are each labelled with a string. Currently, <code>v0</code> is the only supported version of Open511.</p>
 
@@ -67,7 +67,7 @@ title: Technical Guidelines
 
 <p>Implementations are free to determine their default serialization.</p>
 
-<p>Responses should set the <code>Content-Type</code> header to the appropriate generic header&colon; <code>application/xml</code> or <code>application/json</code>. Responses should also set the <code>Open511-Media-Type</code> header to the vendor-specific, versioned content type of the response, e.g. <code>application/vnd.open511.v0+json</code>.</p>
+<p>Responses must set the <code>Content-Type</code> header to the appropriate generic header&colon; <code>application/xml</code> or <code>application/json</code>. Responses must also set the <code>Open511-Media-Type</code> header to the vendor-specific, versioned content type of the response, e.g. <code>application/vnd.open511.v0+json</code>.</p>
 
 <p>Versions are also indicated within the response content; see the XML and JSON sections below for details.</p>
 
@@ -206,8 +206,8 @@ title: Technical Guidelines
 <p>Since the API will likely be used by mobile applications, bandwidth optimization is important. Servers should support the following features:</p>
 
 <ul>
-  <li>Conditional request with <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.19">ETag</a></code> (for the server) and <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26">If-None-Match</a></code> (for the client) HTTP headers. See <a href="http://developer.yahoo.com/performance/rules.html#etags">Configure ETags</a> and <a href="http://en.wikipedia.org/wiki/HTTP_ETag">Wikipedia</a>.</li>
-  <li>Compression with HTTP header <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3">Accept-Encoding</a></code> and <code>Content-Encoding</code> is strongly encouraged</li>
+  <li>Conditional requests, sending <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.19">ETag</a></code> in responses and accepting <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26">If-None-Match</a></code> in requests. See <a href="http://developer.yahoo.com/performance/rules.html#etags">Configure ETags</a> and <a href="http://en.wikipedia.org/wiki/HTTP_ETag">Wikipedia</a>.</li>
+  <li>GZip compression via <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3">Accept-Encoding</a></code> and <code>Content-Encoding</code> is strongly encouraged</li>
 </ul>
 
 <a id="auth"></a>
@@ -239,7 +239,7 @@ title: Technical Guidelines
 <a id="aggreg"></a>
 <h3>Aggregation and Multi-jurisdiction Endpoint</h3>
 
-<p>The Open511 API is designed to support multi-jurisdiction endpoints (an endpoint that provides data for several jurisdictions) and aggregation of the content (an endpoint that gathers information from other endpoints). The last feature is meant to simplify the work of clients. For example a region can setup an aggregator for all the jurisdictions of the region, or a third party can build a service that serves a province or a country.</p>
+<p>The Open511 API is designed to support multi-jurisdiction endpoints (an endpoint that provides data for several jurisdictions) and aggregation of the content (an endpoint that gathers information from other endpoints). The last feature is meant to simplify the work of clients. For example, a region can setup an aggregator for all the jurisdictions of the region, or a third party can build a service that serves a province or a country.</p>
 
 <p>Aggregators should not accept any client requests to modify aggregated data. Endpoints for aggregated data should accept only GET requests.</p>
 
@@ -248,10 +248,10 @@ title: Technical Guidelines
 <a id="cross"></a>
 <h3>Cross domain requests</h3>
 
-<p>In most cases, Open511 API implementations will have to serve cross-domain requests, when the client is not hosted on the server of the endpoint. As a consequence, the specification provides some rules for cross-domain request. Open511 supports both current methods for cross-domain requests:</p>
+<p>Open511 APIs must support cross-domain requests, via both:</p>
 <ul>
-  <li><a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a>: provides a well-known cross-domain request feature working on all browsers. In order to provide an easy interoperability, the callback function should be named <code>callback</code>.<br/>Example: <code>...?callback=parameter</code></li>
-  <li><a href="http://www.w3.org/TR/cors/">CORS</a>: offers a more standardized way of implementing cross-domain requests. Open511 responses should include the following header:<br><code>Access-Control-Allow-Origin: *</code></li>
+  <li><a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a>, using a parameter named <code>callback</code>.<br/>Example: <code>...?callback=func_name</code></li>
+  <li><a href="http://www.w3.org/TR/cors/">CORS</a>, by including an <code>Access-Control-Allow-Origin: *</code> header in all responses to GET queries</li>
 </ul>
 
 <a id="custom"></a>
