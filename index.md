@@ -34,7 +34,7 @@ Why not version 1.0? We expect that while developing the first implementations w
 
 Who will be the first implementors? [MTC](http://511.org/) and [OpenNorth](https://github.com/opennorth/open511) will work in parallel to build the two first implementations. Any other organization can start implementing this specification but it should be done in collaboration with MTC and OpenNorth since some minor changes could still occur. If your organization wants to build software based on open511, please join the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511).
 
-It may be helpful to [browse](http://dev.open511.ca/) the output of Open North's in-progress implementation of this API.
+It may be helpful to [browse](http://demo.open511.org/) the output of Open North's in-progress implementation of this API.
 
 ## Roadmap and Timeline {#timeline}
 
