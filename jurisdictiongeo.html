@@ -75,7 +75,11 @@ $(function() {
 &gt;  
   &lt;geography&gt;
     &lt;gml:Polygon srsName="EPSG:4326"&gt;
-      &lt;gml:coordinates&gt;-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40 -71.17,47.33&lt;/gml:coordinates&gt;
+      &lt;gml:outerBoundaryIs&gt;
+        &lt;gml:LinearRing&gt;
+          &lt;gml:coordinates&gt;-73.515580304999958,45.743558682000106 -73.516801182999984,45.744177048000076 -73.516754262999996,45.745199120000088 -73.516741493999973,45.745477517000076 -73.51918957800001,45.746719115000111 -73.519343021999987,45.748003618000077 -73.520130775999974,45.748595939000076 -73.520120826999971,45.749015964000108 -73.52193461600001,45.750027519000106 -73.529479503999994,45.754234632000113 -73.527583232999973,45.777799543000107 -73.515580304999958,45.743558682000106&lt;/gml:coordinates&gt;
+        &lt;/gml:LinearRing&gt;
+      &lt;/gml:outerBoundaryIs&gt;
     &lt;/gml:Polygon&gt;
   &lt;/geography&gt;
   &lt;link rel="self" href="/jurisdiction/mycity.gov/geography/" /&gt;
@@ -88,10 +92,10 @@ $(function() {
 {
   "geography" :  {
       "type": "Polygon",
-      "coordinates": [
+      "coordinates": [ 
           [ [71.17,47.33], [-71.15,47.36], [-71.10,47.35],
               [-71.20,47.40], [-71.17,47.33] ]
-      ]
+      ] 
     },
   "meta": {
       "version": "v0",
