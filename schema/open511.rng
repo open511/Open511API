@@ -251,10 +251,10 @@
         </optional>
         <element name="severity">
           <choice>
-            <value>1</value>
-            <value>2</value>
-            <value>3</value>
-            <value>9</value>
+            <value>MINOR</value>
+            <value>MODERATE</value>
+            <value>MAJOR</value>
+            <value>UNKNOWN</value>
           </choice>
         </element>
         <optional>
