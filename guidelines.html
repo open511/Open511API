@@ -262,11 +262,11 @@ title: Technical Guidelines
 <a id="auth"></a>
 <h3>Authentication and Encryption Mechanisms</h3>
 
-<p>From an open data point of view, it is strongly encouraged that implementors make their API available for unauthenticated read access. For write access (e.g post <a href="report.html">reports</a>) or implementors wishing to have authentication features, this section presents how to manage it.</p>
+<p>In the spirit of open data, we encourage implementors to make their API available for unauthenticated read access. For write access (e.g post <a href="report.html">reports</a>) or implementors who need to enforce authentication on GET requests, this section provides guidelines.</p>
 
-<p>Encryption should be managed by the regular HTTP layer. The only encryption accepted is <a href="https://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a>.</p>
+<p>For authentication, users must use API keys (tokens). That token must be accepted via an <code>api_key</code> querystring parameter, because that&rsquo;s sometimes the only mechanism that works in-browser. However, because querystring authentication is awkward with hypermedia APIs like Open511 (links to other resources don&rsquo;t actually work until the client appends authentication paramteres to the URL), implementations should also accept <a href="http://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic authentication</a>, where the API key is provided as the username and the password is left blank.</p>
 
-<p>For authentication, Open511 will work like many other APIs with an API key to be passed in a URL parameter <code>api_key</code>. When such authentication is implemented, it is strongly recommended to enable SSL/HTTPS in order to protect the API key.</p>
+<p>Encryption should be managed by the regular HTTP layer. The only encryption accepted is <a href="https://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a>. Implementations using authentication are encouraged to enable (and perhaps require) HTTPS in order to protect API keys.</p>
 
 <a id="lang"></a>
 <h3>Response Language</h3>
