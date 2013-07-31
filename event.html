@@ -20,7 +20,7 @@ parameters :
 
     - name : severity
       required : optional
-      description : <p>Although it is possible to query events for a given severity, it is also possible to query all events below level 2 with <code>severity=&lt;2</code> or above or equal to level 2 with <code>severity=&gt;=2</code>, which is URL-encoded as <code>severity=%3E%3D2</code>. The operators permitted are <code>&lt; &lt;= &gt; &gt;=</code>.</p>
+      description : <p>Filter by the value of the severity field. OR queries are possible via a comma-separated list&colon; <code>?severity=MINOR,MODERATE</code>.</p>
     
     - name : bbox
       required: optional
@@ -36,15 +36,15 @@ parameters :
 
     - name : jurisdiction
       required : optional
-      description : <p>The ID or URL of a jurisdiction, in order to show only events from a given jurisdiction.</p><p>Example&colon; <code>jurisdiction=mycity.gov</code>.</p>      
+      description : <p>The ID or URL of a jurisdiction, in order to show only events from a given jurisdiction. Use a comma-separated list to make OR queries.</p><p>Example&colon; <code>jurisdiction=mycity.gov</code>.</p>      
 
     - name : event_type
       required : optional
-      description : <p>Filter events using the <code>event_type</code> value list.</p>      
+      description : <p>Filter events using the <code>event_type</code> value list. Use a comma-separated list to make OR queries.</p>      
   
     - name : event_subtype
       required : optional
-      description : <p>Filter events using the <code>event_subtype</code> value list.</p>   
+      description : <p>Filter events using the <code>event_subtype</code> value list. Use a comma-separated list to make OR queries.</p>   
 
     - name : created
       required : optional
@@ -56,11 +56,11 @@ parameters :
 
     - name : road_name
       required : optional
-      description : <p>Filter events based on the name of the road affected by the event.</p> 
+      description : <p>Filter events based on the name of the road affected by the event. Use a comma-separated list to make OR queries.</p> 
 
     - name : area_id
       required : optional
-      description : <p>Filter events based on the id of an <a href="area.html">area</a>, based on the area resource (if available).</p> 
+      description : <p>Filter events based on the id of an <a href="area.html">area</a>, based on the area resource (if available). Use a comma-separated list to make OR queries.</p> 
 
 
 event : 
@@ -97,7 +97,7 @@ event :
     - name: severity
       type: Enum
       mandatory: Mandatory
-      desc: <p>Severity of the event. Value list&colon;<pre><ul><li><code>1</code>&colon; Minor, the event has very limited impact on the traffic.</li><li><code>2</code>&colon; Moderate, the event will have a visible impact on the traffic but should not create significant delay and if there is a delay, it should be small and local.</li><li><code>3</code>&colon; Major, the event will have a significant impact on the traffic, probably on a large scale.</li><li><code>9</code>&colon; Undefined. The event has a unknown impact, for example an accident that have been declared without any precise description.</li></ul></pre></p>
+      desc: <p>Severity of the event. Value list&colon;<pre><ul><li><code>MINOR</code>&colon; the event has very limited impact on traffic.</li><li><code>MODERATE</code>&colon; the event will have a visible impact on traffic but should not create significant delay; if there is a delay, it should be small and local.</li><li><code>MAJOR</code>&colon; the event will have a significant impact on traffic, probably on a large scale.</li><li><code>UNKNOWN</code>&colon; the impact is unknown, for example in the case of an accident that has been recorded without any precise description.</li></ul></pre></p>
 
     - name: geography
       type: <a href="guidelines.html#geospatial">Geospatial</a>
@@ -360,7 +360,7 @@ restriction :
     &lt;event_subtypes&gt;
       &lt;event_subtype&gt;EMERGENCY_MAINTENANCE&lt;/event_subtype&gt;
     &lt;/event_subtypes&gt;
-    &lt;severity&gt;2&lt;/severity&gt; 
+    &lt;severity&gt;MODERATE&lt;/severity&gt; 
     &lt;certainty&gt;OBSERVED&lt;/certainty&gt; 
     &lt;created&gt;2012-05-23T20:33:10Z&lt;/created&gt;
     &lt;updated&gt;2012-05-24T10:00:10Z&lt;/updated&gt;
@@ -456,7 +456,7 @@ restriction :
             "description": "Broadway Street will be closed between 1st and 4th avenue during the month of April due to an emergency sewer rebuilding. Local traffic will be permitted on one eastbound lane.",
             "event_type": "CONSTRUCTION",
             "event_subype": "EMERGENCY_MAINTENANCE",
-            "severity": "2",
+            "severity": "MODERATE",
             "certainty": "OBSERVED",
             "grouped_events": [
               "/events/my.city.gov/937272",
