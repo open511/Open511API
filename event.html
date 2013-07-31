@@ -60,7 +60,11 @@ parameters :
 
     - name : area_id
       required : optional
-      description : <p>Filter events based on the id of an <a href="area.html">area</a>, based on the area resource (if available). Use a comma-separated list to make OR queries.</p> 
+      description : <p>Filter events based on the id of an <a href="area.html">area</a>, based on the area resource (if available). Use a comma-separated list to make OR queries.</p>
+
+    - name : limit
+      required : optional 
+      description : <p>The maximum number of events to return in a single paginated response.</p><p>The default value for this (i.e. how many items to include on a page if no limit paramter is provided) is up to individual implementors. Likewise, implmentors may want to enforce a maximum value for this parameter in order to conserve server resource, so that a <code>?limit=10000</code> query would still return only 500 events per page. However, if such a maximum is implemented, it must not be lower than 500.</p>
 
 
 event : 
