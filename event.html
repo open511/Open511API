@@ -264,7 +264,7 @@ schedule :
     - name: <p>&mdash; specific_date</p>
       type: Custom time format
       mandatory: Optional
-      desc: <p>Text string containing the affected date, the start hour and the end hour with the follow format&colon; <code>YYYY-MM-DD HH&colon;mm&colon;ss-HH&colon;mm&colon;ss</code>. If there are multiple disjoint periods on that day, more than one start-end period can be included&colon; <code>YYYY-MM-DD HH&colon;mm&colon;ss-HH&colon;mm&colon;ss HH&colon;mm&colon;ss-HH&colon;mm&colon;ss</code>. If the event is not active that day, no time should be provided&colon; <code>YYYY-MM-DD</p></p>
+      desc: <p>Text string containing the affected date, the start hour and the end hour with the follow format&colon; <code>YYYY-MM-DD HH&colon;mm-HH&colon;mm</code>. If there are multiple disjoint periods on that day, more than one start-end period can be included&colon; <code>YYYY-MM-DD HH&colon;mm-HH&colon;mm HH&colon;mm-HH&colon;mm</code>. If the event is not active that day, no time should be provided&colon; <code>YYYY-MM-DD</p></p>
 
 
 time :
@@ -276,12 +276,12 @@ time :
     - name: <p>&mdash; start_time</p>
       type: <a href="guidelines.html#datetime">Time</a>
       mandatory: Mandatory in each <code>time</code> element
-      desc: <p>Start time of the event. Valid for each day on which the event is active.</p>
+      desc: <p>Start time of the event, as <code>HH&colon;mm</code>, e.g. <code>13&colon;00</code>. Valid for each day on which the event is active.</p>
 
     - name: <p>&mdash; end_time</p>
       type: <a href="guidelines.html#datetime">Time</a>
       mandatory: Mandatory in each <code>time</code> element
-      desc: <p>End time of the event. Valid for each day on which the event is active.</p>
+      desc: <p>End time of the event, as <code>HH&colon;mm</code>, e.g. <code>17&colon;30</code> Valid for each day on which the event is active.</p>
 
 restriction :
     - name: restriction_type

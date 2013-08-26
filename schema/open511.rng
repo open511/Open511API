@@ -444,7 +444,7 @@
             <oneOrMore>
               <element name="specific_date">
                 <data type="string">
-                  <param name="pattern">[12][0-9]{3}-[01][0-9]-[0-3][0-9]( [0-2][0-9]:[0-6][0-9]:[0-6][0-9]-[0-2][0-9]:[0-6][0-9]:[0-6][0-9])*</param>
+                  <param name="pattern">[12][0-9]{3}-[01][0-9]-[0-3][0-9]( [0-2][0-9]:[0-6][0-9]-[0-2][0-9]:[0-6][0-9])*</param>
                 </data>
               </element>
             </oneOrMore>
