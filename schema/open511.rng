@@ -302,7 +302,16 @@
             </oneOrMore>
           </element>
         </optional>
-        <ref name="Schedule"/>
+        <optional>
+          <element name="timezone">
+            <text/>
+          </element>
+        </optional>
+        <element name="schedules">
+          <oneOrMore>
+            <ref name="Schedule"/>
+          </oneOrMore>
+        </element>
         <optional>
           <element name="attachments">
             <oneOrMore>
@@ -400,64 +409,58 @@
   </define>
   <define name="Schedule">
     <element name="schedule">
-      <interleave>
-        <element name="start_date">
-          <data type="date"/>
-        </element>
-        <optional>
-          <element name="end_date">
+      <choice>
+        <interleave>
+          <element name="start_date">
             <data type="date"/>
           </element>
-        </optional>
-        <optional>
-          <element name="days">
-            <oneOrMore>
-              <element name="day">
-                <data type="string">
-                  <param name="pattern">[1-7]</param>
-                </data>
-              </element>
-            </oneOrMore>
-          </element>
-        </optional>
-        <optional>
-          <element name="timezone">
-            <text/>
-          </element>
-        </optional>
-        <optional>
-          <element name="times">
-            <oneOrMore>
-              <element name="time">
-                <element name="start_time">
+          <optional>
+            <element name="end_date">
+              <data type="date"/>
+            </element>
+          </optional>
+          <optional>
+            <element name="days">
+              <oneOrMore>
+                <element name="day">
                   <data type="string">
-                    <param name="pattern">[0-2][0-9]:[0-5][0-9]</param>
+                    <param name="pattern">[1-7]</param>
                   </data>
                 </element>
-                <element name="end_time">
-                  <data type="string">
-                    <param name="pattern">[0-2][0-9]:[0-5][0-9]</param>
-                  </data>
-                </element>
-              </element>
-            </oneOrMore>
-          </element>
-        </optional>
-        <optional>
-          <element name="specific_dates">
-            <oneOrMore>
-              <element name="specific_date">
+              </oneOrMore>
+            </element>
+          </optional>
+          <optional>
+            <interleave>
+              <element name="start_time">
                 <data type="string">
-                  <param name="pattern">[12][0-9]{3}-[01][0-9]-[0-3][0-9]( [0-2][0-9]:[0-5][0-9]-[0-2][0-9]:[0-5][0-9])*</param>
+                  <param name="pattern">[0-2][0-9]:[0-5][0-9]</param>
                 </data>
               </element>
-            </oneOrMore>
-          </element>
-        </optional>
-        <zeroOrMore>
-          <ref name="ForeignElement"/>
-        </zeroOrMore>
-      </interleave>
+              <element name="end_time">
+                <data type="string">
+                  <param name="pattern">[0-2][0-9]:[0-5][0-9]</param>
+                </data>
+              </element>
+            </interleave>
+          </optional>
+          <zeroOrMore>
+            <ref name="ForeignElement"/>
+          </zeroOrMore>
+        </interleave>
+        <ref name="SpecificDates"/>
+      </choice>
+    </element>
+  </define>
+  <define name="SpecificDates">
+    <element name="specific_dates">
+      <oneOrMore>
+        <element name="specific_date">
+          <data type="string">
+            <param name="pattern">[12][0-9]{3}-[01][0-9]-[0-3][0-9]( [0-2][0-9]:[0-5][0-9]-[0-2][0-9]:[0-5][0-9])*</param>
+          </data>
+        </element>
+      </oneOrMore>
     </element>
   </define>
   <define name="Area">
