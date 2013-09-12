@@ -48,23 +48,23 @@ parameters :
 
     - name : created
       required : optional
-      description : <p>Filter events based on the creation date and time. This filter will mainly be used with a greater than or less than filter <code>created=&gt;2013-05-10T12&colon;00Z</code>. The operators permitted are <code>&lt; &lt;= &gt; &gt;=</code>.</p>   
+      description : <p>Filter events based on the creation date and time.</p><p>This parameter can (and generally will) be preceded with one of the following operators&colon; <code>&lt; &lt;= &gt; &gt;=</code>. These allow searches for events created before or after a supplied time, e.g. <code>created=&gt;2013-05-10T12&colon;00Z</code>.</p>   
 
     - name : updated
       required : optional
-      description : <p>Filter events based on the last update timestamp. The operators permitted are <code>&lt; &lt;= &gt; &gt;=</code>.</p><p>Note&colon; by default, the servers should only return <code>ACTIVE</code> events. When using the <code>updated</code> filter, in order to get events going from <code>ACTIVE</code> to <code>ARCHIVED</code>, the client must ask for all events&colon; <code>...?status=all</code></p> 
+      description : <p>Filter events based on the last update timestamp. Accepts the same <code>&lt; &lt;= &gt; &gt;=</code> operators as <code>created</code>.</p><p>Note&colon; by default, the servers should only return <code>ACTIVE</code> events. When using the <code>updated</code> filter, in order to get events going from <code>ACTIVE</code> to <code>ARCHIVED</code>, the client must ask for all events&colon; <code>...?status=ALL</code></p> 
 
     - name : road_name
       required : optional
-      description : <p>Filter events based on the name of the road affected by the event. Use a comma-separated list to make OR queries.</p> 
+      description : <p>Shows only events containing a <code>road</code> element with the provided <code>name</code>. Use a comma-separated list to make OR queries.</p> 
 
     - name : area_id
       required : optional
-      description : <p>Filter events based on the id of an <a href="area.html">area</a>, based on the area resource (if available). Use a comma-separated list to make OR queries.</p>
+      description : <p>Shows only events containing a <code><a href="area.html">area</a></code> element with the provided <code>id</code>. Use a comma-separated list to make OR queries.</p>
 
     - name : limit
       required : optional 
-      description : <p>The maximum number of events to return in a single paginated response.</p><p>The default value for this (i.e. how many items to include on a page if no limit paramter is provided) is up to individual implementors. Likewise, implmentors may want to enforce a maximum value for this parameter in order to conserve server resource, so that a <code>?limit=10000</code> query would still return only 500 events per page. However, if such a maximum is implemented, it must not be lower than 500.</p>
+      description : <p>The maximum number of events to return in a single paginated response.</p><p>The default value for this (i.e. how many items to include on a page if no limit parameter is provided) is up to individual implementors. Likewise, implementors may want to enforce a maximum value for this parameter in order to conserve server resources, so that a <code>?limit=10000</code> query would still return only e.g. 500 events per page. However, if such a maximum is implemented, it must not be lower than 500.</p>
 
 
 event : 
@@ -108,11 +108,6 @@ event :
       mandatory: Mandatory
       desc: <p>Geographical information about the event. Can be Point, MultiPoint, LineString, MultiLineString, or Polygon.</p>
 
-    - name: schedule
-      type: <a href="#schedule">schedule</a> structure
-      mandatory: Mandatory
-      desc: <p>Complex item to provide time related information</p>        
-
     - name: created
       type:  <a href="guidelines.html#datetime">DateTime</a> (UTC)
       mandatory: Mandatory
@@ -121,7 +116,22 @@ event :
     - name: updated
       type:   <a href="guidelines.html#datetime">DateTime</a> (UTC)
       mandatory: Mandatory
-      desc: <p>When the content of the event last changed. Will be the same as <code>created</code> if no updates have occurred.</pre>      
+      desc: <p>When the content of the event last changed. Will be the same as <code>created</code> if no updates have occurred.</pre>
+
+    - name: schedules
+      type: Collection of <a href="#schedule">schedule</a> elements
+      mandatory: Mandatory
+      desc: <p>Indicates when the event is active.</p><p>The event's full schedule is described by one or more <code>schedule</code> elements. Each element either describes a recurring schedule (e.g. Mondays 9 a.m. to 5 p.m.) or provides an explicit schedule on specific dates. To obtain the event's full schedule, first compute and combine all recurring schedules provided by <code>schedule</code> elements. Then, if any <code>specific_date</code> elements provide explicit schedules, those override anything obtained from recurring <code>schedule</code> elements on the specific dates concerned.</p>
+
+    - name: timezone
+      mandatory: Optional
+      type: <a href="guidelines.html#timezone">timezone</a>
+      desc: <p>Timezone to be used for this event, e.g. <code>America/Montreal</code>. If not provided, the event is assumed to be in the default timezone of its jurisdiction.</p>       
+
+    - name: description 
+      type: Free text
+      mandatory: Optional
+      desc: <p>Description of the event. Plain text description of the event, the reason for the event and any other relevant information for travelers.</p> 
 
     - name: event_subtypes
       type: Collection of <code>event_subtype</code> elements
@@ -132,11 +142,6 @@ event :
       type: Enum
       mandatory: Optional
       desc: <pre>- ACCIDENT<br>- SERIOUS_ACCIDENT<br>- NUMEROUS_ACCIDENTS<br>- STALLED_VEHICLE<br>- SPILL<br>- OBSTRUCTION<br>- MAJOR_HAZARD<br>- DEMONSTRATION<br><br>- ROAD_CONSTRUCTION<br>- WORK_IN_THE_MEDIAN<br>- NARROW_LANES<br>- TRAFFIC_ALTERNATING_DIRECTIONS<br>- BRIDGE_OPERATIONS<br>- BLASTING<br>- WORK_ON_UNDERGROUND<br>- EMERGENCY_MAINTENANCE<br><br>- SPORTING_EVENT<br>- MAJOR_EVENT<br>- CONCERT<br>- FESTIVAL<br>- FIREWORKS<br>- PARADE<br>- CROWD<br><br>- SEVERE_WEATHER<br>- HEAVY_SNOW<br>- SNOW<br>- ICE_GLAZE<br>- HEAVY_FROST<br>- ICE_STORM<br>- DAMAGING_HAIL<br>- THUNDERSTORM<br>- HEAVY_DOWNPOUR<br>- TORNADO<br>- HURRICANE<br>- STRONG_WINDS<br>- DENSE_FOG<br>- FREEZING_FOG<br>- ICE_FOG MIST<br>- VISIBILITY_REDUCED<br>- VISIBILITY_BLOCKED<br>- BLOWING_SNOW<br>- BLOWING_DUST<br>- SANDSTORM<br>- INSECT_SWARMS<br><br>- IMPASSABLE<br>- ALMOST_IMPASSABLE<br>- PASSABLE_WITH_CARE<br>- SURFACE_WATER_HAZARD<br>- HYDROPLANING_DANGER<br>- SLIPPERY<br>- MUD<br>- LOOSE_GRAVEL<br>- OIL_ON_ROADWAY<br>- ICE<br>- BLACK_ICE<br>- WET_ICY_ROAD<br>- SLUSH<br>- FROZEN_SLUSH<br>- SNOW<br>- PACKED_SNOW<br>- PLOWED_SNOW<br>- POWDER_SNOW<br>- DEEP_SNOW</pre>       
-
-    - name: description 
-      type: Free text
-      mandatory: Optional
-      desc: <p>Description of the event. Plain text description of the event, the reason of the event and any other relevant information for travelers.</p> 
 
     - name: certainty
       type: Enum
@@ -227,61 +232,43 @@ road :
 
 
 schedule : 
-    - name: timezone
-      mandatory: Optional
-      type: <a href="guidelines.html#timezone">timezone</a>
-      desc: <p>Timezone to be used for this event, e.g. <code>America/Montreal</code></p> 
-
     - name: start_date
       type: <a href="guidelines.html#datetime">Date</a>
-      mandatory: Mandatory
-      desc: <p>Start date of the event.</p>
+      mandatory: Conditional (either <code>start_date</code> or <code>specific_dates</code> is required)
+      desc: <p>Start date of this schedule.</p>
 
     - name: end_date
       type: <a href="guidelines.html#datetime">Date</a>
       mandatory: Optional
-      desc: <p>End date of the event. If no end date is provided, the event should be considered as continuing indefinitely.</p>
+      desc: <p>End date of the event. If a start date but no end date is provided, the schedule continues indefinitely.</p>
 
     - name: days
       type: Collection of <code>day</code> elements
       mandatory: Optional
-      desc: <p>Contains a <code>day</code> tag for every day of the week during which the event is active. So, for an event active on Monday and Wednesday, &lt;days&gt;&lt;day&gt;1&lt;/day&gt;&lt;day&gt;3&lt;/day&gt;&lt;/days&gt;. If omitted, the event is assumed to be active on all days of the week between its start and end dates.</p> 
+      desc: <p>Contains a <code>day</code> tag for every day of the week during which this schedule is active. So, for an event active on Monday and Wednesday, &lt;days&gt;&lt;day&gt;1&lt;/day&gt;&lt;day&gt;3&lt;/day&gt;&lt;/days&gt;. If omitted, the schedule is active every day between its start and end dates.</p> 
 
     - name: <p>&mdash; day</p>
       type: Enum
-      desc: <p>An integer representing a day of the week during which the event is active. The days are Monday to Sunday from 1 to 7.</p>
+      desc: <p>An integer representing a day of the week during which the event is active. The days are, following the ISO standard, Monday to Sunday from 1 to 7.</p>
 
-    - name: times
-      type: Collection of <a href="#time">time</a>
-      mandatory: Optional, multiple occurrences of the time structure are allowed to specify multiple active periods within a day.
-      desc: <p>Provide detail about the specific times of the event.</p>
+    - name: start_time
+      type: <a href="guidelines.html#datetime">Time</a>
+      mandatory: Optional
+      desc: <p>Start time of the event, as <code>HH&colon;mm</code>, e.g. <code>13&colon;00</code>. Applies to each day in this <code>schedule</code>.</p>
+
+    - name: end_time
+      type: <a href="guidelines.html#datetime">Time</a>
+      mandatory: Mandatory if <code>start_time</code> is provided, not allowed otherwise
+      desc: <p>End time of the event, as <code>HH&colon;mm</code>, e.g. <code>17&colon;30</code>. Applies to each day in this <code>schedule</code>.</p>
 
     - name: specific_dates
       type: Collection of <code>specific_date</code>
-      mandatory: Optional
-      desc: <p>Since some days might not follow the regular schedule, it is possible to provide a schedule for individual days (for example vacations).</p>
+      mandatory: Conditional (either <code>start_date</code> or <code>specific_dates</code> is required)
+      desc: <p>Provides explicit, non-recurring schedules for specific dates. If the <code>specific_dates</code> element appears, it must be the <strong>only</strong> element within its <code>schedule</code>. An <code>event</code> may contain only one <code>specific_dates</code> element.</p>
       
     - name: <p>&mdash; specific_date</p>
       type: Custom time format
-      mandatory: Optional
-      desc: <p>Text string containing the affected date, the start hour and the end hour with the follow format&colon; <code>YYYY-MM-DD HH&colon;mm-HH&colon;mm</code>. If there are multiple disjoint periods on that day, more than one start-end period can be included&colon; <code>YYYY-MM-DD HH&colon;mm-HH&colon;mm HH&colon;mm-HH&colon;mm</code>. If the event is not active that day, no time should be provided&colon; <code>YYYY-MM-DD</p></p>
-
-
-time :
-    - name: time
-      type: structure
-      mandatory: Optional
-      desc: <p>Provide detail about the specific times of the event.</p>
-
-    - name: <p>&mdash; start_time</p>
-      type: <a href="guidelines.html#datetime">Time</a>
-      mandatory: Mandatory in each <code>time</code> element
-      desc: <p>Start time of the event, as <code>HH&colon;mm</code>, e.g. <code>13&colon;00</code>. Valid for each day on which the event is active.</p>
-
-    - name: <p>&mdash; end_time</p>
-      type: <a href="guidelines.html#datetime">Time</a>
-      mandatory: Mandatory in each <code>time</code> element
-      desc: <p>End time of the event, as <code>HH&colon;mm</code>, e.g. <code>17&colon;30</code> Valid for each day on which the event is active.</p>
+      desc: <p>Text string containing the date, start time, and end time with the follow format&colon; <code>YYYY-MM-DD HH&colon;mm-HH&colon;mm</code>. If there are multiple disjoint periods on that day, more than one start-end period can be included&colon; <code>YYYY-MM-DD HH&colon;mm-HH&colon;mm HH&colon;mm-HH&colon;mm</code>. To indicate that the event is not active that day, provide only the date&colon; <code>YYYY-MM-DD</p></p>
 
 restriction :
     - name: restriction_type
@@ -420,10 +407,20 @@ restriction :
         &lt;/impacted_systems&gt;
       &lt;/road&gt;      
     &lt;/roads&gt;
-    &lt;schedule&gt;
-      &lt;start_date&gt;2012-04-01&lt;/start_date&gt; 
-      &lt;end_date&gt;2012-04-30&lt;/end_date&gt; 
-    &lt;/schedule&gt;
+    &lt;schedules&gt;
+      &lt;schedule&gt;
+        &lt;start_date&gt;2012-04-01&lt;/start_date&gt; 
+        &lt;end_date&gt;2012-04-30&lt;/end_date&gt; 
+        &lt;start_time&gt;12:00&lt;/start_time&gt;
+        &lt;end_time&gt;15:00&lt;/end_time&gt;
+      &lt;/schedule&gt;
+      &lt;schedule&gt;
+        &lt;specific_dates&gt;
+          &lt;specific_date&gt;2012-04-15 09:00-12:00&lt;/specific_date&gt;
+          &lt;specific_date&gt;2012-04-16&lt;/specific_date&gt;
+        &lt;/specific_dates&gt;
+      &lt;/schedule&gt;
+    &lt;/schedules&gt;
     &lt;attachments&gt;
       &lt;link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" /&gt;
     &lt;/attachments&gt;
@@ -471,12 +468,12 @@ restriction :
                 {
                     "name": "A city",
                     "id": "123456",
-                    "self_url": "http://geonames.org/123456/about.rdf"
+                    "url": "http://geonames.org/123456/about.rdf"
                 },
                 {
                     "name": "A county",
                     "id": "98765",
-                    "self_url": "http://geonames.org/98765/about.rdf"
+                    "url": "http://geonames.org/98765/about.rdf"
                 }
             ],
             "geography": {
@@ -512,10 +509,20 @@ restriction :
                     "lane_status": "11"
                 }
             ],
-            "schedule": {
+            "schedules": [
+              {
                 "start_date": "2012-04-01",
-                "end_date": "2012-04-30"
-            },
+                "end_date": "2012-04-30",
+                "start_time": "12:00",
+                "end_time": "15:00"
+              },
+              {
+                "specific_dates": [
+                  "2012-04-15 09:00-12:00",
+                  "2012-04-16"
+                ]
+              }
+            ],
             "attachments": [
                 {
                     "type": "application/pdf",
@@ -585,17 +592,6 @@ restriction :
 {% endfor %}
   </table>
 
-<a id="time"></a><h4>Time structure</h4>
-
-<p></p>
-
-  <table class="representation">
-        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-{% assign anchor = 'time' %}
-{% for item in page.time  %} 
-   {% include tablegen.html %}
-{% endfor %}
-  </table>
 
 
 <script type="text/javascript">
