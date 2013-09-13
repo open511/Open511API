@@ -329,7 +329,7 @@
     <element name="road">
       <interleave>
         <oneOrMore>
-          <element name="road_name">
+          <element name="name">
             <ref name="FreeTextType"/>
           </element>
         </oneOrMore>
@@ -360,10 +360,23 @@
           </element>
         </optional>
         <optional>
-          <element name="lane_status">
-            <data type="string">
-              <param name="pattern">[10]+</param>
-            </data>
+          <element name="state">
+            <choice>
+              <value>CLOSED</value>
+              <value>SOME_LANES_CLOSED</value>
+              <value>SINGLE_LANE_ALTERNATING</value>
+              <value>ALL_LANES_OPEN</value>
+            </choice>
+          </element>
+        </optional>
+        <optional>
+          <element name="lanes_closed">
+            <data type="int"/>
+          </element>
+        </optional>
+        <optional>
+          <element name="lanes_open">
+            <data type="int"/>
           </element>
         </optional>
         <optional>
@@ -423,8 +436,9 @@
             <element name="days">
               <oneOrMore>
                 <element name="day">
-                  <data type="string">
-                    <param name="pattern">[1-7]</param>
+                  <data type="int">
+                    <param name="minInclusive">1</param>
+                    <param name="maxInclusive">7</param>
                   </data>
                 </element>
               </oneOrMore>
@@ -729,7 +743,7 @@
   </define>
   <define name="EmailType">
     <data type="string">
-      <param name="pattern">([a-zA-Z0-9_\-])([a-zA-Z0-9_\-\.]*)@(\[((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}|((([a-zA-Z0-9\-]+)\.)+))([a-zA-Z]{2,}|(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\])</param>
+      <param name="pattern">[a-zA-Z0-9\._%+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,4}</param>
     </data>
   </define>
   <define name="XMLLang">

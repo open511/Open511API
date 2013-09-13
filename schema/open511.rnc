@@ -102,11 +102,13 @@ RoadEvent =
 
 Road =
 	element road {
-		element road_name { FreeTextType }+
+		element name { FreeTextType }+
 		& element from { FreeTextType }*
 		& element to { FreeTextType }*
 		& element direction { "N" | "E" | "W" | "S" | "NW" | "SW" | "NE" | "SE" | "NONE" | "BOTH" }?
-		& element lane_status { xsd:string {pattern = "[10]+"}}?
+		& element state { "CLOSED" | "SOME_LANES_CLOSED" | "SINGLE_LANE_ALTERNATING" | "ALL_LANES_OPEN" }?
+		& element lanes_closed { xsd:int }?
+		& element lanes_open { xsd:int }?
 		& element impacted_systems {
 			element impacted_system { "ROAD" | "SIDEWALK" | "BIKELANE" | "ON_STREET_PARKING" | "PARKING" }+
 		}?
@@ -125,7 +127,10 @@ Schedule =
 		& element end_date { xsd:date }?
 		& element days {
 			element day {
-				xsd:string {pattern="[1-7]"}
+				xsd:int {
+					minInclusive="1"
+					maxInclusive="7"
+				}
 			}+
 		}?
 		& (
@@ -263,7 +268,7 @@ ForeignElement =
 JurisdictionIDType = xsd:string {pattern = "[a-z][a-z0-9\-]*\.[a-z0-9.\-]{2,}"}
 EventIDType = xsd:string {pattern = "[a-z][a-z0-9\-]*\.[a-z0-9\.\-]{2,}/[a-zA-Z0-9_\.\-]+"}
 TimestampType = xsd:dateTime {pattern = ".+T.+(Z|[+\-].+)"}
-EmailType = xsd:string {pattern = "([a-zA-Z0-9_\-])([a-zA-Z0-9_\-\.]*)@(\[((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}|((([a-zA-Z0-9\-]+)\.)+))([a-zA-Z]{2,}|(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\])"}
+EmailType = xsd:string {pattern = "[a-zA-Z0-9\._%+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,4}"}
 XMLLang = attribute xml:lang { xsd:language }
 FreeTextType =
 	XMLLang?,

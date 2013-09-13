@@ -130,7 +130,7 @@ event :
 
     - name: description 
       type: Free text
-      mandatory: Optional
+      mandatory: Optional, but <strong>strongly recommended</strong>
       desc: <p>Description of the event. Plain text description of the event, the reason for the event and any other relevant information for travelers.</p> 
 
     - name: event_subtypes
@@ -185,7 +185,7 @@ event :
 
       
 road : 
-    - name: road_name
+    - name: name
       mandatory: Mandatory
       type: Free text
       desc: <p>Name of the road affected by the event. Ideally, road names should be formatted in accordance with national or regional standards, and the same road should be named consistently in different events.</p> 
@@ -205,15 +205,25 @@ road :
       mandatory: Optional
       desc: <p>Approximate end point of the event on the road. It can be an intersection with another street or it can be a distance indication.</p>
 
+    - name: state
+      type: Enum
+      mandatory: Optional
+      desc: <p>Whether the road segment is closed or not.<p><p>Value list:</p><pre>- CLOSED (road closed in the given direction)<br>- SOME_LANES_CLOSED (but the road remains open)<br>- SINGLE_LANE_ALTERNATING (a single lane alternates between both directions of traffic)<br>- ALL_LANES_OPEN</pre>
+
     - name: direction
       type: Enum
-      mandatory: Conditional
+      mandatory: Conditional: mandatory if <code>state</code> is provided
       desc: <p>Direction of the road that is affected by the event.</p><p>If a <code>lane_status</code> is provided, the direction becomes <b>mandatory</b>. In the same situation, if both directions are affected, two occurrences of the road element are needed, one for each direction and with a dedicated <code>lane_status</code> for each direction.</p><p>Value list:</p><pre>- N<br>- NW<br>- W<br>- SW<br>- S<br>- SE<br>- E<br>- NE<br>- NONE<br>- BOTH</pre>
 
-    - name: lane_status
-      type: bitmap
-      mandatory: Optional
-      desc: <p>Bitmap representing the lanes that are closed because of the event. For example <code>0110</code> means that the 2 central lanes of a 4 lanes roads are closed.</p><p>The lane status is applied to direction provided</p>
+    - name: lanes_open
+      type: Integer
+      mandatory: Optional; allowed only if <code>state</code> is SOME_LANES_CLOSED and <code>direction</code> is not BOTH
+      desc: <p>Number of lanes in the given direction remaining open during this event.
+
+    - name: lanes_closed
+      type: Integer
+      mandatory: Optional; allowed only if <code>state</code> is SOME_LANES_CLOSED and <code>direction</code> is not BOTH
+      desc: <p>Number of lanes in the given direction closed during this event.
 
     - name: impacted_systems
       type: Collection of <code>impacted_system</code> elements
@@ -352,7 +362,6 @@ restriction :
       &lt;event_subtype&gt;EMERGENCY_MAINTENANCE&lt;/event_subtype&gt;
     &lt;/event_subtypes&gt;
     &lt;severity&gt;MODERATE&lt;/severity&gt; 
-    &lt;certainty&gt;OBSERVED&lt;/certainty&gt; 
     &lt;created&gt;2012-05-23T20:33:10Z&lt;/created&gt;
     &lt;updated&gt;2012-05-24T10:00:10Z&lt;/updated&gt;
     &lt;grouped_events&gt;
@@ -379,11 +388,12 @@ restriction :
     &lt;/geography&gt;
     &lt;roads&gt;
       &lt;road&gt;
-        &lt;road_name&gt;Broadway St East&lt;/road_name&gt;
-        &lt;from&gt;1st avenue&lt;/from&gt;
-        &lt;to&gt;4th avenue&lt;/to&gt;
+        &lt;road_name&gt;Broadway&lt;/road_name&gt;
+        &lt;from&gt;1st Avenue&lt;/from&gt;
+        &lt;to&gt;4th Avenue&lt;/to&gt;
         &lt;direction&gt;E&lt;/direction&gt;
-        &lt;lane_status&gt;10&lt;/lane_status&gt;          
+        &lt;state&gt;SOME_LANES_CLOSED&gt;/state&lt;
+        &lt;lanes_open&gt;1&lt;/lanes_open&gt;        
         &lt;impacted_systems&gt;
           &lt;impacted_system&gt;ROAD&lt;/impacted_system&gt;
           &lt;impacted_system&gt;ON_STREET_PARKING&lt;/impacted_system&gt;
@@ -396,11 +406,11 @@ restriction :
         &lt;/restrictions&gt;
       &lt;/road&gt;
       &lt;road&gt;
-        &lt;road_name&gt;Broadway St West&lt;/road_name&gt;
-        &lt;from&gt;1st avenue&lt;/from&gt;
-        &lt;to&gt;4th avenue&lt;/to&gt;
+        &lt;road_name&gt;Broadway&lt;/road_name&gt;
+        &lt;from&gt;1st Avenue&lt;/from&gt;
+        &lt;to&gt;4th Avenue&lt;/to&gt;
         &lt;direction&gt;W&lt;/direction&gt;  
-        &lt;lane_status&gt;11&lt;/lane_status&gt;              
+        &lt;state&gt;CLOSED&lt;/state&gt;
         &lt;impacted_systems&gt;
           &lt;impacted_system&gt;ROAD&lt;/impacted_system&gt;
           &lt;impacted_system&gt;ON_STREET_PARKING&lt;/impacted_system&gt;
@@ -456,9 +466,10 @@ restriction :
             "created": "2012-09-19T17:47:46Z",
             "description": "Broadway Street will be closed between 1st and 4th avenue during the month of April due to an emergency sewer rebuilding. Local traffic will be permitted on one eastbound lane.",
             "event_type": "CONSTRUCTION",
-            "event_subype": "EMERGENCY_MAINTENANCE",
+            "event_subtypes": [
+              "EMERGENCY_MAINTENANCE"
+            ],
             "severity": "MODERATE",
-            "certainty": "OBSERVED",
             "grouped_events": [
               "/events/my.city.gov/937272",
               "/events/my.city.gov/334542",
@@ -485,11 +496,12 @@ restriction :
             },
             "roads": [
                 {
-                    "road_name": "Broadway St. East",
-                    "from": "1st avenue",
-                    "to": "4th avenue",
+                    "road_name": "Broadway",
+                    "from": "1st Avenue",
+                    "to": "4th Avenue",
                     "direction": "E",
-                    "lane_status": "10",
+                    "state": "SOME_LANES_CLOSED",
+                    "lanes_open": 1,
                     "impacted_systems": [
                         "ROAD",
                         "ON_STREET_PARKING"
@@ -497,16 +509,16 @@ restriction :
                     "restrictions": [
                         {
                           "restriction_type": "SPEED",
-                          "value": "35"
+                          "value": 35
                         }
                     ]
                 },
                 {
-                    "road_name": "Broadway St. West",
-                    "from": "4th avenue",
-                    "to": "1st avenue",
+                    "road_name": "Broadway",
+                    "from": "4th Avenue",
+                    "to": "1st Avenue",
                     "direction": "W",
-                    "lane_status": "11"
+                    "state": "CLOSED"
                 }
             ],
             "schedules": [

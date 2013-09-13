@@ -27,9 +27,14 @@
 		<rule context="event">
 			<assert test="link[@rel='jurisdiction']">Events require a jurisdiction link</assert>
 			<assert test="count(link) = 2">Events must have a self and jurisdiction link, and no others</assert>
+			<assert test="count(specific_dates) &lt;= 1">Event schedules may include no more than one specific_dates element</assert>
 		</rule>
 		<rule context="event/roads/road">
-			<assert test="not(lane_status) or (direction and not(direction/text() = 'BOTH'))">If lane_status is set, direction must be too, and direction cannot be BOTH.</assert>
+			<assert test="not(state) or (direction)">If state is set, direction must be too.</assert>
+			<assert test="not(lanes_open) or (state/text() = 'SOME_LANES_CLOSED')">If lanes_open is included, state must be SOME_LANES_CLOSED</assert>
+			<assert test="not(lanes_open) or (direction and not(direction/text() = 'BOTH'))">If lanes_open is included, direction must be set, and to a value other than BOTH.</assert>
+			<assert test="not(lanes_closed) or (state/text() = 'SOME_LANES_CLOSED')">If lanes_closed is included, state must be SOME_LANES_CLOSED</assert>
+			<assert test="not(lanes_closed) or (direction and not(direction/text() = 'BOTH'))">If lanes_closed is included, direction must be set, and to a value other than BOTH.</assert>
 		</rule>
 		<rule context="pagination">
 			<assert test="link[@rel = 'next'] or link[@rel = 'previous'] or not(link)">Pagination links must be next or previous</assert>
