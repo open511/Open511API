@@ -212,7 +212,7 @@ road :
 
     - name: direction
       type: Enum
-      mandatory: Conditional: mandatory if <code>state</code> is provided
+      mandatory: Conditional&colon; mandatory if <code>state</code> is provided
       desc: <p>Direction of the road that is affected by the event.</p><p>If a <code>lane_status</code> is provided, the direction becomes <b>mandatory</b>. In the same situation, if both directions are affected, two occurrences of the road element are needed, one for each direction and with a dedicated <code>lane_status</code> for each direction.</p><p>Value list:</p><pre>- N<br>- NW<br>- W<br>- SW<br>- S<br>- SE<br>- E<br>- NE<br>- NONE<br>- BOTH</pre>
 
     - name: lanes_open
