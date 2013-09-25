@@ -38,5 +38,5 @@ It may be helpful to [browse](http://demo.open511.org/) the output of Open North
 
 ## Roadmap and Timeline {#timeline}
 
-The first draft of the specification was released to collaborators in October 2012 and the second iteration released publicly in January 2013. The current version (0.9) is the result of the third iteration and is considered as the first implementation-ready release and will be used for the first implementations. The version will switch to version 1.0 when the first implementations are live (target date: end of summer 2013).
+The first draft of the specification was released to collaborators in October 2012 and the second iteration released publicly in January 2013. The current version (0.9) is the result of the third iteration and is considered as the first implementation-ready release and will be used for the first implementations. The version will switch to version 1.0 when the first implementations are live (target date: late 2013/early 2014).
 
