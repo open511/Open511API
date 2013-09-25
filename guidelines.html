@@ -41,41 +41,37 @@ title: Technical Guidelines
 <p>The Open511 specification, however, does not provide a fixed URL schema for the resources. The client should follow links between resources (starting from the <a href="root.html">discovery</a>) in order to retrieve the data.</p>
 
 <a id="format"></a>
-<h3>Format and version negotation</h3>
+<h3>Format negotiation</h3>
 
-<p>Open511 supports two serialization formats (XML and JSON), and includes mechanisms for dealing with future versions of the Open511 format. Format and version negotiation is done via content types.</p>
-
-<p>Versions are each labelled with a string. Currently, <code>v0</code> is the only supported version of Open511.</p>
-
-<p>The following content types are recognized:</p>
-
-<ul>
-  <li><code>application/xml</code></li>
-  <li><code>application/json</code></li>
-  <li><code>application/vnd.open511.v0+xml</code></li>
-  <li><code>application/vnd.open511.v0+json</code></li>
-</ul>
-
-<p>The first two content types above are generic; requests for those indicate that the server should use the current default version of Open511. The latter two vendor-specific content types include a version string (<code>v0</code>).</p>
+<p>Open511 supports two serialization formats (XML and JSON). Implementations that wish to provide data in other formats may also do so via this mechanism.</p>
 
 <p>Clients indicate their format preference via one of two mechanisms&colon;</p>
 
 <ul>
-  <li>The <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">Accept</a></code> HTTP header. The spec allows clients to list several possible content types in order of preference, though the simplest use of the header is to specify a single preferred type&colon; <code>Accept&colon; application/vnd.open511.v0+json</code></li>
-  <li>A URL parameter named <code>format</code>. It can accept the same syntax as the <code>Accept</code> HTTP header; additionally, the special cases of <code>?format=json</code> and <code>?format=xml</code> request the current versions of either the JSON or XML serializations. If provided, it takes precedence over the <code>Accept</code> header.</li>
+  <li>The <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">Accept</a></code> HTTP header. The spec allows clients to list several possible content types in order of preference, though the simplest use of the header is to specify a single preferred type&colon; <code>Accept&colon; application/json</code>. Implementations must support the <code>application/json</code> and <code>application/xml</code> types.</li>
+  <li>A URL parameter named <code>format</code>. It can accept the same syntax as the <code>Accept</code> HTTP header, as well as <code>?format=json</code> and <code>?format=xml</code>. If provided, it takes precedence over the <code>Accept</code> header.</li>
 </ul>
 
-<p>Implementations are free to determine their default serialization.</p>
+<p>Implementations are free to determine their default serialization. Responses must include a <code>Content-Type</code> header set to the appropriate content type.</p>
 
-<p>Responses must set the <code>Content-Type</code> header to the appropriate generic header&colon; <code>application/xml</code> or <code>application/json</code>. Responses must also set the <code>Open511-Media-Type</code> header to the vendor-specific, versioned content type of the response, e.g. <code>application/vnd.open511.v0+json</code>.</p>
+<a id="versioning"></a>
+<h3>Versioning</h3>
 
-<p>Versions are also indicated within the response content; see the XML and JSON sections below for details.</p>
+<p>Each major version of this specification is identified with a version string. The current version string is <code>v0</code>. When (and only when) a backwards-incompatible change is made to the specification, the version string will change.</p>
 
+<p>Clients may request responses conforming to a specific Open511 version via one of two mechanisms&colon;</p>
+
+<ul>
+  <li>An <code>Open511-Version</code> header, with the desired version string as a value, e.g. <code>Open511-Version&colon; v1</code></li>
+  <li>A URL parameter named <code>version</code>, e.g. <code>?version=v1</code>. If provided, it takes precedence over the <code>Open511-Version</code> header.</li>
+</ul>
+
+<p>When a client requests a version the server is unable to provide, the server may either respond using its default version, or may attempt to return the closest supported version to what the client is requesting; the specifics of this behaviour are left to implementors to decide.</p>
 
 <p>&nbsp;</p>
 
 <a id="xmlspec"></a>
-<h4>XML serialization</h4>
+<h3>XML serialization</h3>
 
 <p>A draft schema for the XML representation is <a href="https://github.com/opennorth/open511-validator/tree/master/open511_validator/schema">available</a>.</p>
 
@@ -128,7 +124,7 @@ title: Technical Guidelines
 
 <p>&nbsp;</p>
 <a id="xmlgeo"></a>
-<h4>XML geographies</h4>
+<h3>XML geographies</h3>
 
 <p>Geospatial fields use <a href="http://en.wikipedia.org/wiki/Geography_Markup_Language">GML</a>. As this is a complex format, we use a small subset of GML v2.</p>
 
@@ -177,7 +173,7 @@ title: Technical Guidelines
 
 <p>&nbsp;</p>
 <a id="jsonspec"></a>
-<h4>JSON serialization</h4>
+<h3>JSON serialization</h3>
 
 <ul>
   <li>In XML, links use <code>&lt;link&gt;</code>. In JSON, links are generally normal attributes, but <code>_url</code> is appended to the field name (which is in the <code>rel</code> attribute in XML). For example
