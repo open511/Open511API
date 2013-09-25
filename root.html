@@ -30,7 +30,7 @@ representation :
       type: Free text
       desc: <p>Full text name of the jurisdiction.</p>
 
-    - name: <p>&mdash;  url</p>
+    - name: <p>&mdash;  self/url</p>
       mandatory: Mandatory
       type: <a href="guidelines.html#links">Link</a>
       desc: <p>Link to the jurisdiction resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>. An aggregator should always point the original jurisdiction resource and not copy it locally.</p>  
@@ -42,10 +42,10 @@ representation :
 
     - name: <p>&mdash; service_type</p>
       mandatory: Mandatory
-      type: Enum
-      desc: <p>The service type value comes from a predefined list of services that are supported by the open511 API.</p><p>Value list:</p> <pre>- EVENTS<br/>- AREAS</pre>
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>A URL representing an Open511 service like Events or Areas. The URL follows the same logic as an XML namespace&colon; it's a unique identifier for the service type, though clients will never need to visit that URL. It's recommended that the URL point to human-readable documentation for the service.</p><p>All services that are part of this specification will have URLs starting with <code>http&colon;//open511.org/services/</code>. Other organizations may want to build services that are outside the current scope of this specification but otherwise fit in with the other Open511 services; such services will have URLs not on open511.org. Such services must follow the <a href="guidelines.html">guidelines</a> of this specification.</p><p>Values for current Open511 services are&colon;</p><ul><li><code>http&colon;//open511.org/services/events</code></li><li><code>http&colon;//open511.org/services/areas</code></li></ul>
 
-    - name: <p>&mdash; url</p>
+    - name: <p>&mdash; self/url</p>
       mandatory: Mandatory
       type: <a href="guidelines.html#links">Link</a>
       desc: <p>Link pointing to the resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>. Even if the current endpoint supports multiple jurisdictions or is an aggregator, there is only one service resource that aggregates the data for all the jurisdictions.</p>    

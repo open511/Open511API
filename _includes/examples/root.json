@@ -13,11 +13,11 @@
   ],
   "services" : [
       {
-          "service_type" : "EVENTS",
+          "service_type_url" : "http://open511.org/services/events",
           "url" : "/events/"
       },
       {
-          "service_type" : "AREAS",
+          "service_type_url" : "http://open511.org/services/events",
           "url" : "/areas/"
       }      
   ],

@@ -17,12 +17,12 @@
   </jurisdictions>
   <services>
     <service>
-      <service_type>EVENTS</service_type>
       <link rel="self" href="/events/" />
+      <link rel="service_type" href="http://open511.org/services/events" />
     </service>
     <service>
-      <service_type>AREAS</service_type>
       <link rel="self" href="/areas/" />
+      <link rel="service_type" href="http://open511.org/services/areas" />
     </service>    
   </services>
   <link rel="self" href="/"/>
