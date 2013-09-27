@@ -1,102 +1,119 @@
 {
-    "meta": {
-        "url": "http://api.open511.info/events/",
-        "up_url": "http://api.open511.info/",
-        "version": "v0"
-    },
-    "content": [
+    "events": [
         {
-            "url": "/events/my.city.gov/23948/",
-            "jurisdiction": "http://my.city.gov/open511/jurisdictions/my.city.gov/",
-            "id": "my.city.gov/23948"
-            "headline": "Urgent rebuilding of sewer pipes",
-            "status": "ACTIVE",
-            "updated": "2012-09-19T17:49:16Z",
-            "created": "2012-09-19T17:47:46Z",
-            "description": "Broadway Street will be closed between 1st and 4th avenue during the month of April due to an emergency sewer rebuilding. Local traffic will be permitted on one eastbound lane.",
-            "event_type": "CONSTRUCTION",
+            "url": "/events/my.city.gov/23948/", 
+            "id": "my.city.gov/23948", 
+            "jurisdiction_url": "http://my.city.gov/open511/jurisdiction/my.city.gov/",
+            "headline": "Urgent rebuilding of sewer pipes", 
+            "description": "The City inform you that broadway street will be closed between 1st and 4th avenue during the month of april due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.", 
+            "status": "ACTIVE", 
+            "event_type": "CONSTRUCTION", 
             "event_subtypes": [
-              "EMERGENCY_MAINTENANCE"
-            ],
-            "severity": "MODERATE",
+                "EMERGENCY_MAINTENANCE"
+            ], 
+            "updated": "2012-05-24T10:00:10Z", 
+            "created": "2012-05-23T20:33:10Z", 
+            "severity": "MODERATE", 
+            "detour": "Take Sherbrooke travelling east, and Wellington travelling west.", 
             "grouped_events": [
-              "/events/my.city.gov/937272",
-              "/events/my.city.gov/334542",
-            ],
-            "detour": "Take Sherbrooke travelling East, and Wellington travelling West.",
-            "areas": [
-                {
-                    "name": "A city",
-                    "id": "123456",
-                    "url": "http://geonames.org/123456/about.rdf"
-                },
-                {
-                    "name": "A county",
-                    "id": "98765",
-                    "url": "http://geonames.org/98765/about.rdf"
-                }
-            ],
-            "geography": {
-                "type": "Point",
-                "coordinates": [
-                    -75.6585181951523,
-                    40.5487123139747
-                ]
-            },
-            "roads": [
-                {
-                    "name": "Broadway",
-                    "from": "1st Avenue",
-                    "to": "4th Avenue",
-                    "direction": "E",
-                    "state": "SOME_LANES_CLOSED",
-                    "lanes_open": 1,
-                    "impacted_systems": [
-                        "ROAD",
-                        "ON_STREET_PARKING"
-                    ],
-                    "restrictions": [
-                        {
-                          "restriction_type": "SPEED",
-                          "value": 35
-                        }
-                    ]
-                },
-                {
-                    "name": "Broadway",
-                    "from": "4th Avenue",
-                    "to": "1st Avenue",
-                    "direction": "W",
-                    "state": "CLOSED"
-                }
-            ],
-            "schedules": [
-              {
-                "start_date": "2012-04-01",
-                "end_date": "2012-04-30",
-                "start_time": "12:00",
-                "end_time": "15:00"
-              },
-              {
-                "specific_dates": [
-                  "2012-04-15 09:00-12:00",
-                  "2012-04-16"
-                ]
-              }
-            ],
+                "/events/my.city.gov/345832", 
+                "/events/my.city.gov/433452"
+            ], 
             "attachments": [
                 {
-                    "type": "application/pdf",
-                    "size": "200000",
-                    "url": "http://my.city.gov/trafic/advisory/39473/com.pdf",
+                    "url": "http://my.city.gov/trafic/advisory/39473/com.pdf", 
+                    "length": "200345", 
+                    "type": "application/pdf", 
                     "title": "Detour map"
+                }
+            ], 
+            "geography": {
+                "type": "LineString", 
+                "coordinates": [
+                    [
+                        -71.170000000000002, 
+                        47.329999999999998
+                    ], 
+                    [
+                        -71.150000000000006, 
+                        47.359999999999999
+                    ], 
+                    [
+                        -71.099999999999994, 
+                        47.350000000000001
+                    ], 
+                    [
+                        -71.200000000000003, 
+                        47.399999999999999
+                    ]
+                ]
+            }, 
+            "schedules": [
+                {
+                    "start_time": "12:00", 
+                    "start_date": "2012-04-01", 
+                    "end_date": "2012-04-30", 
+                    "end_time": "15:00"
+                }, 
+                {
+                    "specific_dates": [
+                        "2012-04-15 09:00-12:00", 
+                        "2012-04-16"
+                    ]
+                }
+            ], 
+            "roads": [
+                {
+                    "restrictions": [
+                        {
+                            "restriction_type": "SPEED", 
+                            "value": 35
+                        }
+                    ], 
+                    "direction": "E", 
+                    "from": "1st Avenue", 
+                    "name": "Broadway", 
+                    "impacted_systems": [
+                        "ROAD", 
+                        "ON_STREET_PARKING"
+                    ], 
+                    "to": "4th Avenue", 
+                    "state": "SOME_LANES_CLOSED", 
+                    "lanes_open": 1
+                }, 
+                {
+                    "direction": "W", 
+                    "from": "1st Avenue", 
+                    "name": "Broadway", 
+                    "impacted_systems": [
+                        "ROAD", 
+                        "ON_STREET_PARKING"
+                    ], 
+                    "to": "4th Avenue", 
+                    "state": "CLOSED"
+                }
+            ], 
+            "areas": [
+                {
+                    "url": "http://geonames.org/123456/about.rdf", 
+                    "name": "A City", 
+                    "id": 123456
+                }, 
+                {
+                    "url": "http://geonames.org/98765/about.rdf", 
+                    "name": "A County", 
+                    "id": 98765
                 }
             ]
         }
     ],
     "pagination": {
-        "next_url": "/api/events/?limit=20&amp;offset=20",
-        "previous_url": null,
+        "next_url": "/api/events/?limit=20&offset=20", 
         "offset": 0
+    }, 
+    "meta": {
+        "url": "/api/events/", 
+        "version": "v0", 
+        "up_url": "/api/"
     }
 }

@@ -1,24 +1,23 @@
 {
-  "meta": {
-      "url": "http://api.open511.info/areas/",
-      "up_url": "http://api.open511.info/",
-      "version": "v0"
-  },
-  "content" : [
-    {
-      "name" : "Anaheim",
-      "id" : 5323810,
-      "url" : "http://geonames.org/5323810/about.rdf"
-    },
-    {
-      "name" : "Orange County",
-      "id" : 5379524,
-      "url" : "http://geonames.org/5379524/about.rdf"
+    "areas": [
+        {
+            "url": "http://geonames.org/5323810/about.rdf", 
+            "name": "Anaheim", 
+            "id": 5323810
+        }, 
+        {
+            "url": "http://geonames.org/5379524/about.rdf", 
+            "name": "Orange County", 
+            "id": 5379524
+        }
+    ],
+    "pagination": {
+        "next_url": "/api/areas/?limit=20&offset=20", 
+        "offset": 0
+    }, 
+    "meta": {
+        "url": "/api/areas/", 
+        "version": "v0", 
+        "up_url": "/api/"
     }
-  ],
-  "pagination": {
-      "next_url": "/api/events/?limit=20&offset=20",
-      "previous_url": null,
-      "offset": 0
-    }
-} 
+}

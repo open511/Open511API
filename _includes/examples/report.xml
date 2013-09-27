@@ -2,27 +2,26 @@
   xmlns:gml="http://www.opengis.net/gml" 
   xml:base="http://dev.open511.ca" 
   version="v0">
-  <report>
-    <link rel="self" href="http://dev.open511.ca/api/report/1234/" />
-    <link rel="jurisdiction" href="http://open511.ca/api/jurisdictions/mycity.gov/" />
-    <geography>
-        <gml:Point srsName="EPSG:4326">
-          <gml:coordinates>-71.17,47.33</gml:coordinates>
-        </gml:Point>
-    </geography>    
-    <description>Major accident on 8080E. Cars stopped in 2 lanes</description>
-    <event_type>INCIDENT</event_type>
-    <severity>2</severity>
-    <status>OPEN</status>
-    <created>2013-01-03T06:43:04+00:00</created>
-    <updated>2013-01-09T21:31:04.967931+00:00</updated>
-  </report>
-  <report>
-    ...
-  </report>
+  <reports>
+    <report xml:lang="en">
+      <link rel="self" href="http://dev.open511.ca/api/report/1234/" />
+      <link rel="jurisdiction" href="http://open511.ca/api/jurisdictions/mycity.gov/" />
+      <geography>
+          <gml:Point srsName="EPSG:4326">
+            <gml:coordinates>-71.17,47.33</gml:coordinates>
+          </gml:Point>
+      </geography>    
+      <description>Major accident on 8080E. Cars stopped in 2 lanes</description>
+      <event_type>INCIDENT</event_type>
+      <severity>2</severity>
+      <status>OPEN</status>
+      <created>2013-01-03T06:43:04+00:00</created>
+      <updated>2013-01-09T21:31:04.967931+00:00</updated>
+    </report>
+  </reports>
   <pagination>
     <offset>0</offset>
-    <link rel="next" href="/api/reports/?limit=20&offset=20"/>
+    <link rel="next" href="/api/reports/?limit=20&amp;offset=20"/>
   </pagination>  
   <link rel="self" href="/api/reports/"/>
   <link rel="up" href="/api/"/>
