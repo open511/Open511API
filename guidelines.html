@@ -1,6 +1,22 @@
 ---
 layout: page
 title: Technical Guidelines
+
+pagination_spec : 
+    - name: offset
+      mandatory: Mandatory
+      type: Integer
+      desc: <p>The index within the full list of results, counting from 0, of the first result on the current page.</p><p>On the first page, <code>offset</code> will always be 0. If 20 results are shown per page, <code>offset</code> will be 20 on the second page, 40 on the third page, etc.</p>
+
+    - name: next
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Optional
+      desc: <p>Link pointing to the next page of results. If omitted, implies that there is no next page.</p>
+
+    - name: previous
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Optional
+      desc: <p>Link pointing to the previous page of results. If omitted, implies that there is no previous page, i.e. <code>offset</code> is 0.</p>      
 ---
 {% include JB/setup %}
 
@@ -68,7 +84,21 @@ title: Technical Guidelines
 
 <p>When a client requests a version the server is unable to provide, the server may either respond using its default version, or may attempt to return the closest supported version to what the client is requesting; the specifics of this behaviour are left to implementors to decide.</p>
 
-<p>&nbsp;</p>
+<a id="pagination"></a>
+<h3>Pagination</h3>
+
+<p>Endpoints returning lists of resources should be paginated. Page information is provided in a structure called <code>pagination</code> at the top level of the response&colon;</p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% for item in page.pagination_spec %} 
+   {% include tablegen.html %}
+{% endfor %}   
+     </table>
+
+<p>Endpoints returning lists must also accept a <code>limit</code> URL parameter defining the maximum number of events to return in a single paginated response.</p>
+
+<p>The default value for <code>limit</code> (how many items to include on a page if no parameter is provided) is up to individual implementors. Likewise, implementors may want to enforce a maximum value for this parameter in order to conserve server resources, so that a <code>?limit=10000</code> query would still return only e.g. 500 events per page. However, if such a maximum is implemented, it should not be lower than 500.</p>
 
 <a id="xmlspec"></a>
 <h3>XML serialization</h3>
@@ -86,19 +116,6 @@ title: Technical Guidelines
     &lt;link rel="<b>up</b>" href="/api/jurisdictions/"/&gt;
     ...
   &lt;/open511&gt;   </pre></li>
-
-<li>List resources (like lists of events of reports) always contain a pagination block containing navigation info:<ul>
-  <li><code>offset</code>: the starting offset of the current page.</li>
-  <li><code>next</code>: a link to the next page of results if any</li>
-  <li><code>previous</code>: a link to the previous page of results if any</li></ul>
-    <pre>&lt;open511 ...&gt;
-    ...
-    &lt;pagination&gt;
-      &lt;offset&gt;0&lt;/offset&gt;
-      &lt;link rel="next" href="/api/events/?limit=20&offset=20"/&gt;
-    &lt;/pagination&gt;
-  &lt;/open511&gt;</pre>
-</li>
 
 <li>In a list of first order (e.g <code>event</code> in the events resource) elements are directly embed in the open511 structure: 
     <pre>&lt;open511 ...&gt;
@@ -215,20 +232,6 @@ title: Technical Guidelines
     }    
   }</pre></li>  
 
-<li>List resources (like lists of events of reports) always contain a pagination block containing navigation info:<ul>
-  <li><code>offset</code>: the starting offset of the current page.</li>
-  <li><code>next_url</code>: a link to the next page of results if any</li>
-  <li><code>previous_url</code>: a link to the previous page of results if any</li></ul>
-  <pre>
-  {
-    ...
-    "pagination": {
-      "next_url": "/api/events/?limit=20&offset=20", 
-      "previous_url": null, 
-      "offset": 0
-    }
-  } </pre>
-</li>
 
 <li>Lists included within an individual resource &mdash; structures like <code>&lt;roads&gt;&lt;road&gt; ...</code> in XML &mdash; also become arrays.
     <pre>

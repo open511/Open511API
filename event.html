@@ -62,11 +62,6 @@ parameters :
       required : optional
       description : <p>Shows only events containing a <code><a href="area.html">area</a></code> element with the provided <code>id</code>. Use a comma-separated list to make OR queries.</p>
 
-    - name : limit
-      required : optional 
-      description : <p>The maximum number of events to return in a single paginated response.</p><p>The default value for this (i.e. how many items to include on a page if no limit parameter is provided) is up to individual implementors. Likewise, implementors may want to enforce a maximum value for this parameter in order to conserve server resources, so that a <code>?limit=10000</code> query would still return only e.g. 500 events per page. However, if such a maximum is implemented, it must not be lower than 500.</p>
-
-
 event : 
     - name: self
       mandatory: Mandatory
@@ -312,7 +307,7 @@ restriction :
 
 <h3>Parameters</h3>
 
-<p>In addition to the filters described below, the events resource also supports <a href="guidelines.html#format">format selection</a> and <a href="guidelines.html#lang">language negotiation</a>.</p>
+<p>In addition to the filters described below, some URL parameters are common to all resources: <a href="guidelines.html#format">format</a>, <a href="guidelines.html#versioning">version</a>, <a href="guidelines.html#lang">accept-language</a>, and <a href="guidelines.html#pagination">limit</a>.</p>
 
 
   <table class="parameters">
