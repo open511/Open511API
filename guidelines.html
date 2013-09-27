@@ -100,48 +100,45 @@ pagination_spec :
 
 <p>The default value for <code>limit</code> (how many items to include on a page if no parameter is provided) is up to individual implementors. Likewise, implementors may want to enforce a maximum value for this parameter in order to conserve server resources, so that a <code>?limit=10000</code> query would still return only e.g. 500 events per page. However, if such a maximum is implemented, it should not be lower than 500.</p>
 
+<a id="serialization"></a>
+<h3>Serialization</h3>
+
+<p>Open511 supports XML and JSON serializations. The examples available on each resource page are usually the best way to understand the structure of the serializations; some non-exhaustive guidelines follow.</p>
+
+<p>The examples available on each resource page are usually the best way to understand the structure of the serializations; some loose guidelines follow. A <a href="http://validator.open511.org/">web-based validator</a>, <a href="https://github.com/opennorth/open511-validator">commandline validation tool</a>, and <a href="https://github.com/opennorth/open511-validator/tree/master/open511_validator/schema">XML schema</a> are available to test the validity of your documents. As well, the <a href="http://validator.open511.org/">web validator</a> and <a href="https://github.com/opennorth/open511-validator">commandline tool</a> can convert between the XML and JSON serializations; this conversion tool may be useful for implementors who choose to store data in one serialization and convert on-demand to the other.</p>
+
 <a id="xmlspec"></a>
-<h3>XML serialization</h3>
+<h4>XML</h4>
 
-<p>A draft schema for the XML representation is <a href="https://github.com/opennorth/open511-validator/tree/master/open511_validator/schema">available</a>.</p>
-
-
-<ul><li>The Open511 container tag includes a version attribute:
+<ul><li>Documents are contained within an <code>open511</code> tag, which includes a version attribute:
   <pre>&lt;open511 <b>version="v0"</b> ... &gt;</pre>
 </li> 
 
-<li>Resources should always have a <code>self</code> link, providing the current url, and a <code>up</code> link providing the url of the parent resource (except for the discovery resource which does not have any parent). These <code>up</code> and <code>self</code> link are directly located in the Open511 structure.
-<pre>  &lt;open511 version="v0" ...&gt;
-    &lt;link rel="<b>self</b>" href="/api/jurisdictions/test/"/&gt;
-    &lt;link rel="<b>up</b>" href="/api/jurisdictions/"/&gt;
+<li>Every response must contain a <code>self</code> link, providing the current url, and a <code>up</code> link providing the url of the parent resource (except for the discovery resource which does not have any parent). These <code>up</code> and <code>self</code> links are children of the <code>open511</code> tag.
+{% highlight xml %}<open511 version="v0" ...>
+    <link rel="<b>self</b>" href="/api/jurisdictions/test/"/>
+    <link rel="<b>up</b>" href="/api/jurisdictions/"/>
     ...
-  &lt;/open511&gt;   </pre></li>
+  </open511>{% endhighlight %}</li>
 
-<li>In a list of first order (e.g <code>event</code> in the events resource) elements are directly embed in the open511 structure: 
-    <pre>&lt;open511 ...&gt;
-    &lt;event&gt;...&lt;/event&gt;
-    &lt;event&gt;...&lt;/event&gt;
-    &lt;event&gt;...&lt;/event&gt; 
-    &lt;pagination&gt;...&lt;/pagination&gt;           
-  &lt;/open511&gt;</pre>
+<li>Objects generally appear within a container tag with a plural name: <code>event</code> within <code>events</code>, <code>area</code> within <code>areas</code>, etc.
+{% highlight xml %}<open511 ...>
+  <events>
+    <event>...</event>
+    <event>...</event>
+  </events>
+  <pagination>...</pagination>
+  <link ... />
+  <link ... />
+</open511>{% endhighlight %}
 </li>
-<li>Lists included in a first order are included in a container structure: 
-    <pre>&lt;open511 ...&gt;
-    &lt;event&gt;
-      ...
-      <b>&lt;roads&gt;
-        &lt;road&gt;...&lt;/road&gt;
-        &lt;road&gt;...&lt;/road&gt;
-      &lt;roads&gt;</b>        
-    &lt;/event&gt;
-  &lt;/open511&gt;</pre>
-</li>
+
+<li>Links use a <code>link</code> tag, with the field name in the <code>rel</code> attribute and the URL in the <code>href</code> attribute: <code>&lt;link rel=&quot;self&quot; href=&quot;/api/events/&quot; /&gt;</code></li>
 
 </ul>
 
-<p>&nbsp;</p>
 <a id="xmlgeo"></a>
-<h3>XML geographies</h3>
+<h4>XML geographies</h4>
 
 <p>Geospatial fields use <a href="http://en.wikipedia.org/wiki/Geography_Markup_Language">GML</a>. As this is a complex format, we use a small subset of GML v2.</p>
 
@@ -150,47 +147,47 @@ pagination_spec :
 <p>Open511 supports the following geometry structures:</p>
 
 <ul>
-  <li><pre><code>&lt;gml:Point srsName="EPSG:4326"&gt;
-  &lt;gml:coordinates&gt;-73.5877,45.5261&lt;/gml:coordinates&gt;
-&lt;/gml:Point&gt;</code></pre></li>
+  <li>{% highlight xml %}<gml:Point srsName="EPSG:4326">
+  <gml:coordinates>-73.5877,45.5261</gml:coordinates>
+</gml:Point>{% endhighlight %}</li>
 
-<li><pre><code>&lt;gml:LineString srsName="EPSG:4326"&gt;
-  &lt;gml:coordinates&gt;-73.592,45.523 -73.59,45.524 -73.592,45.523&lt;/gml:coordinates&gt;
-&lt;/gml:LineString&gt;</code></pre></li>
+<li>{% highlight xml %}<gml:LineString srsName="EPSG:4326">
+  <gml:coordinates>-73.592,45.523 -73.59,45.524 -73.592,45.523</gml:coordinates>
+</gml:LineString>{% endhighlight %}</li>
 
-<li><pre><code>&lt;gml:Polygon srsName="EPSG:4326"&gt;
-  &lt;gml:outerBoundaryIs&gt;
-    &lt;gml:LinearRing&gt;
-      &lt;gml:coordinates&gt;-73,40 -73,41 -74,41 -74,40 -73,40&lt;/gml:coordinates&gt;
-    &lt;/gml:LinearRing&gt;
-  &lt;/gml:outerBoundaryIs&gt;
-  &lt;gml:innerBoundaryIs&gt;
-    &lt;gml:LinearRing&gt;
-      &lt;gml:coordinates&gt;-73.2,40.2 -73.2,40.8 -73.8,40.8 -73.8,40.2 -73.2,40.2&lt;/gml:coordinates&gt;
-    &lt;/gml:LinearRing&gt;
-  &lt;/gml:innerBoundaryIs&gt;
-&lt;/gml:Polygon&gt;
-&lt;!-- note that most polygons will have only an outer boundary --&gt;</code></pre></li>
+<li>{% highlight xml %}<gml:Polygon srsName="EPSG:4326">
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>-73,40 -73,41 -74,41 -74,40 -73,40</gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+  <gml:innerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>-73.2,40.2 -73.2,40.8 -73.8,40.8 -73.8,40.2 -73.2,40.2</gml:coordinates>
+    </gml:LinearRing>
+  </gml:innerBoundaryIs>
+</gml:Polygon>
+<!-- note that most polygons will have only an outer boundary -->{% endhighlight %}</li>
 
-<li><pre><code>&lt;gml:MultiPoint srsName="EPSG:4326"&gt;
-  &lt;gml:pointMember&gt;
-    &lt;gml:Point&gt;
-      &lt;gml:coordinates&gt;-73.5877,45.5261&lt;/gml:coordinates&gt;
-    &lt;/gml:Point&gt;
-  &lt;/gml:pointMember&gt;
-  &lt;gml:pointMember&gt;
-    &lt;gml:Point&gt;
-      &lt;gml:coordinates&gt;-73.6,45.4&lt;/gml:coordinates&gt;
-    &lt;/gml:Point&gt;
-  &lt;/gml:pointMember&gt;
-&lt;/gml:MultiPoint&gt;</code></pre></li>
+<li>{% highlight xml %}<gml:MultiPoint srsName="EPSG:4326">
+  <gml:pointMember>
+    <gml:Point>
+      <gml:coordinates>-73.5877,45.5261</gml:coordinates>
+    </gml:Point>
+  </gml:pointMember>
+  <gml:pointMember>
+    <gml:Point>
+      <gml:coordinates>-73.6,45.4</gml:coordinates>
+    </gml:Point>
+  </gml:pointMember>
+</gml:MultiPoint>{% endhighlight %}</li>
 
 <li>MultiLineString and MultiPolygon geometries are similar, with <code>gml:lineStringMember</code> and <code>gml:polygonMember</code> tags</li>
 </ul>
 
 <p>&nbsp;</p>
 <a id="jsonspec"></a>
-<h3>JSON serialization</h3>
+<h4>JSON</h4>
 
 <ul>
   <li>In XML, links use <code>&lt;link&gt;</code>. In JSON, links are generally normal attributes, but <code>_url</code> is appended to the field name (which is in the <code>rel</code> attribute in XML). For example
@@ -201,49 +198,40 @@ pagination_spec :
   <ul>
     <li>Links with <code>rel="self"</code> are named simply <code>url</code> in JSON.</li>
     <li>In the <code>attachments</code> section of events, where links are expected to include several attributes, links are serialized as JSON objects.
-      <pre>&lt;link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" /&gt;</pre>
+      {% highlight xml %}<link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" />{% endhighlight %}
       becomes
-      <pre>{
-    "type": "application/pdf",
-    "size": 200345,
-    "url": "http://my.city.gov/trafic/advisory/39473/com.pdf",
-    "title": "Detour map"
-}</pre></li>
+{% highlight json %}{
+  "type": "application/pdf",
+  "length": 200345,
+  "url": "http://my.city.gov/trafic/advisory/39473/com.pdf",
+  "title": "Detour map"
+}{% endhighlight %}</li>
     <li>The <code>grouped_events</code> section of events is simply an array: <code>["/events/mycity.gov/4877", "/events/mycity.gov/8897"]</code></li>
 
   </ul>  
   </li>
-  <li>For list resources, the content will be an array of items under a <code>content</code> attribute:
-<pre>  {
-    <b>"content": [</b>
-        { "name" : "item1" ...},
-        { "name" : "item2" ...}
-    ]
-  }</pre>       
-</li> 
-<li>For individual item, the content is directly in the first level structure</li>
 <li>A <code>meta</code> structure has to be contained in each response. This <code>meta</code> structure contains the format version number as well as the self link (providing the current url) and the up link (providing the url of the parent ressource). The <code>meta</code> structure is contained directly in the first level structure.
-<pre>  {
-    ...
-    "meta": {
-        "version": "v0", 
-        "up_url": "/api/events/mtq/",
-        "url": "/api/events/mtq/maj39012/"
-    }    
-  }</pre></li>  
+{% highlight json %}{
+  ...
+  "meta": {
+      "version": "v0", 
+      "up_url": "/api/events/mtq/",
+      "url": "/api/events/mtq/maj39012/"
+  }    
+}{% endhighlight %}</li>  
 
 
-<li>Lists included within an individual resource &mdash; structures like <code>&lt;roads&gt;&lt;road&gt; ...</code> in XML &mdash; also become arrays.
-    <pre>
-  {
-    ...
-    "roads": [
-      { "name": "road1", ...},
-      { "name": "road2", ...}
-    ],
-    ...
-  }
-</pre>
+<li>Lists expressed in XML in a <code>&lt;things&gt;&lt;thing /&gt;&lt;/things&gt;</code> kind of structure are expressed via JSON arrays:
+    
+  {% highlight json %}{
+  ...
+  "events": [
+    { "headline": "Road closed", ...},
+    { "headline": "Bridge closed", ...}
+  ],
+  ...
+}{% endhighlight %}
+
 </li>
 </ul>
 
@@ -251,11 +239,11 @@ pagination_spec :
 <a id="bandwidth"></a>
 <h3>Bandwidth Optimization and Conditional Requests</h3>
 
-<p>Since the API will likely be used by mobile applications, bandwidth optimization is important. Servers should support the following features:</p>
+<p>Since the API will likely be used by mobile applications, bandwidth optimization is important. Servers are encouraged to support the following features:</p>
 
 <ul>
   <li>Conditional requests, sending <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.19">ETag</a></code> in responses and accepting <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26">If-None-Match</a></code> in requests. See <a href="http://developer.yahoo.com/performance/rules.html#etags">Configure ETags</a> and <a href="http://en.wikipedia.org/wiki/HTTP_ETag">Wikipedia</a>.</li>
-  <li>GZip compression via <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3">Accept-Encoding</a></code> and <code>Content-Encoding</code> is strongly encouraged</li>
+  <li>GZip compression via <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3">Accept-Encoding</a></code> and <code>Content-Encoding</code></li>
 </ul>
 
 <a id="auth"></a>
@@ -305,4 +293,4 @@ pagination_spec :
 <a id="custom"></a>
 <h3>Custom fields</h3>
 <p>Some implementors might have specific requirements that aren&rsquo;t supported by the existing Open511 fields. While we encourage implementors to stay within the specification if possible, we also provide guidelines for adding custom fields to a specific implementation.</p>
-<p>In XML serializations, custom tags may be placed anywhere, but must belong to a separate XML namespace, e.g. <code>&lt;bus_number xmlns=&quot;http://my.city.gov/open511-extensions&quot;&gt;</code>. In JSON serializations, custom attribute names must begin with <code>+</code> (e.g. <code>+bus_number</code>).</p>
+<p>In XML serializations, custom tags may be placed anywhere, but must belong to a separate XML namespace, e.g. <code>&lt;bus_number xmlns=&quot;http://my.city.gov/open511-extensions&quot;&gt;</code>. In JSON serializations, custom attribute names must begin with <code>+</code>, e.g. <code>+bus_number</code>.</p>
