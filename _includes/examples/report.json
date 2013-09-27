@@ -1,0 +1,31 @@
+{
+    "content": [
+        {
+            "url": "http://dev.open511.ca/api/report/1234/",
+            "jurisdiction_url": "http://open511.ca/api/jurisdictions/mycity.gov/", 
+            "geography": {
+                "type": "Point", 
+                "coordinates": [
+                    -71.17, 
+                    47.33
+                ]
+            },
+            "description": "Major accident on 8080E. Cars stopped in 2 lanes",
+            "event_type": "INCIDENT",
+            "severity": "2",
+            "status": "OPEN",
+            "created": "2013-01-03T06:43:04+00:00",
+            "updated": "2013-01-09T21:31:04+00:00",
+        } 
+    ], 
+    "pagination": {
+        "next_url": "/api/reports/?limit=20&amp;offset=20", 
+        "previous_url": null, 
+        "offset": 0
+    }, 
+    "meta": {
+        "url": "/api/reports/", 
+        "version": "v0", 
+        "up_url": "/api/"
+    }
+}      

@@ -1,0 +1,29 @@
+{
+  "jurisdictions" : [
+      {
+          "id" : "mycity.gov", 
+          "name" : "My City",           
+          "url" : "http://mycity.gov/open511/jurisdiction/mycity.gov/"
+      },
+      {
+          "id" : "myregion.gov", 
+          "name" : "My Region",               
+          "url" : "http://myregion.gov/open511/jurisdiction/myregion.gov/"
+      }
+  ],
+  "services" : [
+      {
+          "service_type" : "EVENTS",
+          "url" : "/events/"
+      },
+      {
+          "service_type" : "AREAS",
+          "url" : "/areas/"
+      }      
+  ],
+  "meta": {
+      "version": "v0",
+      "url": "/"
+  }
+
+}

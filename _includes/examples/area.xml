@@ -1,0 +1,22 @@
+<open511
+    xml:lang="en"
+    xml:base="http://my.city.gov/open511/"
+    version="v0"
+>  
+  <area> 
+    <name>Anaheim</name>
+    <id>5323810</id>
+    <link rel="self" href="http://geonames.org/5323810/about.rdf" />  
+  </area>
+  <area> 
+    <name>Orange County</name>
+    <id>5379524</id>
+    <link rel="self" href="http://geonames.org/5379524/about.rdf" />  
+  </area>    
+  <pagination>
+    <offset>0</offset>
+    <link rel="next" href="/api/areas/?limit=20&offset=20"/>
+  </pagination>
+  <link rel="self" href="/api/areas/"/>
+  <link rel="up" href="/api/"/>    
+</open511>

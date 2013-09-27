@@ -155,7 +155,7 @@ getrepresentation :
 <p>Example of report POST with content type <code>application/x-www-form-urlencoded</code>&colon;</p>
 
 
-<pre class="brush: xml">
+<pre>
 POST /open511/reports/
 Host: api.city.gov
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
@@ -210,73 +210,11 @@ $(function() {
         <li><a href="#tabs-2">JSON</a></li>
     </ul>
     <div id="tabs-1">
-<pre class="brush: xml">
-&lt;open511 
-  xmlns:gml="http://www.opengis.net/gml" 
-  xml:base="http://dev.open511.ca" 
-  version="v0"&gt;
-  &lt;report&gt;
-    &lt;link rel="self" href="http://dev.open511.ca/api/report/1234/" /&gt;
-    &lt;link rel="jurisdiction" href="http://open511.ca/api/jurisdictions/mycity.gov/" /&gt;
-    &lt;geography&gt;
-        &lt;gml:Point srsName="EPSG:4326"&gt;
-          &lt;gml:coordinates&gt;-71.17,47.33&lt;/gml:coordinates&gt;
-        &lt;/gml:Point&gt;
-    &lt;/geography&gt;    
-    &lt;description&gt;Major accident on 8080E. Cars stopped in 2 lanes&lt;/description&gt;
-    &lt;event_type&gt;INCIDENT&lt;/event_type&gt;
-    &lt;severity&gt;2&lt;/severity&gt;
-    &lt;status&gt;OPEN&lt;/status&gt;
-    &lt;created&gt;2013-01-03T06:43:04+00:00&lt;/created&gt;
-    &lt;updated&gt;2013-01-09T21:31:04.967931+00:00&lt;/updated&gt;
-  &lt;/report&gt;
-  &lt;report&gt;
-    ...
-  &lt;/report&gt;
-  &lt;pagination&gt;
-    &lt;offset&gt;0&lt;/offset&gt;
-    &lt;link rel="next" href="/api/reports/?limit=20&offset=20"/&gt;
-  &lt;/pagination&gt;  
-  &lt;link rel="self" href="/api/reports/"/&gt;
-  &lt;link rel="up" href="/api/"/&gt;
-&lt;/open511&gt;
-</pre>
+        {% highlight xml linenos %}{% include examples/report.xml %}{% endhighlight %}
     </div>
     <div id="tabs-2">
-<pre class="brush: js">
-{
-    "content": [
-        {
-            "url": "http://dev.open511.ca/api/report/1234/",
-            "jurisdiction_url": "http://open511.ca/api/jurisdictions/mycity.gov/", 
-            "geography": {
-                "type": "Point", 
-                "coordinates": [
-                    -71.17, 
-                    47.33
-                ]
-            },
-            "description": "Major accident on 8080E. Cars stopped in 2 lanes",
-            "event_type": "INCIDENT",
-            "severity": "2",
-            "status": "OPEN",
-            "created": "2013-01-03T06:43:04+00:00",
-            "updated": "2013-01-09T21:31:04+00:00",
-        } 
-    ], 
-    "pagination": {
-        "next_url": "/api/reports/?limit=20&amp;offset=20", 
-        "previous_url": null, 
-        "offset": 0
-    }, 
-    "meta": {
-        "url": "/api/reports/", 
-        "version": "v0", 
-        "up_url": "/api/"
-    }
-}        
-</pre>
-</div>
+        {% highlight json linenos %}{% include examples/report.json %}{% endhighlight %}
+  </div>
 </div>
 
 

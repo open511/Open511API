@@ -1,0 +1,24 @@
+{
+  "meta": {
+      "url": "http://api.open511.info/areas/",
+      "up_url": "http://api.open511.info/",
+      "version": "v0"
+  },
+  "content" : [
+    {
+      "name" : "Anaheim",
+      "id" : 5323810,
+      "url" : "http://geonames.org/5323810/about.rdf"
+    },
+    {
+      "name" : "Orange County",
+      "id" : 5379524,
+      "url" : "http://geonames.org/5379524/about.rdf"
+    }
+  ],
+  "pagination": {
+      "next_url": "/api/events/?limit=20&offset=20",
+      "previous_url": null,
+      "offset": 0
+    }
+} 

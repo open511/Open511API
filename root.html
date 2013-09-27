@@ -99,71 +99,11 @@ $(function() {
         <li><a href="#tabs-2">JSON</a></li>
     </ul>
     <div id="tabs-1">
-<pre class="brush: xml">
-&lt;open511
-    xml:lang="en"
-    xml:base="http://api.open511.info/"
-    version="v0"
-&gt;  
-  &lt;jurisdictions&gt;
-    &lt;jurisdiction&gt;
-      &lt;id&gt;mycity.gov&lt;/id&gt;
-      &lt;name&gt;My City&lt;/name&gt;
-      &lt;link rel="self" href="http://mycity.gov/open511/jurisdiction/mycity.gov/" /&gt;
-    &lt;/jurisdiction&gt;
-    &lt;jurisdiction&gt;
-      &lt;id&gt;mycounty.gov&lt;/id&gt;
-      &lt;name&gt;My County&lt;/name&gt;
-      &lt;link rel="self" href="http://mycounty.gov/open511/jurisdiction/mycounty.gov/" /&gt;
-    &lt;/jurisdiction&gt;    
-  &lt;/jurisdictions&gt;
-  &lt;services&gt;
-    &lt;service&gt;
-      &lt;service_type&gt;EVENTS&lt;/service_type&gt;
-      &lt;link rel="self" href="/events/" /&gt;
-    &lt;/service&gt;
-    &lt;service&gt;
-      &lt;service_type&gt;AREAS&lt;/service_type&gt;
-      &lt;link rel="self" href="/areas/" /&gt;
-    &lt;/service&gt;    
-  &lt;/services&gt;
-  &lt;link rel="self" href="/"/&gt;
-&lt;/open511&gt;
-</pre>
+        {% highlight xml linenos %}{% include examples/root.xml %}{% endhighlight %}
     </div>
     <div id="tabs-2">
-<pre class="brush: js">
-{
-  "jurisdictions" : [
-      {
-          "id" : "mycity.gov", 
-          "name" : "My City",           
-          "url" : "http://mycity.gov/open511/jurisdiction/mycity.gov/"
-      },
-      {
-          "id" : "myregion.gov", 
-          "name" : "My Region",               
-          "url" : "http://myregion.gov/open511/jurisdiction/myregion.gov/"
-      }
-  ],
-  "services" : [
-      {
-          "service_type" : "EVENTS",
-          "url" : "/events/"
-      },
-      {
-          "service_type" : "AREAS",
-          "url" : "/areas/"
-      }      
-  ],
-  "meta": {
-      "version": "v0",
-      "url": "/"
-  }
-
-}
-</pre>
-</div>
+        {% highlight json linenos %}{% include examples/root.json %}{% endhighlight %}
+  </div>
 </div>
 
 <script type="text/javascript">

@@ -1,0 +1,14 @@
+{
+  "geography" :  {
+      "type": "Polygon",
+      "coordinates": [ 
+          [ [71.17,47.33], [-71.15,47.36], [-71.10,47.35],
+              [-71.20,47.40], [-71.17,47.33] ]
+      ] 
+    },
+  "meta": {
+      "version": "v0",
+      "url": "http://my.city.gov/open511/jurisdiction/mycity.gov/geography/",
+      "up_url": "http://my.city.gov/open511/jurisdiction/mycity.gov/"
+  }     
+}

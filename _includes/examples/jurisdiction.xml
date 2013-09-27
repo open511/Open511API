@@ -1,0 +1,24 @@
+<open511
+    xml:lang="en"
+    xml:base="http://my.city.gov/open511"
+    version="v0"
+>  
+  <jurisdiction>
+    <link rel="self" href="/api/jurisdictions/my.city.gov/" />   
+    <id>my.city.gov</id>
+    <name>My City</name>
+    <email>mayor@my.city.gov</email>
+    <phone>+1 555-555-0000</phone>
+    <description>Official traffic data (construction) from My City</description>
+    <link rel="description" href="http://my.city.gov/open511/presentation.html" />
+    <timezone>US/Eastern</timezone>
+    <link rel="geography" href="/jurisdictions/my.city.gov/geography/"/>
+    <link rel="license" href="http://my.city.gov/opendatalicense/"/>
+    <languages>
+      <language>fr</language>
+      <language>en</language>
+    </languages>
+  </jurisdiction>
+  <link rel="self" href="/api/jurisdictions/my.city.gov/" />
+  <link rel="up" href="/api/" />   
+</open511>

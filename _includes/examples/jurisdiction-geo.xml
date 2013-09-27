@@ -1,0 +1,18 @@
+<open511
+    xmlns:gml="http://www.opengis.net/gml"
+    xml:lang="en"
+    xml:base="http://my.city.gov/open511/"
+    version="v0"
+>  
+  <geography>
+    <gml:Polygon srsName="EPSG:4326">
+      <gml:outerBoundaryIs>
+        <gml:LinearRing>
+          <gml:coordinates>-73.515580304999958,45.743558682000106 -73.516801182999984,45.744177048000076 -73.516754262999996,45.745199120000088 -73.516741493999973,45.745477517000076 -73.51918957800001,45.746719115000111 -73.519343021999987,45.748003618000077 -73.520130775999974,45.748595939000076 -73.520120826999971,45.749015964000108 -73.52193461600001,45.750027519000106 -73.529479503999994,45.754234632000113 -73.527583232999973,45.777799543000107 -73.515580304999958,45.743558682000106</gml:coordinates>
+        </gml:LinearRing>
+      </gml:outerBoundaryIs>
+    </gml:Polygon>
+  </geography>
+  <link rel="self" href="/jurisdiction/mycity.gov/geography/" />
+  <link rel="up" href="/jurisdiction/mycity.gov/" />   
+</open511>
