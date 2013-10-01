@@ -70,7 +70,7 @@
           <state>CLOSED</state>
           <impacted_systems>
             <impacted_system>ROAD</impacted_system>
-            <impacted_system>ON_STREET_PARKING</impacted_system>
+            <impacted_system>PARKING</impacted_system>
           </impacted_systems>
         </road>      
       </roads>

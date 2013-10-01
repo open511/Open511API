@@ -87,7 +87,7 @@
                     "name": "Broadway", 
                     "impacted_systems": [
                         "ROAD", 
-                        "ON_STREET_PARKING"
+                        "PARKING"
                     ], 
                     "to": "4th Avenue", 
                     "state": "CLOSED"
