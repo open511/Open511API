@@ -46,7 +46,7 @@ pagination_spec :
 <a id="rest"></a>
 <h3>REST</h3>
 
-<p>Like many open data APIs, Open511 will follow the <a href="http://www.restapitutorial.com/lessons/whatisrest.html">REST design</a>. REST does not provide fixed constraints but best practices that will be used by the API:</p>
+<p>Like many open data APIs, Open511 will roughly follow the <a href="http://www.restapitutorial.com/lessons/whatisrest.html">REST design</a>. REST does not provide fixed constraints but best practices that will be used by the API:</p>
 <ul>
   <li>Uniform interface: use of HTTP to provide uniform methods and content negotiation features</li>
   <li>Stateless: each request is independent from the previous one which simplifies implementation for both server and client</li>
@@ -54,7 +54,7 @@ pagination_spec :
   <li>Hypermedia: representations contain links to other resources</li>
 </ul>
 
-<p>The Open511 specification, however, does not provide a fixed URL schema for the resources. The client should follow links between resources (starting from the <a href="root.html">discovery</a>) in order to retrieve the data.</p>
+<p>The Open511 specification does not provide a fixed URL layout for the resources it describes. Resources are linked together (starting from the <a href="root.html">discovery</a> resource), and clients may follow these links to obtain the data they seek. For resources with an <code>id</code> field, it is a best practice to include this value in the resource URL, often as the final component of the path, so that the road event with ID <code>mycity.gov/52</code> has a URL at (for example) <code>/events/mycity.gov/52</code>.</p>
 
 <a id="format"></a>
 <h3>Format negotiation</h3>
