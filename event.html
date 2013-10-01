@@ -136,7 +136,7 @@ event :
     - name: <p>&mdash; event_subtype</p>
       type: Enum
       mandatory: Optional
-      desc: <pre>- ACCIDENT<br>- SERIOUS_ACCIDENT<br>- NUMEROUS_ACCIDENTS<br>- STALLED_VEHICLE<br>- SPILL<br>- OBSTRUCTION<br>- MAJOR_HAZARD<br>- DEMONSTRATION<br><br>- ROAD_CONSTRUCTION<br>- WORK_IN_THE_MEDIAN<br>- NARROW_LANES<br>- TRAFFIC_ALTERNATING_DIRECTIONS<br>- BRIDGE_OPERATIONS<br>- BLASTING<br>- WORK_ON_UNDERGROUND<br>- EMERGENCY_MAINTENANCE<br><br>- SPORTING_EVENT<br>- MAJOR_EVENT<br>- CONCERT<br>- FESTIVAL<br>- FIREWORKS<br>- PARADE<br>- CROWD<br><br>- SEVERE_WEATHER<br>- HEAVY_SNOW<br>- SNOW<br>- ICE_GLAZE<br>- HEAVY_FROST<br>- ICE_STORM<br>- DAMAGING_HAIL<br>- THUNDERSTORM<br>- HEAVY_DOWNPOUR<br>- TORNADO<br>- HURRICANE<br>- STRONG_WINDS<br>- DENSE_FOG<br>- FREEZING_FOG<br>- ICE_FOG MIST<br>- VISIBILITY_REDUCED<br>- VISIBILITY_BLOCKED<br>- BLOWING_SNOW<br>- BLOWING_DUST<br>- SANDSTORM<br>- INSECT_SWARMS<br><br>- IMPASSABLE<br>- ALMOST_IMPASSABLE<br>- PASSABLE_WITH_CARE<br>- SURFACE_WATER_HAZARD<br>- HYDROPLANING_DANGER<br>- SLIPPERY<br>- MUD<br>- LOOSE_GRAVEL<br>- OIL_ON_ROADWAY<br>- ICE<br>- BLACK_ICE<br>- WET_ICY_ROAD<br>- SLUSH<br>- FROZEN_SLUSH<br>- SNOW<br>- PACKED_SNOW<br>- PLOWED_SNOW<br>- POWDER_SNOW<br>- DEEP_SNOW</pre>       
+      desc: <ul><li><code>ACCIDENT</code></li><li><code>SPILL</code></li><li><code>OBSTRUCTION</code></li><li><code>HAZARD</code><br><br></li><li><code>ROAD_MAINTENANCE</code></li><li><code>ROAD_CONSTRUCTION</code></li><li><code>EMERGENCY_MAINTENANCE</code><br><br></li><li><code>PLANNED_EVENT</code></li><li><code>CROWD</code><br><br></li><li><code>HAIL</code></li><li><code>THUNDERSTORM</code></li><li><code>HEAVY_DOWNPOUR</code></li><li><code>STRONG_WINDS</code></li><li><code>BLOWING_DUST</code></li><li><code>SANDSTORM</code></li><li><code>INSECT_SWARMS</code></li><li><code>AVALANCHE_HAZARD</code><br><br></li><li><code>SURFACE_WATER_HAZARD</code></li><li><code>MUD</code></li><li><code>LOOSE_GRAVEL</code></li><li><code>OIL_ON_ROADWAY</code></li><li><code>FIRE</code></li><li><code>SIGNAL_LIGHT_FAILURE</code></li><li><code>PARTLY_ICY</code></li><li><code>ICE_COVERED</code></li><li><code>PARTLY_SNOW_PACKED</code></li><li><code>SNOW_PACKED</code></li><li><code>PARTLY_SNOW_COVERED</code></li><li><code>SNOW_COVERED</code></li><li><code>DRIFTING_SNOW</code></li><li><code>POOR_VISIBILITY</code></li><li><code>ALMOST_IMPASSABLE</code></li><li><code>PASSABLE_WITH_CARE</code></li></ul>
 
     - name: certainty
       type: Enum
@@ -392,8 +392,3 @@ restriction :
 {% endfor %}
   </table>
 
-
-
-<script type="text/javascript">
-     SyntaxHighlighter.all()
-</script>
