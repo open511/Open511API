@@ -198,13 +198,14 @@ pagination_spec :
   <ul>
     <li>Links with <code>rel="self"</code> are named simply <code>url</code> in JSON.</li>
     <li>In the <code>attachments</code> section of events, where links are expected to include several attributes, links are serialized as JSON objects.
-      {% highlight xml %}<link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" />{% endhighlight %}
+      {% highlight xml %}<link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" hreflang="en" />{% endhighlight %}
       becomes
 {% highlight json %}{
   "type": "application/pdf",
   "length": 200345,
   "url": "http://my.city.gov/trafic/advisory/39473/com.pdf",
-  "title": "Detour map"
+  "title": "Detour map",
+  "hreflang": "en"
 }{% endhighlight %}</li>
     <li>The <code>grouped_events</code> section of events is simply an array: <code>["/events/mycity.gov/4877", "/events/mycity.gov/8897"]</code></li>
 

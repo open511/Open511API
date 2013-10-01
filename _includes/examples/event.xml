@@ -89,7 +89,7 @@
         </schedule>
       </schedules>
       <attachments>
-        <link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" />
+        <link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" hreflang="en" />
       </attachments>
     </event>
   </events>

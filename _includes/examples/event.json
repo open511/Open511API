@@ -24,7 +24,8 @@
                     "url": "http://my.city.gov/trafic/advisory/39473/com.pdf", 
                     "length": "200345", 
                     "type": "application/pdf", 
-                    "title": "Detour map"
+                    "title": "Detour map",
+                    "hreflang": "en"
                 }
             ], 
             "geography": {
