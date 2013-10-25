@@ -65,7 +65,7 @@ pagination_spec :
 
 <ul>
   <li>The <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">Accept</a></code> HTTP header. The spec allows clients to list several possible content types in order of preference, though the simplest use of the header is to specify a single preferred type&colon; <code>Accept&colon; application/json</code>. Implementations must support the <code>application/json</code> and <code>application/xml</code> types.</li>
-  <li>A URL parameter named <code>format</code>. It can accept the same syntax as the <code>Accept</code> HTTP header, as well as <code>?format=json</code> and <code>?format=xml</code>. If provided, it takes precedence over the <code>Accept</code> header.</li>
+  <li>A URL parameter named <code>format</code>. It can accept a content type, as in the <code>Accept</code> HTTP header, as well as <code>?format=json</code> and <code>?format=xml</code>. If provided, it takes precedence over the <code>Accept</code> header.</li>
 </ul>
 
 <p>Implementations are free to determine their default serialization. Responses must include a <code>Content-Type</code> header set to the appropriate content type.</p>
@@ -255,6 +255,23 @@ pagination_spec :
 <p>For authentication, users must use API keys (tokens). That token must be accepted via an <code>api_key</code> querystring parameter, because that&rsquo;s sometimes the only mechanism that works in-browser. However, because querystring authentication is awkward with hypermedia APIs like Open511 (links to other resources don&rsquo;t actually work until the client appends authentication parameters to the URL), implementations should also accept <a href="http://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic authentication</a>, where the API key is provided as the username and the password is left blank.</p>
 
 <p>Encryption should be managed by the regular HTTP layer. The only encryption accepted is <a href="https://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a>. Implementations using authentication are encouraged to enable (and perhaps require) HTTPS in order to protect API keys.</p>
+
+<a id="errors"></a>
+<h3>Error Handling</h3>
+
+<p>When an error is encountered, the response must have a 4xx or 5xx HTTP error code. Specifically:</p>
+
+<ul>
+  <li>The client request is badly formed, e.g. incorrect filter syntax: <b>400</b></li>
+  <li>The request requires authentication, but no API key was provided: <b>401</b>. The error message should explain how to obtain an API key.</li>
+  <li>The request was for an individual resource URL, and that resource could not be found: <b>404</b>. Note that for an empty filtered list resource &mdash; e.g. all events with road_name <i>Boardwalk</i>, but no such events exist &mdash; the appropriate response is with status code 200 and an empty &lt;events /&gt; container within the standard response body.</li>
+  <li>The server rate-limits requests, and the client has exceeded the rate limit: <b>429</b></li>
+  <li>The server has an internal problem: <b>500</b></li>
+</ul>
+
+<p>Errors may be returned in <code>text/plain</code>, <code>application/xml</code>, or <code>application/json</code>. The minimum valid JSON error response is <code>{"error": "message here"}</code>. In XML, it's <code>&lt;open511 version=&quot;whatever&quot;&gt;&lt;error&gt;message here&lt;/error&gt;&lt;/open511&gt;</code>.</p>
+
+<p>Implementors may choose to add additional fields on top of that minimum. For example, <code>{"error": "something bad happened", "internal_code": "HF8837"}</code>.</p>
 
 <a id="lang"></a>
 <h3>Response Language</h3>
