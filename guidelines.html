@@ -11,12 +11,12 @@ pagination_spec :
     - name: next
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Optional
-      desc: <p>Link pointing to the next page of results. If omitted, implies that there is no next page.</p>
+      desc: <p>Link pointing to the next page of results. Must be omitted if there is no next page.</p>
 
     - name: previous
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Optional
-      desc: <p>Link pointing to the previous page of results. If omitted, implies that there is no previous page, i.e. <code>offset</code> is 0.</p>      
+      desc: <p>Link pointing to the previous page of results. Must be omitted if there is no previous page, i.e. <code>offset</code> is 0.</p>      
 ---
 {% include JB/setup %}
 
