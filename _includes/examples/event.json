@@ -96,14 +96,14 @@
             ], 
             "areas": [
                 {
-                    "url": "http://geonames.org/123456/about.rdf", 
+                    "url": "http://geonames.org/123456/", 
                     "name": "A City", 
-                    "id": 123456
+                    "id": "geonames.org/123456"
                 }, 
                 {
-                    "url": "http://geonames.org/98765/about.rdf", 
+                    "url": "http://geonames.org/98765/", 
                     "name": "A County", 
-                    "id": 98765
+                    "id": "geonames.org/98765"
                 }
             ]
         }

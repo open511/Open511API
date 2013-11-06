@@ -25,4 +25,5 @@ July 31st, 2013 | <ul><li>Change <code>severity</code> to use string values.</li
 Sept 13th, 2013 | <ul><li>Change <code>schedule</code> structure, adding a <code>schedules</code> container</li><li>Move <code>timezone</code> from <code>schedule</code> to the top level of the event</li><li>Rename <code>road_name</code> to <code>name</code></li><li>Remove <code>lane_status</code> element</li><li>Add <code>state</code>, <code>lanes_open</code>, and <code>lanes_closed</code> elements to <code>road</code></li></ul> |
 Oct 1st, 2013 | <ul><li>Change <code>service_type</code> in discovery resource to a link</li><li>Simplify content-type and version negotiation</li><li>Change XML and JSON container structures</li><li>Update <code>event_subtype</code> and <code>impacted_system</code> value lists</li></ul> |
 Oct 25th, 2013 | <ul><li>Add error handling section to Guidelines document</li></ul> | 
+Nov 6th, 2013 | <ul><li>Allow areas that don't map to GeoNames</li></ul> | 
 {#changelog}

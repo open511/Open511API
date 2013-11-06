@@ -36,11 +36,12 @@ pagination_spec :
       <li>In JSON, use <a href="http://www.geojson.org/">GeoJSON</a></li>
     </ul>
   </li>
-  <li><a id="links"></a><b>Links</b> will use the following rules</li>
+  <li><a id="links"></a><b>Links</b> will use the following rules
   <ul>
     <li>In XML, links will use the a <code>link</code> tag. The syntax is as in <a href="http://tools.ietf.org/html/rfc4287">Atom</a>, though the tag is not placed within an Atom namespace. The type of link is in the <code>rel</code> attribute, and the URL in the <code>href</code> attribute.</li>
     <li>In JSON, as a rule, link attribute names have <code>_url</code> added to the end. There are some exceptions; see the JSON section below.</li>
-  </ul>
+  </ul></li>
+  <li><a id="ids"></a><b>Open511 IDs</a> are globally unique identifiers that take the form <code>jurisdiction-id/resource-id</code>. For example, <code>my.city.gov/84738</code>. The first segment of the event ID is the <a href="jurisdiction.html">jurisdiction</a> ID. The second segment is a string ID that must be unique within its jurisdiction. It can contain the characters <code>a-zA-Z0-9_.-</code>. The two segments are separated with a <code>/</code>.</li>
 </ul>
 
 <a id="rest"></a>

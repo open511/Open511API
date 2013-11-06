@@ -4,7 +4,7 @@ title: Area
 presentation : 
   a :
     name : purpose
-    value : An area is a geographical area. Areas map directly to places in the <a href="http://www.geonames.org/">GeoNames</a> database. This database already contains millions of places, and so it is extremely likely that any area one would want to include is there already, but it&rsquo;s also possible to <a href="http://www.geonames.org/manual.html#create">add to GeoNames</a> areas not already in their database.
+    value : A geographical area: a city, district, neighbourhood, etc.
   b :
     name : method
     value : GET
@@ -16,14 +16,14 @@ area :
       desc: <p>The name of the area</p> 
 
     - name: id
-      type: Integer
+      type: <a href="guidelines.html#ids">Open511 ID</a>
       mandatory: Mandatory
-      desc: <p>Unique <a href="http://www.geonames.org/">GeoNames</a> identifier for the area</p> 
+      desc: <p>Unique identifier for the area. If the area is a standard political division (city, state, province, county, etc.) you must use the ID from the <a href="http://www.geonames.org/">GeoNames</a> database, in the form of e.g. <code>geonames.org/5323810</code>. (GeoNames already lists millions of places, and so it's extremely likely that any area you're interested in is there already, but it&rsquo;s also possible to <a href="http://www.geonames.org/manual.html#create">add to GeoNames</a> areas not already in their database.)</p><p>If (and only if) the area is defined internally by your jurisdiction, and is neither a standard political division nor already in GeoNames, assign a unique ID within your own jurisdiction: <code>my.city.gov/management-district-3</code>.</p> 
 
     - name: self
       type: <a href="guidelines.html#links">Link</a>
-      mandatory: Mandatory
-      desc: <p>Link pointing to the RDF representation of the GeoNames place, i.e. <code>http://geonames.org/{id}/about.rdf</code></p>
+      mandatory: Optional
+      desc: <p>URL to a human-readable Web page with information about the area. For GeoNames areas, use <code>http://geonames.org/{id}/</code></p>
 
 ---
 {% include JB/setup %}

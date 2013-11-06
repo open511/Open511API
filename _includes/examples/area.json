@@ -1,18 +1,17 @@
 {
     "areas": [
         {
-            "url": "http://geonames.org/5323810/about.rdf", 
+            "url": "http://geonames.org/5323810/", 
             "name": "Anaheim", 
-            "id": 5323810
+            "id": "geonames.org/5323810"
         }, 
         {
-            "url": "http://geonames.org/5379524/about.rdf", 
+            "url": "http://geonames.org/5379524/", 
             "name": "Orange County", 
-            "id": 5379524
+            "id": "geonames.org/5379524"
         }
     ],
     "pagination": {
-        "next_url": "/api/areas/?limit=20&offset=20", 
         "offset": 0
     }, 
     "meta": {

@@ -29,13 +29,13 @@
       <areas>
         <area> 
           <name>A City</name>
-          <id>123456</id>
-          <link rel="self" href="http://geonames.org/123456/about.rdf" />  
+          <id>geonames.org/123456</id>
+          <link rel="self" href="http://geonames.org/123456/" />  
         </area>
         <area> 
           <name>A County</name>
-          <id>98765</id>
-          <link rel="self" href="http://geonames.org/98765/about.rdf" />  
+          <id>geonames.org/98765</id>
+          <link rel="self" href="http://geonames.org/98765/" />  
         </area>     
       </areas>
       <geography>
