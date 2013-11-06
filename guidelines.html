@@ -303,11 +303,7 @@ pagination_spec :
 <a id="cross"></a>
 <h3>Cross domain requests</h3>
 
-<p>Open511 APIs must support cross-domain requests, via both:</p>
-<ul>
-  <li><a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a>, using a parameter named <code>callback</code>.<br/>Example: <code>...?callback=func_name</code></li>
-  <li><a href="http://www.w3.org/TR/cors/">CORS</a>, by including an <code>Access-Control-Allow-Origin: *</code> header in all responses to GET queries</li>
-</ul>
+<p>Open511 APIs must support cross-domain requests, via <a href="http://www.w3.org/TR/cors/">CORS</a>, by including an <code>Access-Control-Allow-Origin: *</code> header in all responses to GET queries.</p>
 
 <a id="custom"></a>
 <h3>Custom fields</h3>
