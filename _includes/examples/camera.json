@@ -1,0 +1,52 @@
+{
+    "cameras": [
+        {
+            "url": "/cameras/my.city.gov/23948/", 
+            "id": "my.city.gov/23948",
+            "jurisdiction_url": "http://my.city.gov/open511/jurisdiction/my.city.gov/",
+            "name": "Autoroute 40, coin de l'Acadie, direction nord",
+            "geography": {
+                "type": "Point", 
+                "coordinates": [
+                    [
+                        -71.170000000000002, 
+                        47.329999999999998
+                    ]
+                ]
+            },
+            "roads": [
+                {
+                    "direction": "E", 
+                    "name": "Broadway"
+                }
+            ],
+            "areas": [
+                {
+                    "url": "http://geonames.org/123456/", 
+                    "name": "A City", 
+                    "id": "geonames.org/123456"
+                }, 
+                {
+                    "url": "http://geonames.org/98765/", 
+                    "name": "A County", 
+                    "id": "geonames.org/98765"
+                }
+            ],
+            "media_files": [
+                {
+                    "url": "http://mycity.gov/transport/camera/45445.png", 
+                    "type": "image/png"
+                }
+            ]    
+        }                                               
+        
+    ],
+    "pagination": {
+        "offset": 0
+    }, 
+    "meta": {
+        "url": "/api/areas/", 
+        "version": "v0", 
+        "up_url": "/api/"
+    }
+}

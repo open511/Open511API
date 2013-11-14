@@ -1,0 +1,124 @@
+---
+layout: page
+title: Camera
+presentation : 
+  a :
+    name : purpose
+    value : Provide links to traffic cameras
+  b :
+    name : method
+    value : GET
+
+camera : 
+    - name: id
+      type: <a href="guidelines.html#ids">Open511 ID</a>
+      mandatory: Mandatory
+      desc: <p>A globally unique ID for the camera, following the <a href="guidelines.html#ids">Open511 ID</a> format.</p>
+
+    - name: self
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Self link to the current resource.</p>
+
+    - name: jurisdiction
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Mandatory
+      desc: <p>Link to the <a href="jurisdiction.html">jurisdiction</a> publishing the event.</p>
+
+    - name: name
+      type: Free text
+      mandatory: Optional
+      desc: <p>Name given to the camera.</p>
+
+    - name: geography
+      type: <a href="guidelines.html#geospatial">Geospatial</a>
+      mandatory: Mandatory
+      desc: <p>Geographical information about the camera. Must be a point.</p>      
+
+    - name: roads
+      type: Collection of <a href="event.html#road">road</a> elements
+      mandatory: Optional
+      desc: <p>List of roads covered by the camera.</p>
+
+    - name: areas
+      type: Collections of <a href="area.html">area</a> elements
+      mandatory: Optional
+      desc: <p>Areas where the camera is located</p>   
+
+    - name: media_files
+      type: Collection of <code>media_file</code> elements
+      mandatory: Optional
+      desc: <p>Collection of link pointing the camera output</p> 
+
+    - name:  <p>&mdash; media_file</p>
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Mandatory
+      desc: <p>Links pointing the output of the camera. </pre> 
+
+---
+{% include JB/setup %}
+
+{% include specsnav.html %}
+
+<h3>Overview</h3>
+
+  <table class="resource_pres">
+{% for item in page.presentation %} 
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td class="vertical_header">{{ elem.name }}</td><td>{{ elem.value }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </table>
+
+
+<h3>Parameters and filters</h3>
+
+<p>The area resource does not support any URL parameter or filter besides <a href="guidelines.html#format">format selection</a> and <a href="guidelines.html#lang">language negotiation</a>.</p>
+
+
+<h3>Example</h3>
+
+<p>Example of the XML and JSON representations of the area resource in the context of a list.</p>
+
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+});
+</script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+        {% highlight xml linenos %}{% include examples/camera.xml %}{% endhighlight %}
+    </div>
+    <div id="tabs-2">
+        {% highlight json linenos %}{% include examples/camera.json %}{% endhighlight %}
+  </div>
+</div>
+
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>
+
+
+<h3>Camera item data structure</h3>
+
+<p>The camera resource is a <b>list</b> of items. So the overall data structure follows the list structure as defined in the <a href="guidelines.html#format">formatting guidelines</a>. What follows defines a single <code>camera</code> item.</p>
+
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'camera' %}
+{% for item in page.camera %} 
+   {% include tablegen.html %}
+{% endfor %}   
+     </table>
+  
+
