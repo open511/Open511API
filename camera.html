@@ -4,7 +4,7 @@ title: Camera
 presentation : 
   a :
     name : purpose
-    value : Provide links to traffic cameras
+    value : Provide metadata, including links to images or video, for live traffic cameras
   b :
     name : method
     value : GET
@@ -28,12 +28,12 @@ camera :
     - name: name
       type: Free text
       mandatory: Optional
-      desc: <p>Name given to the camera.</p>
+      desc: <p>Name given to the camera; generally a description of its location.</p>
 
     - name: geography
       type: <a href="guidelines.html#geospatial">Geospatial</a>
       mandatory: Mandatory
-      desc: <p>Geographical information about the camera. Must be a point.</p>      
+      desc: <p>A latitude/longitude Point for the camera's location.</p>
 
     - name: roads
       type: Collection of <a href="event.html#road">road</a> elements
@@ -43,22 +43,25 @@ camera :
     - name: areas
       type: Collections of <a href="area.html">area</a> elements
       mandatory: Optional
-      desc: <p>Areas where the camera is located</p>   
+      desc: <p>The Areas (e.g. city, district) containing the camera's location.</p>   
 
     - name: media_files
-      type: Collection of media files links
-      mandatory: Optional
-      desc: <p>Collection of link pointing the camera output</p> 
+      type: Collection of links
+      mandatory: Mandatory
+      desc: <p>Collection of link pointing the camera output. Will usually contain only a single link, but multiple links are allowed in order to provide alternate formats (e.g. one image link, one video link) for data from the same camera.</p> 
 
     - name:  <p>&mdash; related</p>
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Mandatory
-      desc: <p>Links pointing the output of the camera. </pre> 
+      desc: <p>Link pointing to media files with images or video from the camera. Links must contain the <code>type</code> attribute, with the content type of the linked file (e.g. <code>image/jpeg</code>, <code>video/mp4</code>).</p>
 
 ---
 {% include JB/setup %}
 
 {% include specsnav.html %}
+
+{% include draft_warning.html %}
+
 
 <h3>Overview</h3>
 
@@ -109,9 +112,6 @@ $(function() {
 
 
 <h3>Camera item data structure</h3>
-
-<p>The camera resource is a <b>list</b> of items. So the overall data structure follows the list structure as defined in the <a href="guidelines.html#format">formatting guidelines</a>. What follows defines a single <code>camera</code> item.</p>
-
 
   <table class="representation">
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>

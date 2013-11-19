@@ -1,21 +1,22 @@
 <open511
     xml:lang="en"
-    xml:base="http://my.city.gov/open511/"
+    xml:base="http://mycity.gov/open511/"
+    xmlns:gml="http://www.opengis.net/gml"
     version="v0"
 >
   <cameras>
     <camera>
       <link rel="self" href="/api/traffic_cameras/mycity.gov/23948/" />
-      <id>my.city.gov/23948</id>
+      <id>mycity.gov/23948</id>
       <link rel="jurisdiction" href="http://mycity.gov/open511/jurisdiction/mycity.gov/" />
       <name xml:lang="fr">Autoroute 40, coin de l'Acadie, direction nord</name>
       <name xml:lang="en">Highway 40 northbound, near Acadie</name>
-      <geography> <!-- must be Point -->
+      <geography>
         <gml:Point srsName="EPSG:4326">
           <gml:coordinates>-72.683311408445306,46.635111359930796</gml:coordinates>
         </gml:Point>
       </geography>
-      <roads> <!-- optional; same general structure as in Event -->
+      <roads>
           <road>
               <link rel="self" href="/api/roads/mycity.gov/A-40" />
               <name>Autoroute 40</name>
@@ -25,7 +26,7 @@
       <media_files>
         <link rel="related" type="image/png" href="http://mycity.gov/transport/camera/45445.png" />
       </media_files>
-      <areas> <!-- optional; same as in Event -->
+      <areas>
           <area>
               <id>geonames.org/6076945</id>
               <name>Monte Creek</name>
@@ -33,4 +34,6 @@
       </areas>
     </camera>
   </cameras>
+  <link rel="self" href="/api/cameras/"/>
+  <link rel="up" href="/api/"/>    
 </open511>
