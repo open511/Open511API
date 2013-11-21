@@ -81,7 +81,7 @@ event :
     - name: status
       type: Enum
       mandatory: Mandatory
-      desc: <p>Status of the event. The status allows a client to determine if the current event should be considered as currently effective. Value list&colon;</p><pre>- ACTIVE &colon; The event should be considered as effective<br>- ARCHIVED &colon; The event should not be considered as effective</pre>
+      desc: <p>Indicates whether the event is still relevant or is archived data. <code>ACTIVE</code> refers both to events that are ongoing and events that are planned for the future. The status field should be set to <code>ARCHIVED</code> once the event has ceased or is otherwise out-of-date or no longer valid. Value list&colon;</p><pre>- ACTIVE<br>- ARCHIVED</pre>
 
     - name: headline
       type: Free text
