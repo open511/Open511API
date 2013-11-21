@@ -292,13 +292,13 @@ pagination_spec :
 <p>When returning JSON data, the server must always select a single language for each object returned (as in the example above). In JSON, if no Accept-Language header or parameter is provided, the server must choose a single default language. Multilingual Open511 implementations should also add a <code>lang</code> attribute to each serialized object, with the ISO language tag as a value. Unilingual implementations do not need to include this attribute.</p>
 
 <a id="aggreg"></a>
-<h3>Aggregation and Multi-jurisdiction Endpoint</h3>
+<h3>Aggregation and Multi-Jurisdiction Support</h3>
 
-<p>The Open511 API is designed to support multi-jurisdiction endpoints (an endpoint that provides data for several jurisdictions) and aggregation of the content (an endpoint that gathers information from other endpoints). The last feature is meant to simplify the work of clients. For example, a region can setup an aggregator for all the jurisdictions of the region, or a third party can build a service that serves a province or a country.</p>
+<p>The Open511 API is designed to support multi-jurisdiction servers (a server that provides data for several jurisdictions) and aggregation of data (a server that gathers information from other Open511 servers). The last feature is meant to simplify the work of clients. For example, a region can setup an aggregator for all the jurisdictions of the region, or a third party can, assuming each jurisdiction's license allows it, build a service that serves a province or a country.</p>
 
-<p>Aggregators should not accept any client requests to modify aggregated data. Endpoints for aggregated data should accept only GET requests.</p>
+<p>For the client, these features should be fairly transparent. Unless a <code>jurisdiction</code> filter is used, endpoints return data from all jurisdictions mixed together.</p>
 
-<p>For the client, these features should be fairly transparent: endpoints will work the same way as described in the documentation. It is important to know that the jurisdiction links (in discovery and in events) must always point to the original resource (e.g, the original endpoint). This way, the client always has the opportunity to access the data of the original endpoint.</p>
+<p>Aggregators must not modify the data they return. In particular, all resource URLs ("self" links) must be unmodified, and so continue to point to the original server.</p>
 
 <a id="cross"></a>
 <h3>Cross domain requests</h3>
