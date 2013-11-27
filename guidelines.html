@@ -111,9 +111,9 @@ pagination_spec :
 <a id="xmlspec"></a>
 <h4>XML</h4>
 
-<ul><li>Documents are contained within an <code>open511</code> tag, which includes a version attribute:
-  <pre>&lt;open511 <b>version="v0"</b> ... &gt;</pre>
+<ul><li>Documents are contained within an <code>open511</code> tag, which includes a version attribute. If relative links are used within resources, an xml:base attribute is encouraged: <code>&lt;open511 version="v0" xml:base="http://mycity.gov/"&gt;</code>. 
 </li> 
+  
 
 <li>Every response must contain a <code>self</code> link, providing the current url, and a <code>up</code> link providing the url of the parent resource (except for the discovery resource which does not have any parent). These <code>up</code> and <code>self</code> links are children of the <code>open511</code> tag.
 {% highlight xml %}<open511 version="v0" ...>
