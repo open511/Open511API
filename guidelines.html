@@ -298,7 +298,7 @@ pagination_spec :
 
 <p>For the client, these features should be fairly transparent. Unless a <code>jurisdiction</code> filter is used, endpoints return data from all jurisdictions mixed together.</p>
 
-<p>Aggregators must not modify the data they return. In particular, all resource URLs ("self" links) must be unmodified, and so continue to point to the original server.</p>
+<p>Aggregators must not modify the data they return. In particular, all resource URLs ("self" links) must be unmodified, and so continue to point to the original server. The exception is resources with an <code>updated</code> field: this should be set to the first time at which that version of the resource was accessible via the aggregator's API, which is likely to be slightly later than the original <code>updated</code> value.</p>
 
 <a id="cross"></a>
 <h3>Cross domain requests</h3>

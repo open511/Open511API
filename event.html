@@ -111,7 +111,7 @@ event :
     - name: updated
       type:   <a href="guidelines.html#datetime">DateTime</a>
       mandatory: Mandatory
-      desc: <p>When the content of the event last changed. Will be the same as <code>created</code> if no updates have occurred.</pre>
+      desc: <p>When the content of the event last changed. Will be the same as <code>created</code> if no updates have occurred.</p><p>More specifically, must be the time at which the current version of this event first became available via this Open511 API. Clients are likely to poll for changes via requests like <code>?status=ALL&amp;updated=>2013-10-01T15:10Z</code> where the timestamp is the last time they made such a request. Because of this, implementors need to be certain that an event version with an <code>updated</code> field of <code>2013-10-01T15:10Z</code> was indeed accessible to API requests at that time.</p>
 
     - name: schedules
       type: Collection of <a href="#schedule">schedule</a> elements
