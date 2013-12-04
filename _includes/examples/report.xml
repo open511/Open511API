@@ -7,8 +7,8 @@
       <link rel="self" href="http://dev.open511.ca/api/report/1234/" />
       <link rel="jurisdiction" href="http://open511.ca/api/jurisdictions/mycity.gov/" />
       <geography>
-          <gml:Point srsName="EPSG:4326">
-            <gml:coordinates>-71.17,47.33</gml:coordinates>
+          <gml:Point srsName="urn:ogc:def:crs:EPSG::4326">
+            <gml:pos>47.33 -71.17</gml:pos>
           </gml:Point>
       </geography>    
       <description>Major accident on 8080E. Cars stopped in 2 lanes</description>

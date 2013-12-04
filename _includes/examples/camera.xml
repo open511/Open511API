@@ -12,8 +12,8 @@
       <name xml:lang="fr">Autoroute 40, coin de l'Acadie, direction nord</name>
       <name xml:lang="en">Highway 40 northbound, near Acadie</name>
       <geography>
-        <gml:Point srsName="EPSG:4326">
-          <gml:coordinates>-72.683311408445306,46.635111359930796</gml:coordinates>
+        <gml:Point srsName="urn:ogc:def:crs:EPSG::4326">
+          <gml:pos>46.6351113599 -72.6833114084</gml:pos>
         </gml:Point>
       </geography>
       <roads>

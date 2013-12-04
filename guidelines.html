@@ -117,8 +117,8 @@ pagination_spec :
 
 <li>Every response must contain a <code>self</code> link, providing the current url, and a <code>up</code> link providing the url of the parent resource (except for the discovery resource which does not have any parent). These <code>up</code> and <code>self</code> links are children of the <code>open511</code> tag.
 {% highlight xml %}<open511 version="v0" ...>
-    <link rel="<b>self</b>" href="/api/jurisdictions/test/"/>
-    <link rel="<b>up</b>" href="/api/jurisdictions/"/>
+    <link rel="self" href="/api/jurisdictions/test/"/>
+    <link rel="up" href="/api/jurisdictions/"/>
     ...
   </open511>{% endhighlight %}</li>
 
@@ -141,44 +141,46 @@ pagination_spec :
 <a id="xmlgeo"></a>
 <h4>XML geographies</h4>
 
-<p>Geospatial fields use <a href="http://en.wikipedia.org/wiki/Geography_Markup_Language">GML</a>. As this is a complex format, we use a small subset of GML v2.</p>
+<p>Geospatial fields use <a href="http://en.wikipedia.org/wiki/Geography_Markup_Language">GML</a> version 3.2.1. This is a very complex format, and so we use only a small subset, such that there is only one way to express a given geography.</p>
 
-<p>All GML geometries must include the <code>srsName="EPSG:4326"</code> attribute. Coordinates are expressed using the <code>gml:coordinates</code> tag. Coordinates must be in <code>longitude,latitude</code> order, since despite great uncertainty over this topic x,y order remains more widely supported in software.</p>
+<p>Tools may be able to generate output that fits within this subset. For example, in <a href="http://postgis.net/">PostGIS</a> 2.x, a recommended open-source geospatial database, use <code>ST_AsGML(3, geom::geometry, 15, 23)</code>, where <code>geom</code> is the name of your geography or geometry column. But if the GML your preferred tool generates doesn&rsquo;t fit within this subset, the geometries involved are simple enough that constructing the GML manually should still be fairly simple.</p>
+
+<p>All GML geometries must include the <code>srsName="urn:ogc:def:crs:EPSG::4326"</code> attribute. Coordinates must be in <code>latitude, longitude</code> order. <b>Note that this is the reverse of the axis order that GeoJSON uses.</b></p>
 
 <p>Open511 supports the following geometry structures:</p>
 
 <ul>
-  <li>{% highlight xml %}<gml:Point srsName="EPSG:4326">
-  <gml:coordinates>-73.5877,45.5261</gml:coordinates>
+  <li>{% highlight xml %}<gml:Point srsName="urn:ogc:def:crs:EPSG::4326">
+  <gml:pos>45.5261 -73.5877</gml:pos>
 </gml:Point>{% endhighlight %}</li>
 
-<li>{% highlight xml %}<gml:LineString srsName="EPSG:4326">
-  <gml:coordinates>-73.592,45.523 -73.59,45.524 -73.592,45.523</gml:coordinates>
+<li>{% highlight xml %}<gml:LineString srsName="urn:ogc:def:crs:EPSG::4326">
+  <gml:posList>45.523 -73.592 45.524 -73.59 45.523 -73.592</gml:posList>
 </gml:LineString>{% endhighlight %}</li>
 
-<li>{% highlight xml %}<gml:Polygon srsName="EPSG:4326">
-  <gml:outerBoundaryIs>
+<li>{% highlight xml %}<gml:Polygon srsName="urn:ogc:def:crs:EPSG::4326">
+  <gml:exterior>
     <gml:LinearRing>
-      <gml:coordinates>-73,40 -73,41 -74,41 -74,40 -73,40</gml:coordinates>
+      <gml:posList>40 -73 41 -73 41 -74 40 -74 40 -73</gml:posList>
     </gml:LinearRing>
-  </gml:outerBoundaryIs>
-  <gml:innerBoundaryIs>
+  </gml:exterior>
+  <gml:interior>
     <gml:LinearRing>
-      <gml:coordinates>-73.2,40.2 -73.2,40.8 -73.8,40.8 -73.8,40.2 -73.2,40.2</gml:coordinates>
+      <gml:posList>40.2 -73.2 40.8 -73.2 40.8 -73.8 40.2 -73.8 40.2 -73.2</gml:posList>
     </gml:LinearRing>
-  </gml:innerBoundaryIs>
+  </gml:interior>
 </gml:Polygon>
-<!-- note that most polygons will have only an outer boundary -->{% endhighlight %}</li>
+<!-- note that most polygons will have only an exterior ring -->{% endhighlight %}</li>
 
-<li>{% highlight xml %}<gml:MultiPoint srsName="EPSG:4326">
+<li>{% highlight xml %}<gml:MultiPoint srsName="urn:ogc:def:crs:EPSG::4326">
   <gml:pointMember>
     <gml:Point>
-      <gml:coordinates>-73.5877,45.5261</gml:coordinates>
+      <gml:pos>45.5261 -73.5877</gml:pos>
     </gml:Point>
   </gml:pointMember>
   <gml:pointMember>
     <gml:Point>
-      <gml:coordinates>-73.6,45.4</gml:coordinates>
+      <gml:pos>45.4 -73.6</gml:pos>
     </gml:Point>
   </gml:pointMember>
 </gml:MultiPoint>{% endhighlight %}</li>
