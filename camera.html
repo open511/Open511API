@@ -53,7 +53,7 @@ camera :
     - name: media_files
       type: Collection of <code><a href="#media_file">media_file</a></code> elements
       mandatory: Mandatory
-      desc: <p>Collection of links to the camera output. Will usually contain only a single <code>media_file</code> element, but multiple elements are allowed in order to provide alternate formats (e.g. one image link, one video link) for data from the same camera. Media files that are not live camera output, e.g. static images used to help figure out orientation, are permitted, but must come last in the last and must contain a <code>title</code> element.</p> 
+      desc: <p>Collection of links to the camera output. Will usually contain only a single <code>media_file</code> element, but multiple elements are allowed in order to provide alternate formats (e.g. one image link, one video link) for data from the same camera. Media files that are not live camera output, e.g. static images used to help figure out orientation, are permitted, but must come last in the list and must contain a <code>title</code> element.</p> 
 
 media_file :
     - name: self/url
