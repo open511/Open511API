@@ -9,8 +9,10 @@
       <link rel="self" href="/api/traffic_cameras/mycity.gov/23948/" />
       <id>mycity.gov/23948</id>
       <link rel="jurisdiction" href="http://mycity.gov/open511/jurisdiction/mycity.gov/" />
-      <name xml:lang="fr">Autoroute 40, coin de l'Acadie, direction nord</name>
-      <name xml:lang="en">Highway 40 northbound, near Acadie</name>
+      <name xml:lang="fr">Autoroute 40, coin de l'Acadie</name>
+      <name xml:lang="en">Highway 40, near Acadie</name>
+      <description xml:lang="fr">Direction est à droite, direction ouest à gauche</description>
+      <description xml:lang="en">Eastbound on right side of image, westbound on left</description>
       <geography>
         <gml:Point srsName="EPSG:4326">
           <gml:coordinates>-72.683311408445306,46.635111359930796</gml:coordinates>
@@ -20,11 +22,17 @@
           <road>
               <link rel="self" href="/api/roads/mycity.gov/A-40" />
               <name>Autoroute 40</name>
-              <direction>N</direction>
+              <direction>BOTH</direction>
           </road>
       </roads>
       <media_files>
-        <link rel="related" type="image/png" href="http://mycity.gov/transport/camera/45445.png" />
+        <media_file>
+          <link rel="self" href="http://mycity.gov/transport/camera/45445.png" />
+          <type>image/png</type>
+          <width>300</width>
+          <height>300</height>
+          <refresh_interval>15</refresh_interval>
+        </media_file>
       </media_files>
       <areas>
           <area>
