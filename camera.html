@@ -30,6 +30,12 @@ camera :
       mandatory: Mandatory
       desc: <p>Name given to the camera; generally its location, e.g. <i>Highway 4 near Allen Rd</i>.</p>
 
+    - name: media_files
+      type: Collection of <code><a href="#media_file">media_file</a></code> elements
+      mandatory: Mandatory
+      desc: <p>Collection of links to the camera output. Will usually contain only a single <code>media_file</code> element, but multiple elements are allowed in order to provide alternate formats (e.g. one image link, one video link) for data from the same camera. Media files that are not live camera output, e.g. static images used to help figure out orientation, are permitted, but must come last in the list and must contain a <code>title</code> element.</p> 
+
+
     - name: geography
       type: <a href="guidelines.html#geospatial">Geospatial</a>
       mandatory: Mandatory
@@ -49,11 +55,6 @@ camera :
       type: Collection of <a href="area.html">area</a> elements
       mandatory: Optional
       desc: <p>The Areas (e.g. city, district) containing the camera's location.</p>   
-
-    - name: media_files
-      type: Collection of <code><a href="#media_file">media_file</a></code> elements
-      mandatory: Mandatory
-      desc: <p>Collection of links to the camera output. Will usually contain only a single <code>media_file</code> element, but multiple elements are allowed in order to provide alternate formats (e.g. one image link, one video link) for data from the same camera. Media files that are not live camera output, e.g. static images used to help figure out orientation, are permitted, but must come last in the list and must contain a <code>title</code> element.</p> 
 
 media_file :
     - name: self/url
