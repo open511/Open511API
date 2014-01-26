@@ -14,8 +14,8 @@
       <description xml:lang="fr">Direction est à droite, direction ouest à gauche</description>
       <description xml:lang="en">Eastbound on right side of image, westbound on left</description>
       <geography>
-        <gml:Point srsName="EPSG:4326">
-          <gml:coordinates>-72.683311408445306,46.635111359930796</gml:coordinates>
+        <gml:Point srsName="urn:ogc:def:crs:EPSG::4326">
+          <gml:pos>46.6351113599 -72.6833114084</gml:pos>
         </gml:Point>
       </geography>
       <roads>

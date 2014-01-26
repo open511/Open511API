@@ -39,8 +39,8 @@
         </area>     
       </areas>
       <geography>
-        <gml:LineString srsName="EPSG:4326">
-          <gml:coordinates>-71.17,47.33 -71.15,47.36 -71.10,47.35 -71.20,47.40</gml:coordinates>
+        <gml:LineString srsName="urn:ogc:def:crs:EPSG::4326">
+          <gml:posList>47.33 -71.17 47.36 -71.15 47.35 -71.1 47.4 -71.2</gml:posList>
         </gml:LineString>
       </geography>
       <roads>
