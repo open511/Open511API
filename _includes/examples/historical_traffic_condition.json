@@ -1,0 +1,25 @@
+{
+    "historical_traffic_conditions": [
+        {
+            "historical_speed": 50, 
+            "traffic_segment_url": "/api/traffic_segments/my.city.gov/52/", 
+            "day": 1, 
+            "time": "00:00"
+        }, 
+        {
+            "historical_speed": 52, 
+            "traffic_segment_url": "/api/traffic_segments/my.city.gov/52/", 
+            "day": 1, 
+            "time": "00:10"
+        }
+    ],
+    "pagination": {
+        "next_url": "/api/traffic_segments/my.city.gov/52/historical_conditions/?limit=2&offset=2", 
+        "offset": 0
+    }, 
+    "meta": {
+        "url": "/api/traffic_segments/my.city.gov/52/historical_conditions/", 
+        "version": "v0", 
+        "up_url": "/api/traffic_segments/my.city.gov/52/"
+    } 
+}

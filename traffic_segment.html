@@ -1,0 +1,171 @@
+---
+layout: page
+title: Traffic segment
+presentation : 
+  a :
+    name : purpose
+    value : Traffic-speed data for a road segment
+  b :
+    name : method
+    value : GET
+
+traffic_segment : 
+
+    - name: id
+      type: <a href="guidelines.html#ids">Open511 ID</a>
+      mandatory: Mandatory
+      desc: <p>A globally unique ID for the traffic segment, following the <a href="guidelines.html#ids">Open511 ID</a> format.</p>
+
+    - name: self
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Self link to the current resource.</p>
+
+    - name: jurisdiction
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Mandatory
+      desc: <p>Link to the <a href="jurisdiction.html">jurisdiction</a> publishing the traffic segment.</p>
+
+    - name: updated
+      type:   <a href="guidelines.html#datetime">DateTime</a>
+      mandatory: Mandatory
+      desc: <p>When the content of the resource last changed.</p><p>More specifically, must be the time at which the current version of this resource first became available via this Open511 API. Clients are likely to poll for changes via requests like <code>?updated=>2013-10-01T15:10Z</code> where the timestamp is the last time they made such a request. Because of this, implementors need to be certain that the resource version with an <code>updated</code> field of <code>2013-10-01T15:10Z</code> was indeed accessible to API requests at that time.</p>
+
+    - name: geography
+      type: <a href="guidelines.html#geospatial">Geospatial</a>
+      mandatory: Mandatory
+      desc: <p>Geographical coordinates for this segment. May be Point or LineString. If LineString, coordinates  must be ordered properly in the direction of the road.</p>
+
+    - name: roads
+      type: Collection of <a href="#road">road</a> elements
+      mandatory: Mandatory
+      desc: <p>Roads to which this segment belongs.</p><p>Usually a segment belongs to a single road, but the format supports multiple roads for cases where, for example, a single physical stretch of road is considered part of multiple numbered highways.</p>
+
+    - name: current_speed
+      type: Integer
+      mandatory: Mandatory
+      desc: <p>The speed of traffic, as of the time in <code>updated</code>. In km, unless the jurisdiction has set a <code>distance_unit</code> of MILES.</p>
+
+    - name: current_travel_time
+      type: Integer
+      mandatory: Optional
+      desc: <p>The time, in seconds, to drive through this segment. (Only makes sense if <code>geography</code> is a LineString.)</p>
+
+    - name: historical_speed
+      type: Integer
+      mandatory: Optional
+      desc: <p>The usual speed for this segment at this time of the day; the exact semantics of how this number is calculated may differ between jurisdictions.</p>
+
+    - name: historical_travel_time
+      type: Integer
+      mandatory: Optional
+      desc: <p>The usual time, in seconds, to drive through this segment at this time of the day.</p>
+
+    - name: historical_traffic_conditions
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Optional
+      desc: <p>A link to a list of historical traffic condition resources for this segment.</p>
+
+    - name: name
+      mandatory: Optional
+      type: Free text
+      desc: <p>A descriptive name for the road segment.</p> 
+
+    - name: areas
+      type: Collections of <a href="area.html">area</a> elements
+      mandatory: Optional
+      desc: <p>Areas within which this segment falls.</p>
+
+road : 
+    - name: name
+      mandatory: Mandatory
+      type: Free text
+      desc: <p>Name of the road affected by the event; should be the same as in the linked Road resource.</p> 
+
+    - name: self / url
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Link to the <a href="road.html">Road</a> resource for this road.</p>
+
+    - name: direction
+      type: Enum
+      mandatory: Mandatory
+      desc: <p>Direction of this segment. Value list:</p><pre>- N<br>- NW<br>- W<br>- SW<br>- S<br>- SE<br>- E<br>- NE</pre>      
+
+    - name: from
+      type: Free text
+      mandatory: Optional (mandatory if <code>to</code> is provided)
+      desc: <p>A description of the point on the road where the segment begins -- for example, the name of an intersecting road, or an exit number.</p><p>If no <code>to</code> field is provided, this field means "nearby".</p>
+
+    - name: to
+      type: Free text
+      mandatory: Optional
+      desc: <p>A description of the point on the road where the segment ends.</p>
+
+---
+{% include JB/setup %}
+
+{% include specsnav.html %}
+
+{% include draft_warning.html %}
+
+<h3>Overview</h3>
+
+  <table class="resource_pres">
+{% for item in page.presentation %} 
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td class="vertical_header">{{ elem.name }}</td><td>{{ elem.value }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </table>
+
+
+<h3>Parameters</h3>
+
+<p>This resource supports the <code>bbox</code>, <code>geography</code>, <code>tolerance</code>, <code>jurisdiction</code>, <code>updated</code>, <code>road</code>, and <code>area</code> filters with the same semantics as in <a href="event.html">Event</A>. <a href="guidelines.html#field_selection">Field selection</a> is likely to be particular useful on this resource, as clients may want to regularly fetch current speeds without re-downloading geospatial data. Some URL parameters are common to all resources: <a href="guidelines.html#format">format</a>, <a href="guidelines.html#versioning">version</a>, <a href="guidelines.html#lang">accept-language</a>, and <a href="guidelines.html#pagination">limit</a>.</p>
+
+<h3>Example</h3>
+
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+});
+</script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+        {% highlight xml linenos %}{% include examples/traffic_segment.xml %}{% endhighlight %}
+    </div>
+    <div id="tabs-2">
+        {% highlight json linenos %}{% include examples/traffic_segment.json %}{% endhighlight %}
+  </div>
+</div>
+
+<h3>Traffic segment data structure</h3>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'traffic_segment' %}
+{% for item in page.traffic_segment %} 
+   {% include tablegen.html %}
+{% endfor %}   
+     </table>
+
+<a id="road"></a><h4>Road structure</h4>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% for item in page.road  %} 
+   {% include tablegen.html %}
+{% endfor %}
+  </table>     
+  
+

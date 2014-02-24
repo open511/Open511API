@@ -56,9 +56,13 @@ parameters :
 
     - name : road_name
       required : optional
-      description : <p>Shows only events containing a <code>road</code> element with the provided <code>name</code>. Case-sensitive exact match. Use a comma-separated list to make OR queries.</p> 
+      description : <p>Shows only events containing a <code>road</code> element with the provided <code>name</code>. Case-sensitive exact match. Use a comma-separated list to make OR queries.</p>
 
-    - name : area_id
+    - name: road
+      required: optional
+      description: <p>Shows only events containing a <code>road</code> element linking to a <a href="road.html">road</a> element with the provided <code>id</code>. Use a comma-separated list to make OR queries.</p>
+
+    - name : area
       required : optional
       description : <p>Shows only events containing a <code><a href="area.html">area</a></code> element with the provided <code>id</code>. Use a comma-separated list to make OR queries.</p>
 
@@ -184,15 +188,15 @@ road :
       type: Free text
       desc: <p>Name of the road affected by the event. Ideally, road names should be formatted in accordance with national or regional standards, and the same road should be named consistently in different events.</p> 
 
-#    - name: road_url
-#      mandatory: Optional
-#      type: <a href="guidelines.html#links">Link</a>
-#      desc: <p>If the jurisdiction provides its network, the <code>road_url</code> field provides a link to the road segment that is affected. <b>(TBD)</b></p> 
+    - name: self / url
+      mandatory: Optional
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Link to the <a href="road.html">Road</a> resource for this road.</p>
 
     - name: from
       type: Free text
-      mandatory: Optional
-      desc: <p>Approximate start point of the event on the road. It can be an intersection with another street or it can be a mileage indication.</p><p> This value should not be used to determine the exact start point since it can be an approximation. The <code>geometry</code> field should be considered as the reference for exact location.</p><p>If no <code>to</code> field is provided, the from can be considered as a "near".</p>
+      mandatory: Optional (mandatory if <code>to</code> is provided)
+      desc: <p>Approximate start point of the event on the road. It can be an intersection with another street or it can be a mileage indication.</p><p> This value should not be used to determine the exact start point since it can be an approximation. The <code>geometry</code> field should be considered as the reference for exact location.</p><p>If no <code>to</code> field is provided, this field means "nearby".</p>
 
     - name: to
       type: Free text
@@ -278,7 +282,7 @@ restriction :
     - name: restriction_type
       type: Enum
       mandatory: Mandatory
-      desc: <p>Type of restriction that affects vehicles. Value list&colon; <pre><ul><li><code>SPEED</code>&colon; Limitation of the speed of vehicles. Unit is in kilometers/hour.</li><li><code>WIDTH</code>&colon; Width limitation, mainly for trucks. Unit is meters.</li><li><code>HEIGHT</code>&colon; Height limitation, mainly for trucks. Unit is meters</li><li><code>WEIGHT</code>&colon; Weight limitation for vehicles. Unit is metric tons.</li><li><code>AXLE_WEIGHT</code>&colon; Weight limitation per axle for truck. Unit is metric tons.</li></ul></p>
+      desc: <p>Type of restriction that affects vehicles. Value list&colon; <pre><ul><li><code>SPEED</code>&colon; Limitation of the speed of vehicles. Unit is in kilometers/hour, unless the jurisdiction's <code>distance_unit</code> is miles, in which case it's miles/hour.</li><li><code>WIDTH</code>&colon; Width limitation, mainly for trucks. Unit is meters.</li><li><code>HEIGHT</code>&colon; Height limitation, mainly for trucks. Unit is meters</li><li><code>WEIGHT</code>&colon; Weight limitation for vehicles. Unit is metric tons.</li><li><code>AXLE_WEIGHT</code>&colon; Weight limitation per axle for truck. Unit is metric tons.</li></ul></p>
 
     - name: value
       type: float

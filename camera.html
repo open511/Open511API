@@ -33,8 +33,7 @@ camera :
     - name: media_files
       type: Collection of <code><a href="#media_file">media_file</a></code> elements
       mandatory: Mandatory
-      desc: <p>Collection of links to the camera output. Will usually contain only a single <code>media_file</code> element, but multiple elements are allowed in order to provide alternate formats (e.g. one image link, one video link) for data from the same camera. Media files that are not live camera output, e.g. static images used to help figure out orientation, are permitted, but must come last in the list and must contain a <code>title</code> element.</p> 
-
+      desc: <p>Collection of links to the camera output. Will usually contain only a single <code>media_file</code> element, but multiple elements are allowed in order to provide alternate formats (e.g. one image link, one video link) for data from the same camera. Media files that are not live camera output, e.g. static images used to help figure out orientation, are permitted, but must come last in the list and must contain a <code>title</code> element.</p>
 
     - name: geography
       type: <a href="guidelines.html#geospatial">Geospatial</a>
@@ -44,7 +43,7 @@ camera :
     - name: description
       type: Free text
       mandatory: Optional
-      desc: <p>Descriptive information about the camera that doesn't fit in <code>name</code>. Often used for orientation information, e.g. <i>Highway 4 eastbound on right side of image, westbound on left</i>.
+      desc: <p>Descriptive information about the camera that doesn't fit in <code>name</code>. Often used for orientation information, e.g. <i>Highway 4 eastbound on right side of image, westbound on left</i>.</p>
 
     - name: roads
       type: Collection of <a href="event.html#road">road</a> elements
@@ -65,7 +64,7 @@ media_file :
     - name: type
       type: String of an <a href="http://www.iana.org/assignments/media-types/">Internet Media Type</a>
       mandatory: Mandatory
-      desc: <p>Media type of the linked file, e.g. <code>image/png</code> or <code>video/mp4</code>.
+      desc: <p>Media type of the linked file, e.g. <code>image/png</code> or <code>video/mp4</code>.</p>
 
     - name: width
       type: Integer
