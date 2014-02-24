@@ -53,8 +53,6 @@
         "offset": 0
     }, 
     "meta": {
-        "url": "/api/traffic_segments/my.city.gov/52/", 
-        "version": "v0", 
-        "up_url": "/api/traffic_segments/"
+        "version": "v0"
     }
 }

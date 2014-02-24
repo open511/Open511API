@@ -40,7 +40,5 @@
   </traffic_segments>
   <pagination>
     <offset>0</offset>
-  </pagination>
-  <link rel="self" href="/api/traffic_segments/my.city.gov/52/"/>
-  <link rel="up" href="/api/traffic_segments/"/>    
+  </pagination> 
 </open511>

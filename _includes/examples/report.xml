@@ -23,6 +23,4 @@
     <offset>0</offset>
     <link rel="next" href="/api/reports/?limit=20&amp;offset=20"/>
   </pagination>  
-  <link rel="self" href="/api/reports/"/>
-  <link rel="up" href="/api/"/>
 </open511>

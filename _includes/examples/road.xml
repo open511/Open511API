@@ -21,7 +21,5 @@
   </roads>
   <pagination>
     <offset>0</offset>
-  </pagination>
-  <link rel="self" href="/api/roads/"/>
-  <link rel="up" href="/api/"/>    
+  </pagination>  
 </open511>

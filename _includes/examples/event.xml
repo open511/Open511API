@@ -97,6 +97,4 @@
     <offset>0</offset>
     <link rel="next" href="/api/events/?limit=20&amp;offset=20"/>
   </pagination>
-  <link rel="self" href="/api/events/"/>
-  <link rel="up" href="/api/"/>  
 </open511>

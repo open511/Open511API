@@ -18,8 +18,6 @@
         "offset": 0
     }, 
     "meta": {
-        "url": "/api/traffic_segments/my.city.gov/52/historical_conditions/", 
-        "version": "v0", 
-        "up_url": "/api/traffic_segments/my.city.gov/52/"
+        "version": "v0"
     } 
 }

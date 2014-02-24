@@ -18,8 +18,6 @@
         "offset": 0
     }, 
     "meta": {
-        "url": "/api/roads/", 
-        "version": "v0", 
-        "up_url": "/api/"
+        "version": "v0"
     }
 }

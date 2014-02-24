@@ -115,13 +115,6 @@ pagination_spec :
 </li> 
   
 
-<li>Every response must contain a <code>self</code> link, providing the current url, and a <code>up</code> link providing the url of the parent resource (except for the discovery resource which does not have any parent). These <code>up</code> and <code>self</code> links are children of the <code>open511</code> tag.
-{% highlight xml %}<open511 version="v0" ...>
-    <link rel="self" href="/api/jurisdictions/test/"/>
-    <link rel="up" href="/api/jurisdictions/"/>
-    ...
-  </open511>{% endhighlight %}</li>
-
 <li>Objects generally appear within a container tag with a plural name: <code>event</code> within <code>events</code>, <code>area</code> within <code>areas</code>, etc.
 {% highlight xml %}<open511 ...>
   <events>
@@ -214,13 +207,11 @@ pagination_spec :
 
   </ul>  
   </li>
-<li>A <code>meta</code> structure has to be contained in each response. This <code>meta</code> structure contains the format version number as well as the self link (providing the current url) and the up link (providing the url of the parent ressource). The <code>meta</code> structure is contained directly in the first level structure.
+<li>A <code>meta</code> structure has to be contained in each response. This <code>meta</code> structure contains the format version number. It is contained directly in the first level structure.
 {% highlight json %}{
   ...
   "meta": {
-      "version": "v0", 
-      "up_url": "/api/events/mtq/",
-      "url": "/api/events/mtq/maj39012/"
+      "version": "v0"
   }    
 }{% endhighlight %}</li>  
 

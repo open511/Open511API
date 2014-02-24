@@ -17,7 +17,5 @@
   </areas>
   <pagination>
     <offset>0</offset>
-  </pagination>
-  <link rel="self" href="/api/areas/"/>
-  <link rel="up" href="/api/"/>    
+  </pagination> 
 </open511>

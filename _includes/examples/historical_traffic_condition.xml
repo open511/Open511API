@@ -20,7 +20,5 @@
   <pagination>
     <offset>0</offset>
     <link rel="next" href="/api/traffic_segments/my.city.gov/52/historical_conditions/?limit=2&amp;offset=2" />
-  </pagination>
-  <link rel="self" href="/api/traffic_segments/my.city.gov/52/historical_conditions/"/>
-  <link rel="up" href="/api/traffic_segments/my.city.gov/52/"/>    
+  </pagination> 
 </open511>

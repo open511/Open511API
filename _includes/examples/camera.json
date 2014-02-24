@@ -38,8 +38,6 @@
         }
     ],
     "meta": {
-        "url": "/api/cameras/", 
-        "version": "v0", 
-        "up_url": "/api/"
+        "version": "v0"
     }
 }
