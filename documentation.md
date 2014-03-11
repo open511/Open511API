@@ -27,9 +27,16 @@ This document describes the specifications of the Open511 API. It will provide a
 * [Jurisdiction geography](jurisdictiongeo.html): Contain the geographical boundaries of a jurisdiction.
 
 
-####Draft resources:
+####Draft resources
 
-Draft are resources that have been requested by adopters and that are currently under development.
+Draft are resources that have been proposed or requested by adopters and that are still under development.
+
+* [Reports](report.html): The report is the crowdsourcing feature of Open511. A road user can submit a report to notify the jurisdiction that something is ongoing (e.g an accident). Other clients can also retrieve reports submitted to a jurisdiction.
+* [Traffic Cameras](camera.html): Provide information about the traffic cameras managed by a given jurisdiction.
+* [Roads](road.html): List the road names under a given jurisdiction.
+* [Traffic segments](traffic_segment.html): Provide geospatial information about road segments as well as realtime information (speed) if available.
+* [Traffic historical conditions](historical_traffic_condition.html): Sub-resource of the traffic segments that provide access to historial data of the speed if available.
+
 
 ### Status {#status}
 
@@ -37,11 +44,11 @@ Draft are resources that have been requested by adopters and that are currently 
 
 Why not version 1.0? We expect that while developing the first implementations we'll some discrepancies and possible improvements. As a consequence, version 1.0 will be the result of the first implementations.
 
-Who will be the first implementors? [MTC](http://511.org/) and [OpenNorth](https://github.com/opennorth/open511) will work in parallel to build the two first implementations. Any other organization can start implementing this specification but it should be done in collaboration with MTC and OpenNorth since some minor changes could still occur. If your organization wants to build software based on open511, please join the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511).
+Who will be the first implementors? [MTC](http://511.org/), the [Ministry of Transportation of British Columbia](http://www.gov.bc.ca/tran/) and [OpenNorth](https://github.com/opennorth/open511) will work in parallel to build the two first implementations. Any other organization can start implementing this specification but it should be done in collaboration with MTC and OpenNorth since some minor changes could still occur. If your organization wants to build software based on open511, please join the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511).
 
 It may be helpful to [browse](http://demo.open511.org/) the output of Open North's in-progress implementation of this API.
 
 ### Roadmap and Timeline {#timeline}
 
-The first draft of the specification was released to collaborators in October 2012 and the second iteration released publicly in January 2013. The current version (0.9) is the result of the third iteration and is considered as the first implementation-ready release and will be used for the first implementations. The version will switch to version 1.0 when the first implementations are live (target date: late 2013/early 2014).
+The first draft of the specification was released to collaborators in October 2012 and the second iteration released publicly in January 2013. The current version (0.9) is the result of the third iteration and is considered as the first implementation-ready release and will be used for the first implementations. The version will switch to version 1.0 when the first implementations are live (target date: spring 2014).
 
