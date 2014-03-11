@@ -6,7 +6,7 @@ title: Open511 API specification change log
 {% include specsnav.html %}
 
 
-## Change log
+### Change log
 
 (Please refer to the commit [history](https://github.com/opennorth/Open511API/commits/gh-pages) for detailed change log)
 

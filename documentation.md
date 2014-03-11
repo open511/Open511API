@@ -6,27 +6,32 @@ title: Introduction to the Open511 API
 {% include specsnav.html %}
 
 
-## Getting started {#started}
+### Getting started {#started}
 
-This document describes the specifications of the Open511 API. It will provide an open data standard for road event information. The API is currently under development and we are looking for comments and feedback before it is implemented. You can read more about the [context](context.html) of the API or jump directly to the technical stuff (see below). If you are interested in contributing, you can start by joining the mailing list and consulting the "contribute" panel on the right.
+This document describes the specifications of the Open511 API. It will provide an open data standard for road event information. The specification is almost completed and should be [released soon](#timeline). You can read more about the [context](context.html) of the API or jump directly to the [technical stuff](#techdocuments). If you are interested in contributing, you can start by joining the mailing list and consulting the "contribute" panel on the right.
 
 
-## How it works {#techdocuments}
+### How it works {#techdocuments}
 
 * The [technical guidelines](guidelines.html) provide specifics about encoding, formats, architecture and content negotiation.
 
-**Main Resources:**
+####Main Resources:
 
 * [Root (aka discovery)](root.html): this resource is the single entry point for the entire framework. It provides links to all the other resources.   
 * [Jurisdictions](jurisdiction.html): represent a specific government with some metadata (contact info, geographical coverage and other options). 
 * [Events](event.html): represent events (construction, accident, etc.) that are published by jurisdictions. 
 * [Reports](report.html): The report is the crowdsourcing feature of Open511. A road user can submit a report to notify the jurisdiction that something is ongoing (e.g an accident). Other clients can also retrieve reports submitted to a jurisdiction.
 
-**Support resources:**
+####Support resources:
 * [Area](area.html): Open511 contains the concept of area that can be attached to events. An area can be any location with a name: city, county, district, etc. It allows jurisdiction to provide additional location data without providing other geospatial data.
 * [Jurisdiction geography](jurisdictiongeo.html): Contain the geographical boundaries of a jurisdiction.
 
-## Status {#status}
+
+####Draft resources:
+
+Draft are resources that have been requested by adopters and that are currently under development.
+
+### Status {#status}
 
 **The open511 specification has reached version 0.9**. This first official version is also the first "implementation ready" specification. 
 
@@ -36,7 +41,7 @@ Who will be the first implementors? [MTC](http://511.org/) and [OpenNorth](https
 
 It may be helpful to [browse](http://demo.open511.org/) the output of Open North's in-progress implementation of this API.
 
-## Roadmap and Timeline {#timeline}
+### Roadmap and Timeline {#timeline}
 
 The first draft of the specification was released to collaborators in October 2012 and the second iteration released publicly in January 2013. The current version (0.9) is the result of the third iteration and is considered as the first implementation-ready release and will be used for the first implementations. The version will switch to version 1.0 when the first implementations are live (target date: late 2013/early 2014).
 
