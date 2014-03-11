@@ -18,8 +18,6 @@
         }
     ],
     "meta": {
-        "url": "/api/jurisdictions/my.city.gov/", 
-        "version": "v0", 
-        "up_url": "/api/"
+        "version": "v0"
     }
 }

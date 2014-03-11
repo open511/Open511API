@@ -56,6 +56,11 @@ representation :
       mandatory: Optional
       desc: <p>The timezone of the jurisdiction; will be used as the default for events belonging to this jurisdiction. Should always be provided, except in cases where a jurisdiction spans multiple timezones.</p>
 
+    - name: distance_unit
+      type: Enum
+      mandatory: Optional
+      desc: <p>The unit this jurisdiction uses to measure distances. Can be <code>KILOMETRES</code> or <code>MILES</code>, but kilometres are the default and so jurisdictions using kilometres need not specify a <code>distance_unit</code>.</p>
+
     - name: license
       type: <a href="guidelines.html#links">Link</a>
       mandatory: Mandatory

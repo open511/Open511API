@@ -1,0 +1,23 @@
+{
+    "roads": [
+        {
+            "url": "http://my.city.gov/api/roads/my.city.gov/mill-st/", 
+            "name": "Mill St.", 
+            "jurisdiction_url": "http://my.city.gov/api/jurisdiction/my.city.gov/", 
+            "id": "my.city.gov/mill-st"
+        }, 
+        {
+            "url": "http://my.city.gov/api/roads/my.city.gov/hwy-5/", 
+            "name": "Highway 5", 
+            "jurisdiction_url": "http://my.city.gov/api/jurisdiction/my.city.gov/", 
+            "id": "my.city.gov/hwy-5",
+            "+national_road_network_id": "MSG5"
+        }
+    ], 
+    "pagination": {
+        "offset": 0
+    }, 
+    "meta": {
+        "version": "v0"
+    }
+}

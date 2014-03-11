@@ -41,7 +41,5 @@
           </area>
       </areas>
     </camera>
-  </cameras>
-  <link rel="self" href="/api/cameras/"/>
-  <link rel="up" href="/api/"/>    
+  </cameras>   
 </open511>

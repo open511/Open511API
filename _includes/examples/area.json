@@ -15,8 +15,6 @@
         "offset": 0
     }, 
     "meta": {
-        "url": "/api/areas/", 
-        "version": "v0", 
-        "up_url": "/api/"
+        "version": "v0"
     }
 }

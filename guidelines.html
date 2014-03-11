@@ -114,13 +114,6 @@ pagination_spec :
 </li> 
   
 
-<li>Every response must contain a <code>self</code> link, providing the current url, and a <code>up</code> link providing the url of the parent resource (except for the discovery resource which does not have any parent). These <code>up</code> and <code>self</code> links are children of the <code>open511</code> tag.
-{% highlight xml %}<open511 version="v0" ...>
-    <link rel="self" href="/api/jurisdictions/test/"/>
-    <link rel="up" href="/api/jurisdictions/"/>
-    ...
-  </open511>{% endhighlight %}</li>
-
 <li>Objects generally appear within a container tag with a plural name: <code>event</code> within <code>events</code>, <code>area</code> within <code>areas</code>, etc.
 {% highlight xml %}<open511 ...>
   <events>
@@ -213,13 +206,11 @@ pagination_spec :
 
   </ul>  
   </li>
-<li>A <code>meta</code> structure has to be contained in each response. This <code>meta</code> structure contains the format version number as well as the self link (providing the current url) and the up link (providing the url of the parent ressource). The <code>meta</code> structure is contained directly in the first level structure.
+<li>A <code>meta</code> structure has to be contained in each response. This <code>meta</code> structure contains the format version number. It is contained directly in the first level structure.
 {% highlight json %}{
   ...
   "meta": {
-      "version": "v0", 
-      "up_url": "/api/events/mtq/",
-      "url": "/api/events/mtq/maj39012/"
+      "version": "v0"
   }    
 }{% endhighlight %}</li>  
 
@@ -248,6 +239,17 @@ pagination_spec :
   <li>Conditional requests, sending <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.19">ETag</a></code> in responses and accepting <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26">If-None-Match</a></code> in requests. See <a href="http://developer.yahoo.com/performance/rules.html#etags">Configure ETags</a> and <a href="http://en.wikipedia.org/wiki/HTTP_ETag">Wikipedia</a>.</li>
   <li>GZip compression via <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3">Accept-Encoding</a></code> and <code>Content-Encoding</code></li>
 </ul>
+
+<a id="field_selection"></a>
+<h3>Field Selection</h3>
+
+<p>Another bandwidth-saving feature is allowing the clients to request only a subset of the fields on a resource. This feature is <strong>optional</strong> for server implementations: servers may choose to simply ignore all <code>fields</code> parameters and always return all fields.</p>
+
+<p>A <code>fields</code> URL parameter contains a comma-separated list of field names, e.g. <code>?fields=id,current_speed,updated</code>. Only fields matching the provided names will be returned.</p>
+
+<p>Link fields can be specified using either the XML <code>rel</code> value (<code>self</code>, <code>jurisdiction</code>) or the JSON name (<code>url</code>, <code>jurisdiction_url</code>).</p>
+
+<p>Field selection takes place at the resource level -- top-level fields like <code>pagination</code> can never be filtered out. Within a resource, every field name in a nested structure must be provided. For example, to get the name of an event's roads, you must be include <code>roads,road,name</code> in the <code>fields</code> parameter.</li></p>
 
 <a id="auth"></a>
 <h3>Authentication and Encryption Mechanisms</h3>

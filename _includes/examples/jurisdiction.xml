@@ -21,6 +21,4 @@
       </languages>
     </jurisdiction>
   </jurisdictions>
-  <link rel="self" href="/api/jurisdictions/my.city.gov/" />
-  <link rel="up" href="/api/" />   
 </open511>

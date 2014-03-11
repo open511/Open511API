@@ -1,8 +1,6 @@
 {
     "meta": {
-        "url": "/jurisdiction/mycity.gov/geography/", 
-        "version": "v0", 
-        "up_url": "/jurisdiction/mycity.gov/"
+        "version": "v0"
     }, 
     "geographies": [
         {
