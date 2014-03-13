@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>{{ page.title }}</title>
-    {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
-    <meta name="author" content="{{ site.author.name }}">
+    <meta name="description" content="Open511, an open format to publish your road event data">
+    <meta name="keywords" content="Documentation, open511, roadwork, open data, road event data, traffic data, Open North" />
+    <meta name="author" content="OpenNorth">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -13,9 +14,11 @@
 
     <!-- Le styles -->
     <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ ASSET_PATH }}/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <!--link href="{{ ASSET_PATH }}/css/style.css?body=1" rel="stylesheet" type="text/css" media="all"-->
 
     <link href="{{ ASSET_PATH }}/css/syntax-github.css" rel="stylesheet" type="text/css">
+    <link href="/assets/themes/new/css/all.css" rel="stylesheet" type="text/css">
+
     <!-- Include required JS files -->
 
 
@@ -39,6 +42,36 @@
         </div>
       </div>
     </div>
+
+
+    <header id="header">
+      <div class="header-holder">
+        <a class="brand" href="http://open511.org/">Open511 API</a>
+        <ul class="social-icons">
+          <li><a class="ico01" href="#">ico01</a></li>
+          <li><a class="ico02" href="#">ico02</a></li>
+          <li><a class="ico03" href="#">ico03</a></li>
+        </ul>
+      </div>
+      <nav class="nav-list">
+        <ul>
+          <li><span><a href="#">HOME</a></span></li>
+          <li><span><a href="#">ABOUT</a></span></li>
+          <li><span><a href="#">USE CASES</a></span></li>
+          <li>
+            <span>
+              <a href="#">IMPLEMENTATIONS</a>
+              <ul>
+                <li><a href="#">implementations</a></li>
+                <li><a href="#">implementations</a></li>
+                <li><a href="#">implementations</a></li>
+              </ul>
+            </span>
+          </li>
+          <li><span><a href="#">DOCUMENTATION</a></span></li>
+        </ul>
+      </nav>
+    </header>
 
     <div class="container">
 
