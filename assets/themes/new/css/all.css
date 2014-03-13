@@ -1,7 +1,7 @@
 body {
 	margin: 0;
-	font:19px/23px Arial, Helvetica, sans-serif !important;
-	color: #3c3c3b !important;
+	font:19px/23px 'Montserrat', Arial, Helvetica, sans-serif;
+	color: #3c3c3b;
 	background:#fff;
 	-webkit-text-size-adjust:100%;
 	min-width:1000px;
@@ -51,6 +51,10 @@ header, footer, article, section, hgroup, nav, figure, aside { display: block; }
 figure {
 	margin:0;
 	padding:0;
+}
+
+abbr {
+	border-bottom: 1px black dotted;
 }
 #header{
 	background:#1d1d1b;
