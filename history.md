@@ -26,4 +26,5 @@ Sept 13th, 2013 | <ul><li>Change <code>schedule</code> structure, adding a <code
 Oct 1st, 2013 | <ul><li>Change <code>service_type</code> in discovery resource to a link</li><li>Simplify content-type and version negotiation</li><li>Change XML and JSON container structures</li><li>Update <code>event_subtype</code> and <code>impacted_system</code> value lists</li></ul> |
 Oct 25th, 2013 | <ul><li>Add error handling section to Guidelines document</li></ul> |
 Nov 6th, 2013 | <ul><li>Allow areas that don't map to GeoNames</li></ul> |
+May 7, 2014 | <ul><li>Clarify that the <code>in_effect_on</code> filter on events should never return archived events</li></ul> |
 {#changelog}
