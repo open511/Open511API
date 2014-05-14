@@ -1,11 +1,13 @@
 body {
 	margin: 0;
-	font:19px/23px 'Montserrat', Arial, Helvetica, sans-serif;
 	color: #3c3c3b;
 	background:#fff;
 	-webkit-text-size-adjust:100%;
 	min-width:1000px;
 	-ms-text-size-adjust: none;
+}
+body.homepage {
+	font:19px/23px 'Montserrat', Arial, Helvetica, sans-serif;
 }
 img {border-style: none;}
 a {
