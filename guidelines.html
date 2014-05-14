@@ -312,3 +312,13 @@ pagination_spec :
 <h3>Custom fields</h3>
 <p>Some implementors might have specific requirements that aren&rsquo;t supported by the existing Open511 fields. While we encourage implementors to stay within the specification if possible, we also provide guidelines for adding custom fields to a specific implementation.</p>
 <p>In XML serializations, custom tags may be placed anywhere, but must belong to a separate XML namespace, e.g. <code>&lt;bus_number xmlns=&quot;http://my.city.gov/open511-extensions&quot;&gt;</code>. In JSON serializations, custom attribute names must begin with <code>+</code>, e.g. <code>+bus_number</code>.</p>
+
+<a id="simple"></a>
+<h3>Static vs. dynamic (&quot;simple version&quot;)</h3>
+<p>The documented API includes several query parameters which require application code on the server. But implementors may choose to publish Open511 data without supporting these query parameters, in such a way that the API could be implemented via a folder of static files hosted by a standard web server. This provides fewer features to users, but should be easier to implement, particularly for smaller jurisdictions.</p>
+<p>Static services are indicated as such via the <code>service_type</code> on the <a href="root.html">discovery resource</a>: <code>http://open511.org/services/events/</code> is the dynamic service, <code>http://open511.org/services/events-static/</code> is the static version.</p>
+<p>After that, the requirements for the service are exactly the same, except that options in headers and query-string parameters are ignored. Some of the specific implications of this for <a href="event.html">events</a>:</p>
+<ul>
+  <li>Format and language negotiation are ignored; all Open511 data is XML</li>
+  <li>Only events with a status of <code>ACTIVE</code> are available</li>
+</ul>
