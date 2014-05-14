@@ -64,8 +64,8 @@ pagination_spec :
 <p>Clients indicate their format preference via one of two mechanisms&colon;</p>
 
 <ul>
-  <li>The <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">Accept</a></code> HTTP header. The spec allows clients to list several possible content types in order of preference, though the simplest use of the header is to specify a single preferred type&colon; <code>Accept&colon; application/json</code>. Implementations must support the <code>application/json</code> and <code>application/xml</code> types.</li>
-  <li>A URL parameter named <code>format</code>. It can accept a content type, as in the <code>Accept</code> HTTP header, as well as <code>?format=json</code> and <code>?format=xml</code>. If provided, it takes precedence over the <code>Accept</code> header.</li>
+  <li>The <code><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">Accept</a></code> HTTP header. HTTP allows clients to list several possible content types in order of preference (and so implementors are encouraged to use a library to parse the header) though the simplest use of the header is to specify a single preferred type&colon; <code>Accept&colon; application/json</code>. Implementations must support the <code>application/json</code> and <code>application/xml</code> types.</li>
+  <li>A URL parameter named <code>format</code>, which accepts <code>?format=json</code> and <code>?format=xml</code>. If provided, it takes precedence over the <code>Accept</code> header.</li>
 </ul>
 
 <p>Implementations are free to determine their default serialization. Responses must include a <code>Content-Type</code> header set to the appropriate content type.</p>
