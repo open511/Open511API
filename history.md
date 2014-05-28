@@ -27,4 +27,5 @@ Oct 1st, 2013 | <ul><li>Change <code>service_type</code> in discovery resource t
 Oct 25th, 2013 | <ul><li>Add error handling section to Guidelines document</li></ul> |
 Nov 6th, 2013 | <ul><li>Allow areas that don't map to GeoNames</li></ul> |
 May 7, 2014 | <ul><li>Clarify that the <code>in_effect_on</code> filter on events should never return archived events</li></ul> |
+May 14, 2014 | <ul><li>Document static/simple version of events resource</li></ul> |
 {#changelog}
