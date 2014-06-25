@@ -1,0 +1,14 @@
+"schedule": {
+	"recurring_schedules": [
+		{
+			"start_date": "2014-06-01",
+			"end_date": "2014-06-30",
+			"days": [1,2,3,4,5],
+			"daily_start_time": "09:00",
+			"daily_end_time": "17:00"
+		}
+	],
+	"exceptions": [
+		"2014-06-24"
+	]
+}
