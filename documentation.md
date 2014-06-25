@@ -8,7 +8,9 @@ title: Introduction to the Open511 API
 
 ### Getting started {#started}
 
-This document describes the specifications of the Open511 API, an open data standard for road event information. The specification is almost completed and should be [released soon](#timeline). You can read more about the [context](context.html) of the API or jump directly to the [technical stuff](#techdocuments). If you are interested in contributing, you can start by joining the mailing list and consulting the "contribute" panel on the right.
+This document describes the specifications of the Open511 API, an open data standard for road event information. The specification is almost complete and should be [released soon](#timeline). You can read more about the [context](context.html) of the API or jump directly to the [technical stuff](#techdocuments). If you are interested in contributing, you can start by joining the mailing list and consulting the "contribute" panel on the right.
+
+We've provided some getting-started tips for [data consumers](consumer_guide.html) and [data providers](implementor_guide.html).
 
 
 ### How it works {#techdocuments}
@@ -50,5 +52,5 @@ It may be helpful to [browse](http://demo.open511.org/) the output of Open North
 
 ### Roadmap and Timeline {#timeline}
 
-The first draft of the specification was released to collaborators in October 2012 and the second iteration released publicly in January 2013. The current version (0.9) is the result of the third iteration and is used to develop the first implementations. The version will switch to version 1.0 when the first implementations are live (target date: spring 2014).
+The first draft of the specification was released to collaborators in October 2012 and the second iteration released publicly in January 2013. The current version (0.9) is the result of the third iteration. We will publish version 1.0 first implementations are live (target date: fall 2014).
 

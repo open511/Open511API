@@ -1,0 +1,22 @@
+---
+layout: page
+title: Getting Started&colon; Consumers
+  
+---
+{% include JB/setup %}
+
+{% include specsnav.html %}
+
+<p>We&rsquo;re glad you&rsquo;re interested in writing software that uses Open511 data! Here are a few suggestions that we hope will help you out.</p>
+
+<h4>Two flavours</h4>
+
+<p>An Open511 event resource can be provided either via a dynamic API, or as a non-interactive XML file. We mostly assume you have access to an API. If you don&rsquo;t, and you'd like some of the features &mdash; JSON, filtering, archiving &rsquo; than an API gives you, we have <a href="https://github.com/opennorth/open511-server">open-source software</a> that can serve an API based on an XML feed.</p>
+
+<h4>Specify a version</h4>
+
+<p>You probably don't want your software to break when the data publisher moves to a newer version of Open511. So, on every API request you make, you should be sure to specify the version you're building against, via an <code>Open511-Version: v1</code> header or <code>?version=v1</code> as a query-string parameter.</p>
+
+<h4>Get in touch</h4>
+
+<p>This is a new and changing format, and there are likely to still be points of confusion when implementing it. We'd like to help. The easiest way to make sure you're not missing anything is to email us at <a href="mailto:open511@opennorth.ca">open511@opennorth.ca</a> and tell us what you're building; we can offer specific advice, and tell you about anything we're aware of that may impact your work.</p>
