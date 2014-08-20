@@ -642,9 +642,8 @@ footer p {
 	width: 85%;
 }
 
-#changelog {
-
-	width: 50%;
+#changelog td {
+	vertical-align: top;
 }
 
 td.name{
