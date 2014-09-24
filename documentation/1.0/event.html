@@ -292,7 +292,7 @@ restriction :
 ---
 {% include JB/setup %}
 
-{% include 0.9/specsnav.html %}
+{% include 1.0/specsnav.html %}
 
 <h3>Overview</h3>
 
@@ -339,10 +339,10 @@ restriction :
         <li><a href="#tabs-2">JSON</a></li>
     </ul>
     <div id="tabs-1">
-        {% highlight xml linenos %}{% include 0.9/examples/event.xml %}{% endhighlight %}
+        {% highlight xml linenos %}{% include 1.0/examples/event.xml %}{% endhighlight %}
     </div>
     <div id="tabs-2">
-        {% highlight json linenos %}{% include 0.9/examples/event.json %}{% endhighlight %}
+        {% highlight json linenos %}{% include 1.0/examples/event.json %}{% endhighlight %}
   </div>
 </div>
 
@@ -355,7 +355,7 @@ restriction :
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'event' %}
 {% for item in page.event  %}
-     {% include 0.9/tablegen.html %}
+     {% include 1.0/tablegen.html %}
 {% endfor %}
   </table>
 
@@ -367,7 +367,7 @@ restriction :
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'road' %}
 {% for item in page.road  %} 
-   {% include 0.9/tablegen.html %}
+   {% include 1.0/tablegen.html %}
 {% endfor %}
   </table>
 
@@ -379,7 +379,7 @@ restriction :
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'restriction' %}
 {% for item in page.restriction  %} 
-   {% include 0.9/tablegen.html %}
+   {% include 1.0/tablegen.html %}
 {% endfor %}
   </table>
 
@@ -391,7 +391,7 @@ restriction :
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'schedule' %}
 {% for item in page.schedule  %} 
-   {% include 0.9/tablegen.html %}
+   {% include 1.0/tablegen.html %}
 {% endfor %}
   </table>
 

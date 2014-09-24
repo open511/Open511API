@@ -1,0 +1,162 @@
+---
+layout: page
+title: Camera
+presentation : 
+  a :
+    name : purpose
+    value : Provide metadata, including links to images or video, for live traffic cameras
+  b :
+    name : method
+    value : GET
+
+camera : 
+    - name: id
+      type: <a href="guidelines.html#ids">Open511 ID</a>
+      mandatory: Mandatory
+      desc: <p>A globally unique ID for the camera, following the <a href="guidelines.html#ids">Open511 ID</a> format.</p>
+
+    - name: self
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Self link to the current resource.</p>
+
+    - name: jurisdiction
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Mandatory
+      desc: <p>Link to the <a href="jurisdiction.html">jurisdiction</a> publishing the event.</p>
+
+    - name: name
+      type: Free text
+      mandatory: Mandatory
+      desc: <p>Name given to the camera; generally its location, e.g. <i>Highway 4 near Allen Rd</i>.</p>
+
+    - name: media_files
+      type: Collection of <code><a href="#media_file">media_file</a></code> elements
+      mandatory: Mandatory
+      desc: <p>Collection of links to the camera output. Will usually contain only a single <code>media_file</code> element, but multiple elements are allowed in order to provide alternate formats (e.g. one image link, one video link) for data from the same camera. Media files that are not live camera output, e.g. static images used to help figure out orientation, are permitted, but must come last in the list and must contain a <code>title</code> element.</p>
+
+    - name: geography
+      type: <a href="guidelines.html#geospatial">Geospatial</a>
+      mandatory: Mandatory
+      desc: <p>A latitude/longitude Point for the camera's location.</p>
+
+    - name: description
+      type: Free text
+      mandatory: Optional
+      desc: <p>Descriptive information about the camera that doesn't fit in <code>name</code>. Often used for orientation information, e.g. <i>Highway 4 eastbound on right side of image, westbound on left</i>.</p>
+
+    - name: roads
+      type: Collection of <a href="event.html#road">road</a> elements
+      mandatory: Optional
+      desc: <p>List of roads covered by the camera.</p>
+
+    - name: areas
+      type: Collection of <a href="area.html">area</a> elements
+      mandatory: Optional
+      desc: <p>The Areas (e.g. city, district) containing the camera's location.</p>   
+
+media_file :
+    - name: self/url
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Mandatory
+      desc: <p>URL to an image or video file.</p>
+
+    - name: type
+      type: String of an <a href="http://www.iana.org/assignments/media-types/">Internet Media Type</a>
+      mandatory: Mandatory
+      desc: <p>Media type of the linked file, e.g. <code>image/png</code> or <code>video/mp4</code>.</p>
+
+    - name: width
+      type: Integer
+      mandatory: Optional
+      desc: <p>Width in pixels of the linked image or video.</p>
+
+    - name: height
+      type: Integer
+      mandatory: Optional
+      desc: <p>Height in pixels of the linked image or video.</p>
+
+    - name: refresh_interval
+      type: Integer
+      mandatory: Optional
+      desc: <p>Interval, in seconds, between refreshes of the linked image or video. If the image is refreshed every 30 seconds, set this to 30. If the image or video is always live data, set this to 0.</p>
+
+    - name: title
+      type: Free text
+      mandatory: Optional
+      desc: <p>Description of this particular media file. Only include this if this media file warrants its own description -- repeating information already provided in the <code>type</code> and <code>name</code> fields, e.g. <i>PNG image of the camera at Elm St. and 1st Ave.</i>, is a bad idea. A title is a good idea if this media file contains something other than live camera output, e.g. <i>Static wayfinding image to identify which way the camera is currently pointing</i>, or there's some other important thing about this file that doesn't apply to the camera's other media files.</p>
+
+---
+{% include JB/setup %}
+
+{% include 1.0/specsnav.html %}
+
+{% include 1.0/draft_warning.html %}
+
+
+<h3>Overview</h3>
+
+  <table class="resource_pres">
+{% for item in page.presentation %} 
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td class="vertical_header">{{ elem.name }}</td><td>{{ elem.value }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </table>
+
+
+<h3>Parameters and filters</h3>
+
+<p>The camera resource supports the road (<code>road_name</code>), area (<code>area_id</code>), and geography (<code>bbox</code>, <code>geography</code>, <code>radius</code>, <code>lat</code>, <code>lon</code>) filters as in the <a href="event.html">event resource</a>, as well as the URL parameters common to all resources: <a href="guidelines.html#format">format</a>, <a href="guidelines.html#versioning">version</a>, <a href="guidelines.html#lang">accept-language</a>, and <a href="guidelines.html#pagination">limit</a></p>
+
+
+<h3>Example</h3>
+
+<p>Example of the XML and JSON representations of the camera resource.</p>
+
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+});
+</script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+        {% highlight xml linenos %}{% include 1.0/examples/camera.xml %}{% endhighlight %}
+    </div>
+    <div id="tabs-2">
+        {% highlight json linenos %}{% include 1.0/examples/camera.json %}{% endhighlight %}
+  </div>
+</div>
+
+
+<h3>Camera item data structure</h3>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'camera' %}
+{% for item in page.camera %} 
+   {% include 1.0/tablegen.html %}
+{% endfor %}   
+     </table>
+
+<a id="media_file"></a><h4>Media_file structure</h4>
+
+<p></p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% for item in page.media_file  %} 
+   {% include 1.0/tablegen.html %}
+{% endfor %}
+  </table>     
+  
+

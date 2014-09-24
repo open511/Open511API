@@ -1,0 +1,131 @@
+---
+layout: page
+title: Root (discovery)
+presentation : 
+  a :
+    name : purpose
+    value : The root (or discovery) resource is the single entry point of an open511 endpoint. By following links from the discovery resource, clients can find and gain access to all resources within an Open511 implementation.
+  b :
+    name : method
+    value : GET
+representation : 
+
+#    - name: self
+#      mandatory: Mandatory
+#      type: <a href="guidelines.html#links">Link</a>
+#      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>.</p>
+
+    - name: jurisdictions
+      mandatory: Mandatory, at least one <code>jurisdiction</code> element is mandatory
+      type: Collection of <code>jurisdiction</code>
+      desc: <p>List all the jurisdictions that are supported by the endpoint. Most of the time, there will be only one occurrence, except for multiple jurisdictions endpoints and aggregators.</p>
+
+    - name: <p>&mdash; id</p>
+      mandatory: Mandatory
+      type: String
+      desc: <p>ID of the jurisdiction.</p>
+
+    - name: <p>&mdash; name</p>
+      mandatory: Mandatory
+      type: Free text
+      desc: <p>Full text name of the jurisdiction.</p>
+
+    - name: <p>&mdash;  self/url</p>
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Link to the jurisdiction resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>. An aggregator should always point the original jurisdiction resource and not copy it locally.</p>  
+      
+    - name: <p>services</p>
+      mandatory: Mandatory
+      type: Collection of <code>service</code>
+      desc: <p>List all the services supported by the endpoint.</p>
+
+    - name: <p>&mdash; service_type</p>
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>A URL representing an Open511 service like Events or Areas. The URL follows the same logic as an XML namespace&colon; it's a unique identifier for the service type, though clients will never need to visit that URL. It's recommended that the URL point to human-readable documentation for the service.</p><p>All services that are part of this specification will have URLs starting with <code>http&colon;//open511.org/services/</code>. <strong>For virtually all implementors, this URL should be on open511.org.</strong> Other organizations may want to build services that are outside the current scope of this specification but otherwise fit in with the other Open511 services; such services will have URLs not on open511.org. Such services must follow the <a href="guidelines.html">guidelines</a> of this specification.</p><p>Values for current Open511 services are&colon;</p><ul><li><code>http&colon;//open511.org/services/events/</code></li><li><code>http&colon;//open511.org/services/events-static/</code></li><li><code>http&colon;//open511.org/services/areas/</code></li><li><code>http&colon;//open511.org/services/cameras/</code></li><li><code>http&colon;//open511.org/services/roads/</code></li><li><code>http&colon;//open511.org/services/traffic_segments/</code></li></ul>
+
+    - name: <p>&mdash; self/url</p>
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Link pointing to the resource. In XML, the <code>rel</code> attribute needs the value <code>self</code>. Even if the current endpoint supports multiple jurisdictions or is an aggregator, there is only one service resource that aggregates the data for all the jurisdictions.</p>    
+
+    - name: <p>&mdash;supported_versions</p>
+      mandatory: Optional
+      type: Collection of <code>supported_version</code>
+      desc: <p>List all the versions supported by the current server.</p>
+
+    - name: <p>&mdash; &mdash; supported_version</p>
+      mandatory: Optional
+      type: Enum
+      desc: <p>Version identifier. As the specification evolves, version identifiers will be added. For the moment, the only version supported is <code>v0</code> and is not an official value.</p>
+  
+---
+{% include JB/setup %}
+{% include 1.0/specsnav.html %}
+
+<h3>Overview</h3>
+
+  <table class="resource_pres">
+{% for item in page.presentation %} 
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td class="vertical_header">{{ elem.name }}</td><td>{{ elem.value }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </table>
+
+<h3>Parameters and filters</h3>
+
+<p>The discovery resource does not support any URL parameter or filter besides the <a href="guidelines.html#format">format selection</a> and the <a href="guidelines.html#lang">language negotiation</a>.</p>
+
+
+<h3>Example</h3>
+
+<p>Example of the XML and JSON representations of the discovery resource</p>
+
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+});
+</script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+        {% highlight xml linenos %}{% include 1.0/examples/root.xml %}{% endhighlight %}
+    </div>
+    <div id="tabs-2">
+        {% highlight json linenos %}{% include 1.0/examples/root.json %}{% endhighlight %}
+  </div>
+</div>
+
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>
+
+<h3>Data structure</h3>
+
+<p>The following table provides the data structure for the root (discovery) resource.</p>
+
+<p>Note that the discovery resource follows the rules of an individual item in <a href="guidelines.html#format">formatting guidelines</a> and <b>not</b> of list since it contains different types of items. There is no <code>up</code> link since the discovery is the upper level.</p>
+
+
+
+  <table class="representation">
+    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'representation' %}
+{% for item in page.representation %} 
+   {% include 1.0/tablegen.html %}
+{% endfor %}       
+  </table>
+
+<p>&nbsp;</p>
+
+

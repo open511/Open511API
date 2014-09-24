@@ -1,0 +1,45 @@
+<open511
+    xml:lang="en"
+    xml:base="http://mycity.gov/open511/"
+    xmlns:gml="http://www.opengis.net/gml"
+    version="v1"
+>
+  <cameras>
+    <camera>
+      <link rel="self" href="/api/traffic_cameras/mycity.gov/23948/" />
+      <id>mycity.gov/23948</id>
+      <link rel="jurisdiction" href="http://mycity.gov/open511/jurisdiction/mycity.gov/" />
+      <name xml:lang="fr">Autoroute 40, coin de l'Acadie</name>
+      <name xml:lang="en">Highway 40, near Acadie</name>
+      <description xml:lang="fr">Direction est à droite, direction ouest à gauche</description>
+      <description xml:lang="en">Eastbound on right side of image, westbound on left</description>
+      <geography>
+        <gml:Point srsName="urn:ogc:def:crs:EPSG::4326">
+          <gml:pos>46.6351113599 -72.6833114084</gml:pos>
+        </gml:Point>
+      </geography>
+      <roads>
+          <road>
+              <link rel="self" href="/api/roads/mycity.gov/A-40" />
+              <name>Autoroute 40</name>
+              <direction>BOTH</direction>
+          </road>
+      </roads>
+      <media_files>
+        <media_file>
+          <link rel="self" href="http://mycity.gov/transport/camera/45445.png" />
+          <type>image/png</type>
+          <width>300</width>
+          <height>300</height>
+          <refresh_interval>15</refresh_interval>
+        </media_file>
+      </media_files>
+      <areas>
+          <area>
+              <id>geonames.org/6076945</id>
+              <name>Monte Creek</name>
+          </area>
+      </areas>
+    </camera>
+  </cameras>   
+</open511>

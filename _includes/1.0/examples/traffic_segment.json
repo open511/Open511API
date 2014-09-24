@@ -1,0 +1,58 @@
+{
+    "traffic_segments": [
+        {
+            "id": "my.city.gov/52", 
+            "updated": "2013-10-22T15:45:00Z", 
+            "jurisdiction_url": "/api/jurisdiction/my.city.gov", 
+            "url": "/api/traffic_segments/my.city.gov/52", 
+            "current_travel_time": 333, 
+            "current_speed": 30,
+            "historical_speed": 40,
+            "historical_travel_time": 250, 
+            "historical_traffic_conditions_url": "/api/traffic_segments/my.city.gov/52/historical_conditions", 
+            "roads": [
+                {
+                    "url": "/api/roads/my.city.gov/highway-2", 
+                    "to": "Exit 12", 
+                    "direction": "N", 
+                    "from": "Exit 10", 
+                    "name": "Highway 2"
+                }
+            ], 
+            "geography": {
+                "type": "LineString", 
+                "coordinates": [
+                    [
+                        -71.17, 
+                        47.33
+                    ], 
+                    [
+                        -71.15, 
+                        47.36
+                    ], 
+                    [
+                        -71.1, 
+                        47.35
+                    ], 
+                    [
+                        -71.2, 
+                        47.4
+                    ]
+                ]
+            },
+            "areas": [
+                {
+                    "url": "http://geonames.org/6076945/", 
+                    "id": "geonames.org/6076945", 
+                    "name": "Monte Creek"
+                }
+            ]
+        }
+    ], 
+    "pagination": {
+        "offset": 0
+    }, 
+    "meta": {
+        "version": "v1"
+    }
+}

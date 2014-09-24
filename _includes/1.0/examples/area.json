@@ -1,0 +1,20 @@
+{
+    "areas": [
+        {
+            "url": "http://geonames.org/5323810/", 
+            "name": "Anaheim", 
+            "id": "geonames.org/5323810"
+        }, 
+        {
+            "url": "http://geonames.org/5379524/", 
+            "name": "Orange County", 
+            "id": "geonames.org/5379524"
+        }
+    ],
+    "pagination": {
+        "offset": 0
+    }, 
+    "meta": {
+        "version": "v1"
+    }
+}
