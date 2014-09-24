@@ -62,7 +62,7 @@ representation :
   
 ---
 {% include JB/setup %}
-{% include specsnav.html %}
+{% include 0.9/specsnav.html %}
 
 <h3>Overview</h3>
 
@@ -99,10 +99,10 @@ $(function() {
         <li><a href="#tabs-2">JSON</a></li>
     </ul>
     <div id="tabs-1">
-        {% highlight xml linenos %}{% include examples/root.xml %}{% endhighlight %}
+        {% highlight xml linenos %}{% include 0.9/examples/root.xml %}{% endhighlight %}
     </div>
     <div id="tabs-2">
-        {% highlight json linenos %}{% include examples/root.json %}{% endhighlight %}
+        {% highlight json linenos %}{% include 0.9/examples/root.json %}{% endhighlight %}
   </div>
 </div>
 
@@ -122,7 +122,7 @@ $(function() {
     <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'representation' %}
 {% for item in page.representation %} 
-   {% include tablegen.html %}
+   {% include 0.9/tablegen.html %}
 {% endfor %}       
   </table>
 

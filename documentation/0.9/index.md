@@ -3,7 +3,7 @@ layout: page
 title: Introduction to the Open511 API
 ---
 {% include JB/setup %}
-{% include specsnav.html %}
+{% include 0.9/specsnav.html %}
 
 
 ### Getting started {#started}

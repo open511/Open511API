@@ -105,9 +105,9 @@ road :
 ---
 {% include JB/setup %}
 
-{% include specsnav.html %}
+{% include 0.9/specsnav.html %}
 
-{% include draft_warning.html %}
+{% include 0.9/draft_warning.html %}
 
 <h3>Overview</h3>
 
@@ -142,10 +142,10 @@ $(function() {
         <li><a href="#tabs-2">JSON</a></li>
     </ul>
     <div id="tabs-1">
-        {% highlight xml linenos %}{% include examples/traffic_segment.xml %}{% endhighlight %}
+        {% highlight xml linenos %}{% include 0.9/examples/traffic_segment.xml %}{% endhighlight %}
     </div>
     <div id="tabs-2">
-        {% highlight json linenos %}{% include examples/traffic_segment.json %}{% endhighlight %}
+        {% highlight json linenos %}{% include 0.9/examples/traffic_segment.json %}{% endhighlight %}
   </div>
 </div>
 
@@ -155,7 +155,7 @@ $(function() {
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'traffic_segment' %}
 {% for item in page.traffic_segment %} 
-   {% include tablegen.html %}
+   {% include 0.9/tablegen.html %}
 {% endfor %}   
      </table>
 
@@ -164,7 +164,7 @@ $(function() {
   <table class="representation">
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% for item in page.road  %} 
-   {% include tablegen.html %}
+   {% include 0.9/tablegen.html %}
 {% endfor %}
   </table>     
   

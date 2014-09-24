@@ -3,7 +3,7 @@ layout: page
 title: Context and future plans
 ---
 {% include JB/setup %}
-{% include specsnav.html %}
+{% include 0.9/specsnav.html %}
 
 ### Overview {#overview}
 

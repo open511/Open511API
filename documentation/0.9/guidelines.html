@@ -20,7 +20,7 @@ pagination_spec :
 ---
 {% include JB/setup %}
 
-{% include specsnav.html %}
+{% include 0.9/specsnav.html %}
 
 
 <h3>Encoding and Field Formats</h3>
@@ -92,7 +92,7 @@ pagination_spec :
   <table class="representation">
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% for item in page.pagination_spec %} 
-   {% include tablegen.html %}
+   {% include 0.9/tablegen.html %}
 {% endfor %}   
      </table>
 

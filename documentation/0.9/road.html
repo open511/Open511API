@@ -42,9 +42,9 @@ parameters:
 ---
 {% include JB/setup %}
 
-{% include specsnav.html %}
+{% include 0.9/specsnav.html %}
 
-{% include draft_warning.html %}
+{% include 0.9/draft_warning.html %}
 
 <h3>Overview</h3>
 
@@ -90,10 +90,10 @@ $(function() {
         <li><a href="#tabs-2">JSON</a></li>
     </ul>
     <div id="tabs-1">
-        {% highlight xml linenos %}{% include examples/road.xml %}{% endhighlight %}
+        {% highlight xml linenos %}{% include 0.9/examples/road.xml %}{% endhighlight %}
     </div>
     <div id="tabs-2">
-        {% highlight json linenos %}{% include examples/road.json %}{% endhighlight %}
+        {% highlight json linenos %}{% include 0.9/examples/road.json %}{% endhighlight %}
   </div>
 </div>
 
@@ -103,7 +103,7 @@ $(function() {
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'area' %}
 {% for item in page.road %} 
-   {% include tablegen.html %}
+   {% include 0.9/tablegen.html %}
 {% endfor %}   
      </table>
   

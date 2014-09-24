@@ -3,7 +3,7 @@ layout: page
 title: Open511 API specification change log
 ---
 {% include JB/setup %}
-{% include specsnav.html %}
+{% include 0.9/specsnav.html %}
 
 
 ### Change log

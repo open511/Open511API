@@ -292,7 +292,7 @@ restriction :
 ---
 {% include JB/setup %}
 
-{% include specsnav.html %}
+{% include 0.9/specsnav.html %}
 
 <div class="warning">We're currently discussing changes to the schedule portion of this resource; you can take a look at one <a href="schedule_proposal.html">proposal</a>. If you're planning on implementing this, please get in touch so we can discuss the potential changes.</div>
 
@@ -341,10 +341,10 @@ restriction :
         <li><a href="#tabs-2">JSON</a></li>
     </ul>
     <div id="tabs-1">
-        {% highlight xml linenos %}{% include examples/event.xml %}{% endhighlight %}
+        {% highlight xml linenos %}{% include 0.9/examples/event.xml %}{% endhighlight %}
     </div>
     <div id="tabs-2">
-        {% highlight json linenos %}{% include examples/event.json %}{% endhighlight %}
+        {% highlight json linenos %}{% include 0.9/examples/event.json %}{% endhighlight %}
   </div>
 </div>
 
@@ -357,7 +357,7 @@ restriction :
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'event' %}
 {% for item in page.event  %}
-     {% include tablegen.html %}
+     {% include 0.9/tablegen.html %}
 {% endfor %}
   </table>
 
@@ -369,7 +369,7 @@ restriction :
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'road' %}
 {% for item in page.road  %} 
-   {% include tablegen.html %}
+   {% include 0.9/tablegen.html %}
 {% endfor %}
   </table>
 
@@ -381,7 +381,7 @@ restriction :
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'restriction' %}
 {% for item in page.restriction  %} 
-   {% include tablegen.html %}
+   {% include 0.9/tablegen.html %}
 {% endfor %}
   </table>
 
@@ -393,7 +393,7 @@ restriction :
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'schedule' %}
 {% for item in page.schedule  %} 
-   {% include tablegen.html %}
+   {% include 0.9/tablegen.html %}
 {% endfor %}
   </table>
 

@@ -28,7 +28,7 @@ area :
 ---
 {% include JB/setup %}
 
-{% include specsnav.html %}
+{% include 0.9/specsnav.html %}
 
 <h3>Overview</h3>
 
@@ -66,10 +66,10 @@ $(function() {
         <li><a href="#tabs-2">JSON</a></li>
     </ul>
     <div id="tabs-1">
-        {% highlight xml linenos %}{% include examples/area.xml %}{% endhighlight %}
+        {% highlight xml linenos %}{% include 0.9/examples/area.xml %}{% endhighlight %}
     </div>
     <div id="tabs-2">
-        {% highlight json linenos %}{% include examples/area.json %}{% endhighlight %}
+        {% highlight json linenos %}{% include 0.9/examples/area.json %}{% endhighlight %}
   </div>
 </div>
 
@@ -87,7 +87,7 @@ $(function() {
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'area' %}
 {% for item in page.area %} 
-   {% include tablegen.html %}
+   {% include 0.9/tablegen.html %}
 {% endfor %}   
      </table>
   

@@ -38,9 +38,9 @@ historical_traffic_condition:
 ---
 {% include JB/setup %}
 
-{% include specsnav.html %}
+{% include 0.9/specsnav.html %}
 
-{% include draft_warning.html %}
+{% include 0.9/draft_warning.html %}
 
 <h3>Overview</h3>
 
@@ -78,10 +78,10 @@ $(function() {
         <li><a href="#tabs-2">JSON</a></li>
     </ul>
     <div id="tabs-1">
-        {% highlight xml linenos %}{% include examples/historical_traffic_condition.xml %}{% endhighlight %}
+        {% highlight xml linenos %}{% include 0.9/examples/historical_traffic_condition.xml %}{% endhighlight %}
     </div>
     <div id="tabs-2">
-        {% highlight json linenos %}{% include examples/historical_traffic_condition.json %}{% endhighlight %}
+        {% highlight json linenos %}{% include 0.9/examples/historical_traffic_condition.json %}{% endhighlight %}
   </div>
 </div>
 
@@ -91,7 +91,7 @@ $(function() {
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'area' %}
 {% for item in page.historical_traffic_condition %} 
-   {% include tablegen.html %}
+   {% include 0.9/tablegen.html %}
 {% endfor %}   
      </table>
   

@@ -128,9 +128,9 @@ getrepresentation :
 ---
 {% include JB/setup %}
 
-{% include specsnav.html %}
+{% include 0.9/specsnav.html %}
 
-{% include draft_warning.html %}
+{% include 0.9/draft_warning.html %}
 
 <h3>Overview</h3>
 
@@ -174,7 +174,7 @@ event_type=ACCIDENT&severity=2
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'postrepresentation' %}
 {% for item in page.postrepresentation  %} 
-   {% include tablegen.html %} 
+   {% include 0.9/tablegen.html %} 
 {% endfor %}
   </table>
 
@@ -212,10 +212,10 @@ $(function() {
         <li><a href="#tabs-2">JSON</a></li>
     </ul>
     <div id="tabs-1">
-        {% highlight xml linenos %}{% include examples/report.xml %}{% endhighlight %}
+        {% highlight xml linenos %}{% include 0.9/examples/report.xml %}{% endhighlight %}
     </div>
     <div id="tabs-2">
-        {% highlight json linenos %}{% include examples/report.json %}{% endhighlight %}
+        {% highlight json linenos %}{% include 0.9/examples/report.json %}{% endhighlight %}
   </div>
 </div>
 
@@ -231,7 +231,7 @@ $(function() {
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>
 {% assign anchor = 'getrepresentation' %}
 {% for item in page.getrepresentation  %} 
-   {% include tablegen.html %} 
+   {% include 0.9/tablegen.html %} 
 {% endfor %}
   </table>
 
