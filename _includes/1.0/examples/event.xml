@@ -74,20 +74,20 @@
           </impacted_systems>
         </road>      
       </roads>
-      <schedules>
-        <schedule>
-          <start_date>2012-04-01</start_date> 
-          <end_date>2012-04-30</end_date> 
-          <start_time>12:00</start_time>
-          <end_time>15:00</end_time>
-        </schedule>
-        <schedule>
-          <specific_dates>
-            <specific_date>2012-04-15 09:00-12:00</specific_date>
-            <specific_date>2012-04-16</specific_date>
-          </specific_dates>
-        </schedule>
-      </schedules>
+      <schedule>
+        <recurring_schedules>
+          <recurring_schedule>
+            <daily_start_time>12:00</daily_start_time>
+            <start_date>2014-09-01</start_date>
+            <end_date>2014-09-30</end_date>
+            <daily_end_time>15:00</daily_end_time>
+          </recurring_schedule>
+        </recurring_schedules>
+        <exceptions>
+          <exception>2014-09-15 09:00-13:00</exception>
+          <exception>2014-09-16</exception>
+        </exceptions>
+      </schedule>
       <attachments>
         <link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" hreflang="en" />
       </attachments>

@@ -49,20 +49,20 @@
                     ]
                 ]
             }, 
-            "schedules": [
-                {
-                    "start_time": "12:00", 
-                    "start_date": "2012-04-01", 
-                    "end_date": "2012-04-30", 
-                    "end_time": "15:00"
-                }, 
-                {
-                    "specific_dates": [
-                        "2012-04-15 09:00-12:00", 
-                        "2012-04-16"
-                    ]
-                }
-            ], 
+            "schedule": {
+                "recurring_schedules": [
+                    {
+                        "start_date": "2014-09-01",
+                        "end_date": "2014-09-30",
+                        "daily_start_time": "12:00",
+                        "daily_end_time": "15:00"
+                    }
+                ],
+                "exceptions": [
+                    "2014-09-15 09:00-13:00",
+                    "2014-09-16"
+                ]
+            },
             "roads": [
                 {
                     "restrictions": [
