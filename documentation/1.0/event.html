@@ -117,10 +117,10 @@ event :
       mandatory: Mandatory
       desc: <p>When the content of the event last changed. Will be the same as <code>created</code> if no updates have occurred.</p><p>More specifically, must be the time at which the current version of this event first became available via this Open511 API. Clients are likely to poll for changes via requests like <code>?status=ALL&amp;updated=>2013-10-01T15:10Z</code> where the timestamp is the last time they made such a request. Because of this, implementors need to be certain that an event version with an <code>updated</code> field of <code>2013-10-01T15:10Z</code> was indeed accessible to API requests at that time.</p>
 
-    - name: schedules
-      type: Collection of <a href="#schedule">schedule</a> elements
+    - name: schedule
+      type: <a href="#schedule">Schedule</a> element
       mandatory: Mandatory
-      desc: <p>Indicates when the event is active.</p><p>The event's full schedule is described by one or more <code>schedule</code> elements. Each element either describes a recurring schedule (e.g. Mondays 9 a.m. to 5 p.m.) or provides an explicit schedule on specific dates. To obtain the event's full schedule, first compute and combine all recurring schedules provided by <code>schedule</code> elements. Then, if any <code>specific_date</code> elements provide explicit schedules, those override anything obtained from recurring <code>schedule</code> elements on the specific dates concerned.</p>
+      desc: <p>Indicates the dates and times when the event is active.</p>
 
     - name: timezone
       mandatory: Optional
@@ -238,45 +238,54 @@ road :
       mandatory: Optional
       desc: <p>Some events may come with some restrictions affecting vehicles using the road (speed, weight).</p>     
 
-
 schedule : 
-    - name: start_date
+    - name: recurring_schedules
+      type: Collection of <code>recurring_schedule</code> elements
+      mandatory: One (and only one) of <code>recurring_schedules</code> or <code>intervals</code> is required
+      desc: <p>The recurring_schedule structure expresses repeating schedules, like "Every day starting December 4th", or "Mondays 9 to 11 from September 1 to October 30." An event can include multiple <code>recurring_schedule</code> elements inside this <code>recurring_schedules</code> tag; <code>exception</code> elements can override them.
+
+    - name: <p>&mdash; start_date</p>
       type: <a href="guidelines.html#datetime">Date</a>
-      mandatory: Conditional (either <code>start_date</code> or <code>specific_dates</code> is required)
+      mandatory: Mandatory in each <code>recurring_schedule</code>
       desc: <p>Start date of this schedule.</p>
 
-    - name: end_date
+    - name: <p>&mdash; end_date</p>
       type: <a href="guidelines.html#datetime">Date</a>
       mandatory: Optional
       desc: <p>End date of this schedule. If a start date but no end date is provided, the schedule continues indefinitely.</p>
 
-    - name: days
+    - name: <p>&mdash; daily_start_time</p>
+      type: <a href="guidelines.html#datetime">Time</a>
+      mandatory: Optional
+      desc: <p>Daily start time of the event, as <code>HH&colon;mm</code>, e.g. <code>13&colon;00</code>. Applies to each day in this <code>recurring_schedule</code>.</p>
+
+    - name: <p>&mdash; daily_end_time</p>
+      type: <a href="guidelines.html#datetime">Time</a>
+      mandatory: Mandatory if <code>daily_start_time</code> is provided, not allowed otherwise
+      desc: <p>Daily end time of the event, as <code>HH&colon;mm</code>, e.g. <code>17&colon;30</code>. Applies to each day in this <code>recurring_schedule</code>.</p>
+
+    - name: <p>&mdash; days</p>
       type: Collection of <code>day</code> elements
       mandatory: Optional
-      desc: <p>Contains a <code>day</code> tag for every day of the week during which this schedule is active. So, for an event active on Monday and Wednesday, &lt;days&gt;&lt;day&gt;1&lt;/day&gt;&lt;day&gt;3&lt;/day&gt;&lt;/days&gt;. If omitted, the schedule is active every day between its start and end dates.</p> 
+      desc: <p>Contains a <code>day</code> tag for every day of the week during which this <code>recurring_schedule</code> is active. Days are indicated with an integer, with (following the ISO standard) Monday being 1 and Sunday 7. So, for an event active on Monday and Wednesday, &lt;days&gt;&lt;day&gt;1&lt;/day&gt;&lt;day&gt;3&lt;/day&gt;&lt;/days&gt;. If omitted, the schedule is active every day between its start and end dates.</p>
 
-    - name: <p>&mdash; day</p>
-      type: Enum
-      desc: <p>An integer representing a day of the week during which the event is active. The days are, following the ISO standard, Monday to Sunday from 1 to 7.</p>
+    - name: exceptions
+      type: Collection of <code>exception</code> elements
+      mandatory: Optional; if present, there must be a <code>recurring_schedules</code> element (and no <code>intervals</code>)
+      desc: <p>Exceptions override recurring schedules.</p>
 
-    - name: start_time
-      type: <a href="guidelines.html#datetime">Time</a>
-      mandatory: Optional
-      desc: <p>Start time of the event, as <code>HH&colon;mm</code>, e.g. <code>13&colon;00</code>. Applies to each day in this <code>schedule</code>.</p>
-
-    - name: end_time
-      type: <a href="guidelines.html#datetime">Time</a>
-      mandatory: Mandatory if <code>start_time</code> is provided, not allowed otherwise
-      desc: <p>End time of the event, as <code>HH&colon;mm</code>, e.g. <code>17&colon;30</code>. Applies to each day in this <code>schedule</code>.</p>
-
-    - name: specific_dates
-      type: Collection of <code>specific_date</code>
-      mandatory: Conditional (either <code>start_date</code> or <code>specific_dates</code> is required)
-      desc: <p>Provides explicit, non-recurring schedules for specific dates. If the <code>specific_dates</code> element appears, it must be the <strong>only</strong> element within its <code>schedule</code>. An <code>event</code> may contain only one <code>specific_dates</code> element.</p>
-      
-    - name: <p>&mdash; specific_date</p>
+    - name: <p>&mdash; exception</p>
       type: Custom time format
-      desc: <p>Text string containing the date, start time, and end time formatted as <code>YYYY-MM-DD HH&colon;mm-HH&colon;mm</code>. If there are multiple disjoint periods on that day, more than one start-end period can be included&colon; <code>YYYY-MM-DD HH&colon;mm-HH&colon;mm HH&colon;mm-HH&colon;mm</code>. To indicate that the event is not active that day, provide only the date&colon; <code>YYYY-MM-DD</code></p><p>A <code>specific_date</code> element overrides any other schedule information provided elsewhere for the given date.</p>
+      desc: <p>An exception provides the definitive schedule for a specific date. It overrides any <code>recurring_schedule</code> information for that date.</p><p>An exception of the form <code>YYYY-MM-DD</code> indicates that this event is <strong>not</strong> in effect for the given date.</p><p>An exception of the form <code>YYYY-MM-DD HH&colon;mm-HH&colon;mm</code> indicates that, on that date, the event is in effect only between the provided start and end time. If there are multiple disjoint periods on that day, more than one start-end period can be included&colon; <code>YYYY-MM-DD HH&colon;mm-HH&colon;mm HH&colon;mm-HH&colon;mm</code>.</p>
+
+    - name: intervals
+      type: Collection of <code>interval</code> elements
+      mandatory: One (and only one) of <code>recurring_schedules</code> or <code>intervals</code> is required
+      desc: <p>Represent an event's schedule as a list of explicit periods. An event must use either <code>recurring_schedules</code> or <code>intervals</code>, not both.</p><p>If this contains more than one <code>interval</code>, their time periods may not overlap. This also implies that no more than one can omit an end time.</p>
+
+    - name: <p>&mdash; interval</p>
+      type: Custom time format, largely a subset of ISO8601 intervals
+      desc: <p>Defines a specific period of time during which the schedule is in effect; two <a href="guidelines.html#datetime">datetimes</a> (without timezone offset) joined with a <code>/</code>. For example, a period from 9 p.m. September 1 to 8 a.m. September 2 would be <code>2014-09-01T21&colon;00/2014-09-02T08&colon;00</code>.</p><p>The second datetime, after the slash, may be omitted. So, to indicate a period from 9 p.m. September 1 until further notice, use&colon; <code>2014-09-01T21&colon;00/</code></p>
 
 restriction :
     - name: restriction_type
@@ -385,7 +394,7 @@ restriction :
 
 <a id="schedule"></a><h4>Schedule structure</h4>
 
-<p></p>
+<p>Note that the schedule format has changed significantly since version <a href="/documentation/0.9/event.html">0.9</a>.</p>
 
   <table class="representation">
         <tr><th>Field</th><th>Type</th><th>Description</th></tr>

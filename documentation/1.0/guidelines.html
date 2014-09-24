@@ -27,7 +27,7 @@ pagination_spec :
 <a id="encoding"></a>
 <ul>
   <li><a id="utf8"></a><b>Character encoding</b> must be in UTF-8</li>
-  <li><a id="datetime"></a><b>DateTime and Date </b> fields will follow the ISO 8601 subset as per the <a href="http://www.w3.org/TR/NOTE-datetime">W3c note</a> except when specified otherwise</li>
+  <li><a id="datetime"></a><b>DateTime and Date </b> fields will follow the ISO 8601 subset as per the <a href="http://www.w3.org/TR/NOTE-datetime">W3c note</a> except when specified otherwise. <code>created</code> and <code>updated</code> timestamps should provide seconds, but all other datetimes should provide only hours and minutes.</li>
   <li><a id="timezone"></a>When a <b>time zone</b> has to be specified explicitly (in a <code>timezone</code> field, rather than as part of an ISO timestamp), it must use a time zone name from the <a href="http://en.wikipedia.org/wiki/Tz_database">TZ Database</a></li>
   <li><a id="geospatial"></a><b>Geospatial data</b> will follow existing standards, using the standard EPSG:4326 (latitude/longitude) spatial reference system:
     <ul>
