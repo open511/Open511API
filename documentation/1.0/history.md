@@ -31,6 +31,6 @@ title: Open511 API specification change log
 <tr><td>Nov 6th, 2013</td><td><ul><li>Allow areas that don't map to GeoNames</li></ul></td></tr>
 <tr><td>May 7, 2014</td><td><ul><li>Clarify that the <code>in_effect_on</code> filter on events should never return archived events</li></ul></td></tr>
 <tr><td>May 14, 2014</td><td><ul><li>Document static/simple version of events resource</li></ul></td></tr>
+<tr><td>February 4, 2015</td><td><ul><li>Include previously-published schedule proposal in Event documentation</li><li>Release version 1.0</li></ul></td></tr>
 </tbody>
 </table>
-

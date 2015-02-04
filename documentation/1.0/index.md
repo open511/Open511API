@@ -8,7 +8,7 @@ title: Introduction to the Open511 API
 
 ### Getting started {#started}
 
-This document describes the specifications of the Open511 API, an open data standard for road event information. The specification is almost complete and should be [released soon](#timeline). You can read more about the [context](context.html) of the API or jump directly to the [technical stuff](#techdocuments). If you are interested in contributing, you can start by joining the mailing list and consulting the "contribute" panel on the right.
+This document describes the specifications of the Open511 API, an open data standard for road event information. You can read more about the [context](context.html) of the API or jump directly to the [technical stuff](#techdocuments). If you are interested in contributing, you can start by joining the mailing list and consulting the "contribute" panel on the right.
 
 We've provided some getting-started tips for [data consumers](consumer_guide.html) and [data providers](implementor_guide.html).
 
@@ -42,15 +42,10 @@ Drafts are resources that have been proposed or requested by adopters and that a
 
 ### Status {#status}
 
-**The open511 specification has reached version 0.9**. This first official version is also the first "implementation ready" specification. 
-
-Why not version 1.0? We expect that while developing the first implementations we'll some discrepancies and possible improvements. As a consequence, version 1.0 will be the result of the first implementations.
+**The open511 specification has reached version 1.0**. We believe the specification is ready to implement.
 
 Who will be the first implementers? [MTC](http://511.org/), the [Ministry of Transportation of British Columbia](http://www.gov.bc.ca/tran/) and [OpenNorth](https://github.com/opennorth/open511) will work in parallel to build the two first implementations. Any other organization can start implementing this specification but it should be done in collaboration with MTC and OpenNorth since some minor changes could still occur. If your organization wants to build software based on open511, please join the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511).
 
 It may be helpful to [browse](http://demo.open511.org/) the output of Open North's in-progress implementation of this API.
 
-### Roadmap and Timeline {#timeline}
-
-The first draft of the specification was released to collaborators in October 2012 and the second iteration released publicly in January 2013. The current version (0.9) is the result of the third iteration. We will publish version 1.0 first implementations are live (target date: fall 2014).
 
