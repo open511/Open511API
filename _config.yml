@@ -14,8 +14,8 @@ title : Open511 API
 tagline: An open format for road events
 author :
   name : Open North
-  email : stephane@opennorth.ca
-  github : opennorth
+  email : open511@opennorth.ca
+  github : open511
   twitter : opennorth
 
 # The production_url is only used when full-domain names are needed

@@ -7,7 +7,7 @@ title: Context and future plans
 
 ### Overview {#overview}
 
-The goal of the Open511 project is to develop an open API for publishing road events (accidents, construction, etc) and other mobility related data. The project is led by [Open North](http://opennorth.ca) and [Metropolitan Transportation Commission](http://www.mtc.ca.gov/) in collaboration with several organizations to design Open511 (see list [below](#collaborators)).
+The goal of the Open511 project is to develop an open API for publishing road events (accidents, construction, etc) and other mobility related data. The project is led by [Open North](http://www.opennorth.ca) and [Metropolitan Transportation Commission](http://www.mtc.ca.gov/) in collaboration with several organizations to design Open511 (see list [below](#collaborators)).
 
 Open511 is currently under active development. The content shared here is a draft and is published as-is. Our wish is to continue to collaborate on the design of the API; anyone that would like to provide feedback is encouraged to do so. Please refer to the "contribute" section on the menu.
 
@@ -27,6 +27,6 @@ The initial collaborators on this project were the [Ministry of Transportation a
 
 ### Governance {#governance}
 
-The specification design is led by Open North and MTC with a consensus-based decision making process to include collaborators. With the public release of the specification, any organization that would like to collaborate is encouraged to do so. Do not hesitate to contribute to the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511) and [submit comments and issues](https://github.com/opennorth/Open511API/issues).
+The specification design is led by Open North and MTC with a consensus-based decision making process to include collaborators. With the public release of the specification, any organization that would like to collaborate is encouraged to do so. Do not hesitate to contribute to the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511) and [submit comments and issues](https://github.com/open511/Open511API/issues).
 
 Once the specification is stable, we plan to submit Open511 to a relevant standardization body in order to ensure stability and evolution capabilities.
