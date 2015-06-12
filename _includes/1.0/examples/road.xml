@@ -1,0 +1,25 @@
+<open511
+    xml:lang="en"
+    xml:base="http://my.city.gov/api/"
+    version="v1"
+>
+  <roads>  
+    <road> 
+      <name>Mill St.</name>
+      <id>my.city.gov/mill-st</id>
+      <link rel="self" href="http://my.city.gov/api/roads/my.city.gov/mill-st/" />
+      <link rel="jurisdiction" href="http://my.city.gov/api/jurisdiction/my.city.gov/" />
+    </road>
+    <road> 
+      <name>Highway 5</name>
+      <name xml:lang="es">Carretera 5</name>
+      <id>my.city.gov/hwy-5</id>
+      <link rel="self" href="http://my.city.gov/api/roads/my.city.gov/hwy-5/" />
+      <link rel="jurisdiction" href="http://my.city.gov/api/jurisdiction/my.city.gov/" />
+      <national_road_network_id xmlns="http://roadnetwork.example.gov/open511-extensions">MSG5</national_road_network_id>
+    </road>
+  </roads>
+  <pagination>
+    <offset>0</offset>
+  </pagination>  
+</open511>

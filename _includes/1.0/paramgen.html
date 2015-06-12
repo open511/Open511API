@@ -1,0 +1,7 @@
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td><a id="{{ anchor }}-{{ elem.name }}"></a>{{ elem.name }}</td><td>{{ elem.required }}</td><td>{{ elem.description }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>

@@ -1,0 +1,406 @@
+---
+layout: page
+title: Events
+presentation : 
+  purpose :
+    name : purpose
+    value : <p>The event resource provides information about road events (accidents, constructions, special events). The <code>events</code> resource is a list of <code>event</code> elements matching the filtering parameters if any are provided.</p>
+  method :
+    name : method
+    value : GET
+
+parameters : 
+    - name : status
+      required : optional
+      description : <p>By default the API should only send events where the <code>status</code> field is ACTIVE. Supported filter values&colon; <ul><li><code>ACTIVE</code> Default value, returns only active events.</li><li><code>ARCHIVED</code> Returns only archived events</li><li><code>ALL</code> Returns both active and archived events.</li></ul></p>
+
+    - name : in_effect_on
+      required : optional
+      description: <p>Show only events that are, according to their <code>schedules</code>, in effect at a specific time, or during a specific time period.</p><p>Can be either a single datetime, or a start and end datetime joined by a comma. Uses complete ISO 8601 <a href="guidelines.html#datetime">datetimes</a>, including both a date and a time (hh:mm, no seconds or milliseconds), with or without a timezone.</p><p>So to find, for example, all events in effect at some point on June 20th, you would ask for events between 00&colon;00 and 23&colon;59&colon;<br/><code>in_effect_on=2013-06-20T00&colon;00,2013-06-20T23&colon;59</code></p><p>Or, to find events in effect within the next two hours, you'd get the current UTC timestamp &mdash; let's say it's <code>2013-06-20T17:40Z</code> &mdash; and then request <code>?in_effect_on=2013-06-20T17:40Z,2013-06-20T19:40Z</code>.</p><p>If no timezone is provided, as in the first example, the server searches according to the local time as entered in the event. For example, if highways are closed for an hour at midnight on January 1st in both London and LA, <code>?in_effect_on=2014-01-01T00:00</code> would return both events (even though there's no single moment in time when the roads are closed in both cities), whereas the timezone-aware <code>?in_effect_on=2014-01-01T00:00Z</code> would return only the London event.</p><p>Using an <code>in_effect_on</code> filter implies <code>?status=ACTIVE</code>. That is, queries wih an <code>in_effect_on</code> filter should never return archived events.</p><p>The server must consider the entirety of an event's <code>schedules</code> in determining whether it's in effect at a given time -- which <code>days</code> a schedule covers, the <code>start_time</code> and <code>end_time</code>, any <code>specific_dates</code>, etc.</p><p>If this argument is <strong>not</strong> provided, the API should not perform any  filtering based on the event <code>schedules</code>.</p>
+
+    - name : severity
+      required : optional
+      description : <p>Filter by the value of the severity field. OR queries are possible via a comma-separated list&colon; <code>?severity=MINOR,MODERATE</code>.</p>
+    
+    - name : bbox
+      required: optional
+      description: <p>Filter events by geographical bounding box. Four comma-separated coordinates, <code>xmin, ymin, xmax, ymax</code>.</p>
+
+    - name : geography
+      required : optional
+      description : <p>Filtering near a point or linestring. The geography value should be provided as a <a href="http://en.wikipedia.org/wiki/Well-known_text">WKT</a>  string in WGS84 latitude/longitude. Example&colon;<br/> <code>...geography=POINT (-73.64 45.52)</code>.<br/> The <code>geography</code> must be used in conjuction with the <code>tolerance</code> filter.</p>
+
+    - name : tolerance
+      required : conditional
+      description : <p>Provide a tolerance of radius in meters around if a POINT or LINESTRING is used as filtering parameter. For example <code>...geography=POINT+(-73.64+45.52)&amp;tolerance=50</code> would retrieve all the events within a circle of 50m radius around the selected point.</p> 
+
+    - name : jurisdiction
+      required : optional
+      description : <p>The ID of a <a href="jurisdiction.html">jurisdiction</a>, in order to show only events from a given jurisdiction. Use a comma-separated list to make OR queries.</p><p>Example&colon; <code>jurisdiction=mycity.gov</code>.</p>      
+
+    - name : event_type
+      required : optional
+      description : <p>Filter events using the <code>event_type</code> value list. Use a comma-separated list to make OR queries.</p>      
+  
+    - name : event_subtype
+      required : optional
+      description : <p>Filter events using the <code>event_subtype</code> value list. Use a comma-separated list to make OR queries.</p>   
+
+    - name : created
+      required : optional
+      description : <p>Filter events based on the creation date and time.</p><p>This parameter can (and generally will) be preceded with one of the following operators&colon; <code>&lt; &lt;= &gt; &gt;=</code>. These allow searches for events created before or after a supplied time, e.g. <code>created=&gt;2013-05-10T12&colon;00Z</code>.</p>   
+
+    - name : updated
+      required : optional
+      description : <p>Filter events based on the last update timestamp. Accepts the same <code>&lt; &lt;= &gt; &gt;=</code> operators as <code>created</code>.</p><p>Note&colon; by default, the servers should only return <code>ACTIVE</code> events. When using the <code>updated</code> filter, in order to get events going from <code>ACTIVE</code> to <code>ARCHIVED</code>, the client must ask for all events&colon; <code>...?status=ALL</code></p> 
+
+    - name : road_name
+      required : optional
+      description : <p>Shows only events containing a <code>road</code> element with the provided <code>name</code>. Case-sensitive exact match. Use a comma-separated list to make OR queries.</p>
+
+    - name: road
+      required: optional
+      description: <p>Shows only events containing a <code>road</code> element linking to a <a href="road.html">road</a> element with the provided <code>id</code>. Use a comma-separated list to make OR queries.</p>
+
+    - name : area
+      required : optional
+      description : <p>Shows only events containing a <code><a href="area.html">area</a></code> element with the provided <code>id</code>. Use a comma-separated list to make OR queries.</p>
+
+event : 
+    - name: self
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Self link to the current resource.</p> 
+
+    - name: jurisdiction
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Mandatory
+      desc: <p>Link to the <a href="jurisdiction.html">jurisdiction</a> publishing the event. Must be an absolute URL.</p>
+
+    - name: id
+      type: <a href="guidelines.html#ids">Open511 ID</a>
+      mandatory: Mandatory
+      desc: <p>A globally unique ID for the event, following the <a href="guidelines.html#ids">Open511 ID</a> format.</p>
+
+    - name: status
+      type: Enum
+      mandatory: Mandatory
+      desc: <p>Indicates whether the event is still relevant or is archived data. <code>ACTIVE</code> refers both to events that are ongoing and events that are planned for the future. The status field should be set to <code>ARCHIVED</code> once the event has ceased or is otherwise out-of-date or no longer valid. Value list&colon;</p><pre>- ACTIVE<br>- ARCHIVED</pre>
+
+    - name: headline
+      type: Free text
+      mandatory: Mandatory
+      desc: <p>Title of the event. Should be shorter than 500 characters.</p>
+
+    - name: event_type
+      type: Enum
+      mandatory: Mandatory
+      desc: <p>Basic type of event. Value list</p><pre>- CONSTRUCTION &colon;  planned road work<br>- SPECIAL_EVENT &colon; special events (fair, sport event, etc.)<br>- INCIDENT &colon; accidents and other unexpected events<br>- WEATHER_CONDITION &colon; Weather condition affecting the road<br>- ROAD_CONDITION &colon; Status of the road that might affect travelers.</pre>
+
+    - name: severity
+      type: Enum
+      mandatory: Mandatory
+      desc: <p>Severity of the event. Value list&colon;<pre><ul><li><code>MINOR</code>&colon; the event has very limited impact on traffic.</li><li><code>MODERATE</code>&colon; the event will have a visible impact on traffic but should not create significant delay; if there is a delay, it should be small and local.</li><li><code>MAJOR</code>&colon; the event will have a significant impact on traffic, probably on a large scale.</li><li><code>UNKNOWN</code>&colon; the impact is unknown, for example in the case of an accident that has been recorded without any precise description.</li></ul></pre></p>
+
+    - name: geography
+      type: <a href="guidelines.html#geospatial">Geospatial</a>
+      mandatory: Mandatory
+      desc: <p>Geographical information about the event. Can be Point, MultiPoint, LineString, MultiLineString, or Polygon.</p>
+
+    - name: created
+      type:  <a href="guidelines.html#datetime">DateTime</a>
+      mandatory: Mandatory
+      desc: <p>When the event was initially created.</p>     
+
+    - name: updated
+      type:   <a href="guidelines.html#datetime">DateTime</a>
+      mandatory: Mandatory
+      desc: <p>When the content of the event last changed. Will be the same as <code>created</code> if no updates have occurred.</p><p>More specifically, must be the time at which the current version of this event first became available via this Open511 API. Clients are likely to poll for changes via requests like <code>?status=ALL&amp;updated=>2013-10-01T15:10Z</code> where the timestamp is the last time they made such a request. Because of this, implementors need to be certain that an event version with an <code>updated</code> field of <code>2013-10-01T15:10Z</code> was indeed accessible to API requests at that time.</p>
+
+    - name: schedule
+      type: <a href="#schedule">Schedule</a> element
+      mandatory: Mandatory
+      desc: <p>Indicates the dates and times when the event is active.</p>
+
+    - name: timezone
+      mandatory: Optional
+      type: <a href="guidelines.html#timezone">timezone</a>
+      desc: <p>Timezone to be used for this event, e.g. <code>America/Montreal</code>. If not provided, the event is assumed to be in the default timezone of its jurisdiction.</p>       
+
+    - name: description 
+      type: Free text
+      mandatory: Optional, but <strong>strongly recommended</strong>
+      desc: <p>Description of the event. Plain text description of the event, the reason for the event and any other relevant information for travelers.</p> 
+
+    - name: event_subtypes
+      type: Collection of <code>event_subtype</code> elements
+      mandatory: Optional
+      desc: <p>List of values to provide more detail about the type of event.</p>
+
+    - name: <p>&mdash; event_subtype</p>
+      type: Enum
+      mandatory: Optional
+      desc: <ul><li><code>ACCIDENT</code></li><li><code>SPILL</code></li><li><code>OBSTRUCTION</code></li><li><code>HAZARD</code><br><br></li><li><code>ROAD_MAINTENANCE</code></li><li><code>ROAD_CONSTRUCTION</code></li><li><code>EMERGENCY_MAINTENANCE</code><br><br></li><li><code>PLANNED_EVENT</code></li><li><code>CROWD</code><br><br></li><li><code>HAIL</code></li><li><code>THUNDERSTORM</code></li><li><code>HEAVY_DOWNPOUR</code></li><li><code>STRONG_WINDS</code></li><li><code>BLOWING_DUST</code></li><li><code>SANDSTORM</code></li><li><code>INSECT_SWARMS</code></li><li><code>AVALANCHE_HAZARD</code><br><br></li><li><code>SURFACE_WATER_HAZARD</code></li><li><code>MUD</code></li><li><code>LOOSE_GRAVEL</code></li><li><code>OIL_ON_ROADWAY</code></li><li><code>FIRE</code></li><li><code>SIGNAL_LIGHT_FAILURE</code></li><li><code>PARTLY_ICY</code> <i>2 wheels of a passenger vehicle are on bare surface and the other wheels are likely on ice</i></li><li><code>ICE_COVERED</code> <i>All wheels of a passenger vehicle are on ice</i></li><li><code>PARTLY_SNOW_PACKED</code> <i>2 wheels of a passenger vehicle are on bare surface and the other wheels are likely on snow bonded on the road</i></li><li><code>SNOW_PACKED</code> <i>All wheels of a passenger vehicle are on snow bonded on the road</i></li><li><code>PARTLY_SNOW_COVERED</code> <i>2 wheels of a passenger vehicle are on bare surface and the other wheels are likely on loose snow</i></li><li><code>SNOW_COVERED</code> <i>All wheels of a passenger vehicle are on loose snow</i></li><li><code>DRIFTING_SNOW</code> <i>Snow drifts may extend into the driving lanes (accumulation greater than 20cm)</i></li><li><code>POOR_VISIBILITY</code> <i>At certain locations, conditions may reduce visibility to less than 250 meters</i></li><li><code>ALMOST_IMPASSABLE</code></li><li><code>PASSABLE_WITH_CARE</code></li></ul>
+
+    - name: certainty
+      type: Enum
+      mandatory: Optional
+      desc: <p>Degree of certainty of the event. Should only be used for unplanned events (e.g incidents, weather conditions and pavement conditions events).</p><p>Value list</p><pre>- OBSERVED<br>- LIKELY<br>- POSSIBLE<br>- UNKNOWN</pre>  
+
+    - name: grouped_events
+      type: Collection of links
+      mandatory: Optional
+      desc: <p>This structure is used to group events together. In specific situations (for example complex construction projects), several events might be related together. This field should be used to point a related event.</p> 
+
+    - name:  <p>&mdash; related</p>
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Optional
+      desc: <p>Link pointing to another <code>event</code> resource related to the current event.</p>
+
+    - name: detour
+      type: Free text
+      mandatory: Optional
+      desc: <p>Description of a detour route to avoid this event.</p>   
+
+    - name: roads
+      type: Collection of <a href="#road">road</a> elements
+      mandatory: Optional
+      desc: <p>List of roads affected by the current event. One event can impact several roads.</p>
+
+    - name: areas
+      type: Collections of <a href="area.html">area</a> elements
+      mandatory: Optional
+      desc: <p>Areas affected by the event</p>   
+
+    - name: attachments
+      type: Collection of attachment <a href="guidelines.html#links">links</a>
+      mandatory: Optional
+      desc: <p>Collection of attachments providing additional information about the event (PDFs, images, etc.)</p> 
+
+    - name:  <p>&mdash; related</p>
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Optional
+      desc: <p>Link to an attachment. While only the URL is mandatory, more information may be provided via <code>type</code>, <code>length</code>, <code>title</code>, and <code>hreflang</code>, with semantics as in <a href="http://tools.ietf.org/html/rfc4287#section-4.2.7">Atom</a>.</p>
+      
+road : 
+    - name: name
+      mandatory: Mandatory
+      type: Free text
+      desc: <p>Name of the road affected by the event. Ideally, road names should be formatted in accordance with national or regional standards, and the same road should be named consistently in different events.</p> 
+
+    - name: self / url
+      mandatory: Optional
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Link to the <a href="road.html">Road</a> resource for this road.</p>
+
+    - name: from
+      type: Free text
+      mandatory: Optional (mandatory if <code>to</code> is provided)
+      desc: <p>Approximate start point of the event on the road. It can be an intersection with another street or it can be a mileage indication.</p><p> This value should not be used to determine the exact start point since it can be an approximation. The <code>geometry</code> field should be considered as the reference for exact location.</p><p>If no <code>to</code> field is provided, this field means "nearby".</p>
+
+    - name: to
+      type: Free text
+      mandatory: Optional
+      desc: <p>Approximate end point of the event on the road. It can be an intersection with another street or it can be a distance indication.</p>
+
+    - name: state
+      type: Enum
+      mandatory: Optional
+      desc: <p>Whether the road segment is closed or not.<p><p>Value list:</p><pre>- CLOSED (road closed in the given direction)<br>- SOME_LANES_CLOSED (but the road remains open)<br>- SINGLE_LANE_ALTERNATING (a single lane alternates between both directions of traffic)<br>- ALL_LANES_OPEN</pre>
+
+    - name: direction
+      type: Enum
+      mandatory: Conditional&colon; mandatory if <code>state</code> is provided
+      desc: <p>Direction of the road that is affected by the event.</p><p>Value list:</p><pre>- N<br>- NW<br>- W<br>- SW<br>- S<br>- SE<br>- E<br>- NE<br>- NONE <em>(only in the rare case of a road which can't be given a<br> direction; if direction is simply unknown, omit this field)</em><br>- BOTH</pre>
+
+    - name: lanes_open
+      type: Integer
+      mandatory: Optional; allowed only if <code>state</code> is SOME_LANES_CLOSED and <code>direction</code> is not BOTH
+      desc: <p>Number of lanes in the given direction remaining open during this event.
+
+    - name: lanes_closed
+      type: Integer
+      mandatory: Optional; allowed only if <code>state</code> is SOME_LANES_CLOSED and <code>direction</code> is not BOTH
+      desc: <p>Number of lanes in the given direction closed during this event.
+
+    - name: impacted_systems
+      type: Collection of <code>impacted_system</code> elements
+      mandatory: Optional
+      desc: <p>Allows provision of information about other systems that can be affected</p> 
+
+    - name:  <p>&mdash; impacted_system</p>
+      type: Enum
+      mandatory: Optional
+      desc: <p>Value list of systems&colon;</p> <pre>ROAD<br>SIDEWALK<br>BIKELANE<br>PARKING</pre> 
+
+    - name: restrictions
+      type: Collection of <code><a href="#restriction">restriction</a></code> elements
+      mandatory: Optional
+      desc: <p>Some events may come with some restrictions affecting vehicles using the road (speed, weight).</p>     
+
+schedule : 
+    - name: recurring_schedules
+      type: Collection of <code>recurring_schedule</code> elements
+      mandatory: One (and only one) of <code>recurring_schedules</code> or <code>intervals</code> is required
+      desc: <p>The recurring_schedule structure expresses repeating schedules, like "Every day starting December 4th", or "Mondays 9 to 11 from September 1 to October 30." An event can include multiple <code>recurring_schedule</code> elements inside this <code>recurring_schedules</code> tag; <code>exception</code> elements can override them.
+
+    - name: <p>&mdash; start_date</p>
+      type: <a href="guidelines.html#datetime">Date</a>
+      mandatory: Mandatory in each <code>recurring_schedule</code>
+      desc: <p>Start date of this schedule.</p>
+
+    - name: <p>&mdash; end_date</p>
+      type: <a href="guidelines.html#datetime">Date</a>
+      mandatory: Optional
+      desc: <p>End date of this schedule. If a start date but no end date is provided, the schedule continues indefinitely.</p>
+
+    - name: <p>&mdash; daily_start_time</p>
+      type: <a href="guidelines.html#datetime">Time</a>
+      mandatory: Optional
+      desc: <p>Daily start time of the event, as <code>HH&colon;mm</code>, e.g. <code>13&colon;00</code>. Applies to each day in this <code>recurring_schedule</code>.</p>
+
+    - name: <p>&mdash; daily_end_time</p>
+      type: <a href="guidelines.html#datetime">Time</a>
+      mandatory: Mandatory if <code>daily_start_time</code> is provided, not allowed otherwise
+      desc: <p>Daily end time of the event, as <code>HH&colon;mm</code>, e.g. <code>17&colon;30</code>. Applies to each day in this <code>recurring_schedule</code>.</p>
+
+    - name: <p>&mdash; days</p>
+      type: Collection of <code>day</code> elements
+      mandatory: Optional
+      desc: <p>Contains a <code>day</code> tag for every day of the week during which this <code>recurring_schedule</code> is active. Days are indicated with an integer, with (following the ISO standard) Monday being 1 and Sunday 7. So, for an event active on Monday and Wednesday, &lt;days&gt;&lt;day&gt;1&lt;/day&gt;&lt;day&gt;3&lt;/day&gt;&lt;/days&gt;. If omitted, the schedule is active every day between its start and end dates.</p>
+
+    - name: exceptions
+      type: Collection of <code>exception</code> elements
+      mandatory: Optional; if present, there must be a <code>recurring_schedules</code> element (and no <code>intervals</code>)
+      desc: <p>Exceptions override recurring schedules.</p>
+
+    - name: <p>&mdash; exception</p>
+      type: Custom time format
+      desc: <p>An exception provides the definitive schedule for a specific date. It overrides any <code>recurring_schedule</code> information for that date.</p><p>An exception of the form <code>YYYY-MM-DD</code> indicates that this event is <strong>not</strong> in effect for the given date.</p><p>An exception of the form <code>YYYY-MM-DD HH&colon;mm-HH&colon;mm</code> indicates that, on that date, the event is in effect only between the provided start and end time. If there are multiple disjoint periods on that day, more than one start-end period can be included&colon; <code>YYYY-MM-DD HH&colon;mm-HH&colon;mm HH&colon;mm-HH&colon;mm</code>.</p>
+
+    - name: intervals
+      type: Collection of <code>interval</code> elements
+      mandatory: One (and only one) of <code>recurring_schedules</code> or <code>intervals</code> is required
+      desc: <p>Represent an event's schedule as a list of explicit periods. An event must use either <code>recurring_schedules</code> or <code>intervals</code>, not both.</p><p>If this contains more than one <code>interval</code>, their time periods may not overlap. This also implies that no more than one can omit an end time.</p>
+
+    - name: <p>&mdash; interval</p>
+      type: Custom time format, largely a subset of ISO8601 intervals
+      desc: <p>Defines a specific period of time during which the schedule is in effect; two <a href="guidelines.html#datetime">datetimes</a> (without timezone offset) joined with a <code>/</code>. For example, a period from 9 p.m. September 1 to 8 a.m. September 2 would be <code>2014-09-01T21&colon;00/2014-09-02T08&colon;00</code>.</p><p>The second datetime, after the slash, may be omitted. So, to indicate a period from 9 p.m. September 1 until further notice, use&colon; <code>2014-09-01T21&colon;00/</code></p>
+
+restriction :
+    - name: restriction_type
+      type: Enum
+      mandatory: Mandatory
+      desc: <p>Type of restriction that affects vehicles. Value list&colon; <pre><ul><li><code>SPEED</code>&colon; Limitation of the speed of vehicles. Unit is in kilometers/hour, unless the jurisdiction's <code>distance_unit</code> is miles, in which case it's miles/hour.</li><li><code>WIDTH</code>&colon; Width limitation, mainly for trucks. Unit is meters.</li><li><code>HEIGHT</code>&colon; Height limitation, mainly for trucks. Unit is meters</li><li><code>WEIGHT</code>&colon; Weight limitation for vehicles. Unit is metric tons.</li><li><code>AXLE_WEIGHT</code>&colon; Weight limitation per axle for truck. Unit is metric tons.</li></ul></p>
+
+    - name: value
+      type: float
+      mandatory: Mandatory
+      desc: <p>Value of the limitation. For example a speed limitation of 60km/h will have a value of <code>60</code> with a <code>restriction_type</code> set to <code>SPEED</code></p>
+
+---
+{% include JB/setup %}
+
+{% include 1.0/specsnav.html %}
+
+<h3>Overview</h3>
+
+  <table class="resource_pres">
+{% for item in page.presentation %} 
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td class="vertical_header">{{ elem.name }}</td><td>{{ elem.value }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </table>
+
+<h3>Parameters</h3>
+
+<p>In addition to the filters described below, some URL parameters are common to all resources: <a href="guidelines.html#format">format</a>, <a href="guidelines.html#versioning">version</a>, <a href="guidelines.html#lang">accept-language</a>, and <a href="guidelines.html#pagination">limit</a>.</p>
+
+
+  <table class="parameters">
+        <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
+{% for item in page.parameters  %} 
+  <tr>
+      <td>{{ item.name }}</td><td>{{ item.required }}</td><td>{{ item.description }}</td>
+  </tr>
+{% endfor %}
+  </table>
+
+
+  <h3>Example</h3>
+
+<p>Example of event representations (XML and JSON) as presented in a list of events</p>
+
+    <script>
+    $(function() {
+        $( "#tabs" ).tabs();
+    });
+    </script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+        {% highlight xml linenos %}{% include 1.0/examples/event.xml %}{% endhighlight %}
+    </div>
+    <div id="tabs-2">
+        {% highlight json linenos %}{% include 1.0/examples/event.json %}{% endhighlight %}
+  </div>
+</div>
+
+<a id="event"></a>
+<h3>Event item structure</h3>
+
+<p>When events are provided as a list, they are formatted following the list <a href="guideline.html#format"></a>format guidelines. The structure below defines an individual event item.</p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'event' %}
+{% for item in page.event  %}
+     {% include 1.0/tablegen.html %}
+{% endfor %}
+  </table>
+
+<a id="road"></a><h4>Road structure</h4>
+
+<p>The road data format is used to provide information about the road(s) affected by an event.</p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'road' %}
+{% for item in page.road  %} 
+   {% include 1.0/tablegen.html %}
+{% endfor %}
+  </table>
+
+<a id="restriction"></a><h4>Restriction structure</h4>
+
+<p></p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'restriction' %}
+{% for item in page.restriction  %} 
+   {% include 1.0/tablegen.html %}
+{% endfor %}
+  </table>
+
+<a id="schedule"></a><h4>Schedule structure</h4>
+
+<p>Note that the schedule format has changed significantly since version <a href="/documentation/0.9/event.html">0.9</a>.</p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'schedule' %}
+{% for item in page.schedule  %} 
+   {% include 1.0/tablegen.html %}
+{% endfor %}
+  </table>
+

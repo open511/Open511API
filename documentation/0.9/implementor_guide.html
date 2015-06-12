@@ -1,0 +1,30 @@
+---
+layout: page
+title: Getting Started&colon; Implementors
+  
+---
+{% include JB/setup %}
+
+{% include 0.9/specsnav.html %}
+
+<p>We&rsquo;re thrilled you&rsquo;re interested in providing Open511 data! Here are a few suggestions that we hope will help you out.</p>
+
+<h4>Two flavours</h4>
+
+<p>An Open511 event resource can be provided either via a dynamic API, or as a <a href="guidelines.html#simple">non-interactive XML file</a>. Particularly for larger jurisdictions, we believe an API makes the data significantly more usable. However, publishing XML files is a significantly simpler option.</p>
+
+<p>If you're writing your own implementation of the API, our experience is that the most time-consuming parts are likely to be geospatial search, the <code>in_effect_on</code> filter, and archiving past events, all of which are requirements of the format.</p>
+
+<p>Open North is writing <a href="https://github.com/opennorth/open511-server">open-source software</a> for a server that can load Open511 XML data and serve an API from it.</p>
+
+<h4>Validate</h4>
+
+<p>We'd encourage to check your data, early and often, against our <a href="http://validator.open511.org/">online validator tool</a>.</p>
+
+<h4>Get in touch</h4>
+
+<p>This is a new and changing format, and there are likely to still be points of confusion when implementing it. We'd love to talk with you before and while you implement your data feed. Please email us at <a href="mailto:open511@opennorth.ca">open511@opennorth.ca</a> and tell us what you're building!</p>
+
+<h4>Poke around the demo</h4>
+
+<p>We have an <a href="http://demo.open511.org/">implementation demo</a> that people have found useful to experiment with when designing their implementation. And, once you have test data online, our event viewer tool &mdash; see the link in the sidebar to the right &mdash; can be quite helpful.</p>

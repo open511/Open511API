@@ -1,0 +1,25 @@
+        {% if item.type contains 'structure' or item.type contains 'Collection' %}
+          <tr class="structure">             
+        {% else %} 
+          {% if item.mandatory contains 'andatory' %}
+          <tr class="mandatory">
+           {% else %}   
+          <tr>
+          {% endif %}
+        {% endif %}
+
+        {% if item.name contains 'dash' %}
+          <td class="name sub">
+        {% else %} 
+          <td class="name">
+        {% endif %}
+      <a id="{{ anchor }}-{{ item.name }}"></a>{{ item.name }}</td><!-- <td class="mandatory">{{ item.mandatory }}</td>--><td class="type">{{ item.type }}</td>
+      <td><p>
+        {% if item.mandatory contains 'andatory' %}
+        <b><i>{{ item.mandatory }}</i></b>
+        {% else %} 
+        <i>{{ item.mandatory }}</i>
+        {% endif %}
+
+      </p>{{ item.desc }}</td>
+  </tr>

@@ -1,0 +1,24 @@
+<open511
+    xml:lang="en"
+    xml:base="http://my.city.gov/api/"
+    version="v1"
+>
+  <historical_traffic_conditions>  
+    <historical_traffic_condition>
+        <link rel="traffic_segment" href="/api/traffic_segments/my.city.gov/52/" />
+        <day>1</day>
+        <time>00:00</time>
+        <historical_speed>50</historical_speed>
+    </historical_traffic_condition>
+    <historical_traffic_condition>
+        <link rel="traffic_segment" href="/api/traffic_segments/my.city.gov/52/" />
+        <day>1</day>
+        <time>00:10</time>
+        <historical_speed>52</historical_speed>
+    </historical_traffic_condition>
+  </historical_traffic_conditions>
+  <pagination>
+    <offset>0</offset>
+    <link rel="next" href="/api/traffic_segments/my.city.gov/52/historical_conditions/?limit=2&amp;offset=2" />
+  </pagination> 
+</open511>

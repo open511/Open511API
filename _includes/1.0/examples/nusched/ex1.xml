@@ -1,0 +1,20 @@
+<schedule>
+	<recurring_schedules>
+		<recurring_schedule>
+			<start_date>2014-06-01</start_date>
+			<end_date>2014-06-30</end_date>
+			<days>
+				<day>1</day>
+				<day>2</day>
+				<day>3</day>
+				<day>4</day>
+				<day>5</day>
+			</days>
+			<daily_start_time>09:00</daily_start_time>
+			<daily_end_time>17:00</daily_end_time>
+		</recurring_schedule>
+	</recurring_schedules>
+	<exceptions>
+		<exception>2014-06-24</exception>
+	</exceptions>
+</schedule>

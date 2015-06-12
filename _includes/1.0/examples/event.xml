@@ -1,0 +1,100 @@
+<open511
+    xmlns:gml="http://www.opengis.net/gml"
+    xml:lang="en"
+    xml:base="http://api.open511.info/"
+    version="v1"
+>
+  <events>
+    <event>
+      <status>ACTIVE</status> 
+      <link rel="self" href="/events/my.city.gov/23948/" />
+      <link rel="jurisdiction" href="http://my.city.gov/open511/jurisdiction/my.city.gov/" />
+      <id>my.city.gov/23948</id>
+      <headline>Urgent rebuilding of sewer pipes</headline> 
+      <headline xml:lang="fr">Réfection d'urgence d'une conduite d'égout</headline> 
+      <description>The City inform you that broadway street will be closed between 1st and 4th avenue during the month of april due to an emergency sewer rebuilding. Local circulation will be permitted on one lane East bound.</description>
+      <description xml:lang="fr">La Ville de Montréal vous informe que la Grande avenue sera fermée à la circulation entre la 1ère et la 4ème avenue pour le mois d'avril pour cause de travaux d'urgence sur une conduite d'égouts. La circulation locale en direction de l'est sera permise sur une voie.</description>
+      <event_type>CONSTRUCTION</event_type> 
+      <event_subtypes>
+        <event_subtype>EMERGENCY_MAINTENANCE</event_subtype>
+      </event_subtypes>
+      <severity>MODERATE</severity> 
+      <created>2012-05-23T20:33:10Z</created>
+      <updated>2012-05-24T10:00:10Z</updated>
+      <grouped_events>
+          <link rel="related" href="/events/my.city.gov/345832" /> 
+          <link rel="related" href="/events/my.city.gov/433452" />         
+      </grouped_events>
+      <detour>Take Sherbrooke travelling east, and Wellington travelling west.</detour>
+      <areas>
+        <area> 
+          <name>A City</name>
+          <id>geonames.org/123456</id>
+          <link rel="self" href="http://geonames.org/123456/" />  
+        </area>
+        <area> 
+          <name>A County</name>
+          <id>geonames.org/98765</id>
+          <link rel="self" href="http://geonames.org/98765/" />  
+        </area>     
+      </areas>
+      <geography>
+        <gml:LineString srsName="urn:ogc:def:crs:EPSG::4326">
+          <gml:posList>47.33 -71.17 47.36 -71.15 47.35 -71.1 47.4 -71.2</gml:posList>
+        </gml:LineString>
+      </geography>
+      <roads>
+        <road>
+          <name>Broadway</name>
+          <from>1st Avenue</from>
+          <to>4th Avenue</to>
+          <direction>E</direction>
+          <state>SOME_LANES_CLOSED</state>
+          <lanes_open>1</lanes_open>        
+          <impacted_systems>
+            <impacted_system>ROAD</impacted_system>
+            <impacted_system>PARKING</impacted_system>
+          </impacted_systems>
+          <restrictions>
+            <restriction>
+              <restriction_type>SPEED</restriction_type>
+              <value>35</value>
+            </restriction>
+          </restrictions>
+        </road>
+        <road>
+          <name>Broadway</name>
+          <from>1st Avenue</from>
+          <to>4th Avenue</to>
+          <direction>W</direction>  
+          <state>CLOSED</state>
+          <impacted_systems>
+            <impacted_system>ROAD</impacted_system>
+            <impacted_system>PARKING</impacted_system>
+          </impacted_systems>
+        </road>      
+      </roads>
+      <schedule>
+        <recurring_schedules>
+          <recurring_schedule>
+            <daily_start_time>12:00</daily_start_time>
+            <start_date>2014-09-01</start_date>
+            <end_date>2014-09-30</end_date>
+            <daily_end_time>15:00</daily_end_time>
+          </recurring_schedule>
+        </recurring_schedules>
+        <exceptions>
+          <exception>2014-09-15 09:00-13:00</exception>
+          <exception>2014-09-16</exception>
+        </exceptions>
+      </schedule>
+      <attachments>
+        <link rel="related" title="Detour map" type="application/pdf" length="200345" href="http://my.city.gov/trafic/advisory/39473/com.pdf" hreflang="en" />
+      </attachments>
+    </event>
+  </events>
+  <pagination>
+    <offset>0</offset>
+    <link rel="next" href="/api/events/?limit=20&amp;offset=20"/>
+  </pagination>
+</open511>

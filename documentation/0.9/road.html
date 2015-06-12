@@ -1,0 +1,110 @@
+---
+layout: page
+title: Road
+presentation : 
+  a :
+    name : purpose
+    value : A road, within a particular jurisdiction.
+  b :
+    name : method
+    value : GET
+
+road : 
+    - name: name
+      mandatory: Mandatory
+      type: Free text
+      desc: <p>The name of the road</p> 
+
+    - name: id
+      type: <a href="guidelines.html#ids">Open511 ID</a>
+      mandatory: Mandatory
+      desc: <p>A globally unique ID for the road, following the <a href="guidelines.html#ids">Open511 ID</a> format.</p>
+
+    - name: self
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Self link to the current resource.</p>
+
+    - name: jurisdiction
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Mandatory
+      desc: <p>Link to the <a href="jurisdiction.html">jurisdiction</a> publishing the road.</p>
+
+parameters:
+    - name: name
+      required: optional
+      description: <p>Filter on the <code>name</name> field. Case-sensitive exact match. Use a comma-separated list to make OR queries.</p> 
+
+    - name : jurisdiction
+      required : optional
+      description : <p>The ID of a <a href="jurisdiction.html">jurisdiction</a>, in order to show only events from a given jurisdiction. Use a comma-separated list to make OR queries.</p><p>Example&colon; <code>jurisdiction=mycity.gov</code>.</p>            
+
+---
+{% include JB/setup %}
+
+{% include 0.9/specsnav.html %}
+
+{% include 0.9/draft_warning.html %}
+
+<h3>Overview</h3>
+
+  <table class="resource_pres">
+{% for item in page.presentation %} 
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td class="vertical_header">{{ elem.name }}</td><td>{{ elem.value }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </table>
+
+
+<h3>Parameters</h3>
+
+<p>In addition to the filters described below, some URL parameters are common to all resources: <a href="guidelines.html#format">format</a>, <a href="guidelines.html#versioning">version</a>, <a href="guidelines.html#lang">accept-language</a>, and <a href="guidelines.html#pagination">limit</a>.</p>
+
+
+  <table class="parameters">
+        <tr><th>Parameter</th><th>Required/optional</th><th>Description</th></tr>
+{% for item in page.parameters  %} 
+  <tr>
+      <td>{{ item.name }}</td><td>{{ item.required }}</td><td>{{ item.description }}</td>
+  </tr>
+{% endfor %}
+  </table>
+
+
+<h3>Example</h3>
+
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+});
+</script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+        {% highlight xml linenos %}{% include 0.9/examples/road.xml %}{% endhighlight %}
+    </div>
+    <div id="tabs-2">
+        {% highlight json linenos %}{% include 0.9/examples/road.json %}{% endhighlight %}
+  </div>
+</div>
+
+<h3>Road data structure</h3>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'area' %}
+{% for item in page.road %} 
+   {% include 0.9/tablegen.html %}
+{% endfor %}   
+     </table>
+  
+

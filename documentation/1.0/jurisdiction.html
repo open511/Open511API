@@ -1,0 +1,139 @@
+---
+layout: page
+title: Jurisdiction
+presentation : 
+  a :
+    name : purpose
+    value : The jurisdiction represents a government entity (city, state/province department of transportation, agency, etc.) publishing Open511 data.
+  b :
+    name : method
+    value : GET
+representation : 
+
+    - name: self
+      mandatory: Mandatory
+      type: <a href="guidelines.html#links">Link</a>
+      desc: <p>Self link to the current resource.</p> 
+
+
+    - name: id
+      type: String
+      mandatory: Mandatory
+      desc: <p>Unique identifier for the jurisdiction. It&rsquo;s expected to be unique across all Open511 implementations. It must take the form of a hostname within a domain owned by the government entity. The hostname doesn&rsquo;t necessarily need to resolve in DNS; for example, if Roadsville owns <code>roadsville.gov</code>, it&rsquo;s fine to create <code>agency1.roadsville.gov</code> and <code>agency2.roadsville.gov</code> jurisdictions, even if those don&rsquo;t resolve to IP addresses.</p>
+
+    - name: name
+      type: Free text
+      mandatory: Mandatory
+      desc: <p>Name of the jurisdiction.</p>
+
+    - name: email
+      type: String
+      mandatory: Mandatory
+      desc: <p>Valid email that can be used to contact the department or person in charge of the data provided by the Open511 API</p>    
+
+    - name: description
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Optional
+      desc: <p>Link pointing to a human readable resource (web page, pdf file, etc) providing details about the Open511 service and the jurisdiction covered.</p>  
+
+    - name: phone
+      type: String
+      mandatory: Optional
+      desc: <p>Phone number to contact the department or person in charge of the data provided by the Open511 API</p>  
+
+    - name: description
+      type: Free text
+      mandatory: Optional
+      desc: <p>Free text that can be used by a client application to provide some information about the Open511 service and the jurisdiction covered.</p> 
+
+    - name: geography
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Mandatory
+      desc: <p>The geography field links an open511 <code><a href="jurisdictiongeo.html">jurisdiction geography</a></code> resource providing the jurisdiction boundaries.</p>
+
+    - name: timezone
+      type: <a href="guidelines.html#timezone">timezone</a>
+      mandatory: Optional
+      desc: <p>The timezone of the jurisdiction; will be used as the default for events belonging to this jurisdiction. Should always be provided, except in cases where a jurisdiction spans multiple timezones.</p>
+
+    - name: distance_unit
+      type: Enum
+      mandatory: Optional
+      desc: <p>The unit this jurisdiction uses to measure distances. Can be <code>KILOMETRES</code> or <code>MILES</code>, but kilometres are the default and so jurisdictions using kilometres need not specify a <code>distance_unit</code>.</p>
+
+    - name: license
+      type: <a href="guidelines.html#links">Link</a>
+      mandatory: Mandatory
+      desc: <p>Link to a resource containing the license covering the data provided in the API.</p> 
+
+    - name: languages
+      type: Collection of <code>language</code>
+      mandatory: Optional
+      desc: <p>List of languages supported by this endpoint. A <code>language</code> element should be provided for each language supported</p> 
+
+    - name: <p>&mdash;  language</p>
+      type: Enum
+      mandatory: Mandatory
+      desc: <p>Multiple occurrences supported. The values supported are the same as the <a href="guidelines.html#lang">language negotiation</a> feature</p>  
+
+---
+{% include JB/setup %}
+
+{% include 1.0/specsnav.html %}
+
+<h3>Overview</h3>
+
+  <table class="resource_pres">
+{% for item in page.presentation %} 
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td class="vertical_header">{{ elem.name }}</td><td>{{ elem.value }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </table>
+
+
+<h3>Parameters and filters</h3>
+
+<p>The jurisdiction resource does not support any URL parameter or filter besides <a href="guidelines.html#format">format selection</a> and <a href="guidelines.html#lang">language negotiation</a>.</p>
+
+
+<h3>Example</h3>
+
+<p>Example of the XML and JSON representations of the jurisdiction resource</p>
+
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+});
+</script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+        {% highlight xml linenos %}{% include 1.0/examples/jurisdiction.xml %}{% endhighlight %}
+    </div>
+    <div id="tabs-2">
+        {% highlight json linenos %}{% include 1.0/examples/jurisdiction.json %}{% endhighlight %}
+  </div>
+</div>
+
+<h3>Jurisdiction data structure</h3>
+
+<p>The jurisdiction follows the <a href="guidelines.html#format">formatting guidelines</a> of an individual item.</p>
+
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'representation' %}
+{% for item in page.representation %} 
+   {% include 1.0/tablegen.html %}
+{% endfor %}   
+     </table>
+  
+

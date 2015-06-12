@@ -1,0 +1,23 @@
+{
+    "jurisdictions": [
+        {
+            "id": "my.city.gov", 
+            "name": "My City",
+            "url": "/api/jurisdictions/my.city.gov/",
+            "description": "Official traffic data (construction) from My City", 
+            "description_url": "http://my.city.gov/open511/presentation.html", 
+            "geography_url": "/jurisdictions/my.city.gov/geography/", 
+            "languages": [
+                "fr", 
+                "en"
+            ], 
+            "phone": "+1 555-555-0000", 
+            "license_url": "http://my.city.gov/opendatalicense/", 
+            "timezone": "America/New_York", 
+            "email": "mayor@my.city.gov"
+        }
+    ],
+    "meta": {
+        "version": "v1"
+    }
+}

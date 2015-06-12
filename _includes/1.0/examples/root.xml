@@ -1,0 +1,28 @@
+<open511
+    xml:lang="en"
+    xml:base="http://api.open511.info/"
+    version="v1"
+>  
+  <jurisdictions>
+    <jurisdiction>
+      <id>mycity.gov</id>
+      <name>My City</name>
+      <link rel="self" href="http://mycity.gov/open511/jurisdiction/mycity.gov/" />
+    </jurisdiction>
+    <jurisdiction>
+      <id>mycounty.gov</id>
+      <name>My County</name>
+      <link rel="self" href="http://mycounty.gov/open511/jurisdiction/mycounty.gov/" />
+    </jurisdiction>    
+  </jurisdictions>
+  <services>
+    <service>
+      <link rel="self" href="/events/" />
+      <link rel="service_type" href="http://open511.org/services/events" />
+    </service>
+    <service>
+      <link rel="self" href="/areas/" />
+      <link rel="service_type" href="http://open511.org/services/areas" />
+    </service>    
+  </services>
+</open511>

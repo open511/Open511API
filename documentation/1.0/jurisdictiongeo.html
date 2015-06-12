@@ -1,0 +1,92 @@
+---
+layout: page
+title: Jurisdiction Geography
+presentation : 
+  a :
+    name : purpose
+    value : The jurisdiction geography contains the boundaries of the jurisdiction.
+  b :
+    name : method
+    value : GET
+representation : 
+
+#    - name: self
+#      mandatory: Mandatory
+#      type: <a href="guidelines.html#links">Link</a>
+#      desc: <p>Self link to the current resource. In XML, the <code>rel</code> attribute needs the value <code>self</code></p>
+
+#    - name: up
+#      type: <a href="guidelines.html#links">Link</a> 
+#      mandatory: Mandatory
+#      desc: <p>Link to the parent resource. In XML, the <code>rel</code> attribute needs the value <code>up</code></p>
+
+    - name: geography
+      type: <a href="guidelines.html#geospatial">Geospatial</a>
+      mandatory: Mandatory
+      desc: <p>Boundaries of the jurisdiction; a Polygon or MultiPolygon.</p> 
+
+---
+{% include JB/setup %}
+
+{% include 1.0/specsnav.html %}
+
+<h3>Overview</h3>
+
+  <table class="resource_pres">
+{% for item in page.presentation %} 
+  <tr>
+    {% for elem in item %} 
+      {% if elem.name != nil %}
+      <td class="vertical_header">{{ elem.name }}</td><td>{{ elem.value }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+{% endfor %}
+  </table>
+
+
+<h3>Parameters and filters</h3>
+
+<p>The jurisdiction geometry resource does not support any URL parameter or filter besides <a href="guidelines.html#format">format selection</a>.</p>
+
+
+<h3>Example</h3>
+
+<p>Example of the XML and JSON representations of the jurisdiction resource</p>
+
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+});
+</script>
+ 
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">XML</a></li>
+        <li><a href="#tabs-2">JSON</a></li>
+    </ul>
+    <div id="tabs-1">
+        {% highlight xml linenos %}{% include 1.0/examples/jurisdiction-geo.xml %}{% endhighlight %}
+    </div>
+    <div id="tabs-2">
+        {% highlight json linenos %}{% include 1.0/examples/jurisdiction-geo.json %}{% endhighlight %}
+  </div>
+</div>
+
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>
+
+
+<h3>Jurisdiction geometry data structure</h3>
+
+<p>Although the jurisdiction geography could have been integrated directly in the jurisdiction resource, this data can easily take several kilobytes or even megabytes for complex countries/states, so we include it as a separate resource.</p>
+  <table class="representation">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+{% assign anchor = 'representation' %}
+{% for item in page.representation %} 
+   {% include 1.0/tablegen.html %}
+{% endfor %}   
+     </table>
+  
+
