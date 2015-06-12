@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Open511 API specification change log
+redirect_from:
+- /history.html
 ---
 {% include JB/setup %}
 {% include 1.0/specsnav.html %}

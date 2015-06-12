@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Introduction to the Open511 API
+redirect_from:
+- /documentation.html
 ---
 {% include JB/setup %}
 {% include 1.0/specsnav.html %}
