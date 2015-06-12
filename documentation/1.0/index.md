@@ -44,7 +44,7 @@ Drafts are resources that have been proposed or requested by adopters and that a
 
 **The open511 specification has reached version 1.0**. We believe the specification is ready to implement.
 
-Who will be the first implementers? [MTC](http://511.org/), the [Ministry of Transportation of British Columbia](http://www.gov.bc.ca/tran/) and [OpenNorth](https://github.com/opennorth/open511) will work in parallel to build the two first implementations. Any other organization can start implementing this specification but it should be done in collaboration with MTC and OpenNorth since some minor changes could still occur. If your organization wants to build software based on open511, please join the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511).
+Who will be the first implementers? [MTC](http://511.org/), the [Ministry of Transportation of British Columbia](http://www.gov.bc.ca/tran/) and [OpenNorth](https://github.com/open511/open511) will work in parallel to build the two first implementations. Any other organization can start implementing this specification but it should be done in collaboration with MTC and OpenNorth since some minor changes could still occur. If your organization wants to build software based on open511, please join the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511).
 
 It may be helpful to [browse](http://demo.open511.org/) the output of Open North's in-progress implementation of this API.
 
