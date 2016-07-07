@@ -5,6 +5,7 @@
             "url": "/api/traffic_cameras/mycity.gov/23948/", 
             "name": "Autoroute 40, coin de l'Acadie, direction nord",
             "description": "Eastbound on right side of image, westbound on left",
+            "orientation": "N",
             "media_files": [
                 {
                     "url": "http://mycity.gov/transport/camera/45445.png", 

@@ -13,6 +13,7 @@
       <name xml:lang="en">Highway 40, near Acadie</name>
       <description xml:lang="fr">Direction est à droite, direction ouest à gauche</description>
       <description xml:lang="en">Eastbound on right side of image, westbound on left</description>
+      <orientation>N</orientation>
       <geography>
         <gml:Point srsName="urn:ogc:def:crs:EPSG::4326">
           <gml:pos>46.6351113599 -72.6833114084</gml:pos>

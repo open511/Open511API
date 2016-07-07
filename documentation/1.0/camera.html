@@ -47,6 +47,11 @@ camera :
       mandatory: Optional
       desc: <p>Descriptive information about the camera that doesn't fit in <code>name</code>. Often used for orientation information, e.g. <i>Highway 4 eastbound on right side of image, westbound on left</i>.</p>
 
+    - name: orientation
+      type: Enum
+      mandatory: Optional
+      desc: <p>Direction in which the camera is pointing.</p><p>Value list:</p><pre>- N<br>- NW<br>- W<br>- SW<br>- S<br>- SE<br>- E<br>- NE</pre>
+
     - name: roads
       type: Collection of <a href="event.html#road">road</a> elements
       mandatory: Optional
@@ -113,7 +118,7 @@ media_file :
 
 <h3>Parameters and filters</h3>
 
-<p>The camera resource supports the road (<code>road_name</code>), area (<code>area_id</code>), and geography (<code>bbox</code>, <code>geography</code>, <code>radius</code>, <code>lat</code>, <code>lon</code>) filters as in the <a href="event.html">event resource</a>, as well as the URL parameters common to all resources: <a href="guidelines.html#format">format</a>, <a href="guidelines.html#versioning">version</a>, <a href="guidelines.html#lang">accept-language</a>, and <a href="guidelines.html#pagination">limit</a></p>
+<p>The camera resource supports the <code>road_name</code>, <code>area_id</code>, and <code>bbox</code> filters as in the <a href="event.html">event resource</a>, as well as the URL parameters common to all resources: <a href="guidelines.html#format">format</a>, <a href="guidelines.html#versioning">version</a>, <a href="guidelines.html#lang">accept-language</a>, and <a href="guidelines.html#pagination">limit</a>. It is also possible to offer a <a href="guidelines.html#simple">static version</a> of the service which does not support interactive filtering.</p>
 
 
 <h3>Example</h3>
