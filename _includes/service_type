@@ -1,0 +1,4 @@
+
+This is the URL for an Open511 _service type_. They're used on Open511 [discovery resources](/documentation/1.0/root.html) and are identify the API specification that the specific service follows -- the same logic, roughly, as an XML namespace.
+
+If you followed this link from a discovery page looking to access data from a specific Open511 API, the link you want is the one that was right beside this one -- `<link rel="self">` in XML, or the `url` key in JSON. That leads to the implementation of the API that follows this specification.
