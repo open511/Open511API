@@ -19,19 +19,19 @@ We've provided some getting-started tips for [data consumers](consumer_guide.htm
 
 * The [technical guidelines](guidelines.html) provide specifics about encoding, formats, architecture and content negotiation.
 
-####Main Resources:
+#### Main Resources:
 
 * [Root (aka discovery)](root.html): this resource is the single entry point for the entire framework. It provides links to all the other resources.   
 * [Jurisdictions](jurisdiction.html): represent a specific government with some metadata (contact info, geographical coverage and other options). 
 * [Events](event.html): represent events (construction, accident, etc.) that are published by jurisdictions. 
 
 
-####Support resources:
+#### Support resources:
 * [Area](area.html): Open511 contains the concept of area that can be attached to events. An area can be any location with a name: city, county, district, etc. It allows jurisdiction to provide additional location data without providing other geospatial data.
 * [Jurisdiction geography](jurisdictiongeo.html): Contain the geographical boundaries of a jurisdiction.
 
 
-####Draft resources
+#### Draft resources
 
 Drafts are resources that have been proposed or requested by adopters and that are still under development.
 
@@ -46,7 +46,7 @@ Drafts are resources that have been proposed or requested by adopters and that a
 
 **The open511 specification has reached version 1.0**. We believe the specification is ready to implement.
 
-Who will be the first implementers? [MTC](http://511.org/), the [Ministry of Transportation of British Columbia](http://www.gov.bc.ca/tran/) and [OpenNorth](https://github.com/open511/open511) will work in parallel to build the two first implementations. Any other organization can start implementing this specification but it should be done in collaboration with MTC and OpenNorth since some minor changes could still occur. If your organization wants to build software based on open511, please join the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511).
+Several jurisdictions have either implemented or are in the process of implementing Open511 Events services. Two examples are [the province of British Columbia](http://api.open511.gov.bc.ca/help) and the city of <a href="https://info-travaux.ville.repentigny.qc.ca/api/">Repentigny, Québec</a>. Please <a href="mailto:open511@opennorth.ca">get in touch with us</a> if you're considering implementing, or would just like more information on other existing and in-progress implementations. We also recommend joining the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/open511).
 
 It may be helpful to [browse](http://demo.open511.org/) the output of Open North's in-progress implementation of this API.
 
