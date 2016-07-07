@@ -6,7 +6,7 @@ redirect_from:
 presentation : 
   a :
     name : purpose
-    value : The jurisdiction represents a government entity (city, state/province department of transportation, agency, etc.) publishing Open511 data.
+    value : The jurisdiction represents an entity (city government, state/province department of transportation, agency, private company, etc.) publishing Open511 data.
   b :
     name : method
     value : GET
@@ -21,7 +21,7 @@ representation :
     - name: id
       type: String
       mandatory: Mandatory
-      desc: <p>Unique identifier for the jurisdiction. It&rsquo;s expected to be unique across all Open511 implementations. It must take the form of a hostname within a domain owned by the government entity. The hostname doesn&rsquo;t necessarily need to resolve in DNS; for example, if Roadsville owns <code>roadsville.gov</code>, it&rsquo;s fine to create <code>agency1.roadsville.gov</code> and <code>agency2.roadsville.gov</code> jurisdictions, even if those don&rsquo;t resolve to IP addresses.</p>
+      desc: <p>Unique identifier for the jurisdiction. It&rsquo;s expected to be unique across all Open511 implementations.</p><p>It must take the form of a hostname within a domain owned by the data publisher. The hostname doesn&rsquo;t necessarily need to resolve in DNS: as long as you own <code>roadsville.gov</code> or <code>trafficorp.com</code>, you can use <code>traffic.roadsville.gov</code> or <code>wales.trafficorp.com</code> as jurisdictions even if those don&rsquo;t resolve to IP addresses. Bare domains (e.g. <code>roadsville.gov</code>) are also fine to use as jurisdiction IDs. IDs can include only lowercase a-z, numbers, periods, and hyphens.</p>
 
     - name: name
       type: Free text
