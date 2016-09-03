@@ -7,4 +7,4 @@ title: Service type (Events)
 
 {% include service_type %}
 
-This service type is for _road events_, and [full documentation is available here](/documentation/1.0/events.html).
+This service type is for _road events_, and [full documentation is available here](/documentation/1.0/event.html).
